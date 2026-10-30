@@ -1,0 +1,1324 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.transaction.control"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.transaction.control">
+   <title>org.osgi.service.transaction.control</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.transaction.control-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.service.transaction.control-version.number">1.0</edition>
+   </info>
+   <para>
+Transaction Control Service Package Version 1.0.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.transaction.control; version="[1.0,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.transaction.control; version="[1.0,1.1)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.transaction.control.LocalResource">
+                  <code>LocalResource</code>
+               </link> - 
+Resources that can integrate with local transactions should do so using this
+ interface
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.transaction.control.ResourceProvider">
+                  <code>ResourceProvider</code>
+               </link> - 
+A resource provider is used to provide a transactional resource to the
+ application
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.transaction.control.ScopedWorkException">
+                  <code>ScopedWorkException</code>
+               </link> - 
+An Exception that is thrown when a piece of scoped work exits with an
+ Exception.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.transaction.control.TransactionBuilder">
+                  <code>TransactionBuilder</code>
+               </link> - 
+A builder for a piece of transactional work
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.transaction.control.TransactionContext">
+                  <code>TransactionContext</code>
+               </link> - 
+A transaction context defines the current transaction, and allows resources
+ to register information and/or synchronizations
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.transaction.control.TransactionControl">
+                  <code>TransactionControl</code>
+               </link> - 
+The interface used by clients to control the active transaction context
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.transaction.control.TransactionException">
+                  <code>TransactionException</code>
+               </link> - 
+An Exception indicating that there was a problem with starting, finishing,
+ suspending or resuming a transaction
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.transaction.control.TransactionRolledBackException">
+                  <code>TransactionRolledBackException</code>
+               </link> - 
+An Exception indicating that the active transaction was unexpectedly rolled
+ back
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.transaction.control.TransactionStarter">
+                  <code>TransactionStarter</code>
+               </link> - 
+Implementations of this interface are able to run a piece of work within a
+ transaction
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.transaction.control.TransactionStatus">
+                  <code>TransactionStatus</code>
+               </link> - 
+The status of the transaction A transaction may not enter all of the states
+ in this enum, however it will always traverse the enum in ascending order.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="LocalResource"
+            role="class"
+            xml:id="org.osgi.service.transaction.control.LocalResource">
+      <title>public interface LocalResource</title>
+      <para>
+Resources that can integrate with local transactions should do so using this
+ interface
+   </para>
+      <section xreflabel="commit()"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.LocalResource.commit--">
+         <title>public void commit() throws TransactionException</title>
+         <para role="description">
+Commit the resource
+   </para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>TransactionException</code>– </para>
+         </formalpara>
+      </section>
+      <section xreflabel="rollback()"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.LocalResource.rollback--">
+         <title>public void rollback() throws TransactionException</title>
+         <para role="description">
+Roll back the resource
+   </para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>TransactionException</code>– </para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="ResourceProvider"
+            role="class"
+            xml:id="org.osgi.service.transaction.control.ResourceProvider">
+      <title>public interface ResourceProvider&lt;T&gt;</title>
+      <formalpara role="parameter">
+         <title>&lt;T&gt;</title>
+         <para/>
+      </formalpara>
+      <para>
+A resource provider is used to provide a transactional resource to the
+ application
+   </para>
+      <section xreflabel="getResource(TransactionControl)"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.ResourceProvider.getResource-TransactionControl-">
+         <title>public T getResource(TransactionControl txControl) throws TransactionException</title>
+         <formalpara role="parameter">
+            <title>txControl</title>
+            <para/>
+         </formalpara>
+         <para role="description">
+Get a resource which will associate with the current transaction context
+ when used
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The resource which will participate in the current transaction</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>TransactionException</code>– if the resource cannot be registered with
+             the transaction</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="ScopedWorkException"
+            role="class"
+            xml:id="org.osgi.service.transaction.control.ScopedWorkException">
+      <title>public class ScopedWorkException<?line-break?> extends RuntimeException</title>
+      <para>
+An Exception that is thrown when a piece of scoped work exits with an
+ Exception.
+ </para>
+      <para>
+ If the scope was inherited and therefore is still active when this exception
+ is raised then the current <link linkend="org.osgi.service.transaction.control.TransactionContext">TransactionContext</link> will be available from
+ the <link linkend="org.osgi.service.transaction.control.ScopedWorkException.ongoingContext--">ongoingContext()</link> method.</para>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="ScopedWorkException(String,Throwable,TransactionContext)"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.ScopedWorkException.ScopedWorkException-String-Throwable-TransactionContext-">
+         <title>public  ScopedWorkException(String message, Throwable cause, TransactionContext context)</title>
+         <formalpara role="parameter">
+            <title>message</title>
+            <para/>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>cause</title>
+            <para/>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>context</title>
+            <para/>
+         </formalpara>
+         <para role="description">
+Creates a new TransactionException with the supplied message and cause
+   </para>
+      </section>
+      <section xreflabel="as(Class)"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.ScopedWorkException.as-Class-">
+         <title>public T extends Throwable as(Class&lt;T&gt; throwable) throws T</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T extends Throwable&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>throwable</title>
+            <para/>
+         </formalpara>
+         <para role="description">
+Throws the cause of this Exception as a RuntimeException the supplied
+ Exception type.
+ </para>
+         <para>
+ Usage is of the form:
+ 
+ </para>
+         <programlisting> public void doStuff() throws IOException {
+     try {
+         ...
+     } catch (ScopedWorkException swe) {
+         throw swe.as(IOException.class);
+     }
+ }</programlisting>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This method will always throw an exception</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>T</code>– </para>
+         </formalpara>
+      </section>
+      <section xreflabel="asOneOf(Class,Class)"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.ScopedWorkException.asOneOf-Class-Class-">
+         <title>public RuntimeException asOneOf(Class&lt;A&gt; a, Class&lt;B&gt; b) throws A, B</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;A extends Throwable, B extends Throwable&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>a</title>
+            <para/>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>b</title>
+            <para/>
+         </formalpara>
+         <para role="description">
+Throws the cause of this Exception as a RuntimeException or one of the
+ supplied Exception types.
+ </para>
+         <para>
+ Usage is of the form:
+ 
+ </para>
+         <programlisting> public void doStuff() throws IOException, ClassNotFoundException {
+     try {
+         ...
+     } catch (ScopedWorkException swe) {
+         throw swe.asOneOf(IOException.class, ClassNotFoundException.class);
+     }
+ }</programlisting>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This method will always throw an exception</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>A</code>– </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>B</code>– </para>
+         </formalpara>
+      </section>
+      <section xreflabel="asOneOf(Class,Class,Class)"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.ScopedWorkException.asOneOf-Class-Class-Class-">
+         <title>public RuntimeException asOneOf(Class&lt;A&gt; a, Class&lt;B&gt; b, Class&lt;C&gt; c) throws A, B, C</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;A extends Throwable, B extends Throwable, C extends Throwable&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>a</title>
+            <para/>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>b</title>
+            <para/>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>c</title>
+            <para/>
+         </formalpara>
+         <para role="description">
+Throws the cause of this Exception as a RuntimeException or one of the
+ supplied Exception types.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This method will always throw an exception</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>A</code>– </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>B</code>– </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.transaction.control.ScopedWorkException.asOneOf-Class-Class-">asOneOf(Class, Class)</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="asOneOf(Class,Class,Class,Class)"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.ScopedWorkException.asOneOf-Class-Class-Class-Class-">
+         <title>public RuntimeException asOneOf(Class&lt;A&gt; a, Class&lt;B&gt; b, Class&lt;C&gt; c, Class&lt;D&gt; d) throws A, B, C, D</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;A extends Throwable, B extends Throwable, C extends Throwable, D extends Throwable&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>a</title>
+            <para/>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>b</title>
+            <para/>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>c</title>
+            <para/>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>d</title>
+            <para/>
+         </formalpara>
+         <para role="description">
+Throws the cause of this Exception as a RuntimeException or one of the
+ supplied Exception types.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This method will always throw an exception</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>A</code>– </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>B</code>– </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>C</code>– </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>D</code>– </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.transaction.control.ScopedWorkException.asOneOf-Class-Class-">asOneOf(Class, Class)</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="asRuntimeException()"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.ScopedWorkException.asRuntimeException--">
+         <title>public RuntimeException asRuntimeException()</title>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The cause of this Exception as a RuntimeException if it
+         is one, or this otherwise</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="ongoingContext()"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.ScopedWorkException.ongoingContext--">
+         <title>public TransactionContext ongoingContext()</title>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The ongoing transaction context if the current scope was still 
+         active when this exception was raised or <code>null</code> otherwise.
+         Note that this property will not be persisted during serialization.</para>
+         </formalpara>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="TransactionBuilder"
+            role="class"
+            xml:id="org.osgi.service.transaction.control.TransactionBuilder">
+      <title>public abstract class TransactionBuilder<?line-break?> implements TransactionStarter</title>
+      <para>
+A builder for a piece of transactional work
+   </para>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="noRollbackFor"
+               role="field"
+               xml:id="org.osgi.service.transaction.control.TransactionBuilder.noRollbackFor">
+         <title>protected final List&lt;Class&lt;? extends Throwable&gt;&gt; noRollbackFor</title>
+         <para>
+The list of Throwable types that must not trigger rollback
+   </para>
+      </section>
+      <section xreflabel="rollbackFor"
+               role="field"
+               xml:id="org.osgi.service.transaction.control.TransactionBuilder.rollbackFor">
+         <title>protected final List&lt;Class&lt;? extends Throwable&gt;&gt; rollbackFor</title>
+         <para>
+The list of Throwable types that must trigger rollback
+   </para>
+      </section>
+      <section xreflabel="TransactionBuilder()"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionBuilder.TransactionBuilder--">
+         <title>public  TransactionBuilder()</title>
+         <para/>
+      </section>
+      <section xreflabel="noRollbackFor(Class,Class...)"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionBuilder.noRollbackFor-Class-Class...-">
+         <title>public final TransactionBuilder noRollbackFor(Class&lt;? extends Throwable&gt; t, Class&lt;? extends Throwable&gt;... throwables)</title>
+         <formalpara role="parameter">
+            <title>t</title>
+            <para>An exception type that should not trigger rollback</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>throwables</title>
+            <para>further exception types that should not trigger
+            rollback</para>
+         </formalpara>
+         <para role="description">
+Declare a list of Exception types (and their subtypes) that <emphasis>must
+ not</emphasis> trigger a rollback. By default the transaction will rollback for
+ all Exceptions. If an Exception type is registered using this
+ method then that type and its subtypes will <emphasis>not</emphasis> trigger
+ rollback. If the same type is registered using both
+ <link linkend="org.osgi.service.transaction.control.TransactionBuilder.rollbackFor-Class-Class...-">rollbackFor(Class, Class...)</link> and
+ <link linkend="org.osgi.service.transaction.control.TransactionBuilder.noRollbackFor-Class-Class...-">noRollbackFor(Class, Class...)</link> then the transaction <emphasis>will
+ not</emphasis> begin and will instead throw a <link linkend="org.osgi.service.transaction.control.TransactionException">TransactionException</link>
+         </para>
+         <para>
+ Note that the behavior of this method differs from Java EE and Spring in
+ two ways:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>In Java EE and Spring transaction management checked exceptions are
+ considered "normal returns" and do not trigger rollback. Using an
+ Exception as a normal return value is considered a <emphasis>bad</emphasis> design
+ practice. In addition this means that checked Exceptions such as
+ java.sql.SQLException do not trigger rollback by default. This, in turn,
+ leads to implementation mistakes that break the transactional behavior of
+ applications.</para>
+            </listitem>
+            <listitem>
+               <para>In Java EE it is legal to specify the same Exception type in
+ <link linkend="org.osgi.service.transaction.control.TransactionBuilder.rollbackFor">rollbackFor</link> and <link linkend="org.osgi.service.transaction.control.TransactionBuilder.noRollbackFor">noRollbackFor</link>. Stating that the same
+ Exception should both trigger <emphasis>and</emphasis> not trigger rollback is a
+ logical impossibility, and clearly indicates an API usage error. This API
+ therefore enforces usage by triggering an exception in this invalid case.
+ </para>
+            </listitem>
+         </itemizedlist>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>this builder</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="readOnly()"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionBuilder.readOnly--">
+         <title>public abstract TransactionBuilder readOnly()</title>
+         <para role="description">
+Indicate to the Transaction Control service that this transaction will be
+ read-only. This hint may be used by the Transaction Control service and
+ associated resources to optimize the transaction.
+ </para>
+         <para>
+ Note that this method is for optimization purposes only. The
+ TransactionControl service is free to ignore the call if it does not
+ offer read-only optimization.
+ </para>
+         <para>
+ If a transaction is marked read-only and then the scoped work performs a
+ write operation on a resource then this is a programming error. The
+ resource is free to raise an exception when the write is attempted, or to
+ permit the write operation. As a result the transaction may commit
+ successfully, or may rollback.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>this builder</para>
+         </formalpara>
+      </section>
+      <section xreflabel="rollbackFor(Class,Class...)"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionBuilder.rollbackFor-Class-Class...-">
+         <title>public final TransactionBuilder rollbackFor(Class&lt;? extends Throwable&gt; t, Class&lt;? extends Throwable&gt;... throwables)</title>
+         <formalpara role="parameter">
+            <title>t</title>
+            <para/>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>throwables</title>
+            <para>The Exception types that should trigger rollback</para>
+         </formalpara>
+         <para role="description">
+Declare a list of Exception types (and their subtypes) that <emphasis>must</emphasis>
+ trigger a rollback. By default the transaction will rollback for all
+ Exceptions. If a more specific type is registered using
+ <link linkend="org.osgi.service.transaction.control.TransactionBuilder.noRollbackFor-Class-Class...-">noRollbackFor(Class, Class...)</link> then that type will not trigger
+ rollback. If the same type is registered using both
+ <link linkend="org.osgi.service.transaction.control.TransactionBuilder.rollbackFor-Class-Class...-">rollbackFor(Class, Class...)</link> and
+ <link linkend="org.osgi.service.transaction.control.TransactionBuilder.noRollbackFor-Class-Class...-">noRollbackFor(Class, Class...)</link> then the transaction <emphasis>will
+ not</emphasis> begin and will instead throw a <link linkend="org.osgi.service.transaction.control.TransactionException">TransactionException</link>
+         </para>
+         <para>
+ Note that the behavior of this method differs from Java EE and Spring in
+ two ways:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>In Java EE and Spring transaction management checked exceptions are
+ considered "normal returns" and do not trigger rollback. Using an
+ Exception as a normal return value is considered a <emphasis>bad</emphasis> design
+ practice. In addition this means that checked Exceptions such as
+ java.sql.SQLException do not trigger rollback by default. This, in turn,
+ leads to implementation mistakes that break the transactional behavior of
+ applications.</para>
+            </listitem>
+            <listitem>
+               <para>In Java EE it is legal to specify the same Exception type in
+ <link linkend="org.osgi.service.transaction.control.TransactionBuilder.rollbackFor">rollbackFor</link> and <link linkend="org.osgi.service.transaction.control.TransactionBuilder.noRollbackFor">noRollbackFor</link>. Stating that the same
+ Exception should both trigger <emphasis>and</emphasis> not trigger rollback is a
+ logical impossibility, and clearly indicates an API usage error. This API
+ therefore enforces usage by triggering an exception in this invalid case.
+ </para>
+            </listitem>
+         </itemizedlist>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>this builder</para>
+         </formalpara>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="TransactionContext"
+            role="class"
+            xml:id="org.osgi.service.transaction.control.TransactionContext">
+      <title>public interface TransactionContext</title>
+      <para>
+A transaction context defines the current transaction, and allows resources
+ to register information and/or synchronizations
+   </para>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="getRollbackOnly()"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionContext.getRollbackOnly--">
+         <title>public boolean getRollbackOnly() throws IllegalStateException</title>
+         <para role="description">
+Is this transaction marked for rollback only
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>true if this transaction is rollback only</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– if no transaction is active</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getScopedValue(Object)"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionContext.getScopedValue-Object-">
+         <title>public Object getScopedValue(Object key)</title>
+         <formalpara role="parameter">
+            <title>key</title>
+            <para/>
+         </formalpara>
+         <para role="description">
+Get a value scoped to this transaction
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The resource, or <code>null</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="getTransactionKey()"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionContext.getTransactionKey--">
+         <title>public Object getTransactionKey()</title>
+         <para role="description">
+Get the key associated with the current transaction
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>the transaction key, or null if there is no transaction</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getTransactionStatus()"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionContext.getTransactionStatus--">
+         <title>public TransactionStatus getTransactionStatus()</title>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The current transaction status</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="isReadOnly()"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionContext.isReadOnly--">
+         <title>public boolean isReadOnly()</title>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>true if the TransactionContext supports read-only optimizations
+         <emphasis>and</emphasis> the transaction was marked read only. In particular
+         it is legal for this method to return false even if the
+         transaction was marked read only by the initiating client.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="postCompletion(Consumer)"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionContext.postCompletion-Consumer-">
+         <title>public void postCompletion(Consumer&lt;TransactionStatus&gt; job) throws IllegalStateException</title>
+         <formalpara role="parameter">
+            <title>job</title>
+            <para/>
+         </formalpara>
+         <para role="description">
+Register a callback that will be made after the scope completes
+ </para>
+         <para>
+ For transactional scopes the state of the scope will be either
+ <link linkend="org.osgi.service.transaction.control.TransactionStatus.COMMITTED">TransactionStatus.COMMITTED</link> or
+ <link linkend="org.osgi.service.transaction.control.TransactionStatus.ROLLED_BACK">TransactionStatus.ROLLED_BACK</link>.
+ </para>
+         <para>
+ For no-transaction scopes the state of the scope will always be
+ <link linkend="org.osgi.service.transaction.control.TransactionStatus.NO_TRANSACTION">TransactionStatus.NO_TRANSACTION</link>.
+ </para>
+         <para>
+ Post-completion callbacks should not throw Exceptions and cannot
+ affect the outcome of a piece of scoped work</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– if no transaction is active</para>
+         </formalpara>
+      </section>
+      <section xreflabel="preCompletion(Runnable)"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionContext.preCompletion-Runnable-">
+         <title>public void preCompletion(Runnable job) throws IllegalStateException</title>
+         <formalpara role="parameter">
+            <title>job</title>
+            <para>The action to perform before completing the scope</para>
+         </formalpara>
+         <para role="description">
+Register a callback that will be made before a scope completes.
+ </para>
+         <para>
+ For transactional scopes the state of the scope will be either
+ <link linkend="org.osgi.service.transaction.control.TransactionStatus.ACTIVE">TransactionStatus.ACTIVE</link> or
+ <link linkend="org.osgi.service.transaction.control.TransactionStatus.MARKED_ROLLBACK">TransactionStatus.MARKED_ROLLBACK</link>. Pre-completion callbacks may
+ call <link linkend="org.osgi.service.transaction.control.TransactionContext.setRollbackOnly--">setRollbackOnly()</link> to prevent a commit from proceeding.
+ </para>
+         <para>
+ For no-transaction scopes the state of the scope will always be
+ <link linkend="org.osgi.service.transaction.control.TransactionStatus.NO_TRANSACTION">TransactionStatus.NO_TRANSACTION</link>.
+ </para>
+         <para>
+ Exceptions thrown by pre-completion callbacks are treated as if they were
+ thrown by the scoped work, including any configured commit or rollback
+ behaviors for transactional scopes.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– if the transaction has already passed
+             beyond the <link linkend="org.osgi.service.transaction.control.TransactionStatus.MARKED_ROLLBACK">TransactionStatus.MARKED_ROLLBACK</link> state</para>
+         </formalpara>
+      </section>
+      <section xreflabel="putScopedValue(Object,Object)"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionContext.putScopedValue-Object-Object-">
+         <title>public void putScopedValue(Object key, Object value)</title>
+         <formalpara role="parameter">
+            <title>key</title>
+            <para/>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>value</title>
+            <para/>
+         </formalpara>
+         <para role="description">
+Associate a value with this transaction
+   </para>
+      </section>
+      <section xreflabel="registerLocalResource(LocalResource)"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionContext.registerLocalResource-LocalResource-">
+         <title>public void registerLocalResource(LocalResource resource) throws IllegalStateException</title>
+         <formalpara role="parameter">
+            <title>resource</title>
+            <para/>
+         </formalpara>
+         <para role="description">
+Register a Local resource with the current transaction
+   </para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– if no transaction is active, or the current
+             transaction does not support local resources.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="registerXAResource(javax.transaction.xa.XAResource,String)"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionContext.registerXAResource-javax.transaction.xa.XAResource-String-">
+         <title>public void registerXAResource(XAResource resource, String recoveryId) throws IllegalStateException</title>
+         <formalpara role="parameter">
+            <title>resource</title>
+            <para/>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>recoveryId</title>
+            <para>The resource id to be used for recovery, the id may be
+            <code>null</code> if this resource is not recoverable.
+            </para>
+         </formalpara>
+         <para>
+            If an id is passed then a <link linkend="org.osgi.service.transaction.control.recovery.RecoverableXAResource">RecoverableXAResource</link> with
+            the same id must be registered in the service registry for
+            recovery to occur.
+            </para>
+         <para>
+            If the underlying <link linkend="org.osgi.service.transaction.control.TransactionControl">TransactionControl</link> service does not
+            support recovery then it must treat the resource as if it is
+            not recoverable.</para>
+         <para role="description">
+Register an XA resource with the current transaction
+   </para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– if no transaction is active, or the current
+             transaction is not XA capable</para>
+         </formalpara>
+      </section>
+      <section xreflabel="setRollbackOnly()"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionContext.setRollbackOnly--">
+         <title>public void setRollbackOnly() throws IllegalStateException</title>
+         <para role="description">
+Mark this transaction for rollback
+   </para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– if no transaction is active</para>
+         </formalpara>
+      </section>
+      <section xreflabel="supportsLocal()"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionContext.supportsLocal--">
+         <title>public boolean supportsLocal()</title>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>true if the current transaction supports Local resources</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="supportsXA()"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionContext.supportsXA--">
+         <title>public boolean supportsXA()</title>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>true if the current transaction supports XA resources</para>
+         </formalpara>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="TransactionControl"
+            role="class"
+            xml:id="org.osgi.service.transaction.control.TransactionControl">
+      <title>public interface TransactionControl<?line-break?> extends TransactionStarter</title>
+      <para>
+The interface used by clients to control the active transaction context
+   </para>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="activeScope()"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionControl.activeScope--">
+         <title>public boolean activeScope()</title>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>true if a transaction is currently active, or if there is a
+         "no transaction" context active</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="activeTransaction()"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionControl.activeTransaction--">
+         <title>public boolean activeTransaction()</title>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>true if a transaction is currently active</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="build()"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionControl.build--">
+         <title>public TransactionBuilder build()</title>
+         <para role="description">
+Build a transaction context to surround a piece of transactional work
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A builder to complete the creation of the transaction</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getCurrentContext()"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionControl.getCurrentContext--">
+         <title>public TransactionContext getCurrentContext()</title>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The current transaction context, which may be a "no transaction"
+         context, or null if there is no active context</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getRollbackOnly()"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionControl.getRollbackOnly--">
+         <title>public boolean getRollbackOnly() throws IllegalStateException</title>
+         <para role="description">
+Gets the rollback status of the active transaction
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>true if the transaction is marked for rollback</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– if no transaction is active</para>
+         </formalpara>
+      </section>
+      <section xreflabel="ignoreException(Throwable)"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionControl.ignoreException-Throwable-">
+         <title>public void ignoreException(Throwable t) throws IllegalStateException</title>
+         <formalpara role="parameter">
+            <title>t</title>
+            <para>The exception to ignore</para>
+         </formalpara>
+         <para role="description">
+Marks that the current transaction should not be rolled back if the
+ supplied Exception is thrown by the current transactional work
+   </para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– if no transaction is active</para>
+         </formalpara>
+      </section>
+      <section xreflabel="setRollbackOnly()"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionControl.setRollbackOnly--">
+         <title>public void setRollbackOnly() throws IllegalStateException</title>
+         <para role="description">
+Marks the current transaction to be rolled back
+   </para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– if no transaction is active</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="TransactionException"
+            role="class"
+            xml:id="org.osgi.service.transaction.control.TransactionException">
+      <title>public class TransactionException<?line-break?> extends RuntimeException</title>
+      <para>
+An Exception indicating that there was a problem with starting, finishing,
+ suspending or resuming a transaction
+   </para>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="TransactionException(String)"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionException.TransactionException-String-">
+         <title>public  TransactionException(String message)</title>
+         <formalpara role="parameter">
+            <title>message</title>
+            <para/>
+         </formalpara>
+         <para role="description">
+Creates a new TransactionException with the supplied message
+   </para>
+      </section>
+      <section xreflabel="TransactionException(String,Throwable)"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionException.TransactionException-String-Throwable-">
+         <title>public  TransactionException(String message, Throwable cause)</title>
+         <formalpara role="parameter">
+            <title>message</title>
+            <para/>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>cause</title>
+            <para/>
+         </formalpara>
+         <para role="description">
+Creates a new TransactionException with the supplied message and cause
+   </para>
+      </section>
+   </section>
+   <section xreflabel="TransactionRolledBackException"
+            role="class"
+            xml:id="org.osgi.service.transaction.control.TransactionRolledBackException">
+      <title>public class TransactionRolledBackException<?line-break?> extends TransactionException</title>
+      <para>
+An Exception indicating that the active transaction was unexpectedly rolled
+ back
+   </para>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="TransactionRolledBackException(String)"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionRolledBackException.TransactionRolledBackException-String-">
+         <title>public  TransactionRolledBackException(String message)</title>
+         <formalpara role="parameter">
+            <title>message</title>
+            <para/>
+         </formalpara>
+         <para role="description">
+Create a new <link linkend="org.osgi.service.transaction.control.TransactionRolledBackException">TransactionRolledBackException</link> with the supplied
+ message
+   </para>
+      </section>
+      <section xreflabel="TransactionRolledBackException(String,Throwable)"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionRolledBackException.TransactionRolledBackException-String-Throwable-">
+         <title>public  TransactionRolledBackException(String message, Throwable cause)</title>
+         <formalpara role="parameter">
+            <title>cause</title>
+            <para/>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>message</title>
+            <para/>
+         </formalpara>
+         <para role="description">
+Create a new <link linkend="org.osgi.service.transaction.control.TransactionRolledBackException">TransactionRolledBackException</link> with the supplied
+ message
+   </para>
+      </section>
+   </section>
+   <section xreflabel="TransactionStarter"
+            role="class"
+            xml:id="org.osgi.service.transaction.control.TransactionStarter">
+      <title>public interface TransactionStarter</title>
+      <para>
+Implementations of this interface are able to run a piece of work within a
+ transaction
+   </para>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="notSupported(Callable)"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionStarter.notSupported-Callable-">
+         <title>public T notSupported(Callable&lt;T&gt; work) throws TransactionException, ScopedWorkException</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>work</title>
+            <para/>
+         </formalpara>
+         <para role="description">
+The supplied piece of work must be run outside the context of a
+ transaction. If an existing transaction is active then it must be
+ suspended and a "no transaction" context associated with the work. After
+ the work has completed any suspended transaction must be resumed.
+ </para>
+         <para>
+ The "no transaction" context does not support resource enlistment, and
+ will not commit or rollback any changes, however it does provide a post
+ completion callback to any registered functions. This function is
+ suitable for final cleanup, such as closing a connection</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The value returned by the work</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>TransactionException</code>– if there is an error starting or completing
+             the transaction</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>ScopedWorkException</code>– if the supplied work throws an
+             Exception</para>
+         </formalpara>
+      </section>
+      <section xreflabel="required(Callable)"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionStarter.required-Callable-">
+         <title>public T required(Callable&lt;T&gt; work) throws TransactionException, TransactionRolledBackException, ScopedWorkException</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>work</title>
+            <para/>
+         </formalpara>
+         <para role="description">
+A transaction is required to run the supplied piece of work. If no
+ transaction is active then it must be started and associated with the
+ work and then completed after the transactional work has finished.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The value returned by the work</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>TransactionException</code>– if there is an error starting or completing
+             the transaction</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>TransactionRolledBackException</code>– if the transaction rolled back due
+             to a failure in one of the resources or an internal error in
+             the TransactionControl service</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>ScopedWorkException</code>– if the supplied work throws an
+             Exception</para>
+         </formalpara>
+      </section>
+      <section xreflabel="requiresNew(Callable)"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionStarter.requiresNew-Callable-">
+         <title>public T requiresNew(Callable&lt;T&gt; work) throws TransactionException, TransactionRolledBackException, ScopedWorkException</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>work</title>
+            <para/>
+         </formalpara>
+         <para role="description">
+A new transaction is required to run the supplied piece of work. If an
+ existing transaction is active then it must suspended and a new
+ transaction started and associated with the work. After the work has
+ completed the new transaction must also complete and any suspended
+ transaction be resumed.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The value returned by the work</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>TransactionException</code>– if there is an error starting or completing
+             the transaction</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>TransactionRolledBackException</code>– if the transaction rolled back due
+             to a failure</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>ScopedWorkException</code>– if the supplied work throws an
+             Exception</para>
+         </formalpara>
+      </section>
+      <section xreflabel="supports(Callable)"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionStarter.supports-Callable-">
+         <title>public T supports(Callable&lt;T&gt; work) throws TransactionException, ScopedWorkException</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>work</title>
+            <para/>
+         </formalpara>
+         <para role="description">
+The supplied piece of work may run inside or outside the context of a
+ transaction. If an existing transaction or "no transaction" context is
+ active then it will continue, otherwise a new "no transaction" context is
+ associated with the work. After the work has completed any created
+ transaction context must be completed.
+ </para>
+         <para>
+ The "no transaction" context does not support resource enlistment, and
+ will not commit or rollback any changes, however it does provide a post
+ completion callback to any registered functions. This function is
+ suitable for final cleanup, such as closing a connection</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The value returned by the work</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>TransactionException</code>– if there is an error starting or completing
+             the transaction</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>ScopedWorkException</code>– if the supplied work throws an
+             Exception</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="TransactionStatus"
+            role="class"
+            xml:id="org.osgi.service.transaction.control.TransactionStatus">
+      <title>enum TransactionStatus</title>
+      <para>
+The status of the transaction A transaction may not enter all of the states
+ in this enum, however it will always traverse the enum in ascending order. In
+ particular if the TransactionStatus is reported as X then it will never
+ proceed into a state Y where X.compareTo(Y) &gt;= 0;
+   </para>
+      <section xreflabel="NO_TRANSACTION"
+               role="field"
+               xml:id="org.osgi.service.transaction.control.TransactionStatus.NO_TRANSACTION">
+         <title>NO_TRANSACTION</title>
+         <para>
+No transaction is currently active
+   </para>
+      </section>
+      <section xreflabel="ACTIVE"
+               role="field"
+               xml:id="org.osgi.service.transaction.control.TransactionStatus.ACTIVE">
+         <title>ACTIVE</title>
+         <para>
+A transaction is currently in progress
+   </para>
+      </section>
+      <section xreflabel="MARKED_ROLLBACK"
+               role="field"
+               xml:id="org.osgi.service.transaction.control.TransactionStatus.MARKED_ROLLBACK">
+         <title>MARKED_ROLLBACK</title>
+         <para>
+A transaction is currently in progress and has been marked for rollback
+   </para>
+      </section>
+      <section xreflabel="PREPARING"
+               role="field"
+               xml:id="org.osgi.service.transaction.control.TransactionStatus.PREPARING">
+         <title>PREPARING</title>
+         <para>
+A two phase commit is occurring and the transaction is being prepared
+   </para>
+      </section>
+      <section xreflabel="PREPARED"
+               role="field"
+               xml:id="org.osgi.service.transaction.control.TransactionStatus.PREPARED">
+         <title>PREPARED</title>
+         <para>
+A two phase commit is occurring and the transaction has been prepared
+   </para>
+      </section>
+      <section xreflabel="COMMITTING"
+               role="field"
+               xml:id="org.osgi.service.transaction.control.TransactionStatus.COMMITTING">
+         <title>COMMITTING</title>
+         <para>
+The transaction is in the process of being committed
+   </para>
+      </section>
+      <section xreflabel="COMMITTED"
+               role="field"
+               xml:id="org.osgi.service.transaction.control.TransactionStatus.COMMITTED">
+         <title>COMMITTED</title>
+         <para>
+The transaction has committed
+   </para>
+      </section>
+      <section xreflabel="ROLLING_BACK"
+               role="field"
+               xml:id="org.osgi.service.transaction.control.TransactionStatus.ROLLING_BACK">
+         <title>ROLLING_BACK</title>
+         <para>
+The transaction is in the process of rolling back
+   </para>
+      </section>
+      <section xreflabel="ROLLED_BACK"
+               role="field"
+               xml:id="org.osgi.service.transaction.control.TransactionStatus.ROLLED_BACK">
+         <title>ROLLED_BACK</title>
+         <para>
+The transaction has been rolled back
+   </para>
+      </section>
+      <section xreflabel="valueOf(String)"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionStatus.valueOf-String-">
+         <title>public static TransactionStatus valueOf(String name)</title>
+         <para/>
+      </section>
+      <section xreflabel="values()"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.TransactionStatus.values--">
+         <title>public static TransactionStatus[] values()</title>
+         <para/>
+      </section>
+   </section>
+</section>

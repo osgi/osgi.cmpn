@@ -1,0 +1,1212 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.servlet.whiteboard.propertytypes"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.servlet.whiteboard.propertytypes">
+   <title>org.osgi.service.servlet.whiteboard.propertytypes</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.servlet.whiteboard.propertytypes-version">Version 2.0</releaseinfo>
+      <edition xml:id="org.osgi.service.servlet.whiteboard.propertytypes-version.number">2.0</edition>
+   </info>
+   <para>
+Servlet Whiteboard Property Types Package Version 2.0.
+ </para>
+   <para>
+ When used as annotations, component property types are processed by tools to
+ generate Component Descriptions which are used at runtime.
+ </para>
+   <para>
+ Bundles wishing to use this package at runtime must list the package in the
+ Import-Package header of the bundle's manifest.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.servlet.whiteboard.propertytypes; version="[2.0,3.0)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardContext">
+                  <code>HttpWhiteboardContext</code>
+               </link> - 
+Component Property Type for the <code>osgi.http.whiteboard.context.name</code> and
+ <code>osgi.http.whiteboard.context.path</code> service properties.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardContextSelect">
+                  <code>HttpWhiteboardContextSelect</code>
+               </link> - 
+Component Property Type for the <code>osgi.http.whiteboard.context.select</code>
+ service property.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardFilterAsyncSupported">
+                  <code>HttpWhiteboardFilterAsyncSupported</code>
+               </link> - 
+Component Property Type for the
+ <code>osgi.http.whiteboard.filter.asyncSupported</code> service property.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardFilterDispatcher">
+                  <code>HttpWhiteboardFilterDispatcher</code>
+               </link> - 
+Component Property Type for the
+ <code>osgi.http.whiteboard.filter.dispatcher</code> service property.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardFilterName">
+                  <code>HttpWhiteboardFilterName</code>
+               </link> - 
+Component Property Type for the <code>osgi.http.whiteboard.filter.name</code>
+ service property.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardFilterPattern">
+                  <code>HttpWhiteboardFilterPattern</code>
+               </link> - 
+Component Property Type for the <code>osgi.http.whiteboard.filter.pattern</code>
+ service property.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardFilterRegex">
+                  <code>HttpWhiteboardFilterRegex</code>
+               </link> - 
+Component Property Type for the <code>osgi.http.whiteboard.filter.regex</code>
+ service property.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardFilterServlet">
+                  <code>HttpWhiteboardFilterServlet</code>
+               </link> - 
+Component Property Type for the <code>osgi.http.whiteboard.filter.servlet</code>
+ service property.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardListener">
+                  <code>HttpWhiteboardListener</code>
+               </link> - 
+Component Property Type for the <code>osgi.http.whiteboard.listener</code> service
+ property.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardResource">
+                  <code>HttpWhiteboardResource</code>
+               </link> - 
+Component Property Type for the <code>osgi.http.whiteboard.resource.pattern</code>
+ and <code>osgi.http.whiteboard.resource.prefix</code> service properties.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardServletAsyncSupported">
+                  <code>HttpWhiteboardServletAsyncSupported</code>
+               </link> - 
+Component Property Type for the
+ <code>osgi.http.whiteboard.servlet.asyncSupported</code> service property.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardServletErrorPage">
+                  <code>HttpWhiteboardServletErrorPage</code>
+               </link> - 
+Component Property Type for the
+ <code>osgi.http.whiteboard.servlet.errorPage</code> service property.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardServletMultipart">
+                  <code>HttpWhiteboardServletMultipart</code>
+               </link> - 
+Component Property Type for the
+ <code>osgi.http.whiteboard.servlet.multipart.enabled</code>,
+ <code>osgi.http.whiteboard.servlet.multipart.fileSizeThreshold</code>,
+ <code>osgi.http.whiteboard.servlet.multipart.location</code>,
+ <code>osgi.http.whiteboard.servlet.multipart.maxFileSize</code>, and
+ <code>osgi.http.whiteboard.servlet.multipart.maxRequestSize</code> service
+ properties.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardServletName">
+                  <code>HttpWhiteboardServletName</code>
+               </link> - 
+Component Property Type for the <code>osgi.http.whiteboard.servlet.name</code>
+ service property.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardServletPattern">
+                  <code>HttpWhiteboardServletPattern</code>
+               </link> - 
+Component Property Type for the <code>osgi.http.whiteboard.servlet.pattern</code>
+ service property.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardTarget">
+                  <code>HttpWhiteboardTarget</code>
+               </link> - 
+Component Property Type for the <code>osgi.http.whiteboard.target</code> service
+ property.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="HttpWhiteboardContext"
+            role="class"
+            xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardContext">
+      <title>@HttpWhiteboardContext</title>
+      <para>
+Component Property Type for the <code>osgi.http.whiteboard.context.name</code> and
+ <code>osgi.http.whiteboard.context.path</code> service properties.
+ </para>
+      <para>
+ This annotation can be used on a <link linkend="org.osgi.service.servlet.context.ServletContextHelper">ServletContextHelper</link> to declare the values of the
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME">HTTP_WHITEBOARD_CONTEXT_NAME</link> and
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_PATH">HTTP_WHITEBOARD_CONTEXT_PATH</link> service properties.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="name"
+               role="method"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardContext.name--">
+         <title>String name</title>
+         <para role="description">
+Service property identifying a servlet context helper name.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The context name.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME">HTTP_WHITEBOARD_CONTEXT_NAME</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="path"
+               role="method"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardContext.path--">
+         <title>String path</title>
+         <para role="description">
+Service property identifying a servlet context helper path.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The context path.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_PATH">HTTP_WHITEBOARD_CONTEXT_PATH</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="PREFIX_"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardContext.PREFIX_">
+         <title>String PREFIX_ = "osgi.http.whiteboard.context."</title>
+         <para>
+Prefix for the property name. This value is prepended to each property
+ name.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="HttpWhiteboardContextSelect"
+            role="class"
+            xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardContextSelect">
+      <title>@HttpWhiteboardContextSelect</title>
+      <para>
+Component Property Type for the <code>osgi.http.whiteboard.context.select</code>
+ service property.
+ </para>
+      <para>
+ This annotation can be used on a Servlet Whiteboard component to declare the
+ value of the <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_SELECT">HTTP_WHITEBOARD_CONTEXT_SELECT</link> service property.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardContextSelect.value--">
+         <title>String value</title>
+         <para role="description">
+Service property identifying the select property of a Servlet Whiteboard
+ component.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The filter expression.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_SELECT">HTTP_WHITEBOARD_CONTEXT_SELECT</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="PREFIX_"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardContextSelect.PREFIX_">
+         <title>String PREFIX_ = "osgi."</title>
+         <para>
+Prefix for the property name. This value is prepended to each property
+ name.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="HttpWhiteboardFilterAsyncSupported"
+            role="class"
+            xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardFilterAsyncSupported">
+      <title>@HttpWhiteboardFilterAsyncSupported</title>
+      <para>
+Component Property Type for the
+ <code>osgi.http.whiteboard.filter.asyncSupported</code> service property.
+ </para>
+      <para>
+ This annotation can be used on a jakarta.servlet.Filter to declare
+ the value of the
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_ASYNC_SUPPORTED">HTTP_WHITEBOARD_FILTER_ASYNC_SUPPORTED</link> service property.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="asyncSupported"
+               role="method"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardFilterAsyncSupported.asyncSupported--">
+         <title>boolean asyncSupported default true</title>
+         <para role="description">
+Service property identifying the asynchronous support of a filter.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>Whether the filter supports asynchronous processing.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_ASYNC_SUPPORTED">HTTP_WHITEBOARD_FILTER_ASYNC_SUPPORTED</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="PREFIX_"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardFilterAsyncSupported.PREFIX_">
+         <title>String PREFIX_ = "osgi.http.whiteboard.filter."</title>
+         <para>
+Prefix for the property name. This value is prepended to each property
+ name.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="HttpWhiteboardFilterDispatcher"
+            role="class"
+            xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardFilterDispatcher">
+      <title>@HttpWhiteboardFilterDispatcher</title>
+      <para>
+Component Property Type for the
+ <code>osgi.http.whiteboard.filter.dispatcher</code> service property.
+ </para>
+      <para>
+ This annotation can be used on a jakarta.servlet.Filter to declare
+ the value of the
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_DISPATCHER">HTTP_WHITEBOARD_FILTER_DISPATCHER</link> service property.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardFilterDispatcher.value--">
+         <title>DispatcherType[] value default {REQUEST}</title>
+         <para role="description">
+Service property identifying dispatcher values for the filter.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The dispatcher values for the filter.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_DISPATCHER">HTTP_WHITEBOARD_FILTER_DISPATCHER</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="PREFIX_"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardFilterDispatcher.PREFIX_">
+         <title>String PREFIX_ = "osgi."</title>
+         <para>
+Prefix for the property name. This value is prepended to each property
+ name.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="HttpWhiteboardFilterName"
+            role="class"
+            xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardFilterName">
+      <title>@HttpWhiteboardFilterName</title>
+      <para>
+Component Property Type for the <code>osgi.http.whiteboard.filter.name</code>
+ service property.
+ </para>
+      <para>
+ This annotation can be used on a jakarta.servlet.Filter to declare
+ the value of the <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_NAME">HTTP_WHITEBOARD_FILTER_NAME</link> service property.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardFilterName.value--">
+         <title>String value</title>
+         <para role="description">
+Service property identifying a filter name.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The filter name.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_NAME">HTTP_WHITEBOARD_FILTER_NAME</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="PREFIX_"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardFilterName.PREFIX_">
+         <title>String PREFIX_ = "osgi."</title>
+         <para>
+Prefix for the property name. This value is prepended to each property
+ name.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="HttpWhiteboardFilterPattern"
+            role="class"
+            xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardFilterPattern">
+      <title>@HttpWhiteboardFilterPattern</title>
+      <para>
+Component Property Type for the <code>osgi.http.whiteboard.filter.pattern</code>
+ service property.
+ </para>
+      <para>
+ This annotation can be used on a jakarta.servlet.Filter to declare
+ the value of the
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_PATTERN">HTTP_WHITEBOARD_FILTER_PATTERN</link> service property.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardFilterPattern.value--">
+         <title>String[] value</title>
+         <para role="description">
+Service property identifying filter patterns.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The filter patterns.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_PATTERN">HTTP_WHITEBOARD_FILTER_PATTERN</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="PREFIX_"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardFilterPattern.PREFIX_">
+         <title>String PREFIX_ = "osgi."</title>
+         <para>
+Prefix for the property name. This value is prepended to each property
+ name.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="HttpWhiteboardFilterRegex"
+            role="class"
+            xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardFilterRegex">
+      <title>@HttpWhiteboardFilterRegex</title>
+      <para>
+Component Property Type for the <code>osgi.http.whiteboard.filter.regex</code>
+ service property.
+ </para>
+      <para>
+ This annotation can be used on a jakarta.servlet.Filter to declare
+ the value of the <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_REGEX">HTTP_WHITEBOARD_FILTER_REGEX</link> service property.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardFilterRegex.value--">
+         <title>String[] value</title>
+         <para role="description">
+Service property identifying filter regular expressions.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The regular expressions for the filter.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_REGEX">HTTP_WHITEBOARD_FILTER_REGEX</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="PREFIX_"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardFilterRegex.PREFIX_">
+         <title>String PREFIX_ = "osgi."</title>
+         <para>
+Prefix for the property name. This value is prepended to each property
+ name.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="HttpWhiteboardFilterServlet"
+            role="class"
+            xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardFilterServlet">
+      <title>@HttpWhiteboardFilterServlet</title>
+      <para>
+Component Property Type for the <code>osgi.http.whiteboard.filter.servlet</code>
+ service property.
+ </para>
+      <para>
+ This annotation can be used on a jakarta.servlet.Filter to declare
+ the value of the
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_SERVLET">HTTP_WHITEBOARD_FILTER_SERVLET</link> service property.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardFilterServlet.value--">
+         <title>String[] value</title>
+         <para role="description">
+Service property identifying the servlets for the filter.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The servlet names.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_SERVLET">HTTP_WHITEBOARD_FILTER_SERVLET</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="PREFIX_"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardFilterServlet.PREFIX_">
+         <title>String PREFIX_ = "osgi."</title>
+         <para>
+Prefix for the property name. This value is prepended to each property
+ name.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="HttpWhiteboardListener"
+            role="class"
+            xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardListener">
+      <title>@HttpWhiteboardListener</title>
+      <para>
+Component Property Type for the <code>osgi.http.whiteboard.listener</code> service
+ property.
+ </para>
+      <para>
+ This annotation can be used on a Servlet Whiteboard listener to declare the
+ value of the <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_LISTENER">HTTP_WHITEBOARD_LISTENER</link> service property as being <code>Boolean.TRUE</code>.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="PREFIX_"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardListener.PREFIX_">
+         <title>String PREFIX_ = "osgi."</title>
+         <para>
+Prefix for the property name. This value is prepended to each property
+ name.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="HttpWhiteboardResource"
+            role="class"
+            xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardResource">
+      <title>@HttpWhiteboardResource</title>
+      <para>
+Component Property Type for the <code>osgi.http.whiteboard.resource.pattern</code>
+ and <code>osgi.http.whiteboard.resource.prefix</code> service properties.
+ </para>
+      <para>
+ This annotation can be used on any service to declare the values of the
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_RESOURCE_PATTERN">HTTP_WHITEBOARD_RESOURCE_PATTERN</link> and
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_RESOURCE_PREFIX">HTTP_WHITEBOARD_RESOURCE_PREFIX</link> service properties.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="pattern"
+               role="method"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardResource.pattern--">
+         <title>String[] pattern</title>
+         <para role="description">
+Service property specifying the request mappings for resources.
+ The specified patterns are used to determine whether a request should be mapped 
+ to resources.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The resource patterns.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_RESOURCE_PATTERN">HTTP_WHITEBOARD_RESOURCE_PATTERN</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="prefix"
+               role="method"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardResource.prefix--">
+         <title>String prefix</title>
+         <para role="description">
+Service property specifying the resource entry prefix for a resource service. This prefix is
+ used to map a requested resource to the bundle's entries. The value must not end with slash 
+ ("/") with the exception that a name of the form "/" is used to denote the root of the bundle.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The resource prefix.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_RESOURCE_PREFIX">HTTP_WHITEBOARD_RESOURCE_PREFIX</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="PREFIX_"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardResource.PREFIX_">
+         <title>String PREFIX_ = "osgi.http.whiteboard.resource."</title>
+         <para>
+Prefix for the property name. This value is prepended to each property
+ name.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="HttpWhiteboardServletAsyncSupported"
+            role="class"
+            xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardServletAsyncSupported">
+      <title>@HttpWhiteboardServletAsyncSupported</title>
+      <para>
+Component Property Type for the
+ <code>osgi.http.whiteboard.servlet.asyncSupported</code> service property.
+ </para>
+      <para>
+ This annotation can be used on a jakarta.servlet.Servlet to declare
+ the value of the
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_ASYNC_SUPPORTED">HTTP_WHITEBOARD_SERVLET_ASYNC_SUPPORTED</link> service property.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="asyncSupported"
+               role="method"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardServletAsyncSupported.asyncSupported--">
+         <title>boolean asyncSupported default true</title>
+         <para role="description">
+Service property identifying the asynchronous support of a servlet.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>Whether the servlet supports asynchronous processing.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_ASYNC_SUPPORTED">HTTP_WHITEBOARD_SERVLET_ASYNC_SUPPORTED</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="PREFIX_"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardServletAsyncSupported.PREFIX_">
+         <title>String PREFIX_ = "osgi.http.whiteboard.servlet."</title>
+         <para>
+Prefix for the property name. This value is prepended to each property
+ name.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="HttpWhiteboardServletErrorPage"
+            role="class"
+            xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardServletErrorPage">
+      <title>@HttpWhiteboardServletErrorPage</title>
+      <para>
+Component Property Type for the
+ <code>osgi.http.whiteboard.servlet.errorPage</code> service property.
+ </para>
+      <para>
+ This annotation can be used on a jakarta.servlet.Servlet to declare
+ the value of the
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_ERROR_PAGE">HTTP_WHITEBOARD_SERVLET_ERROR_PAGE</link> service property.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="errorPage"
+               role="method"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardServletErrorPage.errorPage--">
+         <title>String[] errorPage</title>
+         <para role="description">
+Service property identifying the error pages of a servlet.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The servlet error pages.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_ERROR_PAGE">HTTP_WHITEBOARD_SERVLET_ERROR_PAGE</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="PREFIX_"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardServletErrorPage.PREFIX_">
+         <title>String PREFIX_ = "osgi.http.whiteboard.servlet."</title>
+         <para>
+Prefix for the property name. This value is prepended to each property
+ name.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="HttpWhiteboardServletMultipart"
+            role="class"
+            xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardServletMultipart">
+      <title>@HttpWhiteboardServletMultipart</title>
+      <para>
+Component Property Type for the
+ <code>osgi.http.whiteboard.servlet.multipart.enabled</code>,
+ <code>osgi.http.whiteboard.servlet.multipart.fileSizeThreshold</code>,
+ <code>osgi.http.whiteboard.servlet.multipart.location</code>,
+ <code>osgi.http.whiteboard.servlet.multipart.maxFileSize</code>, and
+ <code>osgi.http.whiteboard.servlet.multipart.maxRequestSize</code> service
+ properties.
+ </para>
+      <para>
+ This annotation can be used on a jakarta.servlet.Servlet to declare
+ the values of the
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_MULTIPART_ENABLED">HTTP_WHITEBOARD_SERVLET_MULTIPART_ENABLED</link>,
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_MULTIPART_FILESIZETHRESHOLD">HTTP_WHITEBOARD_SERVLET_MULTIPART_FILESIZETHRESHOLD</link>,
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_MULTIPART_LOCATION">HTTP_WHITEBOARD_SERVLET_MULTIPART_LOCATION</link>,
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_MULTIPART_MAXFILESIZE">HTTP_WHITEBOARD_SERVLET_MULTIPART_MAXFILESIZE</link>, and
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_MULTIPART_MAXREQUESTSIZE">HTTP_WHITEBOARD_SERVLET_MULTIPART_MAXREQUESTSIZE</link> service properties.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="enabled"
+               role="method"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardServletMultipart.enabled--">
+         <title>boolean enabled default true</title>
+         <para role="description">
+Service property identifying the multipart handling of a servlet.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>Whether the servlet supports multipart handling.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_MULTIPART_ENABLED">HTTP_WHITEBOARD_SERVLET_MULTIPART_ENABLED</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="fileSizeThreshold"
+               role="method"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardServletMultipart.fileSizeThreshold--">
+         <title>int fileSizeThreshold default 0</title>
+         <para role="description">
+Service property identifying the file size threshold for a multipart
+ request handled by a servlet.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The file size threshold for a multipart request..</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_MULTIPART_FILESIZETHRESHOLD">HTTP_WHITEBOARD_SERVLET_MULTIPART_FILESIZETHRESHOLD</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="location"
+               role="method"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardServletMultipart.location--">
+         <title>String location default ""</title>
+         <para role="description">
+Service property identifying the location for a multipart request handled
+ by a servlet.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The location for a multipart request..</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_MULTIPART_LOCATION">HTTP_WHITEBOARD_SERVLET_MULTIPART_LOCATION</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="maxFileSize"
+               role="method"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardServletMultipart.maxFileSize--">
+         <title>long maxFileSize default -1L</title>
+         <para role="description">
+Service property identifying the max file size for a multipart request
+ handled by a servlet.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The max file size for a multipart request..</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_MULTIPART_MAXFILESIZE">HTTP_WHITEBOARD_SERVLET_MULTIPART_MAXFILESIZE</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="maxRequestSize"
+               role="method"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardServletMultipart.maxRequestSize--">
+         <title>long maxRequestSize default -1L</title>
+         <para role="description">
+Service property identifying the max request size for a multipart request
+ handled by a servlet.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The max request size for a multipart request..</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_MULTIPART_MAXREQUESTSIZE">HTTP_WHITEBOARD_SERVLET_MULTIPART_MAXREQUESTSIZE</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="PREFIX_"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardServletMultipart.PREFIX_">
+         <title>String PREFIX_ = "osgi.http.whiteboard.servlet.multipart."</title>
+         <para>
+Prefix for the property name. This value is prepended to each property
+ name.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="HttpWhiteboardServletName"
+            role="class"
+            xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardServletName">
+      <title>@HttpWhiteboardServletName</title>
+      <para>
+Component Property Type for the <code>osgi.http.whiteboard.servlet.name</code>
+ service property.
+ </para>
+      <para>
+ This annotation can be used on a jakarta.servlet.Servlet to declare
+ the value of the <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_NAME">HTTP_WHITEBOARD_SERVLET_NAME</link> service property.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardServletName.value--">
+         <title>String value</title>
+         <para role="description">
+Service property identifying a servlet name.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The servlet name.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_NAME">HTTP_WHITEBOARD_SERVLET_NAME</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="PREFIX_"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardServletName.PREFIX_">
+         <title>String PREFIX_ = "osgi."</title>
+         <para>
+Prefix for the property name. This value is prepended to each property
+ name.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="HttpWhiteboardServletPattern"
+            role="class"
+            xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardServletPattern">
+      <title>@HttpWhiteboardServletPattern</title>
+      <para>
+Component Property Type for the <code>osgi.http.whiteboard.servlet.pattern</code>
+ service property.
+ </para>
+      <para>
+ This annotation can be used on a jakarta.servlet.Servlet to declare
+ the value of the
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_PATTERN">HTTP_WHITEBOARD_SERVLET_PATTERN</link> service property.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardServletPattern.value--">
+         <title>String[] value</title>
+         <para role="description">
+Service property identifying servlet patterns.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The servlet patterns.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_PATTERN">HTTP_WHITEBOARD_SERVLET_PATTERN</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="PREFIX_"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardServletPattern.PREFIX_">
+         <title>String PREFIX_ = "osgi."</title>
+         <para>
+Prefix for the property name. This value is prepended to each property
+ name.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="HttpWhiteboardTarget"
+            role="class"
+            xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardTarget">
+      <title>@HttpWhiteboardTarget</title>
+      <para>
+Component Property Type for the <code>osgi.http.whiteboard.target</code> service
+ property.
+ </para>
+      <para>
+ This annotation can be used on a Servlet Whiteboard service to declare the
+ value of the <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_TARGET">HTTP_WHITEBOARD_TARGET</link> service property.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardTarget.value--">
+         <title>String value</title>
+         <para role="description">
+Service property identifying the Servlet Whiteboard target.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The Servlet Whiteboard target filter expression.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_TARGET">HTTP_WHITEBOARD_TARGET</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="PREFIX_"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.propertytypes.HttpWhiteboardTarget.PREFIX_">
+         <title>String PREFIX_ = "osgi."</title>
+         <para>
+Prefix for the property name. This value is prepended to each property
+ name.
+   </para>
+      </section>
+   </section>
+</section>

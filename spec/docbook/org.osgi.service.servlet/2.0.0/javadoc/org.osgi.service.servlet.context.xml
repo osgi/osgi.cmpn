@@ -1,0 +1,428 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.servlet.context"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.servlet.context">
+   <title>org.osgi.service.servlet.context</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.servlet.context-version">Version 2.0</releaseinfo>
+      <edition xml:id="org.osgi.service.servlet.context-version.number">2.0</edition>
+   </info>
+   <para>
+Http Context Package Version 2.0.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.servlet.context; version="[2.0,3.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.servlet.context; version="[2.0,2.1)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.context.ServletContextHelper">
+                  <code>ServletContextHelper</code>
+               </link> - 
+Helper service for a servlet context used by a Servlet Whiteboard implementation
+ to serve HTTP requests.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="ServletContextHelper"
+            role="class"
+            xml:id="org.osgi.service.servlet.context.ServletContextHelper">
+      <title>public abstract class ServletContextHelper</title>
+      <para>
+Helper service for a servlet context used by a Servlet Whiteboard implementation
+ to serve HTTP requests.
+ </para>
+      <para>
+ This service defines methods that the Servlet Whiteboard implementation may call
+ to get information for a request when dealing with whiteboard services.
+ </para>
+      <para>
+ Each <code>ServletContextHelper</code> is registered with a
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME">"osgi.http.whiteboard.context.name"</link> service property containing a name to
+ reference by servlets, servlet filters, resources, and listeners. If there is
+ more than one <code>ServletContextHelper</code> registered with the same context
+ name, the one that is first in the
+ <link linkend="org.osgi.framework.ServiceReference.compareTo-Object-">ranking order</link>
+ is active, the others are inactive.
+ </para>
+      <para>
+ A context is registered with the
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_PATH">"osgi.http.whiteboard.context.path"</link> service property to define a path under
+ which all services registered with this context are reachable. If there is
+ more than one <code>ServletContextHelper</code> registered with the same path,
+ each duplicate context path is searched in
+ <link linkend="org.osgi.framework.ServiceReference.compareTo-Object-">ranking order</link>
+ until a matching servlet or resource is found.
+ </para>
+      <para>
+ Servlets, servlet filters, resources, and listeners services may be
+ associated with a <code>ServletContextHelper</code> service with the
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_SELECT">"osgi.http.whiteboard.context.select"</link> service property. If the referenced
+ <code>ServletContextHelper</code> service does not exist or is currently not
+ active, the whiteboard services for that <code>ServletContextHelper</code> are not
+ active either.
+ </para>
+      <para>
+ If no <code>ServletContextHelper</code> service is associated, that is no
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_SELECT">"osgi.http.whiteboard.context.select"</link> service property is configured for a
+ whiteboard service, a default <code>ServletContextHelper</code> is used.
+ </para>
+      <para>
+ Those whiteboard services that are associated with the same
+ <code>ServletContextHelper</code> object will share the same
+ <code>ServletContext</code> object.
+ </para>
+      <para>
+ The behavior of the methods on the default <code>ServletContextHelper</code> is
+ defined as follows:
+ </para>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.context.ServletContextHelper.getMimeType-String-">getMimeType</link> - Always returns
+ <code>null</code>.</para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.context.ServletContextHelper.handleSecurity-jakarta.servlet.http.HttpServletRequest-jakarta.servlet.http.HttpServletResponse-">handleSecurity</link> - Always returns <code>true</code>.</para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.context.ServletContextHelper.getResource-String-">getResource</link> - Assumes the named resource is
+ in the bundle of the whiteboard service, addressed from the root. This method
+ calls the whiteboard service bundle's <code>Bundle.getEntry</code> method, and
+ returns the appropriate URL to access the resource. On a Java runtime
+ environment that supports permissions, the Servlet Whiteboard implementation
+ needs to be granted
+ <code>org.osgi.framework.AdminPermission[*,RESOURCE]</code>.</para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.context.ServletContextHelper.getResourcePaths-String-">getResourcePaths</link> - Assumes that the
+ resources are in the bundle of the whiteboard service. This method calls
+ <code>Bundle.findEntries</code> method, and returns the found entries. On a Java
+ runtime environment that supports permissions, the Servlet Whiteboard
+ implementation needs to be granted
+ <code>org.osgi.framework.AdminPermission[*,RESOURCE]</code>.</para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.context.ServletContextHelper.getRealPath-String-">getRealPath</link> - Always returns
+ <code>null</code>.</para>
+         </listitem>
+      </itemizedlist>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME">HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME</link>, <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_PATH">HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_PATH</link>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="AUTHENTICATION_TYPE"
+               role="field"
+               xml:id="org.osgi.service.servlet.context.ServletContextHelper.AUTHENTICATION_TYPE">
+         <title>public static final String AUTHENTICATION_TYPE = "org.osgi.service.http.authentication.type"</title>
+         <para>
+            <code>HttpServletRequest</code> attribute specifying the scheme used in
+ authentication. The value of the attribute can be retrieved by
+ <code>HttpServletRequest.getAuthType</code>.
+   </para>
+      </section>
+      <section xreflabel="AUTHORIZATION"
+               role="field"
+               xml:id="org.osgi.service.servlet.context.ServletContextHelper.AUTHORIZATION">
+         <title>public static final String AUTHORIZATION = "org.osgi.service.useradmin.authorization"</title>
+         <para>
+            <code>HttpServletRequest</code> attribute specifying the <code>Authorization</code>
+ object obtained from the <code>org.osgi.service.useradmin.UserAdmin</code>
+ service. The value of the attribute can be retrieved by
+ <code>HttpServletRequest.getAttribute(ServletContextHelper.AUTHORIZATION)</code>
+ .
+   </para>
+      </section>
+      <section xreflabel="REMOTE_USER"
+               role="field"
+               xml:id="org.osgi.service.servlet.context.ServletContextHelper.REMOTE_USER">
+         <title>public static final String REMOTE_USER = "org.osgi.service.http.authentication.remote.user"</title>
+         <para>
+            <code>HttpServletRequest</code> attribute specifying the name of the
+ authenticated user. The value of the attribute can be retrieved by
+ <code>HttpServletRequest.getRemoteUser</code>.
+   </para>
+      </section>
+      <section xreflabel="ServletContextHelper()"
+               role="method"
+               xml:id="org.osgi.service.servlet.context.ServletContextHelper.ServletContextHelper--">
+         <title>public  ServletContextHelper()</title>
+         <para role="description">
+Construct a new context helper.
+ 
+ </para>
+         <para>
+ If needed, the subclass will have to handle the association with a
+ specific bundle.</para>
+      </section>
+      <section xreflabel="ServletContextHelper(Bundle)"
+               role="method"
+               xml:id="org.osgi.service.servlet.context.ServletContextHelper.ServletContextHelper-Bundle-">
+         <title>public  ServletContextHelper(Bundle bundle)</title>
+         <formalpara role="parameter">
+            <title>bundle</title>
+            <para>The bundle to be associated with this context helper.</para>
+         </formalpara>
+         <para role="description">
+Construct a new context helper associated with the specified bundle.
+   </para>
+      </section>
+      <section xreflabel="finishSecurity(jakarta.servlet.http.HttpServletRequest,jakarta.servlet.http.HttpServletResponse)"
+               role="method"
+               xml:id="org.osgi.service.servlet.context.ServletContextHelper.finishSecurity-jakarta.servlet.http.HttpServletRequest-jakarta.servlet.http.HttpServletResponse-">
+         <title>public void finishSecurity(HttpServletRequest request, HttpServletResponse response)</title>
+         <formalpara role="parameter">
+            <title>request</title>
+            <para>The HTTP request.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>response</title>
+            <para>The HTTP response.</para>
+         </formalpara>
+         <para role="description">
+Finishes the security context for the specified request.
+ </para>
+         <para>
+ Implementations of this service can implement this method to clean up
+ resources which have been setup in
+ <link linkend="org.osgi.service.servlet.context.ServletContextHelper.handleSecurity-jakarta.servlet.http.HttpServletRequest-jakarta.servlet.http.HttpServletResponse-">handleSecurity(HttpServletRequest, HttpServletResponse)</link>.
+ </para>
+         <para>
+ This method is only called if
+ <link linkend="org.osgi.service.servlet.context.ServletContextHelper.handleSecurity-jakarta.servlet.http.HttpServletRequest-jakarta.servlet.http.HttpServletResponse-">handleSecurity(HttpServletRequest, HttpServletResponse)</link> returned
+ <code>true</code> for the specified request. This method is called once the
+ pipeline finishes processing or if an exception is thrown from within the
+ pipeline execution.
+ </para>
+         <para>
+ The default implementation of this method does nothing.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.context.ServletContextHelper.handleSecurity-jakarta.servlet.http.HttpServletRequest-jakarta.servlet.http.HttpServletResponse-">handleSecurity(HttpServletRequest, HttpServletResponse)</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="getMimeType(String)"
+               role="method"
+               xml:id="org.osgi.service.servlet.context.ServletContextHelper.getMimeType-String-">
+         <title>public String getMimeType(String name)</title>
+         <formalpara role="parameter">
+            <title>name</title>
+            <para>The name for which to determine the MIME type.</para>
+         </formalpara>
+         <para role="description">
+Maps a name to a MIME type.
+ 
+ </para>
+         <para>
+ Called by the Servlet Whiteboard implementation to determine the MIME type
+ for the specified name. For whiteboard services, the Servlet Whiteboard
+ implementation will call this method to support the
+ <code>ServletContext</code> method <code>getMimeType</code>. For resource servlets,
+ the Servlet Whiteboard implementation will call this method to determine the
+ MIME type for the <code>Content-Type</code> header in the response.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The MIME type (e.g. text/html) of the specified name or
+         <code>null</code> to indicate that the Servlet Whiteboard implementation
+         should determine the MIME type itself.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getRealPath(String)"
+               role="method"
+               xml:id="org.osgi.service.servlet.context.ServletContextHelper.getRealPath-String-">
+         <title>public String getRealPath(String path)</title>
+         <formalpara role="parameter">
+            <title>path</title>
+            <para>The virtual path to be translated to a real path.</para>
+         </formalpara>
+         <para role="description">
+Gets the real path corresponding to the given virtual path.
+ </para>
+         <para>
+ Called by the Servlet Whiteboard implementation to support the
+ <code>ServletContext</code> method <code>getRealPath</code> for whiteboard
+ services.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The real path, or <code>null</code> if the translation cannot be
+         performed.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getResource(String)"
+               role="method"
+               xml:id="org.osgi.service.servlet.context.ServletContextHelper.getResource-String-">
+         <title>public URL getResource(String name)</title>
+         <formalpara role="parameter">
+            <title>name</title>
+            <para>The name of the requested resource.</para>
+         </formalpara>
+         <para role="description">
+Maps a resource name to a URL.
+ </para>
+         <para>
+ Called by the Servlet Whiteboard implementation to map the specified
+ resource name to a URL. For servlets, the Servlet Whiteboard implementation
+ will call this method to support the <code>ServletContext</code> methods
+ <code>getResource</code> and <code>getResourceAsStream</code>. For resources, the
+ Servlet Whiteboard implementation will call this method to locate the named
+ resource.
+ </para>
+         <para>
+ The context can control from where resources come. For example, the
+ resource can be mapped to a file in the bundle's persistent storage area
+ via <code>BundleContext.getDataFile(name).toURI().toURL()</code> or to a
+ resource in the context's bundle via <code>getClass().getResource(name)</code>
+         </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A URL that a Servlet Whiteboard implementation can use to read the
+         resource or <code>null</code> if the resource does not exist.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getResourcePaths(String)"
+               role="method"
+               xml:id="org.osgi.service.servlet.context.ServletContextHelper.getResourcePaths-String-">
+         <title>public Set&lt;String&gt; getResourcePaths(String path)</title>
+         <formalpara role="parameter">
+            <title>path</title>
+            <para>The partial path used to match the resources, which must
+        start with a /.</para>
+         </formalpara>
+         <para role="description">
+Returns a directory-like listing of all the paths to resources within the
+ web application whose longest sub-path matches the supplied path
+ argument.
+ 
+ </para>
+         <para>
+ Called by the Servlet Whiteboard implementation to support the
+ <code>ServletContext</code> method <code>getResourcePaths</code> for whiteboard
+ services.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A Set containing the directory listing, or <code>null</code> if there
+         are no resources in the web application whose path begins with
+         the supplied path.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="handleSecurity(jakarta.servlet.http.HttpServletRequest,jakarta.servlet.http.HttpServletResponse)"
+               role="method"
+               xml:id="org.osgi.service.servlet.context.ServletContextHelper.handleSecurity-jakarta.servlet.http.HttpServletRequest-jakarta.servlet.http.HttpServletResponse-">
+         <title>public boolean handleSecurity(HttpServletRequest request, HttpServletResponse response) throws IOException</title>
+         <formalpara role="parameter">
+            <title>request</title>
+            <para>The HTTP request.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>response</title>
+            <para>The HTTP response.</para>
+         </formalpara>
+         <para role="description">
+Handles security for the specified request.
+ </para>
+         <para>
+ The Servlet Whiteboard implementation calls this method prior to
+ servicing the specified request. This method controls whether the request
+ is processed in the normal manner or an error is returned.
+ </para>
+         <para>
+ If the request requires authentication and the <code>Authorization</code>
+ header in the request is missing or not acceptable, then this method
+ should set the <code>WWW-Authenticate</code> header in the response object,
+ set the status in the response object to Unauthorized(401) and return
+ <code>false</code>. See also <link xmlns:xlink="http://www.w3.org/1999/xlink"
+                  xlink:href="http://www.ietf.org/rfc/rfc2617.txt">RFC
+ 2617: HTTP Authentication: Basic and Digest Access Authentication</link>.
+ </para>
+         <para>
+ If the request requires a secure connection and the <code>getScheme</code>
+ method in the request does not return 'https' or some other acceptable
+ secure protocol, then this method should set the status in the response
+ object to Forbidden(403) and return <code>false</code>.
+ </para>
+         <para>
+ When this method returns <code>false</code>, the Servlet Whiteboard
+ implementation will send the response back to the client, thereby
+ completing the request. When this method returns <code>true</code>, the
+ Servlet Whiteboard implementation will proceed with servicing the
+ request.
+ </para>
+         <para>
+ If the specified request has been authenticated, this method must set the
+ <link linkend="org.osgi.service.servlet.context.ServletContextHelper.AUTHENTICATION_TYPE">AUTHENTICATION_TYPE</link> request attribute to the type of
+ authentication used, and the <link linkend="org.osgi.service.servlet.context.ServletContextHelper.REMOTE_USER">REMOTE_USER</link> request attribute to
+ the remote user (request attributes are set using the
+ <code>setAttribute</code> method on the request). If this method does not
+ perform any authentication, it must not set these attributes.
+ </para>
+         <para>
+ If the authenticated user is also authorized to access certain resources,
+ this method must set the <link linkend="org.osgi.service.servlet.context.ServletContextHelper.AUTHORIZATION">AUTHORIZATION</link> request attribute to the
+ <code>Authorization</code> object obtained from the
+ <code>org.osgi.service.useradmin.UserAdmin</code> service.
+ </para>
+         <para>
+ The servlet responsible for servicing the specified request determines
+ the authentication type and remote user by calling the
+ <code>getAuthType</code> and <code>getRemoteUser</code> methods, respectively, on
+ the request.
+ </para>
+         <para>
+ If there is the need to clean up resources at the end of the request, the
+ method <link linkend="org.osgi.service.servlet.context.ServletContextHelper.finishSecurity-jakarta.servlet.http.HttpServletRequest-jakarta.servlet.http.HttpServletResponse-">finishSecurity(HttpServletRequest, HttpServletResponse)</link>
+ can be implemented. That method is only called if this method returns
+ <code>true</code>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>true</code> if the request should be serviced, <code>false</code> if
+         the request should not be serviced and Servlet Whiteboard
+         implementation will send the response back to the client.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IOException</code>– May be thrown by this method. If this occurs,
+             the Servlet Whiteboard implementation will terminate the
+             request and close the socket.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.context.ServletContextHelper.finishSecurity-jakarta.servlet.http.HttpServletRequest-jakarta.servlet.http.HttpServletResponse-">finishSecurity(HttpServletRequest, HttpServletResponse)</link>
+            </para>
+         </formalpara>
+      </section>
+   </section>
+</section>

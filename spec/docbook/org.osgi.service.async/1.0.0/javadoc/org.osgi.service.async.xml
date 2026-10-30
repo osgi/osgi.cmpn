@@ -1,0 +1,292 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.async"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.async">
+   <title>org.osgi.service.async</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.async-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.service.async-version.number">1.0</edition>
+   </info>
+   <para>
+Asynchronous Services Package Version 1.0.
+ 
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ 
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.async; version="[1.0,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.async; version="[1.0,1.1)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.async.Async">
+                  <code>Async</code>
+               </link> - 
+The Asynchronous Execution Service.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="Async"
+            role="class"
+            xml:id="org.osgi.service.async.Async">
+      <title>public interface Async</title>
+      <para>
+The Asynchronous Execution Service. This can be used to make asynchronous
+ invocations on OSGi services and objects through the use of a mediator
+ object.
+ 
+ </para>
+      <para>
+ Typical usage:
+ 
+ </para>
+      <programlisting>   Async async = ctx.getService(asyncRef);
+   
+   ServiceReference&lt;MyService&gt; ref = ctx.getServiceReference(MyService.class);
+   
+   MyService mediator = async.mediate(ref, MyService.class);
+   
+   Promise&lt;BigInteger&gt; result = async.call(mediator.getSumOverAllValues());</programlisting>
+      <para>
+ The <link linkend="org.osgi.util.promise.Promise">Promise</link> API allows callbacks to be made when asynchronous tasks
+ complete, and can be used to chain Promises.
+ 
+ </para>
+      <para>
+ Multiple asynchronous tasks can be started concurrently, and will run in
+ parallel if the Async Service has threads available.</para>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="call(R)"
+               role="method"
+               xml:id="org.osgi.service.async.Async.call-R-">
+         <title>public Promise&lt;R&gt; call(R r)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;R&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>r</title>
+            <para>The return value of the mediated call, used for type
+        information.</para>
+         </formalpara>
+         <para role="description">
+Invoke the last method call registered by a mediated object as an
+ asynchronous task. The result of the task can be obtained using the
+ returned Promise.
+ 
+ </para>
+         <para>
+ Typically the parameter for this method will be supplied inline like
+ this:
+ 
+ </para>
+         <programlisting> ServiceReference&lt;I&gt; s = ...;
+ I i = async.mediate(s, I.class);
+ Promise&lt;String&gt; p = async.call(i.foo());</programlisting>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A Promise which can be used to retrieve the result of the
+         asynchronous task.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="call()"
+               role="method"
+               xml:id="org.osgi.service.async.Async.call--">
+         <title>public Promise&lt;?&gt; call()</title>
+         <para role="description">
+Invoke the last method call registered by a mediated object as an
+ asynchronous task. The result of the task can be obtained using the
+ returned Promise.
+ 
+ </para>
+         <para>
+ Generally it is preferable to use <link linkend="org.osgi.service.async.Async.call-R-">call(Object)</link> like this:
+ 
+ </para>
+         <programlisting> ServiceReference&lt;I&gt; s = ...;
+ I i = async.mediate(s, I.class);
+ Promise&lt;String&gt; p = async.call(i.foo());</programlisting>
+         <para>
+ However this pattern does not work for void methods. Void methods can
+ therefore be handled like this:
+ 
+ </para>
+         <programlisting> ServiceReference&lt;I&gt; s = ...;
+ I i = async.mediate(s, I.class);
+ i.voidMethod()
+ Promise&lt;?&gt; p = async.call();</programlisting>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A Promise which can be used to retrieve the result of the
+         asynchronous task.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="execute()"
+               role="method"
+               xml:id="org.osgi.service.async.Async.execute--">
+         <title>public Promise&lt;Void&gt; execute()</title>
+         <para role="description">
+Invoke the last method call registered by a mediated object as a
+ "fire-and-forget" asynchronous task. This method should be used by
+ clients in preference to <link linkend="org.osgi.service.async.Async.call--">call()</link> and <link linkend="org.osgi.service.async.Async.call-R-">call(Object)</link> when
+ no callbacks, or other features of <link linkend="org.osgi.util.promise.Promise">Promise</link>, are needed.
+ 
+ </para>
+         <para>
+ The advantage of this method is that it allows for greater optimization
+ of the underlying asynchronous task. Clients are therefore likely to see
+ better performance when using this method compared to using
+ <link linkend="org.osgi.service.async.Async.call-R-">call(Object)</link> or <link linkend="org.osgi.service.async.Async.call--">call()</link> and ignoring the returned
+ Promise. The <link linkend="org.osgi.util.promise.Promise">Promise</link> returned by this method is different from
+ the Promise returned by <link linkend="org.osgi.service.async.Async.call-R-">call(Object)</link> or <link linkend="org.osgi.service.async.Async.call--">call()</link>, in that
+ the returned Promise will resolve when the fire-and-forget task is
+ successfully started, or fail if the task cannot be started. Note that
+ there is no <emphasis>happens-before</emphasis> relationship and the returned Promise
+ may resolve before or after the fire-and-forget task starts, or
+ completes.
+ 
+ </para>
+         <para>
+ Typically this method is used like <link linkend="org.osgi.service.async.Async.call--">call()</link>:
+ 
+ </para>
+         <programlisting> ServiceReference&lt;I&gt; s = ...;
+ I i = async.mediate(s, I.class);
+ i.someMethod()
+ Promise&lt;Void&gt; p = async.execute();</programlisting>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A Promise representing whether the fire-and-forget task was able
+         to start.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="mediate(T,Class)"
+               role="method"
+               xml:id="org.osgi.service.async.Async.mediate-T-Class-">
+         <title>public T mediate(T target, Class&lt;T&gt; iface)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>target</title>
+            <para>The service object to mediate.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>iface</title>
+            <para>The type that the mediated object should provide.</para>
+         </formalpara>
+         <para role="description">
+Create a mediator for the specified object. The mediator is a generated
+ object that registers the method calls made against it. The registered
+ method calls can then be run asynchronously using either the
+ <link linkend="org.osgi.service.async.Async.call-R-">call(Object)</link>, <link linkend="org.osgi.service.async.Async.call--">call()</link>, or <link linkend="org.osgi.service.async.Async.execute--">execute()</link> method.
+ 
+ </para>
+         <para>
+ The values returned by method calls made on a mediated object are opaque
+ and should not be interpreted.
+ 
+ </para>
+         <para>
+ Normal usage:
+ 
+ </para>
+         <programlisting> I s = ...;
+ I i = async.mediate(s, I.class);
+ Promise&lt;String&gt; p = async.call(i.foo());</programlisting>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A mediator for the service object.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– If the type represented by iface cannot
+         be mediated.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="mediate(ServiceReference,Class)"
+               role="method"
+               xml:id="org.osgi.service.async.Async.mediate-ServiceReference-Class-">
+         <title>public T mediate(ServiceReference&lt;? extends T&gt; target, Class&lt;T&gt; iface)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>target</title>
+            <para>The service reference to mediate.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>iface</title>
+            <para>The type that the mediated object should provide.</para>
+         </formalpara>
+         <para role="description">
+Create a mediator for the specified service. The mediator is a generated
+ object that registers the method calls made against it. The registered
+ method calls can then be run asynchronously using either the
+ <link linkend="org.osgi.service.async.Async.call-R-">call(Object)</link>, <link linkend="org.osgi.service.async.Async.call--">call()</link>, or <link linkend="org.osgi.service.async.Async.execute--">execute()</link> method.
+ 
+ </para>
+         <para>
+ The values returned by method calls made on a mediated object are opaque
+ and should not be interpreted.
+ 
+ </para>
+         <para>
+ This method differs from <link linkend="org.osgi.service.async.Async.mediate-T-Class-">mediate(Object, Class)</link> in that it can
+ track the availability of the specified service. This is recommended as
+ the preferred option for mediating OSGi services as asynchronous tasks
+ may not start executing until some time after they are requested.
+ Tracking the validity of the <link linkend="org.osgi.framework.ServiceReference">ServiceReference</link> for the service
+ ensures that these tasks do not proceed with an invalid object.
+ 
+ </para>
+         <para>
+ Normal usage:
+ 
+ </para>
+         <programlisting> ServiceReference&lt;I&gt; s = ...;
+ I i = async.mediate(s, I.class);
+ Promise&lt;String&gt; p = async.call(i.foo());</programlisting>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A mediator for the service object.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– If the type represented by iface cannot
+         be mediated.</para>
+         </formalpara>
+      </section>
+   </section>
+</section>

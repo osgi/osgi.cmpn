@@ -1,0 +1,363 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.jakartars.client"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.jakartars.client">
+   <title>org.osgi.service.jakartars.client</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.jakartars.client-version">Version 2.0</releaseinfo>
+      <edition xml:id="org.osgi.service.jakartars.client-version.number">2.0</edition>
+   </info>
+   <para>
+Jakarta RESTful Web Services Whiteboard Client Package Version 1.0.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.jakartars.client; version="[1.0,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.jakartars.client; version="[1.0,1.1)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.jakartars.client.PromiseRxInvoker">
+                  <code>PromiseRxInvoker</code>
+               </link> - 
+A specialization of the RxInvoker which creates <link linkend="org.osgi.util.promise.Promise">Promise</link>
+ instances.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.jakartars.client.SseEventSourceFactory">
+                  <code>SseEventSourceFactory</code>
+               </link> - 
+A factory for SseEventSource instances.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="PromiseRxInvoker"
+            role="class"
+            xml:id="org.osgi.service.jakartars.client.PromiseRxInvoker">
+      <title>public interface PromiseRxInvoker<?line-break?> extends RxInvoker&lt;Promise&gt;</title>
+      <para>
+A specialization of the RxInvoker which creates <link linkend="org.osgi.util.promise.Promise">Promise</link>
+ instances.
+ </para>
+      <para>
+ Bundles may obtain an instance of a <link linkend="org.osgi.service.jakartars.client.PromiseRxInvoker">PromiseRxInvoker</link> using a
+ ClientBuilder obtained from the service registry and calling the
+ jakarta.ws.rs.client.Invocation.Builder.rx(Class) method.</para>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="delete()"
+               role="method"
+               xml:id="org.osgi.service.jakartars.client.PromiseRxInvoker.delete--">
+         <title>public Promise&lt;Response&gt; delete()</title>
+         <para/>
+      </section>
+      <section xreflabel="delete(Class)"
+               role="method"
+               xml:id="org.osgi.service.jakartars.client.PromiseRxInvoker.delete-Class-">
+         <title>public Promise&lt;R&gt; delete(Class&lt;R&gt; arg0)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;R&gt;</code>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="delete(jakarta.ws.rs.core.GenericType)"
+               role="method"
+               xml:id="org.osgi.service.jakartars.client.PromiseRxInvoker.delete-jakarta.ws.rs.core.GenericType-">
+         <title>public Promise&lt;R&gt; delete(GenericType&lt;R&gt; arg0)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;R&gt;</code>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="get()"
+               role="method"
+               xml:id="org.osgi.service.jakartars.client.PromiseRxInvoker.get--">
+         <title>public Promise&lt;Response&gt; get()</title>
+         <para/>
+      </section>
+      <section xreflabel="get(Class)"
+               role="method"
+               xml:id="org.osgi.service.jakartars.client.PromiseRxInvoker.get-Class-">
+         <title>public Promise&lt;R&gt; get(Class&lt;R&gt; arg0)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;R&gt;</code>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="get(jakarta.ws.rs.core.GenericType)"
+               role="method"
+               xml:id="org.osgi.service.jakartars.client.PromiseRxInvoker.get-jakarta.ws.rs.core.GenericType-">
+         <title>public Promise&lt;R&gt; get(GenericType&lt;R&gt; arg0)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;R&gt;</code>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="head()"
+               role="method"
+               xml:id="org.osgi.service.jakartars.client.PromiseRxInvoker.head--">
+         <title>public Promise&lt;Response&gt; head()</title>
+         <para/>
+      </section>
+      <section xreflabel="method(String,Class)"
+               role="method"
+               xml:id="org.osgi.service.jakartars.client.PromiseRxInvoker.method-String-Class-">
+         <title>public Promise&lt;R&gt; method(String arg0, Class&lt;R&gt; arg1)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;R&gt;</code>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="method(String,jakarta.ws.rs.client.Entity,Class)"
+               role="method"
+               xml:id="org.osgi.service.jakartars.client.PromiseRxInvoker.method-String-jakarta.ws.rs.client.Entity-Class-">
+         <title>public Promise&lt;R&gt; method(String arg0, Entity&lt;?&gt; arg1, Class&lt;R&gt; arg2)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;R&gt;</code>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="method(String,jakarta.ws.rs.client.Entity,jakarta.ws.rs.core.GenericType)"
+               role="method"
+               xml:id="org.osgi.service.jakartars.client.PromiseRxInvoker.method-String-jakarta.ws.rs.client.Entity-jakarta.ws.rs.core.GenericType-">
+         <title>public Promise&lt;R&gt; method(String arg0, Entity&lt;?&gt; arg1, GenericType&lt;R&gt; arg2)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;R&gt;</code>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="method(String,jakarta.ws.rs.client.Entity)"
+               role="method"
+               xml:id="org.osgi.service.jakartars.client.PromiseRxInvoker.method-String-jakarta.ws.rs.client.Entity-">
+         <title>public Promise&lt;Response&gt; method(String arg0, Entity&lt;?&gt; arg1)</title>
+         <para/>
+      </section>
+      <section xreflabel="method(String,jakarta.ws.rs.core.GenericType)"
+               role="method"
+               xml:id="org.osgi.service.jakartars.client.PromiseRxInvoker.method-String-jakarta.ws.rs.core.GenericType-">
+         <title>public Promise&lt;R&gt; method(String arg0, GenericType&lt;R&gt; arg1)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;R&gt;</code>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="method(String)"
+               role="method"
+               xml:id="org.osgi.service.jakartars.client.PromiseRxInvoker.method-String-">
+         <title>public Promise&lt;Response&gt; method(String arg0)</title>
+         <para/>
+      </section>
+      <section xreflabel="options()"
+               role="method"
+               xml:id="org.osgi.service.jakartars.client.PromiseRxInvoker.options--">
+         <title>public Promise&lt;Response&gt; options()</title>
+         <para/>
+      </section>
+      <section xreflabel="options(Class)"
+               role="method"
+               xml:id="org.osgi.service.jakartars.client.PromiseRxInvoker.options-Class-">
+         <title>public Promise&lt;R&gt; options(Class&lt;R&gt; arg0)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;R&gt;</code>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="options(jakarta.ws.rs.core.GenericType)"
+               role="method"
+               xml:id="org.osgi.service.jakartars.client.PromiseRxInvoker.options-jakarta.ws.rs.core.GenericType-">
+         <title>public Promise&lt;R&gt; options(GenericType&lt;R&gt; arg0)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;R&gt;</code>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="post(jakarta.ws.rs.client.Entity,Class)"
+               role="method"
+               xml:id="org.osgi.service.jakartars.client.PromiseRxInvoker.post-jakarta.ws.rs.client.Entity-Class-">
+         <title>public Promise&lt;R&gt; post(Entity&lt;?&gt; arg0, Class&lt;R&gt; arg1)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;R&gt;</code>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="post(jakarta.ws.rs.client.Entity,jakarta.ws.rs.core.GenericType)"
+               role="method"
+               xml:id="org.osgi.service.jakartars.client.PromiseRxInvoker.post-jakarta.ws.rs.client.Entity-jakarta.ws.rs.core.GenericType-">
+         <title>public Promise&lt;R&gt; post(Entity&lt;?&gt; arg0, GenericType&lt;R&gt; arg1)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;R&gt;</code>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="post(jakarta.ws.rs.client.Entity)"
+               role="method"
+               xml:id="org.osgi.service.jakartars.client.PromiseRxInvoker.post-jakarta.ws.rs.client.Entity-">
+         <title>public Promise&lt;Response&gt; post(Entity&lt;?&gt; arg0)</title>
+         <para/>
+      </section>
+      <section xreflabel="put(jakarta.ws.rs.client.Entity,Class)"
+               role="method"
+               xml:id="org.osgi.service.jakartars.client.PromiseRxInvoker.put-jakarta.ws.rs.client.Entity-Class-">
+         <title>public Promise&lt;R&gt; put(Entity&lt;?&gt; arg0, Class&lt;R&gt; arg1)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;R&gt;</code>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="put(jakarta.ws.rs.client.Entity,jakarta.ws.rs.core.GenericType)"
+               role="method"
+               xml:id="org.osgi.service.jakartars.client.PromiseRxInvoker.put-jakarta.ws.rs.client.Entity-jakarta.ws.rs.core.GenericType-">
+         <title>public Promise&lt;R&gt; put(Entity&lt;?&gt; arg0, GenericType&lt;R&gt; arg1)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;R&gt;</code>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="put(jakarta.ws.rs.client.Entity)"
+               role="method"
+               xml:id="org.osgi.service.jakartars.client.PromiseRxInvoker.put-jakarta.ws.rs.client.Entity-">
+         <title>public Promise&lt;Response&gt; put(Entity&lt;?&gt; arg0)</title>
+         <para/>
+      </section>
+      <section xreflabel="trace()"
+               role="method"
+               xml:id="org.osgi.service.jakartars.client.PromiseRxInvoker.trace--">
+         <title>public Promise&lt;Response&gt; trace()</title>
+         <para/>
+      </section>
+      <section xreflabel="trace(Class)"
+               role="method"
+               xml:id="org.osgi.service.jakartars.client.PromiseRxInvoker.trace-Class-">
+         <title>public Promise&lt;R&gt; trace(Class&lt;R&gt; arg0)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;R&gt;</code>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="trace(jakarta.ws.rs.core.GenericType)"
+               role="method"
+               xml:id="org.osgi.service.jakartars.client.PromiseRxInvoker.trace-jakarta.ws.rs.core.GenericType-">
+         <title>public Promise&lt;R&gt; trace(GenericType&lt;R&gt; arg0)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;R&gt;</code>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="SseEventSourceFactory"
+            role="class"
+            xml:id="org.osgi.service.jakartars.client.SseEventSourceFactory">
+      <title>public interface SseEventSourceFactory</title>
+      <para>
+A factory for SseEventSource instances.
+ </para>
+      <para>
+ Bundles may obtain an instance of a <link linkend="org.osgi.service.jakartars.client.SseEventSourceFactory">SseEventSourceFactory</link> using the
+ service registry. This service may then be used to construct
+ SseEventSource instances for the supplied WebTarget.</para>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="newBuilder(jakarta.ws.rs.client.WebTarget)"
+               role="method"
+               xml:id="org.osgi.service.jakartars.client.SseEventSourceFactory.newBuilder-jakarta.ws.rs.client.WebTarget-">
+         <title>public SseEventSource.Builder newBuilder(WebTarget target)</title>
+         <formalpara role="parameter">
+            <title>target</title>
+            <para>The web target to consume events from</para>
+         </formalpara>
+         <para role="description">
+Create a new jakarta.ws.rs.sse.SseEventSource.Builder</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>a builder which can be used to further configure the event source</para>
+         </formalpara>
+      </section>
+      <section xreflabel="newSource(jakarta.ws.rs.client.WebTarget)"
+               role="method"
+               xml:id="org.osgi.service.jakartars.client.SseEventSourceFactory.newSource-jakarta.ws.rs.client.WebTarget-">
+         <title>public SseEventSource newSource(WebTarget target)</title>
+         <formalpara role="parameter">
+            <title>target</title>
+            <para>The web target to consume events from</para>
+         </formalpara>
+         <para role="description">
+Create a new SseEventSource</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>a configured event source</para>
+         </formalpara>
+      </section>
+   </section>
+</section>

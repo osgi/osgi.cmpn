@@ -1,0 +1,79 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.configurator.namespace"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.configurator.namespace">
+   <title>org.osgi.service.configurator.namespace</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.configurator.namespace-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.service.configurator.namespace-version.number">1.0</edition>
+   </info>
+   <para>
+Configurator Namespace Package Version 1.0.
+ </para>
+   <para>
+ Bundles should not need to import this package at runtime since all the types
+ in this package just contain constants for capability and requirement
+ namespaces specified by the OSGi Working Group.</para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.configurator.namespace.ConfigurationNamespace">
+                  <code>ConfigurationNamespace</code>
+               </link> - 
+Configuration Capability and Requirement Namespace.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="ConfigurationNamespace"
+            role="class"
+            xml:id="org.osgi.service.configurator.namespace.ConfigurationNamespace">
+      <title>public final class ConfigurationNamespace<?line-break?> extends Namespace</title>
+      <para>
+Configuration Capability and Requirement Namespace.
+
+ </para>
+      <para>
+ This class defines the names for the attributes and directives for this
+ namespace. All unspecified capability attributes are of type <code>String</code>
+ and are used as arbitrary matching attributes for the capability. The values
+ associated with the specified directive and attribute keys are of type
+ <code>String</code>, unless otherwise indicated.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Immutable </para>
+      </formalpara>
+      <section xreflabel="CONFIGURATION_NAMESPACE"
+               role="field"
+               xml:id="org.osgi.service.configurator.namespace.ConfigurationNamespace.CONFIGURATION_NAMESPACE">
+         <title>public static final String CONFIGURATION_NAMESPACE = "osgi.configuration"</title>
+         <para>
+Namespace name for configuration capabilities and requirements.
+
+ </para>
+         <para>
+ Also, the capability attribute used to specify the name of the extension.</para>
+      </section>
+      <section xreflabel="FACTORY_PID_ATTRIBUTE"
+               role="field"
+               xml:id="org.osgi.service.configurator.namespace.ConfigurationNamespace.FACTORY_PID_ATTRIBUTE">
+         <title>public static final String FACTORY_PID_ATTRIBUTE = "service.factoryPid"</title>
+         <para>
+The capability attribute contains the factory PID if this is a factory
+ configuration. The value of this attribute must be of type String.
+   </para>
+      </section>
+      <section xreflabel="SERVICE_PID_ATTRIBUTE"
+               role="field"
+               xml:id="org.osgi.service.configurator.namespace.ConfigurationNamespace.SERVICE_PID_ATTRIBUTE">
+         <title>public static final String SERVICE_PID_ATTRIBUTE = "service.pid"</title>
+         <para>
+The capability attribute contains the PID of the configuration. The value
+ of this attribute must be of type String.
+   </para>
+      </section>
+   </section>
+</section>

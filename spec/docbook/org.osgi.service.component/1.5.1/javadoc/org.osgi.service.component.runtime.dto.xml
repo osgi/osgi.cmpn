@@ -1,0 +1,893 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.component.runtime.dto"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.component.runtime.dto">
+   <title>org.osgi.service.component.runtime.dto</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.component.runtime.dto-version">Version 1.5</releaseinfo>
+      <edition xml:id="org.osgi.service.component.runtime.dto-version.number">1.5</edition>
+   </info>
+   <para>
+Service Component Runtime Data Transfer Objects Package Version 1.5.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.component.runtime.dto; version="[1.5,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.component.runtime.dto; version="[1.5,1.6)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.runtime.dto.ComponentConfigurationDTO">
+                  <code>ComponentConfigurationDTO</code>
+               </link> - 
+A representation of an actual instance of a declared component description
+ parameterized by component properties.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.runtime.dto.ComponentDescriptionDTO">
+                  <code>ComponentDescriptionDTO</code>
+               </link> - 
+A representation of a declared component description.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.runtime.dto.ReferenceDTO">
+                  <code>ReferenceDTO</code>
+               </link> - 
+A representation of a declared reference to a service.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.runtime.dto.SatisfiedReferenceDTO">
+                  <code>SatisfiedReferenceDTO</code>
+               </link> - 
+A representation of a satisfied reference.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.runtime.dto.UnsatisfiedReferenceDTO">
+                  <code>UnsatisfiedReferenceDTO</code>
+               </link> - 
+A representation of an unsatisfied reference.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="ComponentConfigurationDTO"
+            role="class"
+            xml:id="org.osgi.service.component.runtime.dto.ComponentConfigurationDTO">
+      <title>public class ComponentConfigurationDTO<?line-break?> extends DTO</title>
+      <para>
+A representation of an actual instance of a declared component description
+ parameterized by component properties.
+   </para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.3</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="ACTIVE"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentConfigurationDTO.ACTIVE">
+         <title>public static final int ACTIVE = 8</title>
+         <para>
+The component configuration is active.
+ 
+ </para>
+         <para>
+ This is the normal operational state of a component configuration.</para>
+      </section>
+      <section xreflabel="description"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentConfigurationDTO.description">
+         <title>public ComponentDescriptionDTO description</title>
+         <para>
+The representation of the component configuration's component
+ description.
+   </para>
+      </section>
+      <section xreflabel="FAILED_ACTIVATION"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentConfigurationDTO.FAILED_ACTIVATION">
+         <title>public static final int FAILED_ACTIVATION = 16</title>
+         <para>
+The component configuration failed to activate.
+ </para>
+         <para>
+ This means the component configuration is satisfied but that either:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>an exception occurred loading the implementation class,</para>
+            </listitem>
+            <listitem>
+               <para>the static initializer threw an exception,</para>
+            </listitem>
+            <listitem>
+               <para>the constructor threw an exception, or</para>
+            </listitem>
+            <listitem>
+               <para>the activate method threw an exception.</para>
+            </listitem>
+         </itemizedlist>
+         <para>
+ The failure information from the exception is available from
+ <link linkend="org.osgi.service.component.runtime.dto.ComponentConfigurationDTO.failure">failure</link>.
+   </para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.4</para>
+         </formalpara>
+      </section>
+      <section xreflabel="failure"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentConfigurationDTO.failure">
+         <title>public String failure</title>
+         <para>
+The failure information if the component configuration state is
+ <link linkend="org.osgi.service.component.runtime.dto.ComponentConfigurationDTO.FAILED_ACTIVATION">FAILED_ACTIVATION</link>.
+ </para>
+         <para>
+ This is the failure exception converted to a String using:
+ 
+ </para>
+         <programlisting> StringWriter sw = new StringWriter();
+ exception.printStackTrace(new PrintWriter(sw));
+ sw.toString();</programlisting>
+         <para>
+ 
+ This must be <code>null</code> if the component configuration state is not
+ <link linkend="org.osgi.service.component.runtime.dto.ComponentConfigurationDTO.FAILED_ACTIVATION">FAILED_ACTIVATION</link>.
+   </para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.4</para>
+         </formalpara>
+      </section>
+      <section xreflabel="id"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentConfigurationDTO.id">
+         <title>public long id</title>
+         <para>
+The id of the component configuration.
+ 
+ </para>
+         <para>
+ The id is a non-persistent, unique value assigned at runtime. The id is
+ also available as the <code>component.id</code> component property. The value
+ of this field is unspecified if the state of this component configuration
+ is unsatisfied.</para>
+      </section>
+      <section xreflabel="properties"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentConfigurationDTO.properties">
+         <title>public Map&lt;String, Object&gt; properties</title>
+         <para>
+The component properties for the component configuration.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.component.ComponentContext.getProperties--">ComponentContext.getProperties()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="SATISFIED"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentConfigurationDTO.SATISFIED">
+         <title>public static final int SATISFIED = 4</title>
+         <para>
+The component configuration is satisfied.
+ 
+ </para>
+         <para>
+ Any <link linkend="org.osgi.service.component.runtime.dto.ComponentDescriptionDTO.serviceInterfaces">services</link> declared
+ by the component description are registered.</para>
+      </section>
+      <section xreflabel="satisfiedReferences"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentConfigurationDTO.satisfiedReferences">
+         <title>public SatisfiedReferenceDTO[] satisfiedReferences</title>
+         <para>
+The satisfied references.
+ 
+ </para>
+         <para>
+ Each <link linkend="org.osgi.service.component.runtime.dto.SatisfiedReferenceDTO">SatisfiedReferenceDTO</link> in the array represents a satisfied
+ reference of the component configuration. The array must be empty if the
+ component configuration has no satisfied references.</para>
+      </section>
+      <section xreflabel="service"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentConfigurationDTO.service">
+         <title>public ServiceReferenceDTO service</title>
+         <para>
+The registered service of the component configuration.
+ </para>
+         <para>
+ This must be non-<code>null</code> if the component configuration is
+ registered as a service. Otherwise it must be <code>null</code>.</para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.4</para>
+         </formalpara>
+      </section>
+      <section xreflabel="state"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentConfigurationDTO.state">
+         <title>public int state</title>
+         <para>
+The current state of the component configuration.
+ </para>
+         <para>
+ This is one of <link linkend="org.osgi.service.component.runtime.dto.ComponentConfigurationDTO.UNSATISFIED_CONFIGURATION">UNSATISFIED_CONFIGURATION</link>,
+ <link linkend="org.osgi.service.component.runtime.dto.ComponentConfigurationDTO.UNSATISFIED_REFERENCE">UNSATISFIED_REFERENCE</link>, <link linkend="org.osgi.service.component.runtime.dto.ComponentConfigurationDTO.SATISFIED">SATISFIED</link>, <link linkend="org.osgi.service.component.runtime.dto.ComponentConfigurationDTO.ACTIVE">ACTIVE</link>, or
+ <link linkend="org.osgi.service.component.runtime.dto.ComponentConfigurationDTO.FAILED_ACTIVATION">FAILED_ACTIVATION</link>.</para>
+      </section>
+      <section xreflabel="UNSATISFIED_CONFIGURATION"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentConfigurationDTO.UNSATISFIED_CONFIGURATION">
+         <title>public static final int UNSATISFIED_CONFIGURATION = 1</title>
+         <para>
+The component configuration is unsatisfied due to a missing required
+ configuration.
+   </para>
+      </section>
+      <section xreflabel="UNSATISFIED_REFERENCE"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentConfigurationDTO.UNSATISFIED_REFERENCE">
+         <title>public static final int UNSATISFIED_REFERENCE = 2</title>
+         <para>
+The component configuration is unsatisfied due to an unsatisfied
+ reference.
+   </para>
+      </section>
+      <section xreflabel="unsatisfiedReferences"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentConfigurationDTO.unsatisfiedReferences">
+         <title>public UnsatisfiedReferenceDTO[] unsatisfiedReferences</title>
+         <para>
+The unsatisfied references.
+ 
+ </para>
+         <para>
+ Each <link linkend="org.osgi.service.component.runtime.dto.UnsatisfiedReferenceDTO">UnsatisfiedReferenceDTO</link> in the array represents an
+ unsatisfied reference of the component configuration. The array must be
+ empty if the component configuration has no unsatisfied references.</para>
+      </section>
+      <section xreflabel="ComponentConfigurationDTO()"
+               role="method"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentConfigurationDTO.ComponentConfigurationDTO--">
+         <title>public  ComponentConfigurationDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="ComponentDescriptionDTO"
+            role="class"
+            xml:id="org.osgi.service.component.runtime.dto.ComponentDescriptionDTO">
+      <title>public class ComponentDescriptionDTO<?line-break?> extends DTO</title>
+      <para>
+A representation of a declared component description.
+   </para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.3</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="activate"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentDescriptionDTO.activate">
+         <title>public String activate</title>
+         <para>
+The name of the activate method.
+ 
+ </para>
+         <para>
+ This is declared in the <code>activate</code> attribute of the
+ <code>component</code> element. This must be <code>null</code> if the component
+ description does not declare an activate method name.</para>
+      </section>
+      <section xreflabel="activationFields"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentDescriptionDTO.activationFields">
+         <title>public String[] activationFields</title>
+         <para>
+The activation fields.
+ </para>
+         <para>
+ These are declared in the <code>activation-fields</code> attribute of the
+ <code>component</code> element. The array must be empty if the component
+ description does not declare any activation fields.</para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.4</para>
+         </formalpara>
+      </section>
+      <section xreflabel="bundle"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentDescriptionDTO.bundle">
+         <title>public BundleDTO bundle</title>
+         <para>
+The bundle declaring the component description.
+   </para>
+      </section>
+      <section xreflabel="configurationPid"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentDescriptionDTO.configurationPid">
+         <title>public String[] configurationPid</title>
+         <para>
+The configuration pids.
+ 
+ </para>
+         <para>
+ These are declared in the <code>configuration-pid</code> attribute of the
+ <code>component</code> element. This must contain the default configuration
+ pid if the component description does not declare a configuration pid.</para>
+      </section>
+      <section xreflabel="configurationPolicy"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentDescriptionDTO.configurationPolicy">
+         <title>public String configurationPolicy</title>
+         <para>
+The configuration policy.
+ 
+ </para>
+         <para>
+ This is declared in the <code>configuration-policy</code> attribute of the
+ <code>component</code> element. This must be the default configuration policy
+ if the component description does not declare a configuration policy.</para>
+      </section>
+      <section xreflabel="deactivate"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentDescriptionDTO.deactivate">
+         <title>public String deactivate</title>
+         <para>
+The name of the deactivate method.
+ 
+ </para>
+         <para>
+ This is declared in the <code>deactivate</code> attribute of the
+ <code>component</code> element. This must be <code>null</code> if the component
+ description does not declare a deactivate method name.</para>
+      </section>
+      <section xreflabel="defaultEnabled"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentDescriptionDTO.defaultEnabled">
+         <title>public boolean defaultEnabled</title>
+         <para>
+The initial enabled state.
+ 
+ </para>
+         <para>
+ This is declared in the <code>enabled</code> attribute of the
+ <code>component</code> element.</para>
+      </section>
+      <section xreflabel="factory"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentDescriptionDTO.factory">
+         <title>public String factory</title>
+         <para>
+The component factory name.
+ 
+ </para>
+         <para>
+ This is declared in the <code>factory</code> attribute of the
+ <code>component</code> element. This must be <code>null</code> if the component
+ description is not declared as a factory component.</para>
+      </section>
+      <section xreflabel="factoryProperties"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentDescriptionDTO.factoryProperties">
+         <title>public Map&lt;String, Object&gt; factoryProperties</title>
+         <para>
+The factory properties.
+ </para>
+         <para>
+ These are declared in the component description by the
+ <code>factory-property</code> and <code>factory-properties</code> elements. This
+ must be <code>null</code> if the component description is not declared as a
+ <link linkend="org.osgi.service.component.runtime.dto.ComponentDescriptionDTO.factory">factory component</link>.</para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.4</para>
+         </formalpara>
+      </section>
+      <section xreflabel="immediate"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentDescriptionDTO.immediate">
+         <title>public boolean immediate</title>
+         <para>
+The immediate state.
+ 
+ </para>
+         <para>
+ This is declared in the <code>immediate</code> attribute of the
+ <code>component</code> element.</para>
+      </section>
+      <section xreflabel="implementationClass"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentDescriptionDTO.implementationClass">
+         <title>public String implementationClass</title>
+         <para>
+The fully qualified name of the implementation class.
+ 
+ </para>
+         <para>
+ This is declared in the <code>class</code> attribute of the
+ <code>implementation</code> element.</para>
+      </section>
+      <section xreflabel="init"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentDescriptionDTO.init">
+         <title>public int init</title>
+         <para>
+The constructor parameter count.
+ </para>
+         <para>
+ This is declared in the <code>init</code> attribute of the <code>component</code>
+ element. This must be <code>0</code> if the component description does not
+ declare an <code>init</code> attribute.</para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.4</para>
+         </formalpara>
+      </section>
+      <section xreflabel="modified"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentDescriptionDTO.modified">
+         <title>public String modified</title>
+         <para>
+The name of the modified method.
+ 
+ </para>
+         <para>
+ This is declared in the <code>modified</code> attribute of the
+ <code>component</code> element. This must be <code>null</code> if the component
+ description does not declare a modified method name.</para>
+      </section>
+      <section xreflabel="name"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentDescriptionDTO.name">
+         <title>public String name</title>
+         <para>
+The name of the component.
+ 
+ </para>
+         <para>
+ This is declared in the <code>name</code> attribute of the <code>component</code>
+ element. This must be the default name if the component description does
+ not declare a name.</para>
+      </section>
+      <section xreflabel="properties"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentDescriptionDTO.properties">
+         <title>public Map&lt;String, Object&gt; properties</title>
+         <para>
+The component properties.
+ </para>
+         <para>
+ These are declared in the component description by the <code>property</code>
+ and <code>properties</code> elements as well as the <code>target</code> attribute
+ of the <code>reference</code> elements.</para>
+      </section>
+      <section xreflabel="references"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentDescriptionDTO.references">
+         <title>public ReferenceDTO[] references</title>
+         <para>
+The referenced services.
+ 
+ </para>
+         <para>
+ These are declared in the <code>reference</code> elements. The array must be
+ empty if the component description does not declare references to any
+ services.</para>
+      </section>
+      <section xreflabel="scope"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentDescriptionDTO.scope">
+         <title>public String scope</title>
+         <para>
+The service scope.
+ 
+ </para>
+         <para>
+ This is declared in the <code>scope</code> attribute of the <code>service</code>
+ element. This must be <code>null</code> if the component description does not
+ declare any service interfaces.</para>
+      </section>
+      <section xreflabel="serviceInterfaces"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentDescriptionDTO.serviceInterfaces">
+         <title>public String[] serviceInterfaces</title>
+         <para>
+The fully qualified names of the service interfaces.
+ 
+ </para>
+         <para>
+ These are declared in the <code>interface</code> attribute of the
+ <code>provide</code> elements. The array must be empty if the component
+ description does not declare any service interfaces.</para>
+      </section>
+      <section xreflabel="ComponentDescriptionDTO()"
+               role="method"
+               xml:id="org.osgi.service.component.runtime.dto.ComponentDescriptionDTO.ComponentDescriptionDTO--">
+         <title>public  ComponentDescriptionDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="ReferenceDTO"
+            role="class"
+            xml:id="org.osgi.service.component.runtime.dto.ReferenceDTO">
+      <title>public class ReferenceDTO<?line-break?> extends DTO</title>
+      <para>
+A representation of a declared reference to a service.
+   </para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.3</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="bind"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ReferenceDTO.bind">
+         <title>public String bind</title>
+         <para>
+The name of the bind method of the reference.
+ 
+ </para>
+         <para>
+ This is declared in the <code>bind</code> attribute of the <code>reference</code>
+ element. This must be <code>null</code> if the component description does not
+ declare a bind method for the reference.</para>
+      </section>
+      <section xreflabel="cardinality"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ReferenceDTO.cardinality">
+         <title>public String cardinality</title>
+         <para>
+The cardinality of the reference.
+ 
+ </para>
+         <para>
+ This is declared in the <code>cardinality</code> attribute of the
+ <code>reference</code> element. This must be the default cardinality if the
+ component description does not declare a cardinality for the reference.</para>
+      </section>
+      <section xreflabel="collectionType"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ReferenceDTO.collectionType">
+         <title>public String collectionType</title>
+         <para>
+The collection type for the reference.
+ </para>
+         <para>
+ This is declared in the <code>field-collection-type</code> attribute of the
+ <code>reference</code> element. This must be <code>null</code> if the component
+ description does not declare a collection type for the reference.</para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.4</para>
+         </formalpara>
+      </section>
+      <section xreflabel="field"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ReferenceDTO.field">
+         <title>public String field</title>
+         <para>
+The name of the field of the reference.
+ 
+ </para>
+         <para>
+ This is declared in the <code>field</code> attribute of the <code>reference</code>
+ element. This must be <code>null</code> if the component description does not
+ declare a field for the reference.</para>
+      </section>
+      <section xreflabel="fieldOption"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ReferenceDTO.fieldOption">
+         <title>public String fieldOption</title>
+         <para>
+The field option of the reference.
+ 
+ </para>
+         <para>
+ This is declared in the <code>field-option</code> attribute of the
+ <code>reference</code> element. This must be <code>null</code> if the component
+ description does not declare a field for the reference.</para>
+      </section>
+      <section xreflabel="interfaceName"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ReferenceDTO.interfaceName">
+         <title>public String interfaceName</title>
+         <para>
+The service interface of the reference.
+ 
+ </para>
+         <para>
+ This is declared in the <code>interface</code> attribute of the
+ <code>reference</code> element.</para>
+      </section>
+      <section xreflabel="name"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ReferenceDTO.name">
+         <title>public String name</title>
+         <para>
+The name of the reference.
+ 
+ </para>
+         <para>
+ This is declared in the <code>name</code> attribute of the <code>reference</code>
+ element. This must be the default name if the component description does
+ not declare a name for the reference.</para>
+      </section>
+      <section xreflabel="parameter"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ReferenceDTO.parameter">
+         <title>public Integer parameter</title>
+         <para>
+The zero-based parameter number of the constructor parameter for the
+ reference.
+ </para>
+         <para>
+ This is declared in the <code>parameter</code> attribute of the
+ <code>reference</code> element. This must be <code>null</code> if the component
+ description does not declare a parameter number for the reference.</para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.4</para>
+         </formalpara>
+      </section>
+      <section xreflabel="policy"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ReferenceDTO.policy">
+         <title>public String policy</title>
+         <para>
+The policy of the reference.
+ 
+ </para>
+         <para>
+ This is declared in the <code>policy</code> attribute of the <code>reference</code>
+ element. This must be the default policy if the component description
+ does not declare a policy for the reference.</para>
+      </section>
+      <section xreflabel="policyOption"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ReferenceDTO.policyOption">
+         <title>public String policyOption</title>
+         <para>
+The policy option of the reference.
+ 
+ </para>
+         <para>
+ This is declared in the <code>policy-option</code> attribute of the
+ <code>reference</code> element. This must be the default policy option if the
+ component description does not declare a policy option for the reference.</para>
+      </section>
+      <section xreflabel="scope"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ReferenceDTO.scope">
+         <title>public String scope</title>
+         <para>
+The scope of the reference.
+ 
+ </para>
+         <para>
+ This is declared in the <code>scope</code> attribute of the <code>reference</code>
+ element. This must be the default scope if the component description does
+ not declare a scope for the reference.</para>
+      </section>
+      <section xreflabel="target"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ReferenceDTO.target">
+         <title>public String target</title>
+         <para>
+The target of the reference.
+ 
+ </para>
+         <para>
+ This is declared in the <code>target</code> attribute of the <code>reference</code>
+ element. This must be <code>null</code> if the component description does not
+ declare a target for the reference.</para>
+      </section>
+      <section xreflabel="unbind"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ReferenceDTO.unbind">
+         <title>public String unbind</title>
+         <para>
+The name of the unbind method of the reference.
+ 
+ </para>
+         <para>
+ This is declared in the <code>unbind</code> attribute of the <code>reference</code>
+ element. This must be <code>null</code> if the component description does not
+ declare an unbind method for the reference.</para>
+      </section>
+      <section xreflabel="updated"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.ReferenceDTO.updated">
+         <title>public String updated</title>
+         <para>
+The name of the updated method of the reference.
+ 
+ </para>
+         <para>
+ This is declared in the <code>updated</code> attribute of the
+ <code>reference</code> element. This must be <code>null</code> if the component
+ description does not declare an updated method for the reference.</para>
+      </section>
+      <section xreflabel="ReferenceDTO()"
+               role="method"
+               xml:id="org.osgi.service.component.runtime.dto.ReferenceDTO.ReferenceDTO--">
+         <title>public  ReferenceDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="SatisfiedReferenceDTO"
+            role="class"
+            xml:id="org.osgi.service.component.runtime.dto.SatisfiedReferenceDTO">
+      <title>public class SatisfiedReferenceDTO<?line-break?> extends DTO</title>
+      <para>
+A representation of a satisfied reference.
+   </para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.3</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="boundServices"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.SatisfiedReferenceDTO.boundServices">
+         <title>public ServiceReferenceDTO[] boundServices</title>
+         <para>
+The bound services.
+ 
+ </para>
+         <para>
+ Each <link linkend="org.osgi.framework.dto.ServiceReferenceDTO">ServiceReferenceDTO</link> in the array represents a service bound
+ to the satisfied reference. The array must be empty if there are no bound
+ services.</para>
+      </section>
+      <section xreflabel="name"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.SatisfiedReferenceDTO.name">
+         <title>public String name</title>
+         <para>
+The name of the declared reference.
+ 
+ </para>
+         <para>
+ This is declared in the <code>name</code> attribute of the <code>reference</code>
+ element of the component description.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.component.runtime.dto.ReferenceDTO.name">ReferenceDTO.name</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="target"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.SatisfiedReferenceDTO.target">
+         <title>public String target</title>
+         <para>
+The target property of the satisfied reference.
+ 
+ </para>
+         <para>
+ This is the value of the <link linkend="org.osgi.service.component.runtime.dto.ComponentConfigurationDTO.properties">component property</link> whose name is the concatenation of the
+ <link linkend="org.osgi.service.component.runtime.dto.ReferenceDTO.name">declared reference name</link> and
+ ".target". This must be <code>null</code> if no target property is
+ set for the reference.</para>
+      </section>
+      <section xreflabel="SatisfiedReferenceDTO()"
+               role="method"
+               xml:id="org.osgi.service.component.runtime.dto.SatisfiedReferenceDTO.SatisfiedReferenceDTO--">
+         <title>public  SatisfiedReferenceDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="UnsatisfiedReferenceDTO"
+            role="class"
+            xml:id="org.osgi.service.component.runtime.dto.UnsatisfiedReferenceDTO">
+      <title>public class UnsatisfiedReferenceDTO<?line-break?> extends DTO</title>
+      <para>
+A representation of an unsatisfied reference.
+   </para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.3</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="name"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.UnsatisfiedReferenceDTO.name">
+         <title>public String name</title>
+         <para>
+The name of the declared reference.
+ 
+ </para>
+         <para>
+ This is declared in the <code>name</code> attribute of the <code>reference</code>
+ element of the component description.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.component.runtime.dto.ReferenceDTO.name">ReferenceDTO.name</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="target"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.UnsatisfiedReferenceDTO.target">
+         <title>public String target</title>
+         <para>
+The target property of the unsatisfied reference.
+ 
+ </para>
+         <para>
+ This is the value of the <link linkend="org.osgi.service.component.runtime.dto.ComponentConfigurationDTO.properties">component property</link> whose name is the concatenation of the
+ <link linkend="org.osgi.service.component.runtime.dto.ReferenceDTO.name">declared reference name</link> and
+ ".target". This must be <code>null</code> if no target property is
+ set for the reference.</para>
+      </section>
+      <section xreflabel="targetServices"
+               role="field"
+               xml:id="org.osgi.service.component.runtime.dto.UnsatisfiedReferenceDTO.targetServices">
+         <title>public ServiceReferenceDTO[] targetServices</title>
+         <para>
+The target services.
+ 
+ </para>
+         <para>
+ Each <link linkend="org.osgi.framework.dto.ServiceReferenceDTO">ServiceReferenceDTO</link> in the array represents a target service
+ for the reference. The array must be empty if there are no target
+ services. The upper bound on the number of target services in the array
+ is the upper bound on the <link linkend="org.osgi.service.component.runtime.dto.ReferenceDTO.cardinality">cardinality</link> of
+ the reference.</para>
+      </section>
+      <section xreflabel="UnsatisfiedReferenceDTO()"
+               role="method"
+               xml:id="org.osgi.service.component.runtime.dto.UnsatisfiedReferenceDTO.UnsatisfiedReferenceDTO--">
+         <title>public  UnsatisfiedReferenceDTO()</title>
+         <para/>
+      </section>
+   </section>
+</section>

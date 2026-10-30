@@ -1,0 +1,550 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.device"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.device">
+   <title>org.osgi.service.device</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.device-version">Version 1.1</releaseinfo>
+      <edition xml:id="org.osgi.service.device-version.number">1.1</edition>
+   </info>
+   <para>
+Device Access Package Version 1.1.
+ 
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ 
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.device; version="[1.1,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.device; version="[1.1,1.2)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.device.Constants">
+                  <code>Constants</code>
+               </link> - 
+This interface defines standard names for property keys associated with
+ <link linkend="org.osgi.service.device.Device">Device</link> and <link linkend="org.osgi.service.device.Driver">Driver</link> services.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.device.Device">
+                  <code>Device</code>
+               </link> - 
+ Interface for identifying device services.</para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.device.Driver">
+                  <code>Driver</code>
+               </link> - 
+A <code>Driver</code> service object must be registered by each Driver bundle
+ wishing to attach to Device services provided by other drivers.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.device.DriverLocator">
+                  <code>DriverLocator</code>
+               </link> - 
+A Driver Locator service can find and load device driver bundles given a
+ property set.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.device.DriverSelector">
+                  <code>DriverSelector</code>
+               </link> - 
+When the device manager detects a new Device service, it calls all registered
+ Driver services to determine if anyone matches the Device service.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.device.Match">
+                  <code>Match</code>
+               </link> - 
+Instances of <code>Match</code> are used in the
+ <link linkend="org.osgi.service.device.DriverSelector.select-ServiceReference-Match---">DriverSelector.select(ServiceReference, Match[])</link> method to identify
+ Driver services matching a Device service.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="Constants"
+            role="class"
+            xml:id="org.osgi.service.device.Constants">
+      <title>public interface Constants</title>
+      <para>
+This interface defines standard names for property keys associated with
+ <link linkend="org.osgi.service.device.Device">Device</link> and <link linkend="org.osgi.service.device.Driver">Driver</link> services.
+ 
+ </para>
+      <para>
+ The values associated with these keys are of type <code>java.lang.String</code>,
+ unless otherwise stated.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <link linkend="org.osgi.service.device.Device">Device</link>, <link linkend="org.osgi.service.device.Driver">Driver</link>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.1</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>No Implement</title>
+         <para>Consumers of this API must not implement this interface</para>
+      </formalpara>
+      <section xreflabel="DEVICE_CATEGORY"
+               role="field"
+               xml:id="org.osgi.service.device.Constants.DEVICE_CATEGORY">
+         <title>public static final String DEVICE_CATEGORY = "DEVICE_CATEGORY"</title>
+         <para>
+Property (named "DEVICE_CATEGORY") containing a human readable
+ description of the device categories implemented by a device. This
+ property is of type <code>String[]</code>
+         </para>
+         <para>
+ Services registered with this property will be treated as devices and
+ discovered by the device manager</para>
+      </section>
+      <section xreflabel="DEVICE_DESCRIPTION"
+               role="field"
+               xml:id="org.osgi.service.device.Constants.DEVICE_DESCRIPTION">
+         <title>public static final String DEVICE_DESCRIPTION = "DEVICE_DESCRIPTION"</title>
+         <para>
+Property (named "DEVICE_DESCRIPTION") containing a human
+ readable string describing the actual hardware device.
+   </para>
+      </section>
+      <section xreflabel="DEVICE_SERIAL"
+               role="field"
+               xml:id="org.osgi.service.device.Constants.DEVICE_SERIAL">
+         <title>public static final String DEVICE_SERIAL = "DEVICE_SERIAL"</title>
+         <para>
+Property (named "DEVICE_SERIAL") specifying a device's serial
+ number.
+   </para>
+      </section>
+      <section xreflabel="DRIVER_ID"
+               role="field"
+               xml:id="org.osgi.service.device.Constants.DRIVER_ID">
+         <title>public static final String DRIVER_ID = "DRIVER_ID"</title>
+         <para>
+Property (named "DRIVER_ID") identifying a driver.
+ 
+ </para>
+         <para>
+ A <code>DRIVER_ID</code> should start with the reversed domain name of the
+ company that implemented the driver (e.g., <code>com.acme</code>), and must
+ meet the following requirements:
+ 
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>It must be independent of the location from where it is obtained.</para>
+            </listitem>
+            <listitem>
+               <para>It must be independent of the <link linkend="org.osgi.service.device.DriverLocator">DriverLocator</link> service that
+ downloaded it.</para>
+            </listitem>
+            <listitem>
+               <para>It must be unique.</para>
+            </listitem>
+            <listitem>
+               <para>It must be different for different revisions of the same driver.</para>
+            </listitem>
+         </itemizedlist>
+         <para>
+ This property is mandatory, i.e., every <code>Driver</code> service must be
+ registered with it.</para>
+      </section>
+   </section>
+   <section xreflabel="Device"
+            role="class"
+            xml:id="org.osgi.service.device.Device">
+      <title>public interface Device</title>
+      <para>
+ Interface for identifying device services.
+ 
+ </para>
+      <para>
+ A service must implement this interface or use the
+ <link linkend="org.osgi.service.device.Constants.DEVICE_CATEGORY">Constants.DEVICE_CATEGORY</link> registration property to indicate that it
+ is a device. Any services implementing this interface or registered with the
+ <code>DEVICE_CATEGORY</code> property will be discovered by the device manager.
+ 
+ </para>
+      <para>
+ Device services implementing this interface give the device manager the
+ opportunity to indicate to the device that no drivers were found that could
+ (further) refine it. In this case, the device manager calls the
+ <link linkend="org.osgi.service.device.Device.noDriverFound--">noDriverFound()</link> method on the <code>Device</code> object.
+ 
+ </para>
+      <para>
+ Specialized device implementations will extend this interface by adding
+ methods appropriate to their device category to it.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <link linkend="org.osgi.service.device.Driver">Driver</link>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="MATCH_NONE"
+               role="field"
+               xml:id="org.osgi.service.device.Device.MATCH_NONE">
+         <title>public static final int MATCH_NONE = 0</title>
+         <para>
+Return value from <link linkend="org.osgi.service.device.Driver.match-ServiceReference-">Driver.match(ServiceReference)</link> indicating that
+ the driver cannot refine the device presented to it by the device
+ manager.
+ 
+ The value is zero.
+   </para>
+      </section>
+      <section xreflabel="noDriverFound()"
+               role="method"
+               xml:id="org.osgi.service.device.Device.noDriverFound--">
+         <title>public void noDriverFound()</title>
+         <para role="description">
+Indicates to this <code>Device</code> object that the device manager has
+ failed to attach any drivers to it.
+ 
+ </para>
+         <para>
+ If this <code>Device</code> object can be configured differently, the driver
+ that registered this <code>Device</code> object may unregister it and register
+ a different Device service instead.</para>
+      </section>
+   </section>
+   <section xreflabel="Driver"
+            role="class"
+            xml:id="org.osgi.service.device.Driver">
+      <title>public interface Driver</title>
+      <para>
+A <code>Driver</code> service object must be registered by each Driver bundle
+ wishing to attach to Device services provided by other drivers. For each
+ newly discovered <link linkend="org.osgi.service.device.Device">Device</link> object, the device manager enters a bidding
+ phase. The <code>Driver</code> object whose <link linkend="org.osgi.service.device.Driver.match-ServiceReference-">match(ServiceReference)</link>
+ method bids the highest for a particular <code>Device</code> object will be
+ instructed by the device manager to attach to the <code>Device</code> object.
+   </para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <link linkend="org.osgi.service.device.Device">Device</link>, <link linkend="org.osgi.service.device.DriverLocator">DriverLocator</link>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="attach(ServiceReference)"
+               role="method"
+               xml:id="org.osgi.service.device.Driver.attach-ServiceReference-">
+         <title>public String attach(ServiceReference&lt;?&gt; reference) throws Exception</title>
+         <formalpara role="parameter">
+            <title>reference</title>
+            <para>the <code>ServiceReference</code> object of the device to
+        attach to</para>
+         </formalpara>
+         <para role="description">
+Attaches this Driver service to the Device service represented by the
+ given <code>ServiceReference</code> object.
+ 
+ </para>
+         <para>
+ A return value of <code>null</code> indicates that this Driver service has
+ successfully attached to the given Device service. If this Driver service
+ is unable to attach to the given Device service, but knows of a more
+ suitable Driver service, it must return the <code>DRIVER_ID</code> of that
+ Driver service. This allows for the implementation of referring drivers
+ whose only purpose is to refer to other drivers capable of handling a
+ given Device service.
+ 
+ </para>
+         <para>
+ After having attached to the Device service, this driver may register the
+ underlying device as a new service exposing driver-specific
+ functionality.
+ 
+ </para>
+         <para>
+ This method is called by the device manager.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>null</code> if this Driver service has successfully attached to
+         the given Device service, or the <code>DRIVER_ID</code> of a more
+         suitable driver</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– if the driver cannot attach to the given
+         device and does not know of a more suitable driver</para>
+         </formalpara>
+      </section>
+      <section xreflabel="match(ServiceReference)"
+               role="method"
+               xml:id="org.osgi.service.device.Driver.match-ServiceReference-">
+         <title>public int match(ServiceReference&lt;?&gt; reference) throws Exception</title>
+         <formalpara role="parameter">
+            <title>reference</title>
+            <para>the <code>ServiceReference</code> object of the device to
+        match</para>
+         </formalpara>
+         <para role="description">
+Checks whether this Driver service can be attached to the Device service.
+ 
+ The Device service is represented by the given <link linkend="org.osgi.framework.ServiceReference">ServiceReference</link>
+ and returns a value indicating how well this driver can support the given
+ Device service, or <link linkend="org.osgi.service.device.Device.MATCH_NONE">Device.MATCH_NONE</link> if it cannot support the
+ given Device service at all.
+ 
+ </para>
+         <para>
+ The return value must be one of the possible match values defined in the
+ device category definition for the given Device service, or
+ <code>Device.MATCH_NONE</code> if the category of the Device service is not
+ recognized.
+ 
+ </para>
+         <para>
+ In order to make its decision, this Driver service may examine the
+ properties associated with the given Device service, or may get the
+ referenced service object (representing the actual physical device) to
+ talk to it, as long as it ungets the service and returns the physical
+ device to a normal state before this method returns.
+ 
+ </para>
+         <para>
+ A Driver service must always return the same match code whenever it is
+ presented with the same Device service.
+ 
+ </para>
+         <para>
+ The match function is called by the device manager during the matching
+ process.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>value indicating how well this driver can support the given
+         Device service, or <code>Device.MATCH_NONE</code> if it cannot support
+         the Device service at all</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– if this Driver service cannot examine the
+         Device service</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="DriverLocator"
+            role="class"
+            xml:id="org.osgi.service.device.DriverLocator">
+      <title>public interface DriverLocator</title>
+      <para>
+A Driver Locator service can find and load device driver bundles given a
+ property set. Each driver is represented by a unique <code>DRIVER_ID</code>.
+ </para>
+      <para>
+ Driver Locator services provide the mechanism for dynamically downloading new
+ device driver bundles into an OSGi environment. They are supplied by
+ providers and encapsulate all provider-specific details related to the
+ location and acquisition of driver bundles.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <link linkend="org.osgi.service.device.Driver">Driver</link>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="findDrivers(Dictionary)"
+               role="method"
+               xml:id="org.osgi.service.device.DriverLocator.findDrivers-Dictionary-">
+         <title>public String[] findDrivers(Dictionary&lt;String, ?&gt; props)</title>
+         <formalpara role="parameter">
+            <title>props</title>
+            <para>the properties of the device for which a driver is sought</para>
+         </formalpara>
+         <para role="description">
+Returns an array of <code>DRIVER_ID</code> strings of drivers capable of
+ attaching to a device with the given properties.
+ 
+ </para>
+         <para>
+ The property keys in the specified <code>Dictionary</code> objects are
+ case-insensitive.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>array of driver <code>DRIVER_ID</code> strings of drivers capable of
+         attaching to a Device service with the given properties, or
+         <code>null</code> if this Driver Locator service does not know of any
+         such drivers</para>
+         </formalpara>
+      </section>
+      <section xreflabel="loadDriver(String)"
+               role="method"
+               xml:id="org.osgi.service.device.DriverLocator.loadDriver-String-">
+         <title>public InputStream loadDriver(String id) throws IOException</title>
+         <formalpara role="parameter">
+            <title>id</title>
+            <para>the <code>DRIVER_ID</code> of the driver that needs to be installed.</para>
+         </formalpara>
+         <para role="description">
+Get an <code>InputStream</code> from which the driver bundle providing a
+ driver with the giving <code>DRIVER_ID</code> can be installed.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An <code>InputStream</code> object from which the driver bundle can be
+         installed or <code>null</code> if the driver with the given ID cannot
+         be located</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IOException</code>– the input stream for the bundle cannot be
+         created</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="DriverSelector"
+            role="class"
+            xml:id="org.osgi.service.device.DriverSelector">
+      <title>public interface DriverSelector</title>
+      <para>
+When the device manager detects a new Device service, it calls all registered
+ Driver services to determine if anyone matches the Device service. If at
+ least one Driver service matches, the device manager must choose one. If
+ there is a Driver Selector service registered with the Framework, the device
+ manager will ask it to make the selection. If there is no Driver Selector
+ service, or if it returns an invalid result, or throws an <code>Exception</code>,
+ the device manager uses the default selection strategy.
+   </para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.1</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="SELECT_NONE"
+               role="field"
+               xml:id="org.osgi.service.device.DriverSelector.SELECT_NONE">
+         <title>public static final int SELECT_NONE = -1</title>
+         <para>
+Return value from <code>DriverSelector.select</code>, if no Driver service
+ should be attached to the Device service. The value is -1.
+   </para>
+      </section>
+      <section xreflabel="select(ServiceReference,Match[])"
+               role="method"
+               xml:id="org.osgi.service.device.DriverSelector.select-ServiceReference-Match---">
+         <title>public int select(ServiceReference&lt;?&gt; reference, Match[] matches)</title>
+         <formalpara role="parameter">
+            <title>reference</title>
+            <para>the <code>ServiceReference</code> object of the Device
+        service.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>matches</title>
+            <para>the array of all non-zero matches.</para>
+         </formalpara>
+         <para role="description">
+Select one of the matching Driver services. The device manager calls this
+ method if there is at least one driver bidding for a device. Only Driver
+ services that have responded with nonzero (not <link linkend="org.osgi.service.device.Device.MATCH_NONE">Device.MATCH_NONE</link>)
+ <code/> match values will be included in the list.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>index into the array of <code>Match</code> objects, or
+         <code>SELECT_NONE</code> if no Driver service should be attached</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="Match"
+            role="class"
+            xml:id="org.osgi.service.device.Match">
+      <title>public interface Match</title>
+      <para>
+Instances of <code>Match</code> are used in the
+ <link linkend="org.osgi.service.device.DriverSelector.select-ServiceReference-Match---">DriverSelector.select(ServiceReference, Match[])</link> method to identify
+ Driver services matching a Device service.
+   </para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <link linkend="org.osgi.service.device.DriverSelector">DriverSelector</link>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.1</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>No Implement</title>
+         <para>Consumers of this API must not implement this interface</para>
+      </formalpara>
+      <section xreflabel="getDriver()"
+               role="method"
+               xml:id="org.osgi.service.device.Match.getDriver--">
+         <title>public ServiceReference&lt;?&gt; getDriver()</title>
+         <para role="description">
+Return the reference to a Driver service.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>ServiceReference</code> object to a Driver service.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getMatchValue()"
+               role="method"
+               xml:id="org.osgi.service.device.Match.getMatchValue--">
+         <title>public int getMatchValue()</title>
+         <para role="description">
+Return the match value of this object.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>the match value returned by this Driver service.</para>
+         </formalpara>
+      </section>
+   </section>
+</section>

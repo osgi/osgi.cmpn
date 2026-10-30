@@ -1,0 +1,426 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.jdbc"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.jdbc">
+   <title>org.osgi.service.jdbc</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.jdbc-version">Version 1.1</releaseinfo>
+      <edition xml:id="org.osgi.service.jdbc-version.number">1.1</edition>
+   </info>
+   <para>
+JDBC Service Package Version 1.1.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.jdbc; version="[1.1,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.jdbc; version="[1.1,1.2)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.jdbc.DataSourceFactory">
+                  <code>DataSourceFactory</code>
+               </link> - 
+A factory for JDBC connection factories.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="DataSourceFactory"
+            role="class"
+            xml:id="org.osgi.service.jdbc.DataSourceFactory">
+      <title>public interface DataSourceFactory</title>
+      <para>
+A factory for JDBC connection factories. There are 3 preferred connection
+ factories for getting JDBC connections: <code>javax.sql.DataSource</code>,
+ <code>javax.sql.ConnectionPoolDataSource</code>, and
+ <code>javax.sql.XADataSource</code>.
+ 
+ DataSource providers should implement this interface and register it as an
+ OSGi service with the JDBC driver class name in the
+ <link linkend="org.osgi.service.jdbc.DataSourceFactory.OSGI_JDBC_DRIVER_CLASS">OSGI_JDBC_DRIVER_CLASS</link> property.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="JDBC_DATABASE_NAME"
+               role="field"
+               xml:id="org.osgi.service.jdbc.DataSourceFactory.JDBC_DATABASE_NAME">
+         <title>public static final String JDBC_DATABASE_NAME = "databaseName"</title>
+         <para>
+The "databaseName" property that DataSource clients should supply a value
+ for when calling <link linkend="org.osgi.service.jdbc.DataSourceFactory.createDataSource-Properties-">createDataSource(Properties)</link>.
+   </para>
+      </section>
+      <section xreflabel="JDBC_DATASOURCE_NAME"
+               role="field"
+               xml:id="org.osgi.service.jdbc.DataSourceFactory.JDBC_DATASOURCE_NAME">
+         <title>public static final String JDBC_DATASOURCE_NAME = "dataSourceName"</title>
+         <para>
+The "dataSourceName" property that DataSource clients should supply a
+ value for when calling <link linkend="org.osgi.service.jdbc.DataSourceFactory.createDataSource-Properties-">createDataSource(Properties)</link>.
+   </para>
+      </section>
+      <section xreflabel="JDBC_DESCRIPTION"
+               role="field"
+               xml:id="org.osgi.service.jdbc.DataSourceFactory.JDBC_DESCRIPTION">
+         <title>public static final String JDBC_DESCRIPTION = "description"</title>
+         <para>
+The "description" property that DataSource clients should supply a value
+ for when calling <link linkend="org.osgi.service.jdbc.DataSourceFactory.createDataSource-Properties-">createDataSource(Properties)</link>.
+   </para>
+      </section>
+      <section xreflabel="JDBC_INITIAL_POOL_SIZE"
+               role="field"
+               xml:id="org.osgi.service.jdbc.DataSourceFactory.JDBC_INITIAL_POOL_SIZE">
+         <title>public static final String JDBC_INITIAL_POOL_SIZE = "initialPoolSize"</title>
+         <para>
+The "initialPoolSize" property that ConnectionPoolDataSource and
+ XADataSource clients may supply a value for when calling
+ <link linkend="org.osgi.service.jdbc.DataSourceFactory.createConnectionPoolDataSource-Properties-">createConnectionPoolDataSource(Properties)</link> or
+ <link linkend="org.osgi.service.jdbc.DataSourceFactory.createXADataSource-Properties-">createXADataSource(Properties)</link> on drivers that support this
+ property.
+   </para>
+      </section>
+      <section xreflabel="JDBC_MAX_IDLE_TIME"
+               role="field"
+               xml:id="org.osgi.service.jdbc.DataSourceFactory.JDBC_MAX_IDLE_TIME">
+         <title>public static final String JDBC_MAX_IDLE_TIME = "maxIdleTime"</title>
+         <para>
+The "maxIdleTime" property that ConnectionPoolDataSource and XADataSource
+ clients may supply a value for when calling
+ <link linkend="org.osgi.service.jdbc.DataSourceFactory.createConnectionPoolDataSource-Properties-">createConnectionPoolDataSource(Properties)</link> or
+ <link linkend="org.osgi.service.jdbc.DataSourceFactory.createXADataSource-Properties-">createXADataSource(Properties)</link> on drivers that support this
+ property.
+   </para>
+      </section>
+      <section xreflabel="JDBC_MAX_POOL_SIZE"
+               role="field"
+               xml:id="org.osgi.service.jdbc.DataSourceFactory.JDBC_MAX_POOL_SIZE">
+         <title>public static final String JDBC_MAX_POOL_SIZE = "maxPoolSize"</title>
+         <para>
+The "maxPoolSize" property that ConnectionPoolDataSource and XADataSource
+ clients may supply a value for when calling
+ <link linkend="org.osgi.service.jdbc.DataSourceFactory.createConnectionPoolDataSource-Properties-">createConnectionPoolDataSource(Properties)</link> or
+ <link linkend="org.osgi.service.jdbc.DataSourceFactory.createXADataSource-Properties-">createXADataSource(Properties)</link> on drivers that support this
+ property.
+   </para>
+      </section>
+      <section xreflabel="JDBC_MAX_STATEMENTS"
+               role="field"
+               xml:id="org.osgi.service.jdbc.DataSourceFactory.JDBC_MAX_STATEMENTS">
+         <title>public static final String JDBC_MAX_STATEMENTS = "maxStatements"</title>
+         <para>
+The "maxStatements" property that ConnectionPoolDataSource and
+ XADataSource clients may supply a value for when calling
+ <link linkend="org.osgi.service.jdbc.DataSourceFactory.createConnectionPoolDataSource-Properties-">createConnectionPoolDataSource(Properties)</link> or
+ <link linkend="org.osgi.service.jdbc.DataSourceFactory.createXADataSource-Properties-">createXADataSource(Properties)</link> on drivers that support this
+ property.
+   </para>
+      </section>
+      <section xreflabel="JDBC_MIN_POOL_SIZE"
+               role="field"
+               xml:id="org.osgi.service.jdbc.DataSourceFactory.JDBC_MIN_POOL_SIZE">
+         <title>public static final String JDBC_MIN_POOL_SIZE = "minPoolSize"</title>
+         <para>
+The "minPoolSize" property that ConnectionPoolDataSource and XADataSource
+ clients may supply a value for when calling
+ <link linkend="org.osgi.service.jdbc.DataSourceFactory.createConnectionPoolDataSource-Properties-">createConnectionPoolDataSource(Properties)</link> or
+ <link linkend="org.osgi.service.jdbc.DataSourceFactory.createXADataSource-Properties-">createXADataSource(Properties)</link> on drivers that support this
+ property.
+   </para>
+      </section>
+      <section xreflabel="JDBC_NETWORK_PROTOCOL"
+               role="field"
+               xml:id="org.osgi.service.jdbc.DataSourceFactory.JDBC_NETWORK_PROTOCOL">
+         <title>public static final String JDBC_NETWORK_PROTOCOL = "networkProtocol"</title>
+         <para>
+The "networkProtocol" property that DataSource clients should supply a
+ value for when calling <link linkend="org.osgi.service.jdbc.DataSourceFactory.createDataSource-Properties-">createDataSource(Properties)</link>.
+   </para>
+      </section>
+      <section xreflabel="JDBC_PASSWORD"
+               role="field"
+               xml:id="org.osgi.service.jdbc.DataSourceFactory.JDBC_PASSWORD">
+         <title>public static final String JDBC_PASSWORD = "password"</title>
+         <para>
+The "password" property that DataSource clients should supply a value for
+ when calling <link linkend="org.osgi.service.jdbc.DataSourceFactory.createDataSource-Properties-">createDataSource(Properties)</link>.
+   </para>
+      </section>
+      <section xreflabel="JDBC_PORT_NUMBER"
+               role="field"
+               xml:id="org.osgi.service.jdbc.DataSourceFactory.JDBC_PORT_NUMBER">
+         <title>public static final String JDBC_PORT_NUMBER = "portNumber"</title>
+         <para>
+The "portNumber" property that DataSource clients should supply a value
+ for when calling <link linkend="org.osgi.service.jdbc.DataSourceFactory.createDataSource-Properties-">createDataSource(Properties)</link>.
+   </para>
+      </section>
+      <section xreflabel="JDBC_PROPERTY_CYCLE"
+               role="field"
+               xml:id="org.osgi.service.jdbc.DataSourceFactory.JDBC_PROPERTY_CYCLE">
+         <title>public static final String JDBC_PROPERTY_CYCLE = "propertyCycle"</title>
+         <para>
+The "propertyCycle" property that ConnectionPoolDataSource and
+ XADataSource clients may supply a value for when calling
+ <link linkend="org.osgi.service.jdbc.DataSourceFactory.createConnectionPoolDataSource-Properties-">createConnectionPoolDataSource(Properties)</link> or
+ <link linkend="org.osgi.service.jdbc.DataSourceFactory.createXADataSource-Properties-">createXADataSource(Properties)</link> on drivers that support this
+ property.
+   </para>
+      </section>
+      <section xreflabel="JDBC_ROLE_NAME"
+               role="field"
+               xml:id="org.osgi.service.jdbc.DataSourceFactory.JDBC_ROLE_NAME">
+         <title>public static final String JDBC_ROLE_NAME = "roleName"</title>
+         <para>
+The "roleName" property that DataSource clients should supply a value for
+ when calling <link linkend="org.osgi.service.jdbc.DataSourceFactory.createDataSource-Properties-">createDataSource(Properties)</link>.
+   </para>
+      </section>
+      <section xreflabel="JDBC_SERVER_NAME"
+               role="field"
+               xml:id="org.osgi.service.jdbc.DataSourceFactory.JDBC_SERVER_NAME">
+         <title>public static final String JDBC_SERVER_NAME = "serverName"</title>
+         <para>
+The "serverName" property that DataSource clients should supply a value
+ for when calling <link linkend="org.osgi.service.jdbc.DataSourceFactory.createDataSource-Properties-">createDataSource(Properties)</link>.
+   </para>
+      </section>
+      <section xreflabel="JDBC_URL"
+               role="field"
+               xml:id="org.osgi.service.jdbc.DataSourceFactory.JDBC_URL">
+         <title>public static final String JDBC_URL = "url"</title>
+         <para>
+The "url" property that DataSource clients should supply a value for when
+ calling <link linkend="org.osgi.service.jdbc.DataSourceFactory.createDataSource-Properties-">createDataSource(Properties)</link>.
+   </para>
+      </section>
+      <section xreflabel="JDBC_USER"
+               role="field"
+               xml:id="org.osgi.service.jdbc.DataSourceFactory.JDBC_USER">
+         <title>public static final String JDBC_USER = "user"</title>
+         <para>
+The "user" property that DataSource clients should supply a value for
+ when calling <link linkend="org.osgi.service.jdbc.DataSourceFactory.createDataSource-Properties-">createDataSource(Properties)</link>.
+   </para>
+      </section>
+      <section xreflabel="OSGI_JDBC_CAPABILITY"
+               role="field"
+               xml:id="org.osgi.service.jdbc.DataSourceFactory.OSGI_JDBC_CAPABILITY">
+         <title>public static final String OSGI_JDBC_CAPABILITY = "osgi.jdbc.datasourcefactory.capability"</title>
+         <para>
+Service property used by a <code>DataSourceFactory</code> to declare the
+ capabilities when registering a JDBC DataSourceFactory service. Clients
+ may filter or test this property to determine if the create method can be
+ used. The type of this service property is <code>String+</code>
+         </para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+      </section>
+      <section xreflabel="OSGI_JDBC_CAPABILITY_CONNECTIONPOOLDATASOURCE"
+               role="field"
+               xml:id="org.osgi.service.jdbc.DataSourceFactory.OSGI_JDBC_CAPABILITY_CONNECTIONPOOLDATASOURCE">
+         <title>public static final String OSGI_JDBC_CAPABILITY_CONNECTIONPOOLDATASOURCE = "connectionpooldatasource"</title>
+         <para>
+            <link linkend="org.osgi.service.jdbc.DataSourceFactory.OSGI_JDBC_CAPABILITY">OSGI_JDBC_CAPABILITY</link> service property which indicates that the
+ <code>DataSourceFactory</code> is able to provide a
+ <code>ConnectionPoolDataSource</code> invoking the
+ <code>createConnectionPoolDataSource(Properties props)</code> method.
+   </para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+      </section>
+      <section xreflabel="OSGI_JDBC_CAPABILITY_DATASOURCE"
+               role="field"
+               xml:id="org.osgi.service.jdbc.DataSourceFactory.OSGI_JDBC_CAPABILITY_DATASOURCE">
+         <title>public static final String OSGI_JDBC_CAPABILITY_DATASOURCE = "datasource"</title>
+         <para>
+            <link linkend="org.osgi.service.jdbc.DataSourceFactory.OSGI_JDBC_CAPABILITY">OSGI_JDBC_CAPABILITY</link> service property which indicates that the
+ <code>DataSourceFactory</code> is able to provide a <code>DataSource</code>
+ invoking the <code>createDataSource(Properties props)</code> method.
+   </para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+      </section>
+      <section xreflabel="OSGI_JDBC_CAPABILITY_DRIVER"
+               role="field"
+               xml:id="org.osgi.service.jdbc.DataSourceFactory.OSGI_JDBC_CAPABILITY_DRIVER">
+         <title>public static final String OSGI_JDBC_CAPABILITY_DRIVER = "driver"</title>
+         <para>
+            <link linkend="org.osgi.service.jdbc.DataSourceFactory.OSGI_JDBC_CAPABILITY">OSGI_JDBC_CAPABILITY</link> service property which indicates that the
+ <code>DataSourceFactory</code> is able to provide a <code>Driver</code> invoking
+ the <code>createDriver(Properties props)</code> method.
+   </para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+      </section>
+      <section xreflabel="OSGI_JDBC_CAPABILITY_XADATASOURCE"
+               role="field"
+               xml:id="org.osgi.service.jdbc.DataSourceFactory.OSGI_JDBC_CAPABILITY_XADATASOURCE">
+         <title>public static final String OSGI_JDBC_CAPABILITY_XADATASOURCE = "xadatasource"</title>
+         <para>
+            <link linkend="org.osgi.service.jdbc.DataSourceFactory.OSGI_JDBC_CAPABILITY">OSGI_JDBC_CAPABILITY</link> service property which indicates that the
+ <code>DataSourceFactory</code> is able to provide a <code>XADataSource</code>
+ invoking the <code>createXADataSource(Properties props)</code> method.
+   </para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+      </section>
+      <section xreflabel="OSGI_JDBC_DRIVER_CLASS"
+               role="field"
+               xml:id="org.osgi.service.jdbc.DataSourceFactory.OSGI_JDBC_DRIVER_CLASS">
+         <title>public static final String OSGI_JDBC_DRIVER_CLASS = "osgi.jdbc.driver.class"</title>
+         <para>
+Service property used by a JDBC driver to declare the driver class when
+ registering a JDBC DataSourceFactory service. Clients may filter or test
+ this property to determine if the driver is suitable, or the desired one.
+   </para>
+      </section>
+      <section xreflabel="OSGI_JDBC_DRIVER_NAME"
+               role="field"
+               xml:id="org.osgi.service.jdbc.DataSourceFactory.OSGI_JDBC_DRIVER_NAME">
+         <title>public static final String OSGI_JDBC_DRIVER_NAME = "osgi.jdbc.driver.name"</title>
+         <para>
+Service property used by a JDBC driver to declare the driver name when
+ registering a JDBC DataSourceFactory service. Clients may filter or test
+ this property to determine if the driver is suitable, or the desired one.
+   </para>
+      </section>
+      <section xreflabel="OSGI_JDBC_DRIVER_VERSION"
+               role="field"
+               xml:id="org.osgi.service.jdbc.DataSourceFactory.OSGI_JDBC_DRIVER_VERSION">
+         <title>public static final String OSGI_JDBC_DRIVER_VERSION = "osgi.jdbc.driver.version"</title>
+         <para>
+Service property used by a JDBC driver to declare the driver version when
+ registering a JDBC DataSourceFactory service. Clients may filter or test
+ this property to determine if the driver is suitable, or the desired one.
+   </para>
+      </section>
+      <section xreflabel="createConnectionPoolDataSource(Properties)"
+               role="method"
+               xml:id="org.osgi.service.jdbc.DataSourceFactory.createConnectionPoolDataSource-Properties-">
+         <title>public ConnectionPoolDataSource createConnectionPoolDataSource(Properties props) throws SQLException</title>
+         <formalpara role="parameter">
+            <title>props</title>
+            <para>The properties used to configure the
+        <code>ConnectionPoolDataSource</code>. <code>null</code> indicates no
+        properties. If the property cannot be set on the
+        <code>ConnectionPoolDataSource</code> being created then a
+        <code>SQLException</code> must be thrown.</para>
+         </formalpara>
+         <para role="description">
+Create a new <code>ConnectionPoolDataSource</code> using the given properties.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A configured <code>ConnectionPoolDataSource</code>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SQLException</code>– If the <code>ConnectionPoolDataSource</code> cannot be
+         created.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="createDataSource(Properties)"
+               role="method"
+               xml:id="org.osgi.service.jdbc.DataSourceFactory.createDataSource-Properties-">
+         <title>public DataSource createDataSource(Properties props) throws SQLException</title>
+         <formalpara role="parameter">
+            <title>props</title>
+            <para>The properties used to configure the <code>DataSource</code> .
+        <code>null</code> indicates no properties. If the property cannot be
+        set on the <code>DataSource</code> being created then a
+        <code>SQLException</code> must be thrown.</para>
+         </formalpara>
+         <para role="description">
+Create a new <code>DataSource</code> using the given properties.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A configured <code>DataSource</code>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SQLException</code>– If the <code>DataSource</code> cannot be created.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="createDriver(Properties)"
+               role="method"
+               xml:id="org.osgi.service.jdbc.DataSourceFactory.createDriver-Properties-">
+         <title>public Driver createDriver(Properties props) throws SQLException</title>
+         <formalpara role="parameter">
+            <title>props</title>
+            <para>The properties used to configure the <code>Driver</code>.
+        <code>null</code> indicates no properties. If the property cannot be
+        set on the <code>Driver</code> being created then a
+        <code>SQLException</code> must be thrown.</para>
+         </formalpara>
+         <para role="description">
+Create a new <code>Driver</code> using the given properties.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A configured <code>Driver</code>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SQLException</code>– If the <code>Driver</code> cannot be created.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="createXADataSource(Properties)"
+               role="method"
+               xml:id="org.osgi.service.jdbc.DataSourceFactory.createXADataSource-Properties-">
+         <title>public XADataSource createXADataSource(Properties props) throws SQLException</title>
+         <formalpara role="parameter">
+            <title>props</title>
+            <para>The properties used to configure the <code>XADataSource</code>.
+        <code>null</code> indicates no properties. If the property cannot be
+        set on the <code>XADataSource</code> being created then a
+        <code>SQLException</code> must be thrown.</para>
+         </formalpara>
+         <para role="description">
+Create a new <code>XADataSource</code> using the given properties.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A configured <code>XADataSource</code>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SQLException</code>– If the <code>XADataSource</code> cannot be created.</para>
+         </formalpara>
+      </section>
+   </section>
+</section>

@@ -1,0 +1,851 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.servlet.whiteboard"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.servlet.whiteboard">
+   <title>org.osgi.service.servlet.whiteboard</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.servlet.whiteboard-version">Version 2.0</releaseinfo>
+      <edition xml:id="org.osgi.service.servlet.whiteboard-version.number">2.0</edition>
+   </info>
+   <para>
+Servlet Whiteboard Package Version 2.0.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.servlet.whiteboard; version="[2.0,3.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.servlet.whiteboard; version="[2.0,2.1)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants">
+                  <code>HttpWhiteboardConstants</code>
+               </link> - 
+Defines standard constants for the Servlet Whiteboard services.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.Preprocessor">
+                  <code>Preprocessor</code>
+               </link> - 
+Services registered as a <code>Preprocessor</code> using a whiteboard pattern are
+ executed for every request before the dispatching is performed.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="HttpWhiteboardConstants"
+            role="class"
+            xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants">
+      <title>public final class HttpWhiteboardConstants</title>
+      <para>
+Defines standard constants for the Servlet Whiteboard services.
+   </para>
+      <section xreflabel="DISPATCHER_ASYNC"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.DISPATCHER_ASYNC">
+         <title>public static final String DISPATCHER_ASYNC = "ASYNC"</title>
+         <para>
+Possible value for the <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_DISPATCHER">HTTP_WHITEBOARD_FILTER_DISPATCHER</link>
+ property indicating the servlet filter is applied in the asynchronous
+ context.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link xmlns:xlink="http://www.w3.org/1999/xlink"
+                     xlink:href="https://jakarta.ee/specifications/servlet/5.0/jakarta-servlet-spec-5.0.html#filters-and-the-requestdispatcher">Jakarta
+      Servlet Specification Version 5.0, Filters and the
+      RequestDispatcher</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="DISPATCHER_ERROR"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.DISPATCHER_ERROR">
+         <title>public static final String DISPATCHER_ERROR = "ERROR"</title>
+         <para>
+Possible value for the <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_DISPATCHER">HTTP_WHITEBOARD_FILTER_DISPATCHER</link>
+ property indicating the servlet filter is applied when an error page is
+ called.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link xmlns:xlink="http://www.w3.org/1999/xlink"
+                     xlink:href="https://jakarta.ee/specifications/servlet/5.0/jakarta-servlet-spec-5.0.html#filters-and-the-requestdispatcher">Jakarta
+      Servlet Specification Version 5.0, Filters and the
+      RequestDispatcher</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="DISPATCHER_FORWARD"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.DISPATCHER_FORWARD">
+         <title>public static final String DISPATCHER_FORWARD = "FORWARD"</title>
+         <para>
+Possible value for the <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_DISPATCHER">HTTP_WHITEBOARD_FILTER_DISPATCHER</link>
+ property indicating the servlet filter is applied to forward calls to the
+ dispatcher.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link xmlns:xlink="http://www.w3.org/1999/xlink"
+                     xlink:href="https://jakarta.ee/specifications/servlet/5.0/jakarta-servlet-spec-5.0.html#filters-and-the-requestdispatcher">Jakarta
+      Servlet Specification Version 5.0, Filters and the
+      RequestDispatcher</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="DISPATCHER_INCLUDE"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.DISPATCHER_INCLUDE">
+         <title>public static final String DISPATCHER_INCLUDE = "INCLUDE"</title>
+         <para>
+Possible value for the <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_DISPATCHER">HTTP_WHITEBOARD_FILTER_DISPATCHER</link>
+ property indicating the servlet filter is applied to include calls to the
+ dispatcher.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link xmlns:xlink="http://www.w3.org/1999/xlink"
+                     xlink:href="https://jakarta.ee/specifications/servlet/5.0/jakarta-servlet-spec-5.0.html#filters-and-the-requestdispatcher">Jakarta
+      Servlet Specification Version 5.0, Filters and the
+      RequestDispatcher</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="DISPATCHER_REQUEST"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.DISPATCHER_REQUEST">
+         <title>public static final String DISPATCHER_REQUEST = "REQUEST"</title>
+         <para>
+Possible value for the <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_DISPATCHER">HTTP_WHITEBOARD_FILTER_DISPATCHER</link>
+ property indicating the servlet filter is applied to client requests.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link xmlns:xlink="http://www.w3.org/1999/xlink"
+                     xlink:href="https://jakarta.ee/specifications/servlet/5.0/jakarta-servlet-spec-5.0.html#filters-and-the-requestdispatcher">Jakarta
+      Servlet Specification Version 5.0, Filters and the
+      RequestDispatcher</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="HTTP_WHITEBOARD_CONTEXT_INIT_PARAM_PREFIX"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_INIT_PARAM_PREFIX">
+         <title>public static final String HTTP_WHITEBOARD_CONTEXT_INIT_PARAM_PREFIX = "context.init."</title>
+         <para>
+Service property prefix referencing a <link linkend="org.osgi.service.servlet.context.ServletContextHelper">ServletContextHelper</link>
+ service.
+ </para>
+         <para>
+ For <link linkend="org.osgi.service.servlet.context.ServletContextHelper">ServletContextHelper</link> services this prefix can be used for
+ service properties to mark them as initialization parameters which can be
+ retrieved from the associated servlet context. The prefix is removed from
+ the service property name to build the initialization parameter name.
+ </para>
+         <para>
+ For <link linkend="org.osgi.service.servlet.context.ServletContextHelper">ServletContextHelper</link> services, the value of each
+ initialization parameter service property must be of type <code>String</code>.</para>
+      </section>
+      <section xreflabel="HTTP_WHITEBOARD_CONTEXT_NAME"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME">
+         <title>public static final String HTTP_WHITEBOARD_CONTEXT_NAME = "osgi.http.whiteboard.context.name"</title>
+         <para>
+Service property specifying the name of an <link linkend="org.osgi.service.servlet.context.ServletContextHelper">ServletContextHelper</link>
+ service.
+ </para>
+         <para>
+ For <link linkend="org.osgi.service.servlet.context.ServletContextHelper">ServletContextHelper</link> services, this service property must be
+ specified. Context services without this service property are ignored.
+ </para>
+         <para>
+ Servlet, listener, servlet filter, and resource services might refer to a
+ specific <link linkend="org.osgi.service.servlet.context.ServletContextHelper">ServletContextHelper</link> service referencing the name with
+ the <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_SELECT">HTTP_WHITEBOARD_CONTEXT_SELECT</link> property.
+ </para>
+         <para>
+ For <link linkend="org.osgi.service.servlet.context.ServletContextHelper">ServletContextHelper</link> services, the value of this service
+ property must be of type <code>String</code>. The value must follow the
+ "symbolic-name" specification from Section 1.3.2 of the OSGi Core
+ Specification.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_PATH">HTTP_WHITEBOARD_CONTEXT_PATH</link>, <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_SELECT">HTTP_WHITEBOARD_CONTEXT_SELECT</link>, <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_DEFAULT_CONTEXT_NAME">HTTP_WHITEBOARD_DEFAULT_CONTEXT_NAME</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="HTTP_WHITEBOARD_CONTEXT_PATH"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_PATH">
+         <title>public static final String HTTP_WHITEBOARD_CONTEXT_PATH = "osgi.http.whiteboard.context.path"</title>
+         <para>
+Service property specifying the path of an <link linkend="org.osgi.service.servlet.context.ServletContextHelper">ServletContextHelper</link>
+ service.
+ </para>
+         <para>
+ For <link linkend="org.osgi.service.servlet.context.ServletContextHelper">ServletContextHelper</link> services this service property is
+ required. Context services without this service property are ignored.
+ </para>
+         <para>
+ This property defines a context path under which all whiteboard services
+ associated with this context are registered. Having different contexts
+ with different paths allows to separate the URL space.
+ </para>
+         <para>
+ For <link linkend="org.osgi.service.servlet.context.ServletContextHelper">ServletContextHelper</link> services, the value of this service
+ property must be of type <code>String</code>. The value is either a slash for
+ the root or it must start with a slash but not end with a slash. Valid
+ characters are defined in rfc3986#section-3.3. Contexts with an invalid
+ path are ignored.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME">HTTP_WHITEBOARD_CONTEXT_NAME</link>, <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_SELECT">HTTP_WHITEBOARD_CONTEXT_SELECT</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="HTTP_WHITEBOARD_CONTEXT_SELECT"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_SELECT">
+         <title>public static final String HTTP_WHITEBOARD_CONTEXT_SELECT = "osgi.http.whiteboard.context.select"</title>
+         <para>
+Service property referencing a <link linkend="org.osgi.service.servlet.context.ServletContextHelper">ServletContextHelper</link> service.
+ </para>
+         <para>
+ For servlet, listener, servlet filter, or resource services, this service
+ property refers to the associated <code>ServletContextHelper</code> service.
+ The value of this property is a filter expression which is matched
+ against the service registration properties of the
+ <code>ServletContextHelper</code> service. If this service property is not
+ specified, the default context is used. If there is no context service
+ matching, the servlet, listener, servlet filter, or resource service is
+ ignored.
+ </para>
+         <para>
+ For example, if a whiteboard service wants to select a servlet context
+ helper with the name "Admin" the expression would be
+ "(osgi.http.whiteboard.context.name=Admin)". Selecting all
+ contexts could be done with
+ "(osgi.http.whiteboard.context.name=*)".
+ </para>
+         <para>
+ For servlet, listener, servlet filter, or resource services, the value of
+ this service property must be of type <code>String</code>.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME">HTTP_WHITEBOARD_CONTEXT_NAME</link>, <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_PATH">HTTP_WHITEBOARD_CONTEXT_PATH</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="HTTP_WHITEBOARD_DEFAULT_CONTEXT_NAME"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_DEFAULT_CONTEXT_NAME">
+         <title>public static final String HTTP_WHITEBOARD_DEFAULT_CONTEXT_NAME = "default"</title>
+         <para>
+The name of the default <link linkend="org.osgi.service.servlet.context.ServletContextHelper">ServletContextHelper</link>. If a service is
+ registered with this property, it is overriding the default context with
+ a custom provided context.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_CONTEXT_NAME">HTTP_WHITEBOARD_CONTEXT_NAME</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="HTTP_WHITEBOARD_FILTER_ASYNC_SUPPORTED"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_ASYNC_SUPPORTED">
+         <title>public static final String HTTP_WHITEBOARD_FILTER_ASYNC_SUPPORTED = "osgi.http.whiteboard.filter.asyncSupported"</title>
+         <para>
+Service property specifying whether a servlet <code>Filter</code> service
+ supports asynchronous processing.
+ </para>
+         <para>
+ By default servlet filters services do not support asynchronous
+ processing.
+ </para>
+         <para>
+ The value of this service property must be of type <code>Boolean</code>.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link xmlns:xlink="http://www.w3.org/1999/xlink"
+                     xlink:href="https://jakarta.ee/specifications/servlet/5.0/jakarta-servlet-spec-5.0.html#asynchronous-processing">Jakarta
+      Servlet Specification Version 5.0, Asynchronous Processing</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="HTTP_WHITEBOARD_FILTER_DISPATCHER"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_DISPATCHER">
+         <title>public static final String HTTP_WHITEBOARD_FILTER_DISPATCHER = "osgi.http.whiteboard.filter.dispatcher"</title>
+         <para>
+Service property specifying the dispatcher handling of a servlet
+ <code>Filter</code>.
+ </para>
+         <para>
+ By default servlet filter services are associated with client requests
+ only (see value <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.DISPATCHER_REQUEST">DISPATCHER_REQUEST</link>).
+ </para>
+         <para>
+ The value of this service property must be of type <code>String</code>,
+ <code>String[]</code>, or <code>Collection&lt;String&gt;</code>. Allowed values are
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.DISPATCHER_ASYNC">DISPATCHER_ASYNC</link>, <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.DISPATCHER_ERROR">DISPATCHER_ERROR</link>,
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.DISPATCHER_FORWARD">DISPATCHER_FORWARD</link>, <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.DISPATCHER_INCLUDE">DISPATCHER_INCLUDE</link>,
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.DISPATCHER_REQUEST">DISPATCHER_REQUEST</link>.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link xmlns:xlink="http://www.w3.org/1999/xlink"
+                     xlink:href="https://jakarta.ee/specifications/servlet/5.0/jakarta-servlet-spec-5.0.html#filters-and-the-requestdispatcher">Jakarta
+      Servlet Specification Version 5.0, Filters and the
+      RequestDispatcher</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="HTTP_WHITEBOARD_FILTER_INIT_PARAM_PREFIX"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_INIT_PARAM_PREFIX">
+         <title>public static final String HTTP_WHITEBOARD_FILTER_INIT_PARAM_PREFIX = "filter.init."</title>
+         <para>
+Service property prefix referencing a <link linkend="org.osgi.framework.Filter">Filter</link> service.
+ 
+ </para>
+         <para>
+ For <link linkend="org.osgi.framework.Filter">Filter</link> services this prefix can be used for service
+ properties to mark them as initialization parameters which can be
+ retrieved from the associated filter config. The prefix is removed from
+ the service property name to build the initialization parameter name.
+
+ </para>
+         <para>
+ For <link linkend="org.osgi.framework.Filter">Filter</link> services, the value of each initialization parameter
+ service property must be of type <code>String</code>.</para>
+      </section>
+      <section xreflabel="HTTP_WHITEBOARD_FILTER_NAME"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_NAME">
+         <title>public static final String HTTP_WHITEBOARD_FILTER_NAME = "osgi.http.whiteboard.filter.name"</title>
+         <para>
+Service property specifying the servlet filter name of a <code>Filter</code>
+ service.
+ </para>
+         <para>
+ This name is used as the value for the
+ <code>FilterConfig.getFilterName()</code> method. If this service property is
+ not specified, the fully qualified name of the service object's class is
+ used as the servlet filter name.
+ </para>
+         <para>
+ Servlet filter names should be unique among all servlet filter services
+ associated with a single <link linkend="org.osgi.service.servlet.context.ServletContextHelper">ServletContextHelper</link>.
+ </para>
+         <para>
+ The value of this service property must be of type <code>String</code>.</para>
+      </section>
+      <section xreflabel="HTTP_WHITEBOARD_FILTER_PATTERN"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_PATTERN">
+         <title>public static final String HTTP_WHITEBOARD_FILTER_PATTERN = "osgi.http.whiteboard.filter.pattern"</title>
+         <para>
+Service property specifying the request mappings for a <code>Filter</code>
+ service.
+ </para>
+         <para>
+ The specified patterns are used to determine whether a request should be
+ mapped to the servlet filter. Filter services without this service
+ property or the <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_SERVLET">HTTP_WHITEBOARD_FILTER_SERVLET</link> or the
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_REGEX">HTTP_WHITEBOARD_FILTER_REGEX</link> service property are ignored.
+ </para>
+         <para>
+ The value of this service property must be of type <code>String</code>,
+ <code>String[]</code>, or <code>Collection&lt;String&gt;</code>.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link xmlns:xlink="http://www.w3.org/1999/xlink"
+                     xlink:href="https://jakarta.ee/specifications/servlet/5.0/jakarta-servlet-spec-5.0.html#specification-of-mappings">Jakarta
+      Servlet Specification Version 5.0, Specification of Mappings</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="HTTP_WHITEBOARD_FILTER_REGEX"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_REGEX">
+         <title>public static final String HTTP_WHITEBOARD_FILTER_REGEX = "osgi.http.whiteboard.filter.regex"</title>
+         <para>
+Service property specifying the request mappings for a servlet
+ <code>Filter</code> service.
+ 
+ </para>
+         <para>
+ The specified regular expressions are used to determine whether a request
+ should be mapped to the servlet filter. The regular expressions must
+ follow the syntax defined in <code>java.util.regex.Pattern</code>. Servlet
+ filter services without this service property or the
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_SERVLET">HTTP_WHITEBOARD_FILTER_SERVLET</link> or the
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_PATTERN">HTTP_WHITEBOARD_FILTER_PATTERN</link> service property are ignored.
+ 
+ </para>
+         <para>
+ The value of this service property must be of type <code>String</code>,
+ <code>String[]</code>, or <code>Collection&lt;String&gt;</code>.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>java.util.regex.Pattern</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="HTTP_WHITEBOARD_FILTER_SERVLET"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_SERVLET">
+         <title>public static final String HTTP_WHITEBOARD_FILTER_SERVLET = "osgi.http.whiteboard.filter.servlet"</title>
+         <para>
+Service property specifying the <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_NAME">servlet names</link> for a servlet <code>Filter</code> service.
+ 
+ </para>
+         <para>
+ The specified names are used to determine the servlets whose requests
+ should be mapped to the servlet filter. Servlet filter services without
+ this service property or the <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_PATTERN">HTTP_WHITEBOARD_FILTER_PATTERN</link> or
+ the <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_REGEX">HTTP_WHITEBOARD_FILTER_REGEX</link> service property are ignored.
+ 
+ </para>
+         <para>
+ The value of this service property must be of type <code>String</code>,
+ <code>String[]</code>, or <code>Collection&lt;String&gt;</code>.</para>
+      </section>
+      <section xreflabel="HTTP_WHITEBOARD_IMPLEMENTATION"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_IMPLEMENTATION">
+         <title>public static final String HTTP_WHITEBOARD_IMPLEMENTATION = "osgi.http"</title>
+         <para>
+The name of the implementation capability for the Servlet Whiteboard
+ specification
+   </para>
+      </section>
+      <section xreflabel="HTTP_WHITEBOARD_LISTENER"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_LISTENER">
+         <title>public static final String HTTP_WHITEBOARD_LISTENER = "osgi.http.whiteboard.listener"</title>
+         <para>
+Service property to mark a Listener service as a Whiteboard service.
+ Listener services with this property set to the string value "true" will
+ be treated as Whiteboard services opting in to being handled by the
+ Servlet Whiteboard implementation. If the value "false" is specified, the
+ service is opting out and this case is treated exactly the same as if
+ this property is missing. If an invalid value is specified this is
+ treated as a failure.
+ </para>
+         <para>
+ The value of this service property must be of type <code>String</code>. Valid
+ values are "true" and "false" ignoring case.</para>
+      </section>
+      <section xreflabel="HTTP_WHITEBOARD_PREPROCESSOR_INIT_PARAM_PREFIX"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_PREPROCESSOR_INIT_PARAM_PREFIX">
+         <title>public static final String HTTP_WHITEBOARD_PREPROCESSOR_INIT_PARAM_PREFIX = "preprocessor.init."</title>
+         <para>
+Service property prefix referencing a <link linkend="org.osgi.service.servlet.whiteboard.Preprocessor">Preprocessor</link> service.
+ </para>
+         <para>
+ For <link linkend="org.osgi.service.servlet.whiteboard.Preprocessor">Preprocessor</link> services this prefix can be used for service
+ properties to mark them as initialization parameters which can be
+ retrieved from the associated filter configuration. The prefix is removed
+ from the service property name to build the initialization parameter
+ name.
+ </para>
+         <para>
+ For <link linkend="org.osgi.service.servlet.whiteboard.Preprocessor">Preprocessor</link> services, the value of each initialization
+ parameter service property must be of type <code>String</code>.</para>
+      </section>
+      <section xreflabel="HTTP_WHITEBOARD_RESOURCE_PATTERN"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_RESOURCE_PATTERN">
+         <title>public static final String HTTP_WHITEBOARD_RESOURCE_PATTERN = "osgi.http.whiteboard.resource.pattern"</title>
+         <para>
+Service property specifying the request mappings for resources.
+ </para>
+         <para>
+ The specified patterns are used to determine whether a request should be
+ mapped to resources. Resource services without this service property are
+ ignored.
+ </para>
+         <para>
+ The value of this service property must be of type <code>String</code>,
+ <code>String[]</code>, or <code>Collection&lt;String&gt;</code>.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link xmlns:xlink="http://www.w3.org/1999/xlink"
+                     xlink:href="https://jakarta.ee/specifications/servlet/5.0/jakarta-servlet-spec-5.0.html#specification-of-mappings">Jakarta
+      Servlet Specification Version 5.0, Specification of Mappings</link>, <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_RESOURCE_PREFIX">HTTP_WHITEBOARD_RESOURCE_PREFIX</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="HTTP_WHITEBOARD_RESOURCE_PREFIX"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_RESOURCE_PREFIX">
+         <title>public static final String HTTP_WHITEBOARD_RESOURCE_PREFIX = "osgi.http.whiteboard.resource.prefix"</title>
+         <para>
+Service property specifying the resource entry prefix for a resource
+ service.
+ 
+ </para>
+         <para>
+ If a resource service is registered with this property, requests are
+ served with bundle resources.
+ 
+ </para>
+         <para>
+ This prefix is used to map a requested resource to the bundle's entries.
+ The value must not end with slash ("/") with the exception that
+ a name of the form "/" is used to denote the root of the
+ bundle. See the specification text for details on how HTTP requests are
+ mapped.
+
+ </para>
+         <para>
+ The value of this service property must be of type <code>String</code>.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_RESOURCE_PATTERN">HTTP_WHITEBOARD_RESOURCE_PATTERN</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="HTTP_WHITEBOARD_SERVLET_ASYNC_SUPPORTED"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_ASYNC_SUPPORTED">
+         <title>public static final String HTTP_WHITEBOARD_SERVLET_ASYNC_SUPPORTED = "osgi.http.whiteboard.servlet.asyncSupported"</title>
+         <para>
+Service property specifying whether a <code>Servlet</code> service supports
+ asynchronous processing.
+ </para>
+         <para>
+ By default servlet services do not support asynchronous processing.
+ </para>
+         <para>
+ The value of this service property must be of type <code>Boolean</code>.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link xmlns:xlink="http://www.w3.org/1999/xlink"
+                     xlink:href="https://jakarta.ee/specifications/servlet/5.0/jakarta-servlet-spec-5.0.html#asynchronous-processing">Jakarta
+      Servlet Specification Version 5.0, Asynchronous Processing</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="HTTP_WHITEBOARD_SERVLET_ERROR_PAGE"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_ERROR_PAGE">
+         <title>public static final String HTTP_WHITEBOARD_SERVLET_ERROR_PAGE = "osgi.http.whiteboard.servlet.errorPage"</title>
+         <para>
+Service property specifying whether a <code>Servlet</code> service acts as an
+ error page.
+ 
+ </para>
+         <para>
+ The service property values may be the name of a fully qualified
+ exception class, a three digit HTTP status code, the value "4xx" for all
+ error codes in the 400 range, or the value "5xx" for all error codes in
+ the 500 range. Any value that is not a three digit number, or one of the
+ two special values is considered to be the name of a fully qualified
+ exception class.
+ 
+ </para>
+         <para>
+ The value of this service property must be of type <code>String</code>,
+ <code>String[]</code>, or <code>Collection&lt;String&gt;</code>.</para>
+      </section>
+      <section xreflabel="HTTP_WHITEBOARD_SERVLET_INIT_PARAM_PREFIX"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_INIT_PARAM_PREFIX">
+         <title>public static final String HTTP_WHITEBOARD_SERVLET_INIT_PARAM_PREFIX = "servlet.init."</title>
+         <para>
+Service property prefix referencing a Servlet service.
+ 
+ </para>
+         <para>
+ For Servlet services this prefix can be used for service
+ properties to mark them as initialization parameters which can be
+ retrieved from the associated servlet config. The prefix is removed from
+ the service property name to build the initialization parameter name.
+
+ </para>
+         <para>
+ For Servlet services, the value of each initialization parameter
+ service property must be of type <code>String</code>.</para>
+      </section>
+      <section xreflabel="HTTP_WHITEBOARD_SERVLET_MULTIPART_ENABLED"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_MULTIPART_ENABLED">
+         <title>public static final String HTTP_WHITEBOARD_SERVLET_MULTIPART_ENABLED = "osgi.http.whiteboard.servlet.multipart.enabled"</title>
+         <para>
+Service property specifying whether a <code>Servlet</code> service has enabled
+ multipart request processing.
+ </para>
+         <para>
+ By default servlet services do not have multipart request processing
+ enabled.
+ </para>
+         <para>
+ The value of this service property must be of type <code>Boolean</code>.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link xmlns:xlink="http://www.w3.org/1999/xlink"
+                     xlink:href="https://jakarta.ee/specifications/servlet/5.0/jakarta-servlet-spec-5.0.html#_MultipartConfig">Jakarta
+      Servlet Specification Version 5.0, @MultipartConfig</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="HTTP_WHITEBOARD_SERVLET_MULTIPART_FILESIZETHRESHOLD"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_MULTIPART_FILESIZETHRESHOLD">
+         <title>public static final String HTTP_WHITEBOARD_SERVLET_MULTIPART_FILESIZETHRESHOLD = "osgi.http.whiteboard.servlet.multipart.fileSizeThreshold"</title>
+         <para>
+Service property specifying the size threshold after which the file will
+ be written to disk.
+ </para>
+         <para>
+ When not set or when the value is not valid, the default threshold is
+ determined by the implementation. This property is only evaluated if
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_MULTIPART_ENABLED">HTTP_WHITEBOARD_SERVLET_MULTIPART_ENABLED</link> is set to <code>true</code>
+ .
+ </para>
+         <para>
+ The value of this service property must be of type <code>Integer</code>.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link xmlns:xlink="http://www.w3.org/1999/xlink"
+                     xlink:href="https://jakarta.ee/specifications/servlet/5.0/jakarta-servlet-spec-5.0.html#deployment-descriptor-2">Jakarta
+      Servlet Specification Version 5.0, Deployment Descriptor Schema</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="HTTP_WHITEBOARD_SERVLET_MULTIPART_LOCATION"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_MULTIPART_LOCATION">
+         <title>public static final String HTTP_WHITEBOARD_SERVLET_MULTIPART_LOCATION = "osgi.http.whiteboard.servlet.multipart.location"</title>
+         <para>
+Service property specifying the location where the files can be stored on
+ disk.
+ </para>
+         <para>
+ When not set the default location is defined by the value of the system
+ property "java.io.tmpdir". This property is only evaluated if
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_MULTIPART_ENABLED">HTTP_WHITEBOARD_SERVLET_MULTIPART_ENABLED</link> is set to <code>true</code>
+ .
+ </para>
+         <para>
+ The value of this service property must be of type <code>String</code>.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link xmlns:xlink="http://www.w3.org/1999/xlink"
+                     xlink:href="https://jakarta.ee/specifications/servlet/5.0/jakarta-servlet-spec-5.0.html#deployment-descriptor-2">Jakarta
+      Servlet Specification Version 5.0, Deployment Descriptor Schema</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="HTTP_WHITEBOARD_SERVLET_MULTIPART_MAXFILESIZE"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_MULTIPART_MAXFILESIZE">
+         <title>public static final String HTTP_WHITEBOARD_SERVLET_MULTIPART_MAXFILESIZE = "osgi.http.whiteboard.servlet.multipart.maxFileSize"</title>
+         <para>
+Service property specifying the maximum size of a file being uploaded.
+ </para>
+         <para>
+ When not set or when the value is not valid, the default maximum size is
+ [@code -1} (no maximum size). This property is only evaluated if
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_MULTIPART_ENABLED">HTTP_WHITEBOARD_SERVLET_MULTIPART_ENABLED</link> is set to <code>true</code>
+ .
+ </para>
+         <para>
+ The value of this service property must be of type <code>Long</code>.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link xmlns:xlink="http://www.w3.org/1999/xlink"
+                     xlink:href="https://jakarta.ee/specifications/servlet/5.0/jakarta-servlet-spec-5.0.html#deployment-descriptor-2">Jakarta
+      Servlet Specification Version 5.0, Deployment Descriptor Schema</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="HTTP_WHITEBOARD_SERVLET_MULTIPART_MAXREQUESTSIZE"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_MULTIPART_MAXREQUESTSIZE">
+         <title>public static final String HTTP_WHITEBOARD_SERVLET_MULTIPART_MAXREQUESTSIZE = "osgi.http.whiteboard.servlet.multipart.maxRequestSize"</title>
+         <para>
+Service property specifying the maximum request size.
+ </para>
+         <para>
+ When not set or when the value is not valid, the default maximum request
+ size is <code>-1</code> (no maximum size). This property is only evaluated if
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_MULTIPART_ENABLED">HTTP_WHITEBOARD_SERVLET_MULTIPART_ENABLED</link> is set to <code>true</code>
+ .
+ </para>
+         <para>
+ The value of this service property must be of type <code>Long</code>.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link xmlns:xlink="http://www.w3.org/1999/xlink"
+                     xlink:href="https://jakarta.ee/specifications/servlet/5.0/jakarta-servlet-spec-5.0.html#deployment-descriptor-2">Jakarta
+      Servlet Specification Version 5.0, Deployment Descriptor Schema</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="HTTP_WHITEBOARD_SERVLET_NAME"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_NAME">
+         <title>public static final String HTTP_WHITEBOARD_SERVLET_NAME = "osgi.http.whiteboard.servlet.name"</title>
+         <para>
+Service property specifying the servlet name of a <code>Servlet</code>
+ service.
+ </para>
+         <para>
+ The servlet is registered with this name and the name can be used as a
+ reference to the servlet for filtering or request dispatching.
+ </para>
+         <para>
+ This name is in addition used as the value for the
+ <code>ServletConfig.getServletName()</code> method. If this service property
+ is not specified, the fully qualified name of the service object's class
+ is used as the servlet name. Filter services may refer to servlets by
+ this name in their <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_FILTER_SERVLET">HTTP_WHITEBOARD_FILTER_SERVLET</link> service
+ property to apply the filter to the servlet.
+ </para>
+         <para>
+ Servlet names should be unique among all servlet services associated with
+ a single <link linkend="org.osgi.service.servlet.context.ServletContextHelper">ServletContextHelper</link>.
+ </para>
+         <para>
+ The value of this service property must be of type <code>String</code>.</para>
+      </section>
+      <section xreflabel="HTTP_WHITEBOARD_SERVLET_PATTERN"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_PATTERN">
+         <title>public static final String HTTP_WHITEBOARD_SERVLET_PATTERN = "osgi.http.whiteboard.servlet.pattern"</title>
+         <para>
+Service property specifying the request mappings for a <code>Servlet</code>
+ service.
+ </para>
+         <para>
+ The specified patterns are used to determine whether a request should be
+ mapped to the servlet. Servlet services without this service property,
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_ERROR_PAGE">HTTP_WHITEBOARD_SERVLET_ERROR_PAGE</link> or
+ <link linkend="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SERVLET_NAME">HTTP_WHITEBOARD_SERVLET_NAME</link> are ignored.
+ </para>
+         <para>
+ The value of this service property must be of type <code>String</code>,
+ <code>String[]</code>, or <code>Collection&lt;String&gt;</code>.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link xmlns:xlink="http://www.w3.org/1999/xlink"
+                     xlink:href="https://jakarta.ee/specifications/servlet/5.0/jakarta-servlet-spec-5.0.html#specification-of-mappings">Jakarta
+      Servlet Specification Version 5.0, Specification of Mappings</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="HTTP_WHITEBOARD_SPECIFICATION_VERSION"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_SPECIFICATION_VERSION">
+         <title>public static final String HTTP_WHITEBOARD_SPECIFICATION_VERSION = "2.0"</title>
+         <para>
+The version of the implementation capability for the Servlet Whiteboard
+ specification
+   </para>
+      </section>
+      <section xreflabel="HTTP_WHITEBOARD_TARGET"
+               role="field"
+               xml:id="org.osgi.service.servlet.whiteboard.HttpWhiteboardConstants.HTTP_WHITEBOARD_TARGET">
+         <title>public static final String HTTP_WHITEBOARD_TARGET = "osgi.http.whiteboard.target"</title>
+         <para>
+Service property specifying the target filter to select the Servlet
+ Whiteboard implementation to process the service.
+ </para>
+         <para>
+ An Servlet Whiteboard implementation can define any number of service
+ properties which can be referenced by the target filter. The service
+ properties should always include the
+ <link linkend="org.osgi.service.servlet.runtime.HttpServiceRuntimeConstants.HTTP_SERVICE_ENDPOINT">osgi.http.endpoint</link> service property if the endpoint information is
+ known.
+ </para>
+         <para>
+ If this service property is not specified, then all Servlet Whiteboard
+ implementations can process the service.
+ </para>
+         <para>
+ The value of this service property must be of type <code>String</code> and be
+ a valid <link linkend="org.osgi.framework.Filter">filter string</link>.</para>
+      </section>
+   </section>
+   <section xreflabel="Preprocessor"
+            role="class"
+            xml:id="org.osgi.service.servlet.whiteboard.Preprocessor">
+      <title>public interface Preprocessor<?line-break?> extends Filter</title>
+      <para>
+Services registered as a <code>Preprocessor</code> using a whiteboard pattern are
+ executed for every request before the dispatching is performed.
+ </para>
+      <para>
+ If there are several services of this type, they are run in
+ <link linkend="org.osgi.framework.ServiceReference.compareTo-Object-">ranking order</link>,
+ the one with the highest ranking is used first.
+ </para>
+      <para>
+ The preprocessor is handled in the same way as filters. When a preprocessor
+ is put into service Filter.init(jakarta.servlet.FilterConfig) is
+ called, when it is not used anymore Filter.destroy() is called. As
+ these preprocessors are run before dispatching and therefore the targeted
+ servlet context is not known yet,
+ jakarta.servlet.FilterConfig.getServletContext() returns the servlet
+ context of the backing implementation. The same context is returned by the
+ request object. The context path is the context path of this underlying
+ servlet context. The passed in chain can be used to invoke the next
+ preprocessor in the chain, or if the end of that chain is reached to start
+ dispatching of the request. A preprocessor might decide to terminate the
+ processing and directly generate a response.
+ </para>
+      <para>
+ Service properties with the prefix
+ <code>HttpWhiteboardConstants#HTTP_WHITEBOARD_PREPROCESSOR_INIT_PARAM_PREFIX</code>
+ are passed as init parameters to this service.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+   </section>
+</section>

@@ -1,0 +1,430 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.component.propertytypes"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.component.propertytypes">
+   <title>org.osgi.service.component.propertytypes</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.component.propertytypes-version">Version 1.5</releaseinfo>
+      <edition xml:id="org.osgi.service.component.propertytypes-version.number">1.5</edition>
+   </info>
+   <para>
+Component Property Types Package Version 1.5.
+ </para>
+   <para>
+ When used as annotations, component property types are processed by tools to
+ generate Component Descriptions which are used at runtime.
+ </para>
+   <para>
+ Bundles wishing to use this package at runtime must list the package in the
+ Import-Package header of the bundle's manifest.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.component.propertytypes; version="[1.5,2.0)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.propertytypes.ExportedService">
+                  <code>ExportedService</code>
+               </link> - 
+Component Property Type for the remote service properties for an exported
+ service.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.propertytypes.SatisfyingConditionTarget">
+                  <code>SatisfyingConditionTarget</code>
+               </link> - 
+Component Property Type for the <code>osgi.ds.satisfying.condition.target</code>
+ reference property.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.propertytypes.ServiceDescription">
+                  <code>ServiceDescription</code>
+               </link> - 
+Component Property Type for the <code>service.description</code> service property.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.propertytypes.ServiceRanking">
+                  <code>ServiceRanking</code>
+               </link> - 
+Component Property Type for the <code>service.ranking</code> service property.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.propertytypes.ServiceVendor">
+                  <code>ServiceVendor</code>
+               </link> - 
+Component Property Type for the <code>service.vendor</code> service property.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="ExportedService"
+            role="class"
+            xml:id="org.osgi.service.component.propertytypes.ExportedService">
+      <title>@ExportedService</title>
+      <para>
+Component Property Type for the remote service properties for an exported
+ service.
+ </para>
+      <para>
+ This annotation can be used on a <link linkend="org.osgi.service.component.annotations.Component">Component</link> to declare the values of
+ the remote service properties for an exported service.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types</code>, <code>Remote Services Specification</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.4</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="service_exported_interfaces"
+               role="method"
+               xml:id="org.osgi.service.component.propertytypes.ExportedService.service_exported_interfaces--">
+         <title>Class&lt;?&gt;[] service_exported_interfaces</title>
+         <para role="description">
+Service property marking the service for export. It defines the
+ interfaces under which the service can be exported.
+ </para>
+         <para>
+ If an empty array is specified, the property is not added to the
+ component description.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The exported service interfaces.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Constants.SERVICE_EXPORTED_INTERFACES">Constants.SERVICE_EXPORTED_INTERFACES</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="service_exported_configs"
+               role="method"
+               xml:id="org.osgi.service.component.propertytypes.ExportedService.service_exported_configs--">
+         <title>String[] service_exported_configs default {}</title>
+         <para role="description">
+Service property identifying the configuration types that should be used
+ to export the service.
+ </para>
+         <para>
+ If an empty array is specified, the default value, the property is not
+ added to the component description.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The configuration types.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Constants.SERVICE_EXPORTED_CONFIGS">Constants.SERVICE_EXPORTED_CONFIGS</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="service_exported_intents"
+               role="method"
+               xml:id="org.osgi.service.component.propertytypes.ExportedService.service_exported_intents--">
+         <title>String[] service_exported_intents default {}</title>
+         <para role="description">
+Service property identifying the intents that the distribution provider
+ must implement to distribute the service.
+ </para>
+         <para>
+ If an empty array is specified, the default value, the property is not
+ added to the component description.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The intents that the distribution provider must implement to
+         distribute the service.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Constants.SERVICE_EXPORTED_INTENTS">Constants.SERVICE_EXPORTED_INTENTS</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="service_exported_intents_extra"
+               role="method"
+               xml:id="org.osgi.service.component.propertytypes.ExportedService.service_exported_intents_extra--">
+         <title>String[] service_exported_intents_extra default {}</title>
+         <para role="description">
+Service property identifying the extra intents that the distribution
+ provider must implement to distribute the service.
+ </para>
+         <para>
+ If an empty array is specified, the default value, the property is not
+ added to the component description.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The extra intents that the distribution provider must implement
+         to distribute the service.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Constants.SERVICE_EXPORTED_INTENTS_EXTRA">Constants.SERVICE_EXPORTED_INTENTS_EXTRA</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="service_intents"
+               role="method"
+               xml:id="org.osgi.service.component.propertytypes.ExportedService.service_intents--">
+         <title>String[] service_intents default {}</title>
+         <para role="description">
+Service property identifying the intents that this service implements.
+ </para>
+         <para>
+ If an empty array is specified, the default value, the property is not
+ added to the component description.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The intents that the service implements.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Constants.SERVICE_INTENTS">Constants.SERVICE_INTENTS</link>
+            </para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="SatisfyingConditionTarget"
+            role="class"
+            xml:id="org.osgi.service.component.propertytypes.SatisfyingConditionTarget">
+      <title>@SatisfyingConditionTarget</title>
+      <para>
+Component Property Type for the <code>osgi.ds.satisfying.condition.target</code>
+ reference property.
+ </para>
+      <para>
+ This annotation can be used on a <link linkend="org.osgi.service.component.annotations.Component">Component</link> to declare the value of
+ the target property for the component's satisfying condition reference if a
+ value other than the default value is desired.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.5</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.component.propertytypes.SatisfyingConditionTarget.value--">
+         <title>String value default "(osgi.condition.id=true)"</title>
+         <para role="description">
+Filter expression to select the component's satisfying condition.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The filter expression to select the component's satisfying
+         condition.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="PREFIX_"
+               role="field"
+               xml:id="org.osgi.service.component.propertytypes.SatisfyingConditionTarget.PREFIX_">
+         <title>String PREFIX_ = "osgi.ds."</title>
+         <para>
+Prefix for the property name. This value is prepended to each property
+ name.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="ServiceDescription"
+            role="class"
+            xml:id="org.osgi.service.component.propertytypes.ServiceDescription">
+      <title>@ServiceDescription</title>
+      <para>
+Component Property Type for the <code>service.description</code> service property.
+ </para>
+      <para>
+ This annotation can be used on a <link linkend="org.osgi.service.component.annotations.Component">Component</link> to declare the value of
+ the <link linkend="org.osgi.framework.Constants.SERVICE_DESCRIPTION">Constants.SERVICE_DESCRIPTION</link> service property.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.4</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.component.propertytypes.ServiceDescription.value--">
+         <title>String value</title>
+         <para role="description">
+Service property identifying a service's description.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The service description.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Constants.SERVICE_DESCRIPTION">Constants.SERVICE_DESCRIPTION</link>
+            </para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="ServiceRanking"
+            role="class"
+            xml:id="org.osgi.service.component.propertytypes.ServiceRanking">
+      <title>@ServiceRanking</title>
+      <para>
+Component Property Type for the <code>service.ranking</code> service property.
+ </para>
+      <para>
+ This annotation can be used on a <link linkend="org.osgi.service.component.annotations.Component">Component</link> to declare the value of
+ the <link linkend="org.osgi.framework.Constants.SERVICE_RANKING">Constants.SERVICE_RANKING</link> service property.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.4</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.component.propertytypes.ServiceRanking.value--">
+         <title>int value</title>
+         <para role="description">
+Service property identifying a service's ranking.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The service ranking.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Constants.SERVICE_RANKING">Constants.SERVICE_RANKING</link>
+            </para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="ServiceVendor"
+            role="class"
+            xml:id="org.osgi.service.component.propertytypes.ServiceVendor">
+      <title>@ServiceVendor</title>
+      <para>
+Component Property Type for the <code>service.vendor</code> service property.
+ </para>
+      <para>
+ This annotation can be used on a <link linkend="org.osgi.service.component.annotations.Component">Component</link> to declare the value of
+ the <link linkend="org.osgi.framework.Constants.SERVICE_VENDOR">Constants.SERVICE_VENDOR</link> service property.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.4</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.component.propertytypes.ServiceVendor.value--">
+         <title>String value</title>
+         <para role="description">
+Service property identifying a service's vendor.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The service vendor.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Constants.SERVICE_VENDOR">Constants.SERVICE_VENDOR</link>
+            </para>
+         </formalpara>
+      </section>
+   </section>
+</section>

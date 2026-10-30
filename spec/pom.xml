@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.osgi</groupId>
+		<artifactId>osgi.cmpn.reactor</artifactId>
+		<version>${revision}</version>
+	</parent>
+	<groupId>org.osgi.spec</groupId>
+	<artifactId>osgi.cmpn</artifactId>
+	<packaging>pom</packaging>
+	<name>OSGi Compendium Specification</name>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.osgi-technology.build.tools.maven</groupId>
+				<artifactId>osgi-docbook-maven-plugin</artifactId>
+				<configuration>
+					<!-- The chapters and their javadoc: the DocBook of the
+					     specification repositories at the versions of the reactor,
+					     from the Maven repositories, or else from docbook/:
+					     the DocBook of Compendium Release 8.1 (tag 8.1.0.cmpn of the
+					     monorepo), which was never deployed. The book itself (title
+					     page, licence, introduction, chapter order) is book/. -->
+					<docbooks>
+						<docbook>org.osgi.spec:org.osgi.namespace.contract:${org.osgi.namespace.contract.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.namespace.extender:${org.osgi.namespace.extender.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.namespace.implementation:${org.osgi.namespace.implementation.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.namespace.service:${org.osgi.namespace.service.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.namespace.unresolvable:${org.osgi.namespace.unresolvable.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.async:${org.osgi.service.async.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.cdi:${org.osgi.service.cdi.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.clusterinfo:${org.osgi.service.clusterinfo.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.cm:${org.osgi.service.cm.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.component:${org.osgi.service.component.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.configurator:${org.osgi.service.configurator.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.coordinator:${org.osgi.service.coordinator.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.dal:${org.osgi.service.dal.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.dal.functions:${org.osgi.service.dal.functions.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.device:${org.osgi.service.device.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.dmt:${org.osgi.service.dmt.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.enocean:${org.osgi.service.enocean.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.event:${org.osgi.service.event.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.feature:${org.osgi.service.feature.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.jakartars:${org.osgi.service.jakartars.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.jdbc:${org.osgi.service.jdbc.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.jndi:${org.osgi.service.jndi.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.jpa:${org.osgi.service.jpa.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.jta:${org.osgi.service.jta.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.log.stream:${org.osgi.service.log.stream.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.metatype:${org.osgi.service.metatype.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.networkadapter:${org.osgi.service.networkadapter.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.onem2m:${org.osgi.service.onem2m.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.prefs:${org.osgi.service.prefs.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.remoteserviceadmin:${org.osgi.service.remoteserviceadmin.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.repository:${org.osgi.service.repository.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.resourcemonitoring:${org.osgi.service.resourcemonitoring.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.rest:${org.osgi.service.rest.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.serial:${org.osgi.service.serial.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.serviceloader:${org.osgi.service.serviceloader.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.servlet:${org.osgi.service.servlet.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.tr069todmt:${org.osgi.service.tr069todmt.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.transaction.control:${org.osgi.service.transaction.control.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.typedevent:${org.osgi.service.typedevent.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.upnp:${org.osgi.service.upnp.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.usbinfo:${org.osgi.service.usbinfo.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.useradmin:${org.osgi.service.useradmin.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.war:${org.osgi.service.war.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.wireadmin:${org.osgi.service.wireadmin.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.service.zigbee:${org.osgi.service.zigbee.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.util.converter:${org.osgi.util.converter.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.util.function:${org.osgi.util.function.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.util.promise:${org.osgi.util.promise.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.util.pushstream:${org.osgi.util.pushstream.version}</docbook>
+						<docbook>org.osgi.spec:org.osgi.util.xml:${org.osgi.util.xml.version}</docbook>
+					</docbooks>
+					<bookSource>${project.basedir}/book/book.xml</bookSource>
+					<docbookFallback>${project.basedir}/docbook</docbookFallback>
+					<!-- final as the published Compendium Release 8.1: <draftMode>no</draftMode> -->
+					<!-- as the published book, built in 2022 -->
+					<copyrightYear>2000, 2022</copyrightYear>
+					<releaseVersion>${parsedVersion.majorVersion}.${parsedVersion.minorVersion}</releaseVersion>
+					<!-- as the published Compendium Release 8.1: references to
+					     the Core are text -->
+					<externalLinks>false</externalLinks>
+					<!-- the HTML pages as the published book: index.html is the
+					     licence, the images are PNG images named after their
+					     chapter -->
+					<rootFilename>toc</rootFilename>
+					<chapterImageNames>true</chapterImageNames>
+					<rasterizeImages>true</rasterizeImages>
+				</configuration>
+				<executions>
+					<execution>
+						<!-- PDF and HTML only: the chapters belong to the
+						     DocBook of the specification repositories -->
+						<id>spec-docbook</id>
+						<phase>none</phase>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

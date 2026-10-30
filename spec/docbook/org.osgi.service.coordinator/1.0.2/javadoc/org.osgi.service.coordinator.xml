@@ -1,0 +1,1515 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.coordinator"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.coordinator">
+   <title>org.osgi.service.coordinator</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.coordinator-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.service.coordinator-version.number">1.0</edition>
+   </info>
+   <para>
+Coordinator Package Version 1.0.
+ 
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ 
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.coordinator; version="[1.0,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.coordinator; version="[1.0,1.1)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.coordinator.Coordination">
+                  <code>Coordination</code>
+               </link> - 
+A Coordination object is used to coordinate a number of independent
+ Participants.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.coordinator.CoordinationException">
+                  <code>CoordinationException</code>
+               </link> - 
+Unchecked exception which may be thrown by a Coordinator implementation.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.coordinator.CoordinationPermission">
+                  <code>CoordinationPermission</code>
+               </link> - 
+A bundle's authority to create or use a <link linkend="org.osgi.service.coordinator.Coordination">Coordination</link>.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.coordinator.Coordinator">
+                  <code>Coordinator</code>
+               </link> - 
+A Coordinator service coordinates activities between different parties.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.coordinator.Participant">
+                  <code>Participant</code>
+               </link> - 
+A Participant participates in a Coordination.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="Coordination"
+            role="class"
+            xml:id="org.osgi.service.coordinator.Coordination">
+      <title>public interface Coordination</title>
+      <para>
+A Coordination object is used to coordinate a number of independent
+ Participants.
+ 
+ </para>
+      <para>
+ Once a Coordination is <link linkend="org.osgi.service.coordinator.Coordinator.create-String-long-">created</link>, it
+ can be used to add <link linkend="org.osgi.service.coordinator.Participant">Participant</link> objects. When the Coordination is
+ ended, the participants are <link linkend="org.osgi.service.coordinator.Participant.ended-Coordination-">notified</link>.
+ A Coordination can also fail for various reasons. When this occurs, the
+ participants are <link linkend="org.osgi.service.coordinator.Participant.failed-Coordination-">notified</link> of the
+ failure.
+ 
+ </para>
+      <para>
+ A Coordination must be in one of two states, either ACTIVE or TERMINATED. The
+ transition between ACTIVE and TERMINATED must be atomic, ensuring that a
+ Participant can be guaranteed of either receiving an exception when adding
+ itself to a Coordination or of receiving notification the Coordination has
+ terminated.
+ 
+ </para>
+      <para>
+ A Coordination object is thread safe and can be passed as a parameter to
+ other parties regardless of the threads these parties use.
+ 
+ </para>
+      <para>
+ The following example code shows how a Coordination should be used.
+ 
+ </para>
+      <programlisting> void foo() {
+   Coordination c = coordinator.create("work", 0);
+   try {
+     doWork(c);
+   }
+   catch (Exception e) {
+     c.fail(e);
+   }
+   finally {
+     c.end();
+   }
+ }</programlisting>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="ORPHANED"
+               role="field"
+               xml:id="org.osgi.service.coordinator.Coordination.ORPHANED">
+         <title>public static final Exception ORPHANED</title>
+         <para>
+A singleton exception that will be the failure cause when a Coordination
+ has been orphaned.
+   </para>
+      </section>
+      <section xreflabel="RELEASED"
+               role="field"
+               xml:id="org.osgi.service.coordinator.Coordination.RELEASED">
+         <title>public static final Exception RELEASED</title>
+         <para>
+A singleton exception that will be the failure cause when the
+ Coordinations created by a bundle are terminated because the bundle
+ released the Coordinator service.
+   </para>
+      </section>
+      <section xreflabel="TIMEOUT"
+               role="field"
+               xml:id="org.osgi.service.coordinator.Coordination.TIMEOUT">
+         <title>public static final Exception TIMEOUT</title>
+         <para>
+A singleton exception that will be the failure cause when a Coordination
+ times out.
+   </para>
+      </section>
+      <section xreflabel="addParticipant(Participant)"
+               role="method"
+               xml:id="org.osgi.service.coordinator.Coordination.addParticipant-Participant-">
+         <title>public void addParticipant(Participant participant)</title>
+         <formalpara role="parameter">
+            <title>participant</title>
+            <para>The Participant to register with this Coordination.
+        The participant must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Register a Participant with this Coordination.
+ 
+ </para>
+         <para>
+ Once a Participant is registered with this Coordination, it is guaranteed
+ to receive a notification for either
+ <link linkend="org.osgi.service.coordinator.Participant.ended-Coordination-">normal</link> or
+ <link linkend="org.osgi.service.coordinator.Participant.failed-Coordination-">failure</link> termination when this
+ Coordination is terminated.
+ 
+ </para>
+         <para>
+ Participants are registered using their object identity. Once a
+ Participant is registered with this Coordination, subsequent attempts to
+ register the Participant again with this Coordination are ignored and the
+ Participant is only notified once when this Coordination is terminated.
+ 
+ </para>
+         <para>
+ A Participant can only be registered with a single active Coordination at
+ a time. If a Participant is already registered with an active
+ Coordination, attempts to register the Participation with another active
+ Coordination will block until the Coordination the Participant is
+ registered with terminates. Notice that in edge cases the notification to
+ the Participant that this Coordination has terminated can happen before
+ this method returns.
+ 
+ </para>
+         <para>
+ Attempting to register a Participant with a <link linkend="org.osgi.service.coordinator.Coordination.isTerminated--">terminated</link> Coordination will result in a CoordinationException being
+ thrown.
+ 
+ </para>
+         <para>
+ The ordering of notifying Participants must follow the reverse order in
+ which the Participants were registered.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>CoordinationException</code>– If the Participant could not be registered
+         with this Coordination. This exception should normally not be
+         caught by the caller but allowed to be caught by the initiator of
+         this Coordination.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have
+         <code>CoordinationPermission[PARTICIPATE]</code> for this
+         Coordination.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="end()"
+               role="method"
+               xml:id="org.osgi.service.coordinator.Coordination.end--">
+         <title>public void end()</title>
+         <para role="description">
+Terminate this Coordination normally.
+ 
+ </para>
+         <para>
+ If this Coordination has been <link linkend="org.osgi.service.coordinator.Coordination.push--">pushed</link> on the thread local
+ Coordination stack of another thread, this method does nothing except
+ throw a CoordinationException of type
+ <link linkend="org.osgi.service.coordinator.CoordinationException.WRONG_THREAD">CoordinationException.WRONG_THREAD</link>.
+ 
+ </para>
+         <para>
+ If this Coordination has been <link linkend="org.osgi.service.coordinator.Coordination.push--">pushed</link> on the thread local
+ Coordination stack of this thread but is not the
+ <link linkend="org.osgi.service.coordinator.Coordinator.peek--">current Coordination</link>, then the Coordinations
+ on the thread local Coordination stack above this Coordination must be
+ terminated and removed from the thread local Coordination stack before
+ this Coordination is terminated. Each of these Coordinations, starting
+ with the current Coordination, will be <link linkend="org.osgi.service.coordinator.Coordination.end--">terminated normally</link>
+ . If the termination throws a <link linkend="org.osgi.service.coordinator.CoordinationException">CoordinationException</link>, then the
+ next Coordination on the thread local Coordination stack will be
+ <link linkend="org.osgi.service.coordinator.Coordination.fail-Throwable-">terminated as a failure</link> with a failure cause of
+ the thrown CoordinationException. At the end of this process, this
+ Coordination will be the current Coordination and will have been
+ terminated as a failure if any of the terminated Coordinations threw a
+ CoordinationException
+ 
+ </para>
+         <para>
+ If this Coordination is the <link linkend="org.osgi.service.coordinator.Coordinator.peek--">current
+ Coordination</link>, then it will be <link linkend="org.osgi.service.coordinator.Coordinator.pop--">removed</link> from the
+ thread local Coordination stack.
+ 
+ </para>
+         <para>
+ If this Coordination is already terminated, a CoordinationException is
+ thrown. If this Coordination was terminated as a failure, the
+ <link linkend="org.osgi.service.coordinator.Coordination.getFailure--">failure cause</link> will be the cause of the thrown
+ CoordinationException.
+ 
+ </para>
+         <para>
+ Otherwise, this Coordination is terminated normally and then all
+ registered <link linkend="org.osgi.service.coordinator.Coordination.getParticipants--">Participants</link> are
+ <link linkend="org.osgi.service.coordinator.Participant.ended-Coordination-">notified</link>. Participants should
+ finalize any work associated with this Coordination. The successful
+ return of this method indicates that the Coordination has terminated
+ normally and all registered Participants have been notified of the normal
+ termination.
+ 
+ </para>
+         <para>
+ It is possible that one of the Participants throws an exception during
+ notification. If this happens, this Coordination is considered to have
+ partially failed and this method must throw a CoordinationException of
+ type <link linkend="org.osgi.service.coordinator.CoordinationException.PARTIALLY_ENDED">CoordinationException.PARTIALLY_ENDED</link> after all the
+ registered Participants have been notified.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>CoordinationException</code>– If this Coordination has failed, including
+         timed out, or partially failed or this Coordination is on the
+         thread local Coordination stack of another thread.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have
+         <code>CoordinationPermission[INITIATE]</code> for this Coordination.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="extendTimeout(long)"
+               role="method"
+               xml:id="org.osgi.service.coordinator.Coordination.extendTimeout-long-">
+         <title>public long extendTimeout(long timeMillis)</title>
+         <formalpara role="parameter">
+            <title>timeMillis</title>
+            <para>The time in milliseconds to extend the current timeout.
+        If the initial timeout was specified as 0, no extension must take
+        place. A zero must have no effect.</para>
+         </formalpara>
+         <para role="description">
+Extend the time out of this Coordination.
+ 
+ </para>
+         <para>
+ Participants can call this method to extend the timeout of this
+ Coordination with at least the specified time. This can be done by
+ Participants when they know a task will take more than normal time.
+ 
+ </para>
+         <para>
+ This method will return the new deadline if an extension took place or
+ the current deadline if, for whatever reason, no extension takes place.
+ Note that if a maximum timeout is in effect, the deadline may not be
+ extended by as much as was requested, if at all. If there is no deadline,
+ zero is returned. Specifying a timeout extension of 0 will return the
+ existing deadline.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The new deadline in milliseconds. If the specified time is 0, the
+         existing deadline is returned. If this Coordination was created
+         with an initial timeout of 0, no timeout is set and 0 is
+         returned.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>CoordinationException</code>– If this Coordination
+         <link linkend="org.osgi.service.coordinator.Coordination.isTerminated--">is terminated</link>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– If the specified time is negative.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have
+         <code>CoordinationPermission[PARTICIPATE]</code> for this
+         Coordination.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="fail(Throwable)"
+               role="method"
+               xml:id="org.osgi.service.coordinator.Coordination.fail-Throwable-">
+         <title>public boolean fail(Throwable cause)</title>
+         <formalpara role="parameter">
+            <title>cause</title>
+            <para>The failure cause. The failure cause must not be
+        <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Terminate this Coordination as a failure with the specified failure
+ cause.
+ 
+ </para>
+         <para>
+ If this Coordination is already <link linkend="org.osgi.service.coordinator.Coordination.isTerminated--">terminated</link>, this
+ method does nothing and returns <code>false</code>.
+ 
+ </para>
+         <para>
+ Otherwise, this Coordination is terminated as a failure with the
+ specified failure cause and then all registered
+ <link linkend="org.osgi.service.coordinator.Coordination.getParticipants--">Participants</link> are
+ <link linkend="org.osgi.service.coordinator.Participant.failed-Coordination-">notified</link>. Participants should
+ discard any work associated with this Coordination. This method will
+ return <code>true</code>.
+ 
+ </para>
+         <para>
+ If this Coordination has been <link linkend="org.osgi.service.coordinator.Coordination.push--">pushed</link> onto a thread local
+ Coordination stack, this Coordination is not removed from the stack. The
+ creator of this Coordination must still call <link linkend="org.osgi.service.coordinator.Coordination.end--">end()</link> on this
+ Coordination to cause it to be removed from the thread local Coordination
+ stack.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>true</code> if this Coordination was active and was terminated
+         by this method, otherwise <code>false</code>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have
+         <code>CoordinationPermission[PARTICIPATE]</code> for this
+         Coordination.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getBundle()"
+               role="method"
+               xml:id="org.osgi.service.coordinator.Coordination.getBundle--">
+         <title>public Bundle getBundle()</title>
+         <para role="description">
+Returns the bundle that created this Coordination. This is the bundle
+ that obtained the <link linkend="org.osgi.service.coordinator.Coordinator">Coordinator</link> service that was used to create
+ this Coordination.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The bundle that created this Coordination.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have
+         <code>CoordinationPermission[ADMIN]</code> for this Coordination.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getEnclosingCoordination()"
+               role="method"
+               xml:id="org.osgi.service.coordinator.Coordination.getEnclosingCoordination--">
+         <title>public Coordination getEnclosingCoordination()</title>
+         <para role="description">
+Returns the Coordination enclosing this Coordination if this Coordination
+ is on the thread local Coordination stack.
+ 
+ </para>
+         <para>
+ When a Coordination is <link linkend="org.osgi.service.coordinator.Coordination.push--">pushed</link> onto the thread local
+ Coordination stack, the former <link linkend="org.osgi.service.coordinator.Coordinator.peek--">current
+ Coordination</link>, if any, is the enclosing Coordination of this
+ Coordination. When this Coordination is <link linkend="org.osgi.service.coordinator.Coordinator.pop--">removed</link>
+ from the thread local Coordination stack, this Coordination no longer has
+ an enclosing Coordination.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The Coordination enclosing this Coordination if this Coordination
+         is on the thread local Coordination stack or <code>null</code> if this
+         Coordination is not on the thread local Coordination stack or has
+         no enclosing Coordination.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have
+         <code>CoordinationPermission[ADMIN]</code> for this Coordination.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getFailure()"
+               role="method"
+               xml:id="org.osgi.service.coordinator.Coordination.getFailure--">
+         <title>public Throwable getFailure()</title>
+         <para role="description">
+Returns the failure cause of this Coordination.
+ 
+ </para>
+         <para>
+ If this Coordination has <link linkend="org.osgi.service.coordinator.Coordination.fail-Throwable-">failed</link>, then this
+ method will return the failure cause.
+ 
+ </para>
+         <para>
+ If this Coordination timed out, this method will return <link linkend="org.osgi.service.coordinator.Coordination.TIMEOUT">TIMEOUT</link>
+ as the failure cause. If this Coordination was active when the bundle
+ that created it released the <link linkend="org.osgi.service.coordinator.Coordinator">Coordinator</link> service, this method
+ will return <link linkend="org.osgi.service.coordinator.Coordination.RELEASED">RELEASED</link> as the failure cause. If the Coordination
+ was orphaned, this method will return <link linkend="org.osgi.service.coordinator.Coordination.ORPHANED">ORPHANED</link> as the failure
+ cause.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The failure cause of this Coordination or <code>null</code> if this
+         Coordination has not terminated as a failure.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have
+         <code>CoordinationPermission[INITIATE]</code> for this Coordination.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getId()"
+               role="method"
+               xml:id="org.osgi.service.coordinator.Coordination.getId--">
+         <title>public long getId()</title>
+         <para role="description">
+Returns the id assigned to this Coordination.
+ 
+ The id is assigned by the <link linkend="org.osgi.service.coordinator.Coordinator">Coordinator</link> service which created this
+ Coordination and is unique among all the Coordinations created by the
+ Coordinator service and must not be reused as long as the Coordinator
+ service remains registered. The id must be positive and monotonically
+ increases for each Coordination created by the Coordinator service.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The id assigned to this Coordination.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getName()"
+               role="method"
+               xml:id="org.osgi.service.coordinator.Coordination.getName--">
+         <title>public String getName()</title>
+         <para role="description">
+Returns the name of this Coordination.
+ 
+ The name is specified when this Coordination was created.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The name of this Coordination.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getParticipants()"
+               role="method"
+               xml:id="org.osgi.service.coordinator.Coordination.getParticipants--">
+         <title>public List&lt;Participant&gt; getParticipants()</title>
+         <para role="description">
+Returns a snapshot of the Participants registered with this Coordination.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A snapshot of the Participants registered with this Coordination.
+         If no Participants are registered with this Coordination, the
+         returned list will be empty. The list is ordered in the order the
+         Participants were registered. The returned list is the property
+         of the caller and can be modified by the caller.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have
+         <code>CoordinationPermission[INITIATE]</code> for this Coordination.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getThread()"
+               role="method"
+               xml:id="org.osgi.service.coordinator.Coordination.getThread--">
+         <title>public Thread getThread()</title>
+         <para role="description">
+Returns the thread in whose thread local Coordination stack this
+ Coordination has been <link linkend="org.osgi.service.coordinator.Coordination.push--">pushed</link>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The thread in whose thread local Coordination stack this
+         Coordination has been pushed or <code>null</code> if this Coordination
+         is not in any thread local Coordination stack.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have
+         <code>CoordinationPermission[ADMIN]</code> for this Coordination.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getVariables()"
+               role="method"
+               xml:id="org.osgi.service.coordinator.Coordination.getVariables--">
+         <title>public Map&lt;Class&lt;?&gt;, Object&gt; getVariables()</title>
+         <para role="description">
+Returns the variable map associated with this Coordination.
+ 
+ Each Coordination has a map that can be used for communicating between
+ different Participants. The key of the map is a class, allowing for
+ private data to be stored in the map by using implementation classes or
+ shared data by using shared interfaces.
+ 
+ The returned map is not synchronized. Users of the map must synchronize
+ on the Map object while making changes.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The variable map associated with this Coordination.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have
+         <code>CoordinationPermission[PARTICIPANT]</code> for this
+         Coordination.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="isTerminated()"
+               role="method"
+               xml:id="org.osgi.service.coordinator.Coordination.isTerminated--">
+         <title>public boolean isTerminated()</title>
+         <para role="description">
+Returns whether this Coordination is terminated.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>true</code> if this Coordination is terminated, otherwise
+         <code>false</code> if this Coordination is active.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="join(long)"
+               role="method"
+               xml:id="org.osgi.service.coordinator.Coordination.join-long-">
+         <title>public void join(long timeMillis) throws InterruptedException</title>
+         <formalpara role="parameter">
+            <title>timeMillis</title>
+            <para>Maximum time in milliseconds to wait. Specifying a time
+        of 0 will wait until this Coordination is terminated.</para>
+         </formalpara>
+         <para role="description">
+Wait until this Coordination is terminated and all registered
+ Participants have been notified.
+   </para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>InterruptedException</code>– If the wait is interrupted.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– If the specified time is negative.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have
+         <code>CoordinationPermission[PARTICIPATE]</code> for this
+         Coordination.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="push()"
+               role="method"
+               xml:id="org.osgi.service.coordinator.Coordination.push--">
+         <title>public Coordination push()</title>
+         <para role="description">
+Push this Coordination object onto the thread local Coordination stack to
+ make it the <link linkend="org.osgi.service.coordinator.Coordinator.peek--">current Coordination</link>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This Coordination.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>CoordinationException</code>– If this Coordination is already on the any
+         thread's thread local Coordination stack or this Coordination
+         <link linkend="org.osgi.service.coordinator.Coordination.isTerminated--">is terminated</link>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have
+         <code>CoordinationPermission[INITIATE]</code> for this Coordination.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="CoordinationException"
+            role="class"
+            xml:id="org.osgi.service.coordinator.CoordinationException">
+      <title>public class CoordinationException<?line-break?> extends RuntimeException</title>
+      <para>
+Unchecked exception which may be thrown by a Coordinator implementation.
+   </para>
+      <section xreflabel="ALREADY_ENDED"
+               role="field"
+               xml:id="org.osgi.service.coordinator.CoordinationException.ALREADY_ENDED">
+         <title>public static final int ALREADY_ENDED = 4</title>
+         <para>
+The Coordination has already terminated normally.
+   </para>
+      </section>
+      <section xreflabel="ALREADY_PUSHED"
+               role="field"
+               xml:id="org.osgi.service.coordinator.CoordinationException.ALREADY_PUSHED">
+         <title>public static final int ALREADY_PUSHED = 5</title>
+         <para>
+The Coordination was already on a thread's thread local Coordination
+ stack.
+   </para>
+      </section>
+      <section xreflabel="DEADLOCK_DETECTED"
+               role="field"
+               xml:id="org.osgi.service.coordinator.CoordinationException.DEADLOCK_DETECTED">
+         <title>public static final int DEADLOCK_DETECTED = 1</title>
+         <para>
+Registering a Participant with a Coordination would have resulted in a
+ deadlock.
+   </para>
+      </section>
+      <section xreflabel="FAILED"
+               role="field"
+               xml:id="org.osgi.service.coordinator.CoordinationException.FAILED">
+         <title>public static final int FAILED = 2</title>
+         <para>
+The Coordination has terminated as a failure with
+ <link linkend="org.osgi.service.coordinator.Coordination.fail-Throwable-">Coordination.fail(Throwable)</link>. When this exception type is used,
+ the getCause() method must return a non-null value.
+   </para>
+      </section>
+      <section xreflabel="LOCK_INTERRUPTED"
+               role="field"
+               xml:id="org.osgi.service.coordinator.CoordinationException.LOCK_INTERRUPTED">
+         <title>public static final int LOCK_INTERRUPTED = 6</title>
+         <para>
+The current thread was interrupted while waiting to register a
+ Participant with a Coordination.
+   </para>
+      </section>
+      <section xreflabel="PARTIALLY_ENDED"
+               role="field"
+               xml:id="org.osgi.service.coordinator.CoordinationException.PARTIALLY_ENDED">
+         <title>public static final int PARTIALLY_ENDED = 3</title>
+         <para>
+The Coordination has partially ended.
+   </para>
+      </section>
+      <section xreflabel="UNKNOWN"
+               role="field"
+               xml:id="org.osgi.service.coordinator.CoordinationException.UNKNOWN">
+         <title>public static final int UNKNOWN = 0</title>
+         <para>
+Unknown reason for this exception.
+   </para>
+      </section>
+      <section xreflabel="WRONG_THREAD"
+               role="field"
+               xml:id="org.osgi.service.coordinator.CoordinationException.WRONG_THREAD">
+         <title>public static final int WRONG_THREAD = 7</title>
+         <para>
+The Coordination cannot be ended by the calling thread since the
+ Coordination is on the thread local Coordination stack of another thread.
+   </para>
+      </section>
+      <section xreflabel="CoordinationException(String,Coordination,int,Throwable)"
+               role="method"
+               xml:id="org.osgi.service.coordinator.CoordinationException.CoordinationException-String-Coordination-int-Throwable-">
+         <title>public  CoordinationException(String message, Coordination coordination, int type, Throwable cause)</title>
+         <formalpara role="parameter">
+            <title>message</title>
+            <para>The detail message for this exception.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>coordination</title>
+            <para>The Coordination associated with this exception.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>cause</title>
+            <para>The cause associated with this exception.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>type</title>
+            <para>The type of this exception.</para>
+         </formalpara>
+         <para role="description">
+Create a new Coordination Exception with a cause.
+   </para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– If the specified type is <link linkend="org.osgi.service.coordinator.CoordinationException.FAILED">FAILED</link>
+         and the specified cause is <code>null</code>.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="CoordinationException(String,Coordination,int)"
+               role="method"
+               xml:id="org.osgi.service.coordinator.CoordinationException.CoordinationException-String-Coordination-int-">
+         <title>public  CoordinationException(String message, Coordination coordination, int type)</title>
+         <formalpara role="parameter">
+            <title>message</title>
+            <para>The detail message for this exception.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>coordination</title>
+            <para>The Coordination associated with this exception.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>type</title>
+            <para>The type of this exception.</para>
+         </formalpara>
+         <para role="description">
+Create a new Coordination Exception.
+   </para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– If the specified type is <link linkend="org.osgi.service.coordinator.CoordinationException.FAILED">FAILED</link>
+         .</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getId()"
+               role="method"
+               xml:id="org.osgi.service.coordinator.CoordinationException.getId--">
+         <title>public long getId()</title>
+         <para role="description">
+Returns the id of the <link linkend="org.osgi.service.coordinator.Coordination">Coordination</link> associated with this
+ exception.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The id of the Coordination associated with this exception or
+         <code>-1</code> if no Coordination is associated with this exception.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getName()"
+               role="method"
+               xml:id="org.osgi.service.coordinator.CoordinationException.getName--">
+         <title>public String getName()</title>
+         <para role="description">
+Returns the name of the <link linkend="org.osgi.service.coordinator.Coordination">Coordination</link> associated with this
+ exception.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The name of the Coordination associated with this exception or
+         <code>"&lt;&gt;"</code> if no Coordination is associated with this
+         exception.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getType()"
+               role="method"
+               xml:id="org.osgi.service.coordinator.CoordinationException.getType--">
+         <title>public int getType()</title>
+         <para role="description">
+Returns the type for this exception.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The type of this exception.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="CoordinationPermission"
+            role="class"
+            xml:id="org.osgi.service.coordinator.CoordinationPermission">
+      <title>public final class CoordinationPermission<?line-break?> extends BasicPermission</title>
+      <para>
+A bundle's authority to create or use a <link linkend="org.osgi.service.coordinator.Coordination">Coordination</link>.
+ 
+ </para>
+      <para>
+         <code>CoordinationPermission</code> has three actions: <code>initiate</code>,
+ <code>participate</code> and <code>admin</code>.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="ADMIN"
+               role="field"
+               xml:id="org.osgi.service.coordinator.CoordinationPermission.ADMIN">
+         <title>public static final String ADMIN = "admin"</title>
+         <para>
+The action string <code>admin</code>.
+   </para>
+      </section>
+      <section xreflabel="INITIATE"
+               role="field"
+               xml:id="org.osgi.service.coordinator.CoordinationPermission.INITIATE">
+         <title>public static final String INITIATE = "initiate"</title>
+         <para>
+The action string <code>initiate</code>.
+   </para>
+      </section>
+      <section xreflabel="PARTICIPATE"
+               role="field"
+               xml:id="org.osgi.service.coordinator.CoordinationPermission.PARTICIPATE">
+         <title>public static final String PARTICIPATE = "participate"</title>
+         <para>
+The action string <code>participate</code>.
+   </para>
+      </section>
+      <section xreflabel="CoordinationPermission(String,String)"
+               role="method"
+               xml:id="org.osgi.service.coordinator.CoordinationPermission.CoordinationPermission-String-String-">
+         <title>public  CoordinationPermission(String filter, String actions)</title>
+         <formalpara role="parameter">
+            <title>filter</title>
+            <para>A filter expression. Filter attribute names are processed
+        in a case sensitive manner. A special value of <code>"*"</code> can be
+        used to match all coordinations.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>actions</title>
+            <para>
+               <code>admin</code>, <code>initiate</code> or <code>participate</code>
+        (canonical order).</para>
+         </formalpara>
+         <para role="description">
+Creates a new granted <code>CoordinationPermission</code> object.
+ 
+ This constructor must only be used to create a permission that is going
+ to be checked.
+ </para>
+         <para>
+ Examples:
+ 
+ </para>
+         <programlisting> (coordination.name=com.acme.*)
+ (&amp;(signer=\*,o=ACME,c=US)(coordination.name=com.acme.*))
+ (signer=\*,o=ACME,c=US)</programlisting>
+         <para>
+ When a signer key is used within the filter expression the signer value
+ must escape the special filter chars ('*', '(', ')').
+ </para>
+         <para>
+ The name is specified as a filter expression. The filter gives access to
+ the following attributes:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>signer - A Distinguished Name chain used to sign the exporting
+ bundle. Wildcards in a DN are not matched according to the filter string
+ rules, but according to the rules defined for a DN chain.</para>
+            </listitem>
+            <listitem>
+               <para>location - The location of the exporting bundle.</para>
+            </listitem>
+            <listitem>
+               <para>id - The bundle ID of the exporting bundle.</para>
+            </listitem>
+            <listitem>
+               <para>name - The symbolic name of the exporting bundle.</para>
+            </listitem>
+            <listitem>
+               <para>coordination.name - The name of the requested coordination.</para>
+            </listitem>
+         </itemizedlist>
+         <para>
+ Filter attribute names are processed in a case sensitive manner.
+   </para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– If the filter has an invalid syntax.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="CoordinationPermission(String,Bundle,String)"
+               role="method"
+               xml:id="org.osgi.service.coordinator.CoordinationPermission.CoordinationPermission-String-Bundle-String-">
+         <title>public  CoordinationPermission(String coordinationName, Bundle coordinationBundle, String actions)</title>
+         <formalpara role="parameter">
+            <title>coordinationName</title>
+            <para>The name of the requested Coordination.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>coordinationBundle</title>
+            <para>The bundle which
+        <link linkend="org.osgi.service.coordinator.Coordination.getBundle--">created</link> the requested
+        Coordination.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>actions</title>
+            <para>
+               <code>admin</code>, <code>initiate</code> or <code>participate</code>
+        (canonical order).</para>
+         </formalpara>
+         <para role="description">
+Creates a new requested <code>CoordinationPermission</code> object to be used
+ by the code that must perform <code>checkPermission</code>.
+ <code>CoordinationPermission</code> objects created with this constructor
+ cannot be added to an <code>CoordinationPermission</code> permission
+ collection.
+   </para>
+      </section>
+      <section xreflabel="equals(Object)"
+               role="method"
+               xml:id="org.osgi.service.coordinator.CoordinationPermission.equals-Object-">
+         <title>public boolean equals(Object obj)</title>
+         <formalpara role="parameter">
+            <title>obj</title>
+            <para>The object to test for equality with this
+        <code>CoordinationPermission</code> object.</para>
+         </formalpara>
+         <para role="description">
+Determines the equality of two <code>CoordinationPermission</code> objects.
+ 
+ This method checks that specified permission has the same name and
+ <code>CoordinationPermission</code> actions as this
+ <code>CoordinationPermission</code> object.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>true</code> if <code>obj</code> is a <code>CoordinationPermission</code>,
+         and has the same name and actions as this
+         <code>CoordinationPermission</code> object; <code>false</code> otherwise.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getActions()"
+               role="method"
+               xml:id="org.osgi.service.coordinator.CoordinationPermission.getActions--">
+         <title>public String getActions()</title>
+         <para role="description">
+Returns the canonical string representation of the
+ <code>CoordinationPermission</code> actions.
+ 
+ </para>
+         <para>
+ Always returns present <code>CoordinationPermission</code> actions in the
+ following order: <code>admin</code>, <code>initiate</code>, <code>participate</code>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>Canonical string representation of the
+         <code>CoordinationPermission</code> actions.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="hashCode()"
+               role="method"
+               xml:id="org.osgi.service.coordinator.CoordinationPermission.hashCode--">
+         <title>public int hashCode()</title>
+         <para role="description">
+Returns the hash code value for this object.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A hash code value for this object.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="implies(Permission)"
+               role="method"
+               xml:id="org.osgi.service.coordinator.CoordinationPermission.implies-Permission-">
+         <title>public boolean implies(Permission p)</title>
+         <formalpara role="parameter">
+            <title>p</title>
+            <para>The requested permission.</para>
+         </formalpara>
+         <para role="description">
+Determines if the specified permission is implied by this object.
+ 
+ </para>
+         <para>
+ This method checks that the filter of the target is implied by the
+ coordination name of this object. The list of
+ <code>CoordinationPermission</code> actions must either match or allow for the
+ list of the target object to imply the target
+ <code>CoordinationPermission</code> action.
+ </para>
+         <para/>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>true</code> if the specified permission is implied by this
+         object; <code>false</code> otherwise.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="newPermissionCollection()"
+               role="method"
+               xml:id="org.osgi.service.coordinator.CoordinationPermission.newPermissionCollection--">
+         <title>public PermissionCollection newPermissionCollection()</title>
+         <para role="description">
+Returns a new <code>PermissionCollection</code> object suitable for storing
+ <code>CoordinationPermission</code> objects.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A new <code>PermissionCollection</code> object.</para>
+         </formalpara>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="Coordinator"
+            role="class"
+            xml:id="org.osgi.service.coordinator.Coordinator">
+      <title>public interface Coordinator</title>
+      <para>
+A Coordinator service coordinates activities between different parties.
+ 
+ </para>
+      <para>
+ A bundle can use the Coordinator service to create <link linkend="org.osgi.service.coordinator.Coordination">Coordination</link>
+ objects. Once a Coordination object is created, it can be
+ <link linkend="org.osgi.service.coordinator.Coordination.push--">pushed</link> on the thread local Coordination stack to
+ be an implicit parameter as the current Coordination for calls to other
+ parties, or it can be passed directly to other parties as an argument. The
+ current Coordination, which is on the top of the current thread's thread
+ local Coordination stack, can be obtained with <link linkend="org.osgi.service.coordinator.Coordinator.peek--">peek()</link>.
+ 
+ </para>
+      <para>
+ Any active Coordinations created by a bundle must be terminated when the
+ bundle releases the Coordinator service. The Coordinator service must
+ <link linkend="org.osgi.service.coordinator.Coordination.fail-Throwable-">fail</link> these Coordinations with the
+ <link linkend="org.osgi.service.coordinator.Coordination.RELEASED">RELEASED</link> exception.
+ 
+ </para>
+      <para>
+ A <link linkend="org.osgi.service.coordinator.Participant">Participant</link> can <link linkend="org.osgi.service.coordinator.Coordination.addParticipant-Participant-">register</link> to participate in a Coordination and receive notification of the
+ termination of the Coordination.
+ 
+ </para>
+      <para>
+ The following example code shows a example usage of the Coordinator service.
+ 
+ </para>
+      <programlisting> void foo() {
+   Coordination c = coordinator.begin("work", 0);
+   try {
+     doWork();
+   } catch (Exception e) {
+     c.fail(e);
+   } finally {
+     c.end();
+   }
+ }</programlisting>
+      <para>
+ 
+ In the <code>doWork</code> method, code can be called that requires notification
+ of the termination of the Coordination. The <code>doWork</code> method can then
+ register a Participant with the Coordination.
+ 
+ </para>
+      <programlisting> void doWork() {
+   if (coordinator.addParticipant(this)) {
+     beginWork();
+   } else {
+     beginWork();
+     finishWork();
+   }
+ }
+ 
+ void ended(Coordination c) {
+   finishWork();
+ }
+ 
+ void failed(Coordination c) {
+   undoWork();
+ }</programlisting>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="addParticipant(Participant)"
+               role="method"
+               xml:id="org.osgi.service.coordinator.Coordinator.addParticipant-Participant-">
+         <title>public boolean addParticipant(Participant participant)</title>
+         <formalpara role="parameter">
+            <title>participant</title>
+            <para>The Participant to register with the current
+        Coordination. The participant must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Register a Participant with the <link linkend="org.osgi.service.coordinator.Coordinator.peek--">current Coordination</link>.
+ 
+ </para>
+         <para>
+ If there is no current Coordination, this method does nothing and returns
+ <code>false</code>.
+ 
+ </para>
+         <para>
+ Otherwise, this method calls
+ <link linkend="org.osgi.service.coordinator.Coordination.addParticipant-Participant-">Coordination.addParticipant(Participant)</link> with the specified
+ Participant on the current Coordination and returns <code>true</code>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>false</code> if there was no current Coordination, otherwise
+         returns <code>true</code>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>CoordinationException</code>– If the Participant could not be registered
+         with the current Coordination. This exception should normally not
+         be caught by the caller but allowed to be caught by the initiator
+         of this Coordination.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have
+         <code>CoordinationPermission[PARTICIPATE]</code> for the current
+         Coordination.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.coordinator.Coordination.addParticipant-Participant-">Coordination.addParticipant(Participant)</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="begin(String,long)"
+               role="method"
+               xml:id="org.osgi.service.coordinator.Coordinator.begin-String-long-">
+         <title>public Coordination begin(String name, long timeMillis)</title>
+         <formalpara role="parameter">
+            <title>name</title>
+            <para>The name of this coordination. The name does not have to be
+        unique but must follow the <code>symbolic-name</code> syntax from the
+        Core specification.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>timeMillis</title>
+            <para>Timeout in milliseconds. A value of 0 means no timeout
+        is required. If the Coordination is not terminated within the
+        timeout, the Coordinator service will
+        <link linkend="org.osgi.service.coordinator.Coordination.fail-Throwable-">fail</link> the Coordination with a
+        <link linkend="org.osgi.service.coordinator.Coordination.TIMEOUT">TIMEOUT</link> exception.</para>
+         </formalpara>
+         <para role="description">
+Create a new Coordination and make it the <link linkend="org.osgi.service.coordinator.Coordinator.peek--">current
+ Coordination</link>.
+ 
+ </para>
+         <para>
+ This method does that same thing as calling <link linkend="org.osgi.service.coordinator.Coordinator.create-String-long-">create(name, timeMillis)</link>.<link linkend="org.osgi.service.coordinator.Coordination.push--">push()</link>
+         </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A new Coordination object</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– If the specified name does not follow
+         the <code>symbolic-name</code> syntax or the specified time is
+         negative.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have
+         <code>CoordinationPermission[INITIATE]</code> for the specified name
+         and creating bundle.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="create(String,long)"
+               role="method"
+               xml:id="org.osgi.service.coordinator.Coordinator.create-String-long-">
+         <title>public Coordination create(String name, long timeMillis)</title>
+         <formalpara role="parameter">
+            <title>name</title>
+            <para>The name of this coordination. The name does not have to be
+        unique but must follow the <code>symbolic-name</code> syntax from the
+        Core specification.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>timeMillis</title>
+            <para>Timeout in milliseconds. A value of 0 means no timeout
+        is required. If the Coordination is not terminated within the
+        timeout, the Coordinator service will
+        <link linkend="org.osgi.service.coordinator.Coordination.fail-Throwable-">fail</link> the Coordination with a
+        <link linkend="org.osgi.service.coordinator.Coordination.TIMEOUT">TIMEOUT</link> exception.</para>
+         </formalpara>
+         <para role="description">
+Create a new Coordination.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The new Coordination object.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– If the specified name does not follow
+         the <code>symbolic-name</code> syntax or the specified time is
+         negative.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have
+         <code>CoordinationPermission[INITIATE]</code> for the specified name
+         and creating bundle.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="fail(Throwable)"
+               role="method"
+               xml:id="org.osgi.service.coordinator.Coordinator.fail-Throwable-">
+         <title>public boolean fail(Throwable cause)</title>
+         <formalpara role="parameter">
+            <title>cause</title>
+            <para>The failure cause. The failure cause must not be
+        <code>null</code> .</para>
+         </formalpara>
+         <para role="description">
+Terminate the <link linkend="org.osgi.service.coordinator.Coordinator.peek--">current Coordination</link> as a failure with the
+ specified failure cause.
+ 
+ </para>
+         <para>
+ If there is no current Coordination, this method does nothing and returns
+ <code>false</code>.
+ 
+ </para>
+         <para>
+ Otherwise, this method returns the result from calling
+ <link linkend="org.osgi.service.coordinator.Coordination.fail-Throwable-">Coordination.fail(Throwable)</link> with the specified failure cause on
+ the current Coordination.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>false</code> if there was no current Coordination, otherwise
+         returns the result from calling
+         <link linkend="org.osgi.service.coordinator.Coordination.fail-Throwable-">Coordination.fail(Throwable)</link> on the current Coordination.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have
+         <code>CoordinationPermission[PARTICIPATE]</code> for the current
+         Coordination.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.coordinator.Coordination.fail-Throwable-">Coordination.fail(Throwable)</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="getCoordination(long)"
+               role="method"
+               xml:id="org.osgi.service.coordinator.Coordinator.getCoordination-long-">
+         <title>public Coordination getCoordination(long id)</title>
+         <formalpara role="parameter">
+            <title>id</title>
+            <para>The id of the requested Coordination.</para>
+         </formalpara>
+         <para role="description">
+Returns the Coordination with the specified id.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A Coordination having with specified id or <code>null</code> if no
+         Coordination with the specified id exists, the Coordination with
+         the specified id is <link linkend="org.osgi.service.coordinator.Coordination.isTerminated--">terminated</link> or the caller does not have
+         <code>CoordinationPermission[ADMIN]</code> for the Coordination with
+         the specified id.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getCoordinations()"
+               role="method"
+               xml:id="org.osgi.service.coordinator.Coordinator.getCoordinations--">
+         <title>public Collection&lt;Coordination&gt; getCoordinations()</title>
+         <para role="description">
+Returns a snapshot of all active Coordinations.
+ 
+ </para>
+         <para>
+ Since Coordinations can be terminated at any time, Coordinations in the
+ returned collection can be terminated before the caller examines the
+ returned collection.
+ 
+ </para>
+         <para>
+ The returned collection must only contain the Coordinations for which the
+ caller has <code>CoordinationPermission[ADMIN]</code>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A snapshot of all active Coordinations. If there are no active
+         Coordinations, the returned list will be empty. The returned
+         collection is the property of the caller and can be modified by
+         the caller.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="peek()"
+               role="method"
+               xml:id="org.osgi.service.coordinator.Coordinator.peek--">
+         <title>public Coordination peek()</title>
+         <para role="description">
+Returns the current Coordination.
+ 
+ </para>
+         <para>
+ The current Coordination is the Coordination at the top of the thread
+ local Coordination stack. If the thread local Coordination stack is
+ empty, there is no current Coordination. Each Coordinator service
+ maintains thread local Coordination stacks.
+ 
+ </para>
+         <para>
+ This method does not alter the thread local Coordination stack.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The current Coordination or <code>null</code> if the thread local
+         Coordination stack is empty.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="pop()"
+               role="method"
+               xml:id="org.osgi.service.coordinator.Coordinator.pop--">
+         <title>public Coordination pop()</title>
+         <para role="description">
+Remove the current Coordination from the thread local Coordination stack.
+ 
+ </para>
+         <para>
+ The current Coordination is the Coordination at the top of the thread
+ local Coordination stack. If the thread local Coordination stack is
+ empty, there is no current Coordination. Each Coordinator service
+ maintains its own thread local Coordination stacks.
+ 
+ </para>
+         <para>
+ This method alters the thread local Coordination stack, if it is not
+ empty, by removing the Coordination at the top of the thread local
+ Coordination stack.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The Coordination that was the current Coordination or
+         <code>null</code> if the thread local Coordination stack is empty.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– If the caller does not have
+         <code>CoordinationPermission[INITIATE]</code> for the current
+         Coordination.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="Participant"
+            role="class"
+            xml:id="org.osgi.service.coordinator.Participant">
+      <title>public interface Participant</title>
+      <para>
+A Participant participates in a Coordination.
+ 
+ </para>
+      <para>
+ A Participant can participate in a Coordination by
+ <link linkend="org.osgi.service.coordinator.Coordination.addParticipant-Participant-">registering</link> itself with the
+ Coordination. After successfully registering itself, the Participant is
+ notified when the Coordination is terminated.
+ 
+ </para>
+      <para>
+ If a Coordination terminates <link linkend="org.osgi.service.coordinator.Coordination.end--">normally</link>, then all
+ registered Participants are notified on their <link linkend="org.osgi.service.coordinator.Participant.ended-Coordination-">ended(Coordination)</link>
+ method. If the Coordination terminates as a
+ <link linkend="org.osgi.service.coordinator.Coordination.fail-Throwable-">failure</link>, then all registered
+ Participants are notified on their <link linkend="org.osgi.service.coordinator.Participant.failed-Coordination-">failed(Coordination)</link> method.
+ 
+ </para>
+      <para>
+ Participants are required to be thread safe as notification can be made on
+ any thread.
+ 
+ </para>
+      <para>
+ A Participant can only be registered with a single active Coordination at a
+ time. If a Participant is already registered with an active Coordination,
+ attempts to register the Participation with another active Coordination will
+ block until the Coordination the Participant is registered with terminates.
+ Notice that in edge cases the notification to the Participant that the
+ Coordination has terminated can happen before the registration method
+ returns.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="ended(Coordination)"
+               role="method"
+               xml:id="org.osgi.service.coordinator.Participant.ended-Coordination-">
+         <title>public void ended(Coordination coordination) throws Exception</title>
+         <formalpara role="parameter">
+            <title>coordination</title>
+            <para>The Coordination that has terminated normally.</para>
+         </formalpara>
+         <para role="description">
+Notification that a Coordination has terminated
+ <link linkend="org.osgi.service.coordinator.Coordination.end--">normally</link>.
+ 
+ </para>
+         <para>
+ This Participant should finalize any work associated with the specified
+ Coordination.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– If this Participant throws an exception, the
+         <link linkend="org.osgi.service.coordinator.Coordinator">Coordinator</link> service should log the exception. The
+         <link linkend="org.osgi.service.coordinator.Coordination.end--">Coordination.end()</link> method which is notifying this
+         Participant must continue notification of other registered
+         Participants. When this is completed, the
+         <link linkend="org.osgi.service.coordinator.Coordination.end--">Coordination.end()</link> method must throw a
+         CoordinationException of type
+         <link linkend="org.osgi.service.coordinator.CoordinationException.PARTIALLY_ENDED">CoordinationException.PARTIALLY_ENDED</link>.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="failed(Coordination)"
+               role="method"
+               xml:id="org.osgi.service.coordinator.Participant.failed-Coordination-">
+         <title>public void failed(Coordination coordination) throws Exception</title>
+         <formalpara role="parameter">
+            <title>coordination</title>
+            <para>The Coordination that has terminated as a failure.</para>
+         </formalpara>
+         <para role="description">
+Notification that a Coordination has terminated as a
+ <link linkend="org.osgi.service.coordinator.Coordination.fail-Throwable-">failure</link>.
+ 
+ </para>
+         <para>
+ This Participant should discard any work associated with the specified
+ Coordination.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– If this Participant throws an exception, the
+         <link linkend="org.osgi.service.coordinator.Coordinator">Coordinator</link> service should log the exception. The
+         <link linkend="org.osgi.service.coordinator.Coordination.fail-Throwable-">Coordination.fail(Throwable)</link> method which is notifying
+         this Participant must continue notification of other registered
+         Participants.</para>
+         </formalpara>
+      </section>
+   </section>
+</section>

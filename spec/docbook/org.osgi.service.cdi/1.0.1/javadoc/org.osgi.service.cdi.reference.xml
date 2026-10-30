@@ -1,0 +1,681 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.cdi.reference"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.cdi.reference">
+   <title>org.osgi.service.cdi.reference</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.cdi.reference-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.service.cdi.reference-version.number">1.0</edition>
+   </info>
+   <para>
+CDI Integration Package Version 1.0.
+
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.cdi.annotations; version="[1.0,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.cdi.annotations; version="[1.0,1.1)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.reference.BeanServiceObjects">
+                  <code>BeanServiceObjects</code>
+               </link> - 
+Allows multiple service objects for a service to be obtained.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.reference.BindBeanServiceObjects">
+                  <code>BindBeanServiceObjects</code>
+               </link> - 
+A bean provided by CCR for binding actions to life cycle events of matching
+ services.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.reference.BindService">
+                  <code>BindService</code>
+               </link> - 
+A bean provided by CCR for binding actions to life cycle events of matching
+ services.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.reference.BindServiceReference">
+                  <code>BindServiceReference</code>
+               </link> - 
+A bean provided by CCR for binding actions to life cycle events of matching
+ services.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="BeanServiceObjects"
+            role="class"
+            xml:id="org.osgi.service.cdi.reference.BeanServiceObjects">
+      <title>public interface BeanServiceObjects&lt;S&gt;</title>
+      <formalpara role="parameter">
+         <title>&lt;S&gt;</title>
+         <para>Type of Service</para>
+      </formalpara>
+      <para>
+Allows multiple service objects for a service to be obtained.
+ </para>
+      <para>
+ A component instance can receive a <code>BeanServiceObjects</code> object via a
+ reference that is typed <code>BeanServiceObjects</code>.
+ </para>
+      <para>
+ For services with <link linkend="org.osgi.framework.Constants.SCOPE_PROTOTYPE">prototype</link> scope, multiple
+ service objects for the service can be obtained. For services with
+ <link linkend="org.osgi.framework.Constants.SCOPE_SINGLETON">singleton</link> or <link linkend="org.osgi.framework.Constants.SCOPE_BUNDLE">bundle</link> scope, only one, use-counted service object is available.
+ </para>
+      <para>
+ Any unreleased service objects obtained from this <code>BeanServiceObjects</code>
+ object are automatically released by Service Component Runtime when the
+ service becomes unbound.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <link linkend="org.osgi.framework.ServiceObjects">ServiceObjects</link>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="getService()"
+               role="method"
+               xml:id="org.osgi.service.cdi.reference.BeanServiceObjects.getService--">
+         <title>public S getService()</title>
+         <para role="description">
+Returns a service object for the <link linkend="org.osgi.service.cdi.reference.BeanServiceObjects.getServiceReference--">associated</link> service.
+ </para>
+         <para>
+ This method will always return <code>null</code> when the associated service
+ has been become unbound.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A service object for the associated service or <code>null</code> if
+         the service is unbound, the customized service object returned by
+         a <code>ServiceFactory</code> does not implement the classes under
+         which it was registered or the <code>ServiceFactory</code> threw an
+         exception.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If the component instance that received
+                                   this <code>BeanServiceObjects</code> object
+                                   has been deactivated.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.cdi.reference.BeanServiceObjects.ungetService-S-">ungetService(Object)</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="getServiceReference()"
+               role="method"
+               xml:id="org.osgi.service.cdi.reference.BeanServiceObjects.getServiceReference--">
+         <title>public ServiceReference&lt;S&gt; getServiceReference()</title>
+         <para role="description">
+Returns the <link linkend="org.osgi.framework.ServiceReference">ServiceReference</link> for the service associated with this
+ <code>BeanServiceObjects</code> object.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The <link linkend="org.osgi.framework.ServiceReference">ServiceReference</link> for the service associated with this
+         <code>BeanServiceObjects</code> object.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="ungetService(S)"
+               role="method"
+               xml:id="org.osgi.service.cdi.reference.BeanServiceObjects.ungetService-S-">
+         <title>public void ungetService(S service)</title>
+         <formalpara role="parameter">
+            <title>service</title>
+            <para>A service object previously provided by this
+                    <code>ReferenceServiceObjects</code> object.</para>
+         </formalpara>
+         <para role="description">
+Releases a service object for the <link linkend="org.osgi.service.cdi.reference.BeanServiceObjects.getServiceReference--">associated</link> service.
+ </para>
+         <para>
+ The specified service object must no longer be used and all references to
+ it should be destroyed after calling this method.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If the component instance that received
+                                      this <code>ReferenceServiceObjects</code>
+                                      object has been deactivated.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– If the specified service object was not
+                                      provided by this
+                                      <code>BeanServiceObjects</code> object.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.cdi.reference.BeanServiceObjects.getService--">getService()</link>
+            </para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="BindBeanServiceObjects"
+            role="class"
+            xml:id="org.osgi.service.cdi.reference.BindBeanServiceObjects">
+      <title>public interface BindBeanServiceObjects&lt;S&gt;</title>
+      <formalpara role="parameter">
+         <title>&lt;S&gt;</title>
+         <para>the service argument type.</para>
+      </formalpara>
+      <para>
+A bean provided by CCR for binding actions to life cycle events of matching
+ services.
+   </para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <link linkend="org.osgi.service.cdi.annotations.Reference">Reference</link>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="adding(Consumer)"
+               role="method"
+               xml:id="org.osgi.service.cdi.reference.BindBeanServiceObjects.adding-Consumer-">
+         <title>public BindBeanServiceObjects&lt;S&gt; adding(Consumer&lt;BeanServiceObjects&lt;S&gt;&gt; action)</title>
+         <formalpara role="parameter">
+            <title>action</title>
+            <para>the action, whose argument is the Bean Service Objects, to
+                   subscribe to the <emphasis>adding</emphasis> service event</para>
+         </formalpara>
+         <para role="description">
+Subscribe an action to the <emphasis>adding</emphasis> service event.
+ </para>
+         <para>
+ Only the last <emphasis>adding</emphasis> action is used.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>self</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– when called after <link linkend="org.osgi.service.cdi.reference.BindBeanServiceObjects.bind--">bind</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="bind()"
+               role="method"
+               xml:id="org.osgi.service.cdi.reference.BindBeanServiceObjects.bind--">
+         <title>public void bind()</title>
+         <para role="description">
+The bind terminal operation is required to instruct CCR that all the bind
+ actions have been specified, otherwise bind actions will never be called
+ by CCR.
+ </para>
+         <para>
+ Calling <link linkend="org.osgi.service.cdi.reference.BindBeanServiceObjects.bind--">bind</link> again has no effect.</para>
+      </section>
+      <section xreflabel="modified(Consumer)"
+               role="method"
+               xml:id="org.osgi.service.cdi.reference.BindBeanServiceObjects.modified-Consumer-">
+         <title>public BindBeanServiceObjects&lt;S&gt; modified(Consumer&lt;BeanServiceObjects&lt;S&gt;&gt; action)</title>
+         <formalpara role="parameter">
+            <title>action</title>
+            <para>the action, whose argument is the Bean Service Objects, to
+                   subscribe to the <emphasis>modified</emphasis> service event</para>
+         </formalpara>
+         <para role="description">
+Subscribe an action to the <emphasis>modified</emphasis> service event.
+ </para>
+         <para>
+ Only the last <emphasis>modified</emphasis> action is used.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>self</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– when called after <link linkend="org.osgi.service.cdi.reference.BindBeanServiceObjects.bind--">bind</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="removed(Consumer)"
+               role="method"
+               xml:id="org.osgi.service.cdi.reference.BindBeanServiceObjects.removed-Consumer-">
+         <title>public BindBeanServiceObjects&lt;S&gt; removed(Consumer&lt;BeanServiceObjects&lt;S&gt;&gt; action)</title>
+         <formalpara role="parameter">
+            <title>action</title>
+            <para>the action, whose argument is the Bean Service Objects, to
+                   subscribe to the <emphasis>removed</emphasis> service event</para>
+         </formalpara>
+         <para role="description">
+Subscribe an action to the <emphasis>removed</emphasis> service event.
+ </para>
+         <para>
+ Only the last <emphasis>removed</emphasis> action is used.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>self</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– when called after <link linkend="org.osgi.service.cdi.reference.BindBeanServiceObjects.bind--">bind</link>
+            </para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="BindService"
+            role="class"
+            xml:id="org.osgi.service.cdi.reference.BindService">
+      <title>public interface BindService&lt;S&gt;</title>
+      <formalpara role="parameter">
+         <title>&lt;S&gt;</title>
+         <para>the service argument type.</para>
+      </formalpara>
+      <para>
+A bean provided by CCR for binding actions to life cycle events of matching
+ services.
+   </para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <link linkend="org.osgi.service.cdi.annotations.Reference">Reference</link>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="adding(Consumer)"
+               role="method"
+               xml:id="org.osgi.service.cdi.reference.BindService.adding-Consumer-">
+         <title>public BindService&lt;S&gt; adding(Consumer&lt;S&gt; action)</title>
+         <formalpara role="parameter">
+            <title>action</title>
+            <para>the action, whose argument is the service instance, to
+                   subscribe to the <emphasis>adding</emphasis> service event</para>
+         </formalpara>
+         <para role="description">
+Subscribe an action to the <emphasis>adding</emphasis> service event.
+ </para>
+         <para>
+ Only the last <emphasis>adding</emphasis> action is used.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>self</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– when called after <link linkend="org.osgi.service.cdi.reference.BindService.bind--">bind</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="adding(BiConsumer)"
+               role="method"
+               xml:id="org.osgi.service.cdi.reference.BindService.adding-BiConsumer-">
+         <title>public BindService&lt;S&gt; adding(BiConsumer&lt;S, Map&lt;String, Object&gt;&gt; action)</title>
+         <formalpara role="parameter">
+            <title>action</title>
+            <para>the action, whose arguments are the service instance and
+                   the <code>Map&lt;String, Object&gt;</code> of service properties,
+                   to subscribe to the <emphasis>adding</emphasis> service event</para>
+         </formalpara>
+         <para role="description">
+Subscribe an action to the <emphasis>adding</emphasis> service event.
+ </para>
+         <para>
+ Only the last <emphasis>adding</emphasis> action is used.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>self</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– when called after <link linkend="org.osgi.service.cdi.reference.BindService.bind--">bind</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="bind()"
+               role="method"
+               xml:id="org.osgi.service.cdi.reference.BindService.bind--">
+         <title>public void bind()</title>
+         <para role="description">
+The bind terminal operation is required to instruct CCR that all the bind
+ actions have been specified, otherwise bind actions will never be called
+ by CCR.
+ </para>
+         <para>
+ Calling <link linkend="org.osgi.service.cdi.reference.BindService.bind--">bind</link> again has no effect.</para>
+      </section>
+      <section xreflabel="modified(Consumer)"
+               role="method"
+               xml:id="org.osgi.service.cdi.reference.BindService.modified-Consumer-">
+         <title>public BindService&lt;S&gt; modified(Consumer&lt;S&gt; action)</title>
+         <formalpara role="parameter">
+            <title>action</title>
+            <para>the action, whose argument is the service instance, to
+                   subscribe to the <emphasis>modified</emphasis> service event</para>
+         </formalpara>
+         <para role="description">
+Subscribe an action to the <emphasis>modified</emphasis> service event.
+ </para>
+         <para>
+ Only the last <emphasis>modified</emphasis> action is used.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>self</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– when called after <link linkend="org.osgi.service.cdi.reference.BindService.bind--">bind</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="modified(BiConsumer)"
+               role="method"
+               xml:id="org.osgi.service.cdi.reference.BindService.modified-BiConsumer-">
+         <title>public BindService&lt;S&gt; modified(BiConsumer&lt;S, Map&lt;String, Object&gt;&gt; action)</title>
+         <formalpara role="parameter">
+            <title>action</title>
+            <para>the action, whose arguments are the service instance and
+                   the <code>Map&lt;String, Object&gt;</code> of service properties,
+                   to subscribe to the <emphasis>modified</emphasis> service event</para>
+         </formalpara>
+         <para role="description">
+Subscribe an action to the <emphasis>modified</emphasis> service event.
+ </para>
+         <para>
+ Only the last <emphasis>modified</emphasis> action is used.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>self</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– when called after <link linkend="org.osgi.service.cdi.reference.BindService.bind--">bind</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="removed(Consumer)"
+               role="method"
+               xml:id="org.osgi.service.cdi.reference.BindService.removed-Consumer-">
+         <title>public BindService&lt;S&gt; removed(Consumer&lt;S&gt; action)</title>
+         <formalpara role="parameter">
+            <title>action</title>
+            <para>the action, whose argument is the service instance, to
+                   subscribe to the <emphasis>removed</emphasis> service event</para>
+         </formalpara>
+         <para role="description">
+Subscribe an action to the <emphasis>removed</emphasis> service event.
+ </para>
+         <para>
+ Only the last <emphasis>removed</emphasis> action is used.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>self</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– when called after <link linkend="org.osgi.service.cdi.reference.BindService.bind--">bind</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="removed(BiConsumer)"
+               role="method"
+               xml:id="org.osgi.service.cdi.reference.BindService.removed-BiConsumer-">
+         <title>public BindService&lt;S&gt; removed(BiConsumer&lt;S, Map&lt;String, Object&gt;&gt; action)</title>
+         <formalpara role="parameter">
+            <title>action</title>
+            <para>the action, whose arguments are the service instance and
+                   the <code>Map&lt;String, Object&gt;</code> of service properties,
+                   to subscribe to the <emphasis>removed</emphasis> service event</para>
+         </formalpara>
+         <para role="description">
+Subscribe an action to the <emphasis>removed</emphasis> service event.
+ </para>
+         <para>
+ Only the last <emphasis>removed</emphasis> action is used.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>self</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– when called after <link linkend="org.osgi.service.cdi.reference.BindService.bind--">bind</link>
+            </para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="BindServiceReference"
+            role="class"
+            xml:id="org.osgi.service.cdi.reference.BindServiceReference">
+      <title>public interface BindServiceReference&lt;S&gt;</title>
+      <formalpara role="parameter">
+         <title>&lt;S&gt;</title>
+         <para>the service argument type.</para>
+      </formalpara>
+      <para>
+A bean provided by CCR for binding actions to life cycle events of matching
+ services.
+   </para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <link linkend="org.osgi.service.cdi.annotations.Reference">Reference</link>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="adding(Consumer)"
+               role="method"
+               xml:id="org.osgi.service.cdi.reference.BindServiceReference.adding-Consumer-">
+         <title>public BindServiceReference&lt;S&gt; adding(Consumer&lt;ServiceReference&lt;S&gt;&gt; action)</title>
+         <formalpara role="parameter">
+            <title>action</title>
+            <para>the action, whose argument is the service reference, to
+                   subscribe to the <emphasis>adding</emphasis> service event</para>
+         </formalpara>
+         <para role="description">
+Subscribe an action to the <emphasis>adding</emphasis> service event.
+ </para>
+         <para>
+ Only the last <emphasis>adding</emphasis> action is used.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>self</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– when called after <link linkend="org.osgi.service.cdi.reference.BindServiceReference.bind--">bind</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="adding(BiConsumer)"
+               role="method"
+               xml:id="org.osgi.service.cdi.reference.BindServiceReference.adding-BiConsumer-">
+         <title>public BindServiceReference&lt;S&gt; adding(BiConsumer&lt;ServiceReference&lt;S&gt;, S&gt; action)</title>
+         <formalpara role="parameter">
+            <title>action</title>
+            <para>the action, whose arguments are the service reference and
+                   the service object, to subscribe to the <emphasis>adding</emphasis>
+                   service event</para>
+         </formalpara>
+         <para role="description">
+Subscribe an action to the <emphasis>adding</emphasis> service event.
+ </para>
+         <para>
+ Only the last <emphasis>adding</emphasis> action is used.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>self</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– when called after <link linkend="org.osgi.service.cdi.reference.BindServiceReference.bind--">bind</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="bind()"
+               role="method"
+               xml:id="org.osgi.service.cdi.reference.BindServiceReference.bind--">
+         <title>public void bind()</title>
+         <para role="description">
+The bind terminal operation is required to instruct CCR that all the bind
+ actions have been specified, otherwise bind actions will never be called
+ by CCR.
+ </para>
+         <para>
+ Calling <link linkend="org.osgi.service.cdi.reference.BindServiceReference.bind--">bind</link> again has no effect.</para>
+      </section>
+      <section xreflabel="modified(Consumer)"
+               role="method"
+               xml:id="org.osgi.service.cdi.reference.BindServiceReference.modified-Consumer-">
+         <title>public BindServiceReference&lt;S&gt; modified(Consumer&lt;ServiceReference&lt;S&gt;&gt; action)</title>
+         <formalpara role="parameter">
+            <title>action</title>
+            <para>the action, whose argument is the service reference, to
+                   subscribe to the <emphasis>modified</emphasis> service event</para>
+         </formalpara>
+         <para role="description">
+Subscribe an action to the <emphasis>modified</emphasis> service event.
+ </para>
+         <para>
+ Only the last <emphasis>modified</emphasis> action is used.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>self</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– when called after <link linkend="org.osgi.service.cdi.reference.BindServiceReference.bind--">bind</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="modified(BiConsumer)"
+               role="method"
+               xml:id="org.osgi.service.cdi.reference.BindServiceReference.modified-BiConsumer-">
+         <title>public BindServiceReference&lt;S&gt; modified(BiConsumer&lt;ServiceReference&lt;S&gt;, S&gt; action)</title>
+         <formalpara role="parameter">
+            <title>action</title>
+            <para>the action, whose arguments are the service reference and
+                   the service object, to subscribe to the
+                   <emphasis>modified</emphasis> service event</para>
+         </formalpara>
+         <para role="description">
+Subscribe an action to the <emphasis>modified</emphasis> service event.
+ </para>
+         <para>
+ Only the last <emphasis>modified</emphasis> action is used.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>self</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– when called after <link linkend="org.osgi.service.cdi.reference.BindServiceReference.bind--">bind</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="removed(Consumer)"
+               role="method"
+               xml:id="org.osgi.service.cdi.reference.BindServiceReference.removed-Consumer-">
+         <title>public BindServiceReference&lt;S&gt; removed(Consumer&lt;ServiceReference&lt;S&gt;&gt; action)</title>
+         <formalpara role="parameter">
+            <title>action</title>
+            <para>the action, whose argument is the service reference, to
+                   subscribe to the <emphasis>removed</emphasis> service event</para>
+         </formalpara>
+         <para role="description">
+Subscribe an action to the <emphasis>removed</emphasis> service event.
+ </para>
+         <para>
+ Only the last <emphasis>removed</emphasis> action is used.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>self</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– when called after <link linkend="org.osgi.service.cdi.reference.BindServiceReference.bind--">bind</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="removed(BiConsumer)"
+               role="method"
+               xml:id="org.osgi.service.cdi.reference.BindServiceReference.removed-BiConsumer-">
+         <title>public BindServiceReference&lt;S&gt; removed(BiConsumer&lt;ServiceReference&lt;S&gt;, S&gt; action)</title>
+         <formalpara role="parameter">
+            <title>action</title>
+            <para>the action, whose arguments are the service reference and
+                   the service object, to subscribe to the
+                   <emphasis>removed</emphasis> service event</para>
+         </formalpara>
+         <para role="description">
+Subscribe an action to the <emphasis>removed</emphasis> service event.
+ </para>
+         <para>
+ Only the last <emphasis>removed</emphasis> action is used.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>self</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– when called after <link linkend="org.osgi.service.cdi.reference.BindServiceReference.bind--">bind</link>
+            </para>
+         </formalpara>
+      </section>
+   </section>
+</section>

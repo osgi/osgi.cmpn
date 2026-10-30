@@ -1,0 +1,394 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.cdi.propertytypes"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.cdi.propertytypes">
+   <title>org.osgi.service.cdi.propertytypes</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.cdi.propertytypes-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.service.cdi.propertytypes-version.number">1.0</edition>
+   </info>
+   <para>
+Bean Property Types Package Version 1.0.
+ </para>
+   <para>
+ When used as annotations, bean property types are processed by CCR to
+ generate default component properties, service properties and target filters.
+ </para>
+   <para>
+ Bundles wishing to use this package at runtime must list the package in the
+ Import-Package header of the bundle's manifest.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.cdi.propertytypes; version="[1.0,2.0)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.propertytypes.BeanPropertyException">
+                  <code>BeanPropertyException</code>
+               </link> - 
+This Runtime Exception is thrown when a Bean Property Type method attempts an
+ invalid component property coercion.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.propertytypes.ExportedService">
+                  <code>ExportedService</code>
+               </link> - 
+Bean Property Type for the remote service properties for an exported service.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.propertytypes.ServiceDescription">
+                  <code>ServiceDescription</code>
+               </link> - 
+Bean Property Type for the <code>service.description</code> service property.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.propertytypes.ServiceRanking">
+                  <code>ServiceRanking</code>
+               </link> - 
+Bean Property Type for the <code>service.ranking</code> service property.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.propertytypes.ServiceVendor">
+                  <code>ServiceVendor</code>
+               </link> - 
+Bean Property Type for the <code>service.vendor</code> service property.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="BeanPropertyException"
+            role="class"
+            xml:id="org.osgi.service.cdi.propertytypes.BeanPropertyException">
+      <title>public class BeanPropertyException<?line-break?> extends RuntimeException</title>
+      <para>
+This Runtime Exception is thrown when a Bean Property Type method attempts an
+ invalid component property coercion. For example when the bean property type
+ method <code>Long test();</code> is applied to a component property <code>"test"</code>
+ of type String.
+   </para>
+      <section xreflabel="BeanPropertyException(String)"
+               role="method"
+               xml:id="org.osgi.service.cdi.propertytypes.BeanPropertyException.BeanPropertyException-String-">
+         <title>public  BeanPropertyException(String message)</title>
+         <formalpara role="parameter">
+            <title>message</title>
+            <para>The message for this exception.</para>
+         </formalpara>
+         <para role="description">
+Create a Bean Property Exception with a message.
+   </para>
+      </section>
+      <section xreflabel="BeanPropertyException(String,Throwable)"
+               role="method"
+               xml:id="org.osgi.service.cdi.propertytypes.BeanPropertyException.BeanPropertyException-String-Throwable-">
+         <title>public  BeanPropertyException(String message, Throwable cause)</title>
+         <formalpara role="parameter">
+            <title>message</title>
+            <para>The message for this exception.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>cause</title>
+            <para>The causing exception.</para>
+         </formalpara>
+         <para role="description">
+Create a Bean Property Exception with a message and a nested cause.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="ExportedService"
+            role="class"
+            xml:id="org.osgi.service.cdi.propertytypes.ExportedService">
+      <title>@ExportedService</title>
+      <para>
+Bean Property Type for the remote service properties for an exported service.
+ </para>
+      <para>
+ This annotation can be used as defined by <link linkend="org.osgi.service.cdi.annotations.BeanPropertyType">BeanPropertyType</link> to declare
+ the values of the remote service properties for an exported service.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Bean Property Types</code>, <code>Remote Services Specification</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>RUNTIME</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>FIELD</code>, <code>METHOD</code>, <code>PARAMETER</code>, <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="service_exported_interfaces"
+               role="method"
+               xml:id="org.osgi.service.cdi.propertytypes.ExportedService.service_exported_interfaces--">
+         <title>Class&lt;?&gt;[] service_exported_interfaces</title>
+         <para role="description">
+Service property marking the service for export. It defines the
+ interfaces under which the service can be exported.
+ </para>
+         <para>
+ If an empty array is specified, the property is not added to the
+ component description.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The exported service interfaces.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Constants.SERVICE_EXPORTED_INTERFACES">Constants.SERVICE_EXPORTED_INTERFACES</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="service_exported_configs"
+               role="method"
+               xml:id="org.osgi.service.cdi.propertytypes.ExportedService.service_exported_configs--">
+         <title>String[] service_exported_configs default {}</title>
+         <para role="description">
+Service property identifying the configuration types that should be used
+ to export the service.
+ </para>
+         <para>
+ If an empty array is specified, the default value, the property is not
+ added to the component description.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The configuration types.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Constants.SERVICE_EXPORTED_CONFIGS">Constants.SERVICE_EXPORTED_CONFIGS</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="service_exported_intents"
+               role="method"
+               xml:id="org.osgi.service.cdi.propertytypes.ExportedService.service_exported_intents--">
+         <title>String[] service_exported_intents default {}</title>
+         <para role="description">
+Service property identifying the intents that the distribution provider
+ must implement to distribute the service.
+ </para>
+         <para>
+ If an empty array is specified, the default value, the property is not
+ added to the component description.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The intents that the distribution provider must implement to
+         distribute the service.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Constants.SERVICE_EXPORTED_INTENTS">Constants.SERVICE_EXPORTED_INTENTS</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="service_exported_intents_extra"
+               role="method"
+               xml:id="org.osgi.service.cdi.propertytypes.ExportedService.service_exported_intents_extra--">
+         <title>String[] service_exported_intents_extra default {}</title>
+         <para role="description">
+Service property identifying the extra intents that the distribution
+ provider must implement to distribute the service.
+ </para>
+         <para>
+ If an empty array is specified, the default value, the property is not
+ added to the component description.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The extra intents that the distribution provider must implement
+         to distribute the service.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Constants.SERVICE_EXPORTED_INTENTS_EXTRA">Constants.SERVICE_EXPORTED_INTENTS_EXTRA</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="service_intents"
+               role="method"
+               xml:id="org.osgi.service.cdi.propertytypes.ExportedService.service_intents--">
+         <title>String[] service_intents default {}</title>
+         <para role="description">
+Service property identifying the intents that this service implements.
+ </para>
+         <para>
+ If an empty array is specified, the default value, the property is not
+ added to the component description.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The intents that the service implements.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Constants.SERVICE_INTENTS">Constants.SERVICE_INTENTS</link>
+            </para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="ServiceDescription"
+            role="class"
+            xml:id="org.osgi.service.cdi.propertytypes.ServiceDescription">
+      <title>@ServiceDescription</title>
+      <para>
+Bean Property Type for the <code>service.description</code> service property.
+ </para>
+      <para>
+ This annotation can be used as defined by <link linkend="org.osgi.service.cdi.annotations.BeanPropertyType">BeanPropertyType</link> to declare
+ the value the <link linkend="org.osgi.framework.Constants.SERVICE_DESCRIPTION">Constants.SERVICE_DESCRIPTION</link> service property.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Bean Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>RUNTIME</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>FIELD</code>, <code>METHOD</code>, <code>PARAMETER</code>, <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.cdi.propertytypes.ServiceDescription.value--">
+         <title>String value</title>
+         <para role="description">
+Service property identifying a service's description.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The service description.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Constants.SERVICE_DESCRIPTION">Constants.SERVICE_DESCRIPTION</link>
+            </para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="ServiceRanking"
+            role="class"
+            xml:id="org.osgi.service.cdi.propertytypes.ServiceRanking">
+      <title>@ServiceRanking</title>
+      <para>
+Bean Property Type for the <code>service.ranking</code> service property.
+ </para>
+      <para>
+ This annotation can be used as defined by <link linkend="org.osgi.service.cdi.annotations.BeanPropertyType">BeanPropertyType</link> to declare
+ the value of the <link linkend="org.osgi.framework.Constants.SERVICE_RANKING">Constants.SERVICE_RANKING</link> service property.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Bean Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>RUNTIME</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>FIELD</code>, <code>METHOD</code>, <code>PARAMETER</code>, <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.cdi.propertytypes.ServiceRanking.value--">
+         <title>int value</title>
+         <para role="description">
+Service property identifying a service's ranking.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The service ranking.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Constants.SERVICE_RANKING">Constants.SERVICE_RANKING</link>
+            </para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="ServiceVendor"
+            role="class"
+            xml:id="org.osgi.service.cdi.propertytypes.ServiceVendor">
+      <title>@ServiceVendor</title>
+      <para>
+Bean Property Type for the <code>service.vendor</code> service property.
+ </para>
+      <para>
+ This annotation can be used as defined by <link linkend="org.osgi.service.cdi.annotations.BeanPropertyType">BeanPropertyType</link> to declare
+ the value of the <link linkend="org.osgi.framework.Constants.SERVICE_VENDOR">Constants.SERVICE_VENDOR</link> service property.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Bean Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>RUNTIME</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>FIELD</code>, <code>METHOD</code>, <code>PARAMETER</code>, <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.cdi.propertytypes.ServiceVendor.value--">
+         <title>String value</title>
+         <para role="description">
+Service property identifying a service's vendor.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The service vendor.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.framework.Constants.SERVICE_VENDOR">Constants.SERVICE_VENDOR</link>
+            </para>
+         </formalpara>
+      </section>
+   </section>
+</section>

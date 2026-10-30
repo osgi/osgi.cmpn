@@ -1,0 +1,878 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.util.function"
+         version="5"
+         role="package"
+         xml:id="org.osgi.util.function">
+   <title>org.osgi.util.function</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.util.function-version">Version 1.2</releaseinfo>
+      <edition xml:id="org.osgi.util.function-version.number">1.2</edition>
+   </info>
+   <para>
+Function Package Version 1.2.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.util.function; version="[1.2,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.util.function; version="[1.2,1.3)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.function.Consumer">
+                  <code>Consumer</code>
+               </link> - 
+A function that accepts a single argument and produces no result.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.function.Function">
+                  <code>Function</code>
+               </link> - 
+A function that accepts a single argument and produces a result.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.function.Predicate">
+                  <code>Predicate</code>
+               </link> - 
+A predicate that accepts a single argument and produces a boolean result.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.function.Supplier">
+                  <code>Supplier</code>
+               </link> - 
+A function that produces a result.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="Consumer"
+            role="class"
+            xml:id="org.osgi.util.function.Consumer">
+      <title>public interface Consumer&lt;T&gt;</title>
+      <formalpara role="parameter">
+         <title>&lt;T&gt;</title>
+         <para>The type of the function input.</para>
+      </formalpara>
+      <para>
+A function that accepts a single argument and produces no result.
+ </para>
+      <para>
+ This is a functional interface and can be used as the assignment target for a
+ lambda expression or method reference.</para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.1</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="accept(T)"
+               role="method"
+               xml:id="org.osgi.util.function.Consumer.accept-T-">
+         <title>public void accept(T t) throws Exception</title>
+         <formalpara role="parameter">
+            <title>t</title>
+            <para>The input to this function.</para>
+         </formalpara>
+         <para role="description">
+Applies this function to the specified argument.
+   </para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– An exception thrown by the method.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="andThen(Consumer)"
+               role="method"
+               xml:id="org.osgi.util.function.Consumer.andThen-Consumer-">
+         <title>public Consumer&lt;T&gt; andThen(Consumer&lt;? super T&gt; after)</title>
+         <formalpara role="parameter">
+            <title>after</title>
+            <para>The <code>Consumer</code> to be called after this
+            <code>Consumer</code> is called. Must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Compose the specified <code>Consumer</code> to be called after this
+ <code>Consumer</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <code>Consumer</code> composed of this <code>Consumer</code> and the
+         specified <code>Consumer</code>.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="asConsumer(Consumer)"
+               role="method"
+               xml:id="org.osgi.util.function.Consumer.asConsumer-Consumer-">
+         <title>public static Consumer&lt;T&gt; asConsumer(Consumer&lt;T&gt; wrapped)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The type of the function input.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>wrapped</title>
+            <para>The <code>java.util.function.Consumer</code> to wrap. Must not
+            be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Returns a <code>Consumer</code> which wraps a
+ <code>java.util.function.Consumer</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <code>Consumer</code> which wraps the specified
+         <code>java.util.function.Consumer</code>.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="asJavaConsumer(Consumer)"
+               role="method"
+               xml:id="org.osgi.util.function.Consumer.asJavaConsumer-Consumer-">
+         <title>public static Consumer&lt;T&gt; asJavaConsumer(Consumer&lt;T&gt; wrapped)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The type of the function input.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>wrapped</title>
+            <para>The <code>Consumer</code> to wrap. Must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Returns a <code>java.util.function.Consumer</code> which wraps the specified
+ <code>Consumer</code> and throws any thrown exceptions.
+ </para>
+         <para>
+ The returned <code>java.util.function.Consumer</code> will throw any exception
+ thrown by the wrapped <code>Consumer</code>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <code>java.util.function.Consumer</code> which wraps the specified
+         <code>Consumer</code>.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="asJavaConsumerIgnoreException(Consumer)"
+               role="method"
+               xml:id="org.osgi.util.function.Consumer.asJavaConsumerIgnoreException-Consumer-">
+         <title>public static Consumer&lt;T&gt; asJavaConsumerIgnoreException(Consumer&lt;T&gt; wrapped)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The type of the function input.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>wrapped</title>
+            <para>The <code>Consumer</code> to wrap. Must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Returns a <code>java.util.function.Consumer</code> which wraps the specified
+ <code>Consumer</code> and discards any thrown <code>Exception</code>s.
+ </para>
+         <para>
+ The returned <code>java.util.function.Consumer</code> will discard any
+ <code>Exception</code> thrown by the wrapped <code>Consumer</code>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <code>java.util.function.Consumer</code> which wraps the specified
+         <code>Consumer</code>.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="Function"
+            role="class"
+            xml:id="org.osgi.util.function.Function">
+      <title>public interface Function&lt;T, R&gt;</title>
+      <formalpara role="parameter">
+         <title>&lt;T&gt;</title>
+         <para>The type of the function input.</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>&lt;R&gt;</title>
+         <para>The type of the function output.</para>
+      </formalpara>
+      <para>
+A function that accepts a single argument and produces a result.
+ </para>
+      <para>
+ This is a functional interface and can be used as the assignment target for a
+ lambda expression or method reference.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="andThen(Function)"
+               role="method"
+               xml:id="org.osgi.util.function.Function.andThen-Function-">
+         <title>public Function&lt;T, S&gt; andThen(Function&lt;? super R, ? extends S&gt; after)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;S&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;S&gt;</title>
+            <para>The type of the value supplied by the specified
+            <code>Function</code>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>after</title>
+            <para>The <code>Function</code> to be called on the value returned by
+            this <code>Function</code>. Must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Compose the specified <code>Function</code> to be called on the value returned
+ by this <code>Function</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <code>Function</code> composed of this <code>Function</code> and the
+         specified <code>Function</code>.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="apply(T)"
+               role="method"
+               xml:id="org.osgi.util.function.Function.apply-T-">
+         <title>public R apply(T t) throws Exception</title>
+         <formalpara role="parameter">
+            <title>t</title>
+            <para>The input to this function.</para>
+         </formalpara>
+         <para role="description">
+Applies this function to the specified argument.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The output of this function.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– An exception thrown by the method.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="asFunction(Function)"
+               role="method"
+               xml:id="org.osgi.util.function.Function.asFunction-Function-">
+         <title>public static Function&lt;T, R&gt; asFunction(Function&lt;T, R&gt; wrapped)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T, R&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The type of the function input.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;R&gt;</title>
+            <para>The type of the function output.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>wrapped</title>
+            <para>The <code>java.util.function.Function</code> to wrap. Must not
+            be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Returns a <code>Function</code> which wraps the specified
+ <code>java.util.function.Function</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <code>Function</code> which wraps the specified
+         <code>java.util.function.Function</code>.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="asJavaFunction(Function)"
+               role="method"
+               xml:id="org.osgi.util.function.Function.asJavaFunction-Function-">
+         <title>public static Function&lt;T, R&gt; asJavaFunction(Function&lt;T, R&gt; wrapped)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T, R&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The type of the function input.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;R&gt;</title>
+            <para>The type of the function output.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>wrapped</title>
+            <para>The <code>Function</code> to wrap. Must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Returns a <code>java.util.function.Function</code> which wraps the specified
+ <code>Function</code> and throws any thrown exceptions.
+ </para>
+         <para>
+ The returned <code>java.util.function.Function</code> will throw any exception
+ thrown by the wrapped <code>Function</code>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <code>java.util.function.Function</code> which wraps the specified
+         <code>Function</code>.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="asJavaFunctionOrElse(Function,R)"
+               role="method"
+               xml:id="org.osgi.util.function.Function.asJavaFunctionOrElse-Function-R-">
+         <title>public static Function&lt;T, R&gt; asJavaFunctionOrElse(Function&lt;T, R&gt; wrapped, R orElse)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T, R&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The type of the function input.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;R&gt;</title>
+            <para>The type of the function output.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>wrapped</title>
+            <para>The <code>Function</code> to wrap. Must not be <code>null</code>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>orElse</title>
+            <para>The value to return if the specified <code>Function</code>
+            throws an <code>Exception</code>.</para>
+         </formalpara>
+         <para role="description">
+Returns a <code>java.util.function.Function</code> which wraps the specified
+ <code>Function</code> and the specified value.
+ </para>
+         <para>
+ If the the specified <code>Function</code> throws an <code>Exception</code>, the
+ the specified value is returned.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <code>java.util.function.Function</code> which wraps the specified
+         <code>Function</code> and the specified value.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="asJavaFunctionOrElseGet(Function,Supplier)"
+               role="method"
+               xml:id="org.osgi.util.function.Function.asJavaFunctionOrElseGet-Function-Supplier-">
+         <title>public static Function&lt;T, R&gt; asJavaFunctionOrElseGet(Function&lt;T, R&gt; wrapped, Supplier&lt;? extends R&gt; orElseGet)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T, R&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The type of the function input.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;R&gt;</title>
+            <para>The type of the function output.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>wrapped</title>
+            <para>The <code>Function</code> to wrap. Must not be <code>null</code>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>orElseGet</title>
+            <para>The <code>java.util.function.Supplier</code> to call for a
+            return value if the specified <code>Function</code> throws an
+            <code>Exception</code>.</para>
+         </formalpara>
+         <para role="description">
+Returns a <code>java.util.function.Function</code> which wraps the specified
+ <code>Function</code> and the specified <code>java.util.function.Supplier</code>.
+ </para>
+         <para>
+ If the the specified <code>Function</code> throws an <code>Exception</code>, the
+ value returned by the specified <code>java.util.function.Supplier</code> is
+ returned.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <code>java.util.function.Function</code> which wraps the specified
+         <code>Function</code> and the specified
+         <code>java.util.function.Supplier</code>.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="compose(Function)"
+               role="method"
+               xml:id="org.osgi.util.function.Function.compose-Function-">
+         <title>public Function&lt;S, R&gt; compose(Function&lt;? super S, ? extends T&gt; before)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;S&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;S&gt;</title>
+            <para>The type of the value consumed the specified <code>Function</code>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>before</title>
+            <para>The <code>Function</code> to be called to supply a value to be
+            consumed by this <code>Function</code>. Must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Compose the specified <code>Function</code> to be called to supply a value to
+ be consumed by this <code>Function</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <code>Function</code> composed of this <code>Function</code> and the
+         specified <code>Function</code>.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="Predicate"
+            role="class"
+            xml:id="org.osgi.util.function.Predicate">
+      <title>public interface Predicate&lt;T&gt;</title>
+      <formalpara role="parameter">
+         <title>&lt;T&gt;</title>
+         <para>The type of the predicate input.</para>
+      </formalpara>
+      <para>
+A predicate that accepts a single argument and produces a boolean result.
+ </para>
+      <para>
+ This is a functional interface and can be used as the assignment target for a
+ lambda expression or method reference.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="and(Predicate)"
+               role="method"
+               xml:id="org.osgi.util.function.Predicate.and-Predicate-">
+         <title>public Predicate&lt;T&gt; and(Predicate&lt;? super T&gt; and)</title>
+         <formalpara role="parameter">
+            <title>and</title>
+            <para>The <code>Predicate</code> to be called after this
+            <code>Predicate</code> is called. Must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Compose this <code>Predicate</code> logical-AND the specified
+ <code>Predicate</code>.
+ </para>
+         <para>
+ Short-circuiting is used, so the specified <code>Predicate</code> is not
+ called if this <code>Predicate</code> returns <code>false</code>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <code>Predicate</code> composed of this <code>Predicate</code> and the
+         specified <code>Predicate</code> using logical-AND.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="asJavaPredicate(Predicate)"
+               role="method"
+               xml:id="org.osgi.util.function.Predicate.asJavaPredicate-Predicate-">
+         <title>public static Predicate&lt;T&gt; asJavaPredicate(Predicate&lt;T&gt; wrapped)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The type of the predicate input.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>wrapped</title>
+            <para>The <code>Predicate</code> to wrap. Must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Returns a <code>java.util.function.Predicate</code> which wraps the specified
+ <code>Predicate</code> and throws any thrown exceptions.
+ </para>
+         <para>
+ The returned <code>java.util.function.Predicate</code> will throw any
+ exception thrown by the wrapped <code>Predicate</code>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <code>java.util.function.Predicate</code> which wraps the specified
+         <code>Predicate</code>.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="asJavaPredicateOrElse(Predicate,boolean)"
+               role="method"
+               xml:id="org.osgi.util.function.Predicate.asJavaPredicateOrElse-Predicate-boolean-">
+         <title>public static Predicate&lt;T&gt; asJavaPredicateOrElse(Predicate&lt;T&gt; wrapped, boolean orElse)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The type of the predicate input.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>wrapped</title>
+            <para>The <code>Predicate</code> to wrap. Must not be <code>null</code>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>orElse</title>
+            <para>The value to return if the specified <code>Predicate</code>
+            throws an <code>Exception</code>.</para>
+         </formalpara>
+         <para role="description">
+Returns a <code>java.util.function.Predicate</code> which wraps the specified
+ <code>Predicate</code> and the specified value.
+ </para>
+         <para>
+ If the the specified <code>Predicate</code> throws an <code>Exception</code>, the
+ the specified value is returned.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <code>java.util.function.Predicate</code> which wraps the specified
+         <code>Predicate</code> and the specified value.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="asJavaPredicateOrElseGet(Predicate,BooleanSupplier)"
+               role="method"
+               xml:id="org.osgi.util.function.Predicate.asJavaPredicateOrElseGet-Predicate-BooleanSupplier-">
+         <title>public static Predicate&lt;T&gt; asJavaPredicateOrElseGet(Predicate&lt;T&gt; wrapped, BooleanSupplier orElseGet)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The type of the predicate input.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>wrapped</title>
+            <para>The <code>Predicate</code> to wrap. Must not be <code>null</code>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>orElseGet</title>
+            <para>The <code>java.util.function.BooleanSupplier</code> to call
+            for a return value if the specified <code>Predicate</code> throws
+            an <code>Exception</code>.</para>
+         </formalpara>
+         <para role="description">
+Returns a <code>java.util.function.Predicate</code> which wraps the specified
+ <code>Predicate</code> and the specified
+ <code>java.util.function.BooleanSupplier</code>.
+ </para>
+         <para>
+ If the the specified <code>Predicate</code> throws an <code>Exception</code>, the
+ value returned by the specified
+ <code>java.util.function.BooleanSupplier</code> is returned.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <code>java.util.function.Predicate</code> which wraps the specified
+         <code>Predicate</code> and the specified
+         <code>java.util.function.BooleanSupplier</code>.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="asPredicate(Predicate)"
+               role="method"
+               xml:id="org.osgi.util.function.Predicate.asPredicate-Predicate-">
+         <title>public static Predicate&lt;T&gt; asPredicate(Predicate&lt;T&gt; wrapped)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The type of the predicate input.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>wrapped</title>
+            <para>The <code>java.util.function.Predicate</code> to wrap. Must not
+            be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Returns a <code>Predicate</code> which wraps the specified
+ <code>java.util.function.Predicate</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <code>Predicate</code> which wraps the specified
+         <code>java.util.function.Predicate</code>.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="negate()"
+               role="method"
+               xml:id="org.osgi.util.function.Predicate.negate--">
+         <title>public Predicate&lt;T&gt; negate()</title>
+         <para role="description">
+Return a <code>Predicate</code> which is the negation of this
+ <code>Predicate</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <code>Predicate</code> which is the negation of this
+         <code>Predicate</code>.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="or(Predicate)"
+               role="method"
+               xml:id="org.osgi.util.function.Predicate.or-Predicate-">
+         <title>public Predicate&lt;T&gt; or(Predicate&lt;? super T&gt; or)</title>
+         <formalpara role="parameter">
+            <title>or</title>
+            <para>The <code>Predicate</code> to be called after this <code>Predicate</code>
+            is called. Must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Compose this <code>Predicate</code> logical-OR the specified
+ <code>Predicate</code>.
+ </para>
+         <para>
+ Short-circuiting is used, so the specified <code>Predicate</code> is not
+ called if this <code>Predicate</code> returns <code>true</code>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <code>Predicate</code> composed of this <code>Predicate</code> and the
+         specified <code>Predicate</code> using logical-OR.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="test(T)"
+               role="method"
+               xml:id="org.osgi.util.function.Predicate.test-T-">
+         <title>public boolean test(T t) throws Exception</title>
+         <formalpara role="parameter">
+            <title>t</title>
+            <para>The input to this predicate.</para>
+         </formalpara>
+         <para role="description">
+Evaluates this predicate on the specified argument.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>true</code> if the specified argument is accepted by this
+         predicate; <code>false</code> otherwise.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– An exception thrown by the method.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="Supplier"
+            role="class"
+            xml:id="org.osgi.util.function.Supplier">
+      <title>public interface Supplier&lt;T&gt;</title>
+      <formalpara role="parameter">
+         <title>&lt;T&gt;</title>
+         <para>The type of the function output.</para>
+      </formalpara>
+      <para>
+A function that produces a result.
+ </para>
+      <para>
+ This is a functional interface and can be used as the assignment target for a
+ lambda expression or method reference.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="asJavaSupplier(Supplier)"
+               role="method"
+               xml:id="org.osgi.util.function.Supplier.asJavaSupplier-Supplier-">
+         <title>public static Supplier&lt;T&gt; asJavaSupplier(Supplier&lt;T&gt; wrapped)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The type of the function output.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>wrapped</title>
+            <para>The <code>Supplier</code> to wrap. Must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Returns a <code>java.util.function.Supplier</code> which wraps the specified
+ <code>Supplier</code> and throws any thrown exceptions.
+ </para>
+         <para>
+ The returned <code>java.util.function.Supplier</code> will throw any exception
+ thrown by the wrapped <code>Supplier</code>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <code>java.util.function.Supplier</code> which wraps the specified
+         <code>Supplier</code>.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="asJavaSupplierOrElse(Supplier,T)"
+               role="method"
+               xml:id="org.osgi.util.function.Supplier.asJavaSupplierOrElse-Supplier-T-">
+         <title>public static Supplier&lt;T&gt; asJavaSupplierOrElse(Supplier&lt;T&gt; wrapped, T orElse)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The type of the function output.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>wrapped</title>
+            <para>The <code>Supplier</code> to wrap. Must not be <code>null</code>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>orElse</title>
+            <para>The value to return if the specified <code>Supplier</code>
+            throws an <code>Exception</code>.</para>
+         </formalpara>
+         <para role="description">
+Returns a <code>java.util.function.Supplier</code> which wraps the specified
+ <code>Supplier</code> and the specified value.
+ </para>
+         <para>
+ If the the specified <code>Supplier</code> throws an <code>Exception</code>, the
+ the specified value is returned.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <code>java.util.function.Supplier</code> which wraps the specified
+         <code>Supplier</code> and the specified value.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="asJavaSupplierOrElseGet(Supplier,Supplier)"
+               role="method"
+               xml:id="org.osgi.util.function.Supplier.asJavaSupplierOrElseGet-Supplier-Supplier-">
+         <title>public static Supplier&lt;T&gt; asJavaSupplierOrElseGet(Supplier&lt;T&gt; wrapped, Supplier&lt;? extends T&gt; orElseGet)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The type of the function output.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>wrapped</title>
+            <para>The <code>Supplier</code> to wrap. Must not be <code>null</code>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>orElseGet</title>
+            <para>The <code>java.util.function.Supplier</code> to call for a
+            return value if the specified <code>Supplier</code> throws an
+            <code>Exception</code>.</para>
+         </formalpara>
+         <para role="description">
+Returns a <code>java.util.function.Supplier</code> which wraps the specified
+ <code>Supplier</code> and the specified <code>java.util.function.Supplier</code>.
+ </para>
+         <para>
+ If the the specified <code>Supplier</code> throws an <code>Exception</code>, the
+ value returned by the specified <code>java.util.function.Supplier</code> is
+ returned.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <code>java.util.function.Supplier</code> which wraps the specified
+         <code>Supplier</code> and the specified
+         <code>java.util.function.Supplier</code>.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="asSupplier(Supplier)"
+               role="method"
+               xml:id="org.osgi.util.function.Supplier.asSupplier-Supplier-">
+         <title>public static Supplier&lt;T&gt; asSupplier(Supplier&lt;T&gt; wrapped)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The type of the function output.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>wrapped</title>
+            <para>The <code>java.util.function.Supplier</code> to wrap. Must not
+            be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Returns a <code>Supplier</code> which wraps the specified
+ <code>java.util.function.Supplier</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <code>Supplier</code> which wraps the specified
+         <code>java.util.Supplier.Function</code>.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="get()"
+               role="method"
+               xml:id="org.osgi.util.function.Supplier.get--">
+         <title>public T get() throws Exception</title>
+         <para role="description">
+Returns a value.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The output of this function.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– An exception thrown by the method.</para>
+         </formalpara>
+      </section>
+   </section>
+</section>

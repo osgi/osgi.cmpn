@@ -1,0 +1,930 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.component"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.component">
+   <title>org.osgi.service.component</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.component-version">Version 1.5</releaseinfo>
+      <edition xml:id="org.osgi.service.component-version.number">1.5</edition>
+   </info>
+   <para>
+Service Component Package Version 1.5.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.component; version="[1.5,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.component; version="[1.5,1.6)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.AnyService">
+                  <code>AnyService</code>
+               </link> - 
+A marker type whose name is used in the <code>interface</code> attribute of a
+ <code>reference</code> element in a component description to indicate that the
+ type of the service for a reference is not specified and can thus be any
+ service type.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.ComponentConstants">
+                  <code>ComponentConstants</code>
+               </link> - 
+Defines standard names for Service Component constants.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.ComponentContext">
+                  <code>ComponentContext</code>
+               </link> - 
+A Component Context object is used by a component instance to interact with
+ its execution context including locating services by reference name.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.ComponentException">
+                  <code>ComponentException</code>
+               </link> - 
+Unchecked exception which may be thrown by Service Component Runtime.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.ComponentFactory">
+                  <code>ComponentFactory</code>
+               </link> - 
+When a component is declared with the <code>factory</code> attribute on its
+ <code>component</code> element, Service Component Runtime will register a
+ Component Factory service to allow new component configurations to be created
+ and activated rather than automatically creating and activating component
+ configuration as necessary.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.ComponentInstance">
+                  <code>ComponentInstance</code>
+               </link> - 
+A ComponentInstance encapsulates a component instance of an activated
+ component configuration.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.ComponentServiceObjects">
+                  <code>ComponentServiceObjects</code>
+               </link> - 
+Allows multiple service objects for a service to be obtained.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="AnyService"
+            role="class"
+            xml:id="org.osgi.service.component.AnyService">
+      <title>public final class AnyService</title>
+      <para>
+A marker type whose name is used in the <code>interface</code> attribute of a
+ <code>reference</code> element in a component description to indicate that the
+ type of the service for a reference is not specified and can thus be any
+ service type.
+ </para>
+      <para>
+ When specifying this marker type in the <code>interface</code> attribute of a
+ <code>reference</code> element in a component description:
+ </para>
+      <itemizedlist>
+         <listitem>
+            <para>The service type of the reference member or parameter must be
+ <code>java.lang.Object</code> so that any service object can be provided.</para>
+         </listitem>
+         <listitem>
+            <para>The <code>target</code> attribute of the <code>reference</code> element must be
+ specified to constrain the target services.</para>
+         </listitem>
+      </itemizedlist>
+      <para>
+ For example:
+ 
+ </para>
+      <programlisting> @Reference(service = AnyService.class, target = "(osgi.jakartars.extension=true)")
+ List&lt;Object&gt; extensions;</programlisting>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.5</para>
+      </formalpara>
+   </section>
+   <section xreflabel="ComponentConstants"
+            role="class"
+            xml:id="org.osgi.service.component.ComponentConstants">
+      <title>public interface ComponentConstants</title>
+      <para>
+Defines standard names for Service Component constants.
+   </para>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="COMPONENT_CAPABILITY_NAME"
+               role="field"
+               xml:id="org.osgi.service.component.ComponentConstants.COMPONENT_CAPABILITY_NAME">
+         <title>public static final String COMPONENT_CAPABILITY_NAME = "osgi.component"</title>
+         <para>
+Capability name for Service Component Runtime.
+ </para>
+         <para>
+ Used in <code>Provide-Capability</code> and <code>Require-Capability</code>
+ manifest headers with the <code>osgi.extender</code> namespace. For example:
+ 
+ </para>
+         <programlisting> Require-Capability: osgi.extender;
+  filter:="(&amp;(osgi.extender=osgi.component)(version&gt;=1.5)(!(version&gt;=2.0)))"</programlisting>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.3</para>
+         </formalpara>
+      </section>
+      <section xreflabel="COMPONENT_FACTORY"
+               role="field"
+               xml:id="org.osgi.service.component.ComponentConstants.COMPONENT_FACTORY">
+         <title>public static final String COMPONENT_FACTORY = "component.factory"</title>
+         <para>
+A service registration property for a Component Factory that contains the
+ value of the <code>factory</code> attribute. The value of this property must
+ be of type <code>String</code>.
+   </para>
+      </section>
+      <section xreflabel="COMPONENT_ID"
+               role="field"
+               xml:id="org.osgi.service.component.ComponentConstants.COMPONENT_ID">
+         <title>public static final String COMPONENT_ID = "component.id"</title>
+         <para>
+A component property that contains the generated id for a component
+ configuration. The value of this property must be of type <code>Long</code>.
+ 
+ </para>
+         <para>
+ The value of this property is assigned by Service Component Runtime when
+ a component configuration is created. Service Component Runtime assigns a
+ unique value that is larger than all previously assigned values since
+ Service Component Runtime was started. These values are NOT persistent
+ across restarts of Service Component Runtime.</para>
+      </section>
+      <section xreflabel="COMPONENT_NAME"
+               role="field"
+               xml:id="org.osgi.service.component.ComponentConstants.COMPONENT_NAME">
+         <title>public static final String COMPONENT_NAME = "component.name"</title>
+         <para>
+A component property for a component configuration that contains the name
+ of the component as specified in the <code>name</code> attribute of the
+ <code>component</code> element. The value of this property must be of type
+ <code>String</code>.
+   </para>
+      </section>
+      <section xreflabel="COMPONENT_SPECIFICATION_VERSION"
+               role="field"
+               xml:id="org.osgi.service.component.ComponentConstants.COMPONENT_SPECIFICATION_VERSION">
+         <title>public static final String COMPONENT_SPECIFICATION_VERSION = "1.5"</title>
+         <para>
+Compile time constant for the Specification Version of Declarative
+ Services.
+ </para>
+         <para>
+ Used in <code>Version</code> and <code>Requirement</code> annotations. The value of
+ this compile time constant will change when the specification version of
+ Declarative Services is updated.</para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.4</para>
+         </formalpara>
+      </section>
+      <section xreflabel="DEACTIVATION_REASON_BUNDLE_STOPPED"
+               role="field"
+               xml:id="org.osgi.service.component.ComponentConstants.DEACTIVATION_REASON_BUNDLE_STOPPED">
+         <title>public static final int DEACTIVATION_REASON_BUNDLE_STOPPED = 6</title>
+         <para>
+The component configuration was deactivated because the bundle was
+ stopped.
+   </para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+      </section>
+      <section xreflabel="DEACTIVATION_REASON_CONFIGURATION_DELETED"
+               role="field"
+               xml:id="org.osgi.service.component.ComponentConstants.DEACTIVATION_REASON_CONFIGURATION_DELETED">
+         <title>public static final int DEACTIVATION_REASON_CONFIGURATION_DELETED = 4</title>
+         <para>
+The component configuration was deactivated because its configuration was
+ deleted.
+   </para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+      </section>
+      <section xreflabel="DEACTIVATION_REASON_CONFIGURATION_MODIFIED"
+               role="field"
+               xml:id="org.osgi.service.component.ComponentConstants.DEACTIVATION_REASON_CONFIGURATION_MODIFIED">
+         <title>public static final int DEACTIVATION_REASON_CONFIGURATION_MODIFIED = 3</title>
+         <para>
+The component configuration was deactivated because its configuration was
+ changed.
+   </para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+      </section>
+      <section xreflabel="DEACTIVATION_REASON_DISABLED"
+               role="field"
+               xml:id="org.osgi.service.component.ComponentConstants.DEACTIVATION_REASON_DISABLED">
+         <title>public static final int DEACTIVATION_REASON_DISABLED = 1</title>
+         <para>
+The component configuration was deactivated because the component was
+ disabled.
+   </para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+      </section>
+      <section xreflabel="DEACTIVATION_REASON_DISPOSED"
+               role="field"
+               xml:id="org.osgi.service.component.ComponentConstants.DEACTIVATION_REASON_DISPOSED">
+         <title>public static final int DEACTIVATION_REASON_DISPOSED = 5</title>
+         <para>
+The component configuration was deactivated because the component was
+ disposed.
+   </para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+      </section>
+      <section xreflabel="DEACTIVATION_REASON_REFERENCE"
+               role="field"
+               xml:id="org.osgi.service.component.ComponentConstants.DEACTIVATION_REASON_REFERENCE">
+         <title>public static final int DEACTIVATION_REASON_REFERENCE = 2</title>
+         <para>
+The component configuration was deactivated because a reference became
+ unsatisfied.
+   </para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+      </section>
+      <section xreflabel="DEACTIVATION_REASON_UNSPECIFIED"
+               role="field"
+               xml:id="org.osgi.service.component.ComponentConstants.DEACTIVATION_REASON_UNSPECIFIED">
+         <title>public static final int DEACTIVATION_REASON_UNSPECIFIED = 0</title>
+         <para>
+The reason the component configuration was deactivated is unspecified.
+   </para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+      </section>
+      <section xreflabel="REFERENCE_NAME_SATISFYING_CONDITION"
+               role="field"
+               xml:id="org.osgi.service.component.ComponentConstants.REFERENCE_NAME_SATISFYING_CONDITION">
+         <title>public static final String REFERENCE_NAME_SATISFYING_CONDITION = "osgi.ds.satisfying.condition"</title>
+         <para>
+Reference name for a component's satisfying condition.
+   </para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.5</para>
+         </formalpara>
+      </section>
+      <section xreflabel="REFERENCE_TARGET_SUFFIX"
+               role="field"
+               xml:id="org.osgi.service.component.ComponentConstants.REFERENCE_TARGET_SUFFIX">
+         <title>public static final String REFERENCE_TARGET_SUFFIX = ".target"</title>
+         <para>
+The suffix for the target property of a reference. These properties
+ contain the filter to select the target services for a reference. The
+ value of a target property must be of type <code>String</code>.
+   </para>
+      </section>
+      <section xreflabel="SERVICE_COMPONENT"
+               role="field"
+               xml:id="org.osgi.service.component.ComponentConstants.SERVICE_COMPONENT">
+         <title>public static final String SERVICE_COMPONENT = "Service-Component"</title>
+         <para>
+Manifest header specifying the XML documents within a bundle that contain
+ the bundle's Service Component descriptions.
+ </para>
+         <para>
+ The attribute value may be retrieved from the <code>Dictionary</code> object
+ returned by the <code>Bundle.getHeaders</code> method.</para>
+      </section>
+   </section>
+   <section xreflabel="ComponentContext"
+            role="class"
+            xml:id="org.osgi.service.component.ComponentContext">
+      <title>public interface ComponentContext</title>
+      <para>
+A Component Context object is used by a component instance to interact with
+ its execution context including locating services by reference name. Each
+ component instance has a unique Component Context.
+ 
+ </para>
+      <para>
+ A component instance may obtain its Component Context object through its
+ activate, modified, and deactivate methods.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="disableComponent(String)"
+               role="method"
+               xml:id="org.osgi.service.component.ComponentContext.disableComponent-String-">
+         <title>public void disableComponent(String name)</title>
+         <formalpara role="parameter">
+            <title>name</title>
+            <para>The name of a component.</para>
+         </formalpara>
+         <para role="description">
+Disables the specified component name. The specified component name must
+ be in the same bundle as this component.
+ 
+ </para>
+         <para>
+ This method must return after changing the enabled state of the specified
+ component name. Any actions that result from this, such as activating or
+ deactivating a component configuration, must occur asynchronously to this
+ method call.</para>
+      </section>
+      <section xreflabel="enableComponent(String)"
+               role="method"
+               xml:id="org.osgi.service.component.ComponentContext.enableComponent-String-">
+         <title>public void enableComponent(String name)</title>
+         <formalpara role="parameter">
+            <title>name</title>
+            <para>The name of a component or <code>null</code> to indicate all
+        components in the bundle.</para>
+         </formalpara>
+         <para role="description">
+Enables the specified component name. The specified component name must
+ be in the same bundle as this component.
+ 
+ </para>
+         <para>
+ This method must return after changing the enabled state of the specified
+ component name. Any actions that result from this, such as activating or
+ deactivating a component configuration, must occur asynchronously to this
+ method call.</para>
+      </section>
+      <section xreflabel="getBundleContext()"
+               role="method"
+               xml:id="org.osgi.service.component.ComponentContext.getBundleContext--">
+         <title>public BundleContext getBundleContext()</title>
+         <para role="description">
+Returns the <code>BundleContext</code> of the bundle which declares this
+ component.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The <code>BundleContext</code> of the bundle declares this component.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getComponentInstance()"
+               role="method"
+               xml:id="org.osgi.service.component.ComponentContext.getComponentInstance--">
+         <title>public ComponentInstance&lt;S&gt; getComponentInstance()</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;S&gt;</code>
+            </para>
+         </formalpara>
+         <para role="description">
+Returns the Component Instance object for the component instance
+ associated with this Component Context.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The Component Instance object for the component instance.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getProperties()"
+               role="method"
+               xml:id="org.osgi.service.component.ComponentContext.getProperties--">
+         <title>public Dictionary&lt;String, Object&gt; getProperties()</title>
+         <para role="description">
+Returns the component properties for this Component Context.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The properties for this Component Context. The Dictionary is read
+         only and cannot be modified.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getServiceReference()"
+               role="method"
+               xml:id="org.osgi.service.component.ComponentContext.getServiceReference--">
+         <title>public ServiceReference&lt;?&gt; getServiceReference()</title>
+         <para role="description">
+If the component instance is registered as a service using the
+ <code>service</code> element, then this method returns the service reference
+ of the service provided by this component instance.
+ </para>
+         <para>
+ This method will return <code>null</code> if the component instance is not
+ registered as a service.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The <code>ServiceReference</code> object for the component instance or
+         <code>null</code> if the component instance is not registered as a
+         service.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getUsingBundle()"
+               role="method"
+               xml:id="org.osgi.service.component.ComponentContext.getUsingBundle--">
+         <title>public Bundle getUsingBundle()</title>
+         <para role="description">
+If the component instance is registered as a service using the
+ <code>servicescope="bundle"</code> or <code>servicescope="prototype"</code>
+ attribute, then this method returns the bundle using the service provided
+ by the component instance.
+ </para>
+         <para>
+ This method will return <code>null</code> if:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>The component instance is not a service, then no bundle can be using
+ it as a service.</para>
+            </listitem>
+            <listitem>
+               <para>The component instance is a service but did not specify the
+ <code>servicescope="bundle"</code> or <code>servicescope="prototype"</code>
+ attribute, then all bundles using the service provided by the component
+ instance will share the same component instance.</para>
+            </listitem>
+            <listitem>
+               <para>The service provided by the component instance is not currently being
+ used by any bundle.</para>
+            </listitem>
+         </itemizedlist>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The bundle using the component instance as a service or
+         <code>null</code>.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="locateService(String)"
+               role="method"
+               xml:id="org.osgi.service.component.ComponentContext.locateService-String-">
+         <title>public S locateService(String name)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;S&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>name</title>
+            <para>The name of a reference as specified in a <code>reference</code>
+            element in this component's description.</para>
+         </formalpara>
+         <para role="description">
+Returns the service object for the specified reference name.
+ </para>
+         <para>
+ If the cardinality of the reference is <code>0..n</code> or <code>1..n</code> and
+ multiple services are bound to the reference, the service whose
+ <code>ServiceReference</code> is first in the ranking order is returned. See
+ <code>ServiceReference.compareTo(Object)</code>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A service object for the referenced service or <code>null</code> if
+         the reference cardinality is <code>0..1</code> or <code>0..n</code> and no
+         bound service is available.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>ComponentException</code>– If Service Component Runtime catches an
+             exception while activating the bound service.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="locateService(String,ServiceReference)"
+               role="method"
+               xml:id="org.osgi.service.component.ComponentContext.locateService-String-ServiceReference-">
+         <title>public S locateService(String name, ServiceReference&lt;S&gt; reference)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;S&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;S&gt;</title>
+            <para>Type of Service.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>name</title>
+            <para>The name of a reference as specified in a <code>reference</code>
+        element in this component's description.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>reference</title>
+            <para>The <code>ServiceReference</code> to a bound service. This
+        must be a <code>ServiceReference</code> provided to the component via
+        the bind or unbind method for the specified reference name.</para>
+         </formalpara>
+         <para role="description">
+Returns the service object for the specified reference name and
+ <code>ServiceReference</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A service object for the referenced service or <code>null</code> if
+         the specified <code>ServiceReference</code> is not a bound service for
+         the specified reference name.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>ComponentException</code>– If Service Component Runtime catches an
+         exception while activating the bound service.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="locateServices(String)"
+               role="method"
+               xml:id="org.osgi.service.component.ComponentContext.locateServices-String-">
+         <title>public Object[] locateServices(String name)</title>
+         <formalpara role="parameter">
+            <title>name</title>
+            <para>The name of a reference as specified in a <code>reference</code>
+            element in this component's description.</para>
+         </formalpara>
+         <para role="description">
+Returns the service objects for the specified reference name.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An array of service objects for the referenced service or
+         <code>null</code> if the reference cardinality is <code>0..1</code> or
+         <code>0..n</code> and no bound service is available. If the reference
+         cardinality is <code>0..1</code> or <code>1..1</code> and a bound service
+         is available, the array will have exactly one element. There is
+         no guarantee that the service objects in the array will be in any
+         specific order.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>ComponentException</code>– If Service Component Runtime catches an
+             exception while activating a bound service.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="ComponentException"
+            role="class"
+            xml:id="org.osgi.service.component.ComponentException">
+      <title>public class ComponentException<?line-break?> extends RuntimeException</title>
+      <para>
+Unchecked exception which may be thrown by Service Component Runtime.
+   </para>
+      <section xreflabel="ComponentException(String,Throwable)"
+               role="method"
+               xml:id="org.osgi.service.component.ComponentException.ComponentException-String-Throwable-">
+         <title>public  ComponentException(String message, Throwable cause)</title>
+         <formalpara role="parameter">
+            <title>message</title>
+            <para>The message for the exception.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>cause</title>
+            <para>The cause of the exception. May be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Construct a new ComponentException with the specified message and cause.
+   </para>
+      </section>
+      <section xreflabel="ComponentException(String)"
+               role="method"
+               xml:id="org.osgi.service.component.ComponentException.ComponentException-String-">
+         <title>public  ComponentException(String message)</title>
+         <formalpara role="parameter">
+            <title>message</title>
+            <para>The message for the exception.</para>
+         </formalpara>
+         <para role="description">
+Construct a new ComponentException with the specified message.
+   </para>
+      </section>
+      <section xreflabel="ComponentException(Throwable)"
+               role="method"
+               xml:id="org.osgi.service.component.ComponentException.ComponentException-Throwable-">
+         <title>public  ComponentException(Throwable cause)</title>
+         <formalpara role="parameter">
+            <title>cause</title>
+            <para>The cause of the exception. May be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Construct a new ComponentException with the specified cause.
+   </para>
+      </section>
+      <section xreflabel="getCause()"
+               role="method"
+               xml:id="org.osgi.service.component.ComponentException.getCause--">
+         <title>public Throwable getCause()</title>
+         <para role="description">
+Returns the cause of this exception or <code>null</code> if no cause was set.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The cause of this exception or <code>null</code> if no cause was set.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="initCause(Throwable)"
+               role="method"
+               xml:id="org.osgi.service.component.ComponentException.initCause-Throwable-">
+         <title>public Throwable initCause(Throwable cause)</title>
+         <formalpara role="parameter">
+            <title>cause</title>
+            <para>The cause of this exception.</para>
+         </formalpara>
+         <para role="description">
+Initializes the cause of this exception to the specified value.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This exception.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– If the specified cause is this
+         exception.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If the cause of this exception has already
+         been set.</para>
+         </formalpara>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="ComponentFactory"
+            role="class"
+            xml:id="org.osgi.service.component.ComponentFactory">
+      <title>public interface ComponentFactory&lt;S&gt;</title>
+      <formalpara role="parameter">
+         <title>&lt;S&gt;</title>
+         <para>Type of Service</para>
+      </formalpara>
+      <para>
+When a component is declared with the <code>factory</code> attribute on its
+ <code>component</code> element, Service Component Runtime will register a
+ Component Factory service to allow new component configurations to be created
+ and activated rather than automatically creating and activating component
+ configuration as necessary.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="newInstance(Dictionary)"
+               role="method"
+               xml:id="org.osgi.service.component.ComponentFactory.newInstance-Dictionary-">
+         <title>public ComponentInstance&lt;S&gt; newInstance(Dictionary&lt;String, ?&gt; properties)</title>
+         <formalpara role="parameter">
+            <title>properties</title>
+            <para>Additional properties for the component configuration
+        or <code>null</code> if there are no additional properties.</para>
+         </formalpara>
+         <para role="description">
+Create and activate a new component configuration. Additional properties
+ may be provided for the component configuration.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <code>ComponentInstance</code> object encapsulating the component
+         instance of the component configuration. The component
+         configuration has been activated and, if the component specifies
+         a <code>service</code> element, the component instance has been
+         registered as a service.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>ComponentException</code>– If Service Component Runtime is unable to
+         activate the component configuration.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="ComponentInstance"
+            role="class"
+            xml:id="org.osgi.service.component.ComponentInstance">
+      <title>public interface ComponentInstance&lt;S&gt;</title>
+      <formalpara role="parameter">
+         <title>&lt;S&gt;</title>
+         <para>Type of Service</para>
+      </formalpara>
+      <para>
+A ComponentInstance encapsulates a component instance of an activated
+ component configuration. ComponentInstances are created whenever a component
+ configuration is activated.
+ </para>
+      <para>
+ ComponentInstances are never reused. A new ComponentInstance object will be
+ created when the component configuration is activated again.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="dispose()"
+               role="method"
+               xml:id="org.osgi.service.component.ComponentInstance.dispose--">
+         <title>public void dispose()</title>
+         <para role="description">
+Dispose of the component configuration for this component instance. The
+ component configuration will be deactivated. If the component
+ configuration has already been deactivated, this method does nothing.
+   </para>
+      </section>
+      <section xreflabel="getInstance()"
+               role="method"
+               xml:id="org.osgi.service.component.ComponentInstance.getInstance--">
+         <title>public S getInstance()</title>
+         <para role="description">
+Returns the component instance of the activated component configuration.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The component instance or <code>null</code> if the component
+         configuration has been deactivated.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="ComponentServiceObjects"
+            role="class"
+            xml:id="org.osgi.service.component.ComponentServiceObjects">
+      <title>public interface ComponentServiceObjects&lt;S&gt;</title>
+      <formalpara role="parameter">
+         <title>&lt;S&gt;</title>
+         <para>Type of Service</para>
+      </formalpara>
+      <para>
+Allows multiple service objects for a service to be obtained.
+ 
+ </para>
+      <para>
+ A component instance can receive a <code>ComponentServiceObjects</code> object via
+ a reference that is typed <code>ComponentServiceObjects</code>.
+ 
+ </para>
+      <para>
+ For services with <link linkend="org.osgi.framework.Constants.SCOPE_PROTOTYPE">prototype</link> scope, multiple
+ service objects for the service can be obtained. For services with
+ <link linkend="org.osgi.framework.Constants.SCOPE_SINGLETON">singleton</link> or <link linkend="org.osgi.framework.Constants.SCOPE_BUNDLE">bundle</link> scope, only one, use-counted service object is available.
+ 
+ </para>
+      <para>
+ Any unreleased service objects obtained from this
+ <code>ComponentServiceObjects</code> object are automatically released by Service
+ Component Runtime when the service becomes unbound.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <link linkend="org.osgi.framework.ServiceObjects">ServiceObjects</link>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.3</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="getService()"
+               role="method"
+               xml:id="org.osgi.service.component.ComponentServiceObjects.getService--">
+         <title>public S getService()</title>
+         <para role="description">
+Returns a service object for the <link linkend="org.osgi.service.component.ComponentServiceObjects.getServiceReference--">associated</link> service.
+ </para>
+         <para>
+ This method will always return <code>null</code> when the associated service
+ has been become unbound.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A service object for the associated service or <code>null</code> if
+         the service is unbound, the customized service object returned by
+         a <code>ServiceFactory</code> does not implement the classes under
+         which it was registered or the <code>ServiceFactory</code> threw an
+         exception.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If the component instance that received
+             this <code>ComponentServiceObjects</code> object has been
+             deactivated.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.component.ComponentServiceObjects.ungetService-S-">ungetService(Object)</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="getServiceReference()"
+               role="method"
+               xml:id="org.osgi.service.component.ComponentServiceObjects.getServiceReference--">
+         <title>public ServiceReference&lt;S&gt; getServiceReference()</title>
+         <para role="description">
+Returns the <link linkend="org.osgi.framework.ServiceReference">ServiceReference</link> for the service associated with this
+ <code>ComponentServiceObjects</code> object.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The <link linkend="org.osgi.framework.ServiceReference">ServiceReference</link> for the service associated with this
+         <code>ComponentServiceObjects</code> object.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="ungetService(S)"
+               role="method"
+               xml:id="org.osgi.service.component.ComponentServiceObjects.ungetService-S-">
+         <title>public void ungetService(S service)</title>
+         <formalpara role="parameter">
+            <title>service</title>
+            <para>A service object previously provided by this
+        <code>ComponentServiceObjects</code> object.</para>
+         </formalpara>
+         <para role="description">
+Releases a service object for the <link linkend="org.osgi.service.component.ComponentServiceObjects.getServiceReference--">associated</link> service.
+ </para>
+         <para>
+ The specified service object must no longer be used and all references to
+ it should be destroyed after calling this method.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If the component instance that received
+             this <code>ComponentServiceObjects</code> object has been
+             deactivated.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– If the specified service object was not
+         provided by this <code>ComponentServiceObjects</code> object.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.component.ComponentServiceObjects.getService--">getService()</link>
+            </para>
+         </formalpara>
+      </section>
+   </section>
+</section>

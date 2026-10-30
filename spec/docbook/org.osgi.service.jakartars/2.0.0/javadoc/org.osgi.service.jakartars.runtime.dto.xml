@@ -1,0 +1,695 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.jakartars.runtime.dto"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.jakartars.runtime.dto">
+   <title>org.osgi.service.jakartars.runtime.dto</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.jakartars.runtime.dto-version">Version 2.0</releaseinfo>
+      <edition xml:id="org.osgi.service.jakartars.runtime.dto-version.number">2.0</edition>
+   </info>
+   <para>
+Jakarta RESTful Web Services Runtime DTO Package Version 1.0.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.jakartars.runtime.dto; version="[1.0,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.jakartars.runtime.dto; version="[1.0,1.1)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.jakartars.runtime.dto.ApplicationDTO">
+                  <code>ApplicationDTO</code>
+               </link> - 
+Represents a Jakarta RESTful Web Services Application service.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.jakartars.runtime.dto.BaseApplicationDTO">
+                  <code>BaseApplicationDTO</code>
+               </link> - 
+Represents common information about a Jakarta RESTful Web Services
+ application service.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.jakartars.runtime.dto.BaseDTO">
+                  <code>BaseDTO</code>
+               </link> - 
+Represents common information about a Jakarta RESTful Web Services service.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.jakartars.runtime.dto.BaseExtensionDTO">
+                  <code>BaseExtensionDTO</code>
+               </link> - 
+Represents common information about a Jakarta RESTful Web Services extension
+ service.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.jakartars.runtime.dto.DTOConstants">
+                  <code>DTOConstants</code>
+               </link> - 
+Defines standard constants for the DTOs.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.jakartars.runtime.dto.ExtensionDTO">
+                  <code>ExtensionDTO</code>
+               </link> - 
+Represents a Jakarta RESTful Web Services Extension service currently being
+ hosted by the <link linkend="org.osgi.service.jakartars.runtime.JakartarsServiceRuntime">JakartarsServiceRuntime</link>
+            </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.jakartars.runtime.dto.FailedApplicationDTO">
+                  <code>FailedApplicationDTO</code>
+               </link> - 
+Represents a Jakarta RESTful Web Services service which is currently not
+ being used due to a problem.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.jakartars.runtime.dto.FailedExtensionDTO">
+                  <code>FailedExtensionDTO</code>
+               </link> - 
+Represents a Jakarta RESTful Web Services Extension service which is
+ currently not being used due to a problem.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.jakartars.runtime.dto.FailedResourceDTO">
+                  <code>FailedResourceDTO</code>
+               </link> - 
+Represents a Jakarta RESTful Web Services resource service which is currently
+ not being used due to a problem.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.jakartars.runtime.dto.ResourceDTO">
+                  <code>ResourceDTO</code>
+               </link> - 
+Represents common information about a Jakarta RESTful Web Services resource
+ service.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.jakartars.runtime.dto.ResourceMethodInfoDTO">
+                  <code>ResourceMethodInfoDTO</code>
+               </link> - 
+Represents information about a Jakarta RESTful Web Services resource method.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.jakartars.runtime.dto.RuntimeDTO">
+                  <code>RuntimeDTO</code>
+               </link> - 
+Represents the state of a Jakarta RESTful Web Services Service Runtime.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="ApplicationDTO"
+            role="class"
+            xml:id="org.osgi.service.jakartars.runtime.dto.ApplicationDTO">
+      <title>public class ApplicationDTO<?line-break?> extends BaseApplicationDTO</title>
+      <para>
+Represents a Jakarta RESTful Web Services Application service.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="resourceMethods"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.ApplicationDTO.resourceMethods">
+         <title>public ResourceMethodInfoDTO[] resourceMethods</title>
+         <para>
+The RequestPaths handled by statically defined resources in this
+ Application
+   </para>
+      </section>
+      <section xreflabel="ApplicationDTO()"
+               role="method"
+               xml:id="org.osgi.service.jakartars.runtime.dto.ApplicationDTO.ApplicationDTO--">
+         <title>public  ApplicationDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="BaseApplicationDTO"
+            role="class"
+            xml:id="org.osgi.service.jakartars.runtime.dto.BaseApplicationDTO">
+      <title>public abstract class BaseApplicationDTO<?line-break?> extends BaseDTO</title>
+      <para>
+Represents common information about a Jakarta RESTful Web Services
+ application service.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="base"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.BaseApplicationDTO.base">
+         <title>public String base</title>
+         <para>
+The base URI of the resource defined by
+ <link linkend="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_APPLICATION_BASE">JakartarsWhiteboardConstants.JAKARTA_RS_APPLICATION_BASE</link>.
+   </para>
+      </section>
+      <section xreflabel="extensionDTOs"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.BaseApplicationDTO.extensionDTOs">
+         <title>public ExtensionDTO[] extensionDTOs</title>
+         <para>
+Returns the representations of the dynamic Jakarta RESTful Web Services
+ extension services associated with this Application. The returned array
+ may be empty if this application is currently not associated with any
+ Jakarta RESTful Web Services extension services.
+   </para>
+      </section>
+      <section xreflabel="resourceDTOs"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.BaseApplicationDTO.resourceDTOs">
+         <title>public ResourceDTO[] resourceDTOs</title>
+         <para>
+Returns the representations of the dynamic Jakarta RESTful Web Services
+ resource services associated with this Application. The returned array
+ may be empty if this application is currently not associated with any
+ Jakarta RESTful Web Services Resource services.
+   </para>
+      </section>
+      <section xreflabel="BaseApplicationDTO()"
+               role="method"
+               xml:id="org.osgi.service.jakartars.runtime.dto.BaseApplicationDTO.BaseApplicationDTO--">
+         <title>public  BaseApplicationDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="BaseDTO"
+            role="class"
+            xml:id="org.osgi.service.jakartars.runtime.dto.BaseDTO">
+      <title>public abstract class BaseDTO<?line-break?> extends DTO</title>
+      <para>
+Represents common information about a Jakarta RESTful Web Services service.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="name"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.BaseDTO.name">
+         <title>public String name</title>
+         <para>
+The name of the service if it set one using
+ <link linkend="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_NAME">JakartarsWhiteboardConstants.JAKARTA_RS_NAME</link>, otherwise this
+ value will contain the generated name for this service
+   </para>
+      </section>
+      <section xreflabel="serviceId"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.BaseDTO.serviceId">
+         <title>public long serviceId</title>
+         <para>
+Service property identifying the Jakarta RESTful Web Services service
+   </para>
+      </section>
+      <section xreflabel="BaseDTO()"
+               role="method"
+               xml:id="org.osgi.service.jakartars.runtime.dto.BaseDTO.BaseDTO--">
+         <title>public  BaseDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="BaseExtensionDTO"
+            role="class"
+            xml:id="org.osgi.service.jakartars.runtime.dto.BaseExtensionDTO">
+      <title>public abstract class BaseExtensionDTO<?line-break?> extends BaseDTO</title>
+      <para>
+Represents common information about a Jakarta RESTful Web Services extension
+ service.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="extensionTypes"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.BaseExtensionDTO.extensionTypes">
+         <title>public String[] extensionTypes</title>
+         <para>
+The extension types recognized for this service.
+   </para>
+      </section>
+      <section xreflabel="BaseExtensionDTO()"
+               role="method"
+               xml:id="org.osgi.service.jakartars.runtime.dto.BaseExtensionDTO.BaseExtensionDTO--">
+         <title>public  BaseExtensionDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="DTOConstants"
+            role="class"
+            xml:id="org.osgi.service.jakartars.runtime.dto.DTOConstants">
+      <title>public final class DTOConstants</title>
+      <para>
+Defines standard constants for the DTOs. The error codes are defined to take
+ the same values as used by the Http Service Whiteboard
+   </para>
+      <section xreflabel="FAILURE_REASON_DUPLICATE_NAME"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.DTOConstants.FAILURE_REASON_DUPLICATE_NAME">
+         <title>public static final int FAILURE_REASON_DUPLICATE_NAME = 6</title>
+         <para>
+The service is registered in the service registry with the
+ <link linkend="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_NAME">JakartarsWhiteboardConstants.JAKARTA_RS_NAME</link> property and a
+ service with that name already exists in the runtime
+   </para>
+      </section>
+      <section xreflabel="FAILURE_REASON_NOT_AN_EXTENSION_TYPE"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.DTOConstants.FAILURE_REASON_NOT_AN_EXTENSION_TYPE">
+         <title>public static final int FAILURE_REASON_NOT_AN_EXTENSION_TYPE = 4</title>
+         <para>
+The extension service is registered in the service registry but the
+ service is not registered using a recognized extension type
+   </para>
+      </section>
+      <section xreflabel="FAILURE_REASON_REQUIRED_APPLICATION_UNAVAILABLE"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.DTOConstants.FAILURE_REASON_REQUIRED_APPLICATION_UNAVAILABLE">
+         <title>public static final int FAILURE_REASON_REQUIRED_APPLICATION_UNAVAILABLE = 7</title>
+         <para>
+The service is registered in the service registry with the
+ <link linkend="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_APPLICATION_SELECT">JakartarsWhiteboardConstants.JAKARTA_RS_APPLICATION_SELECT</link>
+ property and the filters is not matched by any running application.
+   </para>
+      </section>
+      <section xreflabel="FAILURE_REASON_REQUIRED_EXTENSIONS_UNAVAILABLE"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.DTOConstants.FAILURE_REASON_REQUIRED_EXTENSIONS_UNAVAILABLE">
+         <title>public static final int FAILURE_REASON_REQUIRED_EXTENSIONS_UNAVAILABLE = 5</title>
+         <para>
+The service is registered in the service registry with the
+ <link linkend="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_EXTENSION_SELECT">JakartarsWhiteboardConstants.JAKARTA_RS_EXTENSION_SELECT</link> property
+ and one or more of the filters is not matched.
+   </para>
+      </section>
+      <section xreflabel="FAILURE_REASON_SERVICE_NOT_GETTABLE"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.DTOConstants.FAILURE_REASON_SERVICE_NOT_GETTABLE">
+         <title>public static final int FAILURE_REASON_SERVICE_NOT_GETTABLE = 2</title>
+         <para>
+The service is registered in the service registry but getting the service
+ fails as it returns <code>null</code>.
+   </para>
+      </section>
+      <section xreflabel="FAILURE_REASON_SHADOWED_BY_OTHER_SERVICE"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.DTOConstants.FAILURE_REASON_SHADOWED_BY_OTHER_SERVICE">
+         <title>public static final int FAILURE_REASON_SHADOWED_BY_OTHER_SERVICE = 1</title>
+         <para>
+Service is shadowed by another service.
+ </para>
+         <para>
+ For example, another service with the same service properties but having
+ a higher service ranking. See
+ <link linkend="org.osgi.framework.ServiceReference.compareTo-Object-">org.osgi.framework.ServiceReference.compareTo(Object)</link>.</para>
+      </section>
+      <section xreflabel="FAILURE_REASON_UNKNOWN"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.DTOConstants.FAILURE_REASON_UNKNOWN">
+         <title>public static final int FAILURE_REASON_UNKNOWN = 0</title>
+         <para>
+Failure reason is unknown.
+   </para>
+      </section>
+      <section xreflabel="FAILURE_REASON_VALIDATION_FAILED"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.DTOConstants.FAILURE_REASON_VALIDATION_FAILED">
+         <title>public static final int FAILURE_REASON_VALIDATION_FAILED = 3</title>
+         <para>
+The service is registered in the service registry but the service
+ properties are invalid.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="ExtensionDTO"
+            role="class"
+            xml:id="org.osgi.service.jakartars.runtime.dto.ExtensionDTO">
+      <title>public class ExtensionDTO<?line-break?> extends BaseExtensionDTO</title>
+      <para>
+Represents a Jakarta RESTful Web Services Extension service currently being
+ hosted by the <link linkend="org.osgi.service.jakartars.runtime.JakartarsServiceRuntime">JakartarsServiceRuntime</link>
+      </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="consumes"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.ExtensionDTO.consumes">
+         <title>public String[] consumes</title>
+         <para>
+The media types consumed by this service, if provided in an
+ Consumes annotation
+   </para>
+      </section>
+      <section xreflabel="filteredByName"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.ExtensionDTO.filteredByName">
+         <title>public ResourceDTO[] filteredByName</title>
+         <para>
+The resourceDTOs that are mapped to this extension using a
+ NameBinding annotation
+   </para>
+      </section>
+      <section xreflabel="nameBindings"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.ExtensionDTO.nameBindings">
+         <title>public String[] nameBindings</title>
+         <para>
+The full names of the NameBinding annotations applied to this
+ extension, if any
+   </para>
+      </section>
+      <section xreflabel="produces"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.ExtensionDTO.produces">
+         <title>public String[] produces</title>
+         <para>
+The media types produced by this service, if provided in an
+ Produces annotation
+   </para>
+      </section>
+      <section xreflabel="ExtensionDTO()"
+               role="method"
+               xml:id="org.osgi.service.jakartars.runtime.dto.ExtensionDTO.ExtensionDTO--">
+         <title>public  ExtensionDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="FailedApplicationDTO"
+            role="class"
+            xml:id="org.osgi.service.jakartars.runtime.dto.FailedApplicationDTO">
+      <title>public class FailedApplicationDTO<?line-break?> extends BaseApplicationDTO</title>
+      <para>
+Represents a Jakarta RESTful Web Services service which is currently not
+ being used due to a problem.
+ </para>
+      <para>
+ The service represented by this DTO is not used due to a failure, but the
+ <link linkend="org.osgi.service.jakartars.runtime.dto.BaseApplicationDTO.extensionDTOs">BaseApplicationDTO.extensionDTOs</link> and
+ <link linkend="org.osgi.service.jakartars.runtime.dto.BaseApplicationDTO.resourceDTOs">BaseApplicationDTO.resourceDTOs</link> may be non-empty if whiteboard
+ services have been associated with this failed application.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="failureReason"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.FailedApplicationDTO.failureReason">
+         <title>public int failureReason</title>
+         <para>
+The reason why the resource represented by this DTO is not used.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.jakartars.runtime.dto.DTOConstants.FAILURE_REASON_UNKNOWN">DTOConstants.FAILURE_REASON_UNKNOWN</link>, <link linkend="org.osgi.service.jakartars.runtime.dto.DTOConstants.FAILURE_REASON_SERVICE_NOT_GETTABLE">DTOConstants.FAILURE_REASON_SERVICE_NOT_GETTABLE</link>, <link linkend="org.osgi.service.jakartars.runtime.dto.DTOConstants.FAILURE_REASON_VALIDATION_FAILED">DTOConstants.FAILURE_REASON_VALIDATION_FAILED</link>, <link linkend="org.osgi.service.jakartars.runtime.dto.DTOConstants.FAILURE_REASON_SHADOWED_BY_OTHER_SERVICE">DTOConstants.FAILURE_REASON_SHADOWED_BY_OTHER_SERVICE</link>, <link linkend="org.osgi.service.jakartars.runtime.dto.DTOConstants.FAILURE_REASON_REQUIRED_EXTENSIONS_UNAVAILABLE">DTOConstants.FAILURE_REASON_REQUIRED_EXTENSIONS_UNAVAILABLE</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="FailedApplicationDTO()"
+               role="method"
+               xml:id="org.osgi.service.jakartars.runtime.dto.FailedApplicationDTO.FailedApplicationDTO--">
+         <title>public  FailedApplicationDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="FailedExtensionDTO"
+            role="class"
+            xml:id="org.osgi.service.jakartars.runtime.dto.FailedExtensionDTO">
+      <title>public class FailedExtensionDTO<?line-break?> extends BaseExtensionDTO</title>
+      <para>
+Represents a Jakarta RESTful Web Services Extension service which is
+ currently not being used due to a problem.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="failureReason"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.FailedExtensionDTO.failureReason">
+         <title>public int failureReason</title>
+         <para>
+The reason why the extension represented by this DTO is not used.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.jakartars.runtime.dto.DTOConstants.FAILURE_REASON_UNKNOWN">DTOConstants.FAILURE_REASON_UNKNOWN</link>, <link linkend="org.osgi.service.jakartars.runtime.dto.DTOConstants.FAILURE_REASON_SERVICE_NOT_GETTABLE">DTOConstants.FAILURE_REASON_SERVICE_NOT_GETTABLE</link>, <link linkend="org.osgi.service.jakartars.runtime.dto.DTOConstants.FAILURE_REASON_VALIDATION_FAILED">DTOConstants.FAILURE_REASON_VALIDATION_FAILED</link>, <link linkend="org.osgi.service.jakartars.runtime.dto.DTOConstants.FAILURE_REASON_NOT_AN_EXTENSION_TYPE">DTOConstants.FAILURE_REASON_NOT_AN_EXTENSION_TYPE</link>, <link linkend="org.osgi.service.jakartars.runtime.dto.DTOConstants.FAILURE_REASON_REQUIRED_EXTENSIONS_UNAVAILABLE">DTOConstants.FAILURE_REASON_REQUIRED_EXTENSIONS_UNAVAILABLE</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="FailedExtensionDTO()"
+               role="method"
+               xml:id="org.osgi.service.jakartars.runtime.dto.FailedExtensionDTO.FailedExtensionDTO--">
+         <title>public  FailedExtensionDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="FailedResourceDTO"
+            role="class"
+            xml:id="org.osgi.service.jakartars.runtime.dto.FailedResourceDTO">
+      <title>public class FailedResourceDTO<?line-break?> extends BaseDTO</title>
+      <para>
+Represents a Jakarta RESTful Web Services resource service which is currently
+ not being used due to a problem.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="failureReason"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.FailedResourceDTO.failureReason">
+         <title>public int failureReason</title>
+         <para>
+The reason why the resource represented by this DTO is not used.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.jakartars.runtime.dto.DTOConstants.FAILURE_REASON_UNKNOWN">DTOConstants.FAILURE_REASON_UNKNOWN</link>, <link linkend="org.osgi.service.jakartars.runtime.dto.DTOConstants.FAILURE_REASON_SERVICE_NOT_GETTABLE">DTOConstants.FAILURE_REASON_SERVICE_NOT_GETTABLE</link>, <link linkend="org.osgi.service.jakartars.runtime.dto.DTOConstants.FAILURE_REASON_VALIDATION_FAILED">DTOConstants.FAILURE_REASON_VALIDATION_FAILED</link>, <link linkend="org.osgi.service.jakartars.runtime.dto.DTOConstants.FAILURE_REASON_REQUIRED_EXTENSIONS_UNAVAILABLE">DTOConstants.FAILURE_REASON_REQUIRED_EXTENSIONS_UNAVAILABLE</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="FailedResourceDTO()"
+               role="method"
+               xml:id="org.osgi.service.jakartars.runtime.dto.FailedResourceDTO.FailedResourceDTO--">
+         <title>public  FailedResourceDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="ResourceDTO"
+            role="class"
+            xml:id="org.osgi.service.jakartars.runtime.dto.ResourceDTO">
+      <title>public class ResourceDTO<?line-break?> extends BaseDTO</title>
+      <para>
+Represents common information about a Jakarta RESTful Web Services resource
+ service.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="resourceMethods"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.ResourceDTO.resourceMethods">
+         <title>public ResourceMethodInfoDTO[] resourceMethods</title>
+         <para>
+The RequestPaths handled by this resource
+   </para>
+      </section>
+      <section xreflabel="ResourceDTO()"
+               role="method"
+               xml:id="org.osgi.service.jakartars.runtime.dto.ResourceDTO.ResourceDTO--">
+         <title>public  ResourceDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="ResourceMethodInfoDTO"
+            role="class"
+            xml:id="org.osgi.service.jakartars.runtime.dto.ResourceMethodInfoDTO">
+      <title>public class ResourceMethodInfoDTO<?line-break?> extends DTO</title>
+      <para>
+Represents information about a Jakarta RESTful Web Services resource method.
+ All information is determined by reading the relevant annotations, from the
+ Jakarta RESTful Web Services type and not interpreted further. Dynamic
+ information, or information provided in other ways may not be represented in
+ this DTO.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="consumingMimeType"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.ResourceMethodInfoDTO.consumingMimeType">
+         <title>public String[] consumingMimeType</title>
+         <para>
+The mime-type(s) consumed by this resource method, null if
+ Consumes is not defined
+   </para>
+      </section>
+      <section xreflabel="method"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.ResourceMethodInfoDTO.method">
+         <title>public String method</title>
+         <para>
+The HTTP verb being handled, for example GET, DELETE, PUT, POST, HEAD,
+ OPTIONS, null if no HttpMethod is defined
+   </para>
+      </section>
+      <section xreflabel="nameBindings"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.ResourceMethodInfoDTO.nameBindings">
+         <title>public String[] nameBindings</title>
+         <para>
+The NameBinding annotations that apply to this resource method,
+ if any
+   </para>
+      </section>
+      <section xreflabel="path"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.ResourceMethodInfoDTO.path">
+         <title>public String path</title>
+         <para>
+The path of this resource method. Placeholder information present in the
+ URI pattern will not be interpreted and simply returned as defined.
+   </para>
+      </section>
+      <section xreflabel="producingMimeType"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.ResourceMethodInfoDTO.producingMimeType">
+         <title>public String[] producingMimeType</title>
+         <para>
+The mime-type(s) produced by this resource method, null if
+ Produces is not defined
+   </para>
+      </section>
+      <section xreflabel="ResourceMethodInfoDTO()"
+               role="method"
+               xml:id="org.osgi.service.jakartars.runtime.dto.ResourceMethodInfoDTO.ResourceMethodInfoDTO--">
+         <title>public  ResourceMethodInfoDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="RuntimeDTO"
+            role="class"
+            xml:id="org.osgi.service.jakartars.runtime.dto.RuntimeDTO">
+      <title>public class RuntimeDTO<?line-break?> extends DTO</title>
+      <para>
+Represents the state of a Jakarta RESTful Web Services Service Runtime.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="applicationDTOs"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.RuntimeDTO.applicationDTOs">
+         <title>public ApplicationDTO[] applicationDTOs</title>
+         <para>
+Returns the representations of the Jakarta RESTful Web Services
+ Application services associated with this Runtime. The returned array may
+ be empty if this whiteboard is currently not associated with any Jakarta
+ RESTful Web Services application services.
+   </para>
+      </section>
+      <section xreflabel="defaultApplication"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.RuntimeDTO.defaultApplication">
+         <title>public ApplicationDTO defaultApplication</title>
+         <para>
+Returns the current state of the default application for this Runtime.
+   </para>
+      </section>
+      <section xreflabel="failedApplicationDTOs"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.RuntimeDTO.failedApplicationDTOs">
+         <title>public FailedApplicationDTO[] failedApplicationDTOs</title>
+         <para>
+Returns the representations of the Jakarta RESTful Web Services extension
+ services targeted to this runtime but currently not used due to some
+ problem. The returned array may be empty.
+   </para>
+      </section>
+      <section xreflabel="failedExtensionDTOs"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.RuntimeDTO.failedExtensionDTOs">
+         <title>public FailedExtensionDTO[] failedExtensionDTOs</title>
+         <para>
+Returns the representations of the Jakarta RESTful Web Services extension
+ services targeted to this runtime but currently not used due to some
+ problem. The returned array may be empty.
+   </para>
+      </section>
+      <section xreflabel="failedResourceDTOs"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.RuntimeDTO.failedResourceDTOs">
+         <title>public FailedResourceDTO[] failedResourceDTOs</title>
+         <para>
+Returns the representations of the Jakarta RESTful Web Services resource
+ services targeted to this runtime but currently not used due to some
+ problem. The returned array may be empty.
+   </para>
+      </section>
+      <section xreflabel="serviceDTO"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.dto.RuntimeDTO.serviceDTO">
+         <title>public ServiceReferenceDTO serviceDTO</title>
+         <para>
+The DTO for the corresponding <code>JakartarsServiceRuntime</code>. This value
+ is never <code>null</code>.
+   </para>
+      </section>
+      <section xreflabel="RuntimeDTO()"
+               role="method"
+               xml:id="org.osgi.service.jakartars.runtime.dto.RuntimeDTO.RuntimeDTO--">
+         <title>public  RuntimeDTO()</title>
+         <para/>
+      </section>
+   </section>
+</section>

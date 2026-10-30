@@ -1,0 +1,473 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.dmt.ddf"
+         version="5"
+         role="package"
+         xml:id="org.osgi.dmt.ddf">
+   <title>org.osgi.dmt.ddf</title>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.dmt.ddf.AddableMAP">
+                  <code>AddableMAP</code>
+               </link> - 
+Allows the Multiple to be mutated, mapping to the actions Add and Delete.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.dmt.ddf.base64">
+                  <code>base64</code>
+               </link> - 
+A helper class to distinguish between bin and base64 types in Dmt Admin.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.dmt.ddf.datetime">
+                  <code>datetime</code>
+               </link> - </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.dmt.ddf.DDF">
+                  <code>DDF</code>
+               </link> - </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.dmt.ddf.LIST">
+                  <code>LIST</code>
+               </link> - </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.dmt.ddf.MAP">
+                  <code>MAP</code>
+               </link> - 
+A Multiple represents a base node with its direct children.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.dmt.ddf.Mutable">
+                  <code>Mutable</code>
+               </link> - </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.dmt.ddf.MutableLIST">
+                  <code>MutableLIST</code>
+               </link> - </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.dmt.ddf.MutableMAP">
+                  <code>MutableMAP</code>
+               </link> - 
+Allows the Multiple to be mutated, mapping to the actions Add and Delete.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.dmt.ddf.NODE">
+                  <code>NODE</code>
+               </link> - 
+The NODE represents a node in the Device Management Tree.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.dmt.ddf.NodeType">
+                  <code>NodeType</code>
+               </link> - </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.dmt.ddf.Opt">
+                  <code>Opt</code>
+               </link> - 
+An optional node.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.dmt.ddf.Scope">
+                  <code>Scope</code>
+               </link> - 
+Represents the Scope of a type.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.dmt.ddf.Scope.SCOPE">
+                  <code>Scope.SCOPE</code>
+               </link> - </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="AddableMAP"
+            role="class"
+            xml:id="org.osgi.dmt.ddf.AddableMAP">
+      <title>public interface AddableMAP&lt;K, V&gt;<?line-break?> extends MAP&lt;K, V&gt;</title>
+      <formalpara role="parameter">
+         <title>&lt;K&gt;</title>
+         <para>The key type, must be convertable to/from a string</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>&lt;V&gt;</title>
+         <para>The value type</para>
+      </formalpara>
+      <para>
+Allows the Multiple to be mutated, mapping to the actions Add and Delete.
+   </para>
+      <section xreflabel="add()"
+               role="method"
+               xml:id="org.osgi.dmt.ddf.AddableMAP.add--">
+         <title>public V add()</title>
+         <para/>
+      </section>
+      <section xreflabel="put(K)"
+               role="method"
+               xml:id="org.osgi.dmt.ddf.AddableMAP.put-K-">
+         <title>public V put(K key)</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="base64" role="class" xml:id="org.osgi.dmt.ddf.base64">
+      <title>public class base64</title>
+      <para>
+A helper class to distinguish between bin and base64 types in Dmt Admin. This
+ class just wraps a byte array.
+   </para>
+      <section xreflabel="base64(byte[])"
+               role="method"
+               xml:id="org.osgi.dmt.ddf.base64.base64-byte---">
+         <title>public  base64(byte[] data)</title>
+         <formalpara role="parameter">
+            <title>data</title>
+            <para>the byte array to wrap</para>
+         </formalpara>
+         <para role="description">
+The constructor, just wrap the byte array to give it a new value
+   </para>
+      </section>
+      <section xreflabel="getData()"
+               role="method"
+               xml:id="org.osgi.dmt.ddf.base64.getData--">
+         <title>public byte[] getData()</title>
+         <para role="description">
+The wrapped byte array.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>the data</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="datetime"
+            role="class"
+            xml:id="org.osgi.dmt.ddf.datetime">
+      <title>public interface datetime</title>
+   </section>
+   <section xreflabel="DDF" role="class" xml:id="org.osgi.dmt.ddf.DDF">
+      <title>@DDF</title>
+   </section>
+   <section xreflabel="LIST" role="class" xml:id="org.osgi.dmt.ddf.LIST">
+      <title>public interface LIST&lt;T&gt;</title>
+      <section xreflabel="iterator()"
+               role="method"
+               xml:id="org.osgi.dmt.ddf.LIST.iterator--">
+         <title>public Iterator&lt;T&gt; iterator()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="MAP" role="class" xml:id="org.osgi.dmt.ddf.MAP">
+      <title>public interface MAP&lt;K, V&gt;<?line-break?> extends NODE</title>
+      <formalpara role="parameter">
+         <title>&lt;K&gt;</title>
+         <para>The key type. Must be a type that is convertable from/to String
+        for the child's name.</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>&lt;V&gt;</title>
+         <para>The value type, can be any type mapping to a node.</para>
+      </formalpara>
+      <para>
+A Multiple represents a base node with its direct children. The child's name
+ is used as the key. A Multiple's children have a cardinality of 0..n. The
+ entry can be made optional by wrapping it in an Optional.
+   </para>
+      <section xreflabel="entrySet()"
+               role="method"
+               xml:id="org.osgi.dmt.ddf.MAP.entrySet--">
+         <title>public Collection&lt;Map.Entry&lt;K, V&gt;&gt; entrySet()</title>
+         <para role="description">
+Return the set of Map.Entry objects for this Multiple.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An entry set over the key/value entries.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="get(K)"
+               role="method"
+               xml:id="org.osgi.dmt.ddf.MAP.get-K-">
+         <title>public V get(K key)</title>
+         <formalpara role="parameter">
+            <title>key</title>
+            <para>The name of the child node.</para>
+         </formalpara>
+         <para role="description">
+Get a value. The given key is the name of a child node, the result is a
+ NODE at that position or its value when it is a leaf node that can only
+ be gotten.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The value for a given key</para>
+         </formalpara>
+      </section>
+      <section xreflabel="keySet()"
+               role="method"
+               xml:id="org.osgi.dmt.ddf.MAP.keySet--">
+         <title>public Collection&lt;K&gt; keySet()</title>
+         <para role="description">
+Return the set of keys for this Multiple.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>the set of keys</para>
+         </formalpara>
+      </section>
+      <section xreflabel="values()"
+               role="method"
+               xml:id="org.osgi.dmt.ddf.MAP.values--">
+         <title>public Collection&lt;V&gt; values()</title>
+         <para role="description">
+Return the set of values for this Multiple.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>the set of keys</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="Mutable" role="class" xml:id="org.osgi.dmt.ddf.Mutable">
+      <title>public interface Mutable&lt;T&gt;</title>
+      <section xreflabel="get()"
+               role="method"
+               xml:id="org.osgi.dmt.ddf.Mutable.get--">
+         <title>public T get()</title>
+         <para/>
+      </section>
+      <section xreflabel="replace(T)"
+               role="method"
+               xml:id="org.osgi.dmt.ddf.Mutable.replace-T-">
+         <title>public void replace(T v)</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="MutableLIST"
+            role="class"
+            xml:id="org.osgi.dmt.ddf.MutableLIST">
+      <title>public interface MutableLIST&lt;T&gt;<?line-break?> extends LIST&lt;T&gt;</title>
+   </section>
+   <section xreflabel="MutableMAP"
+            role="class"
+            xml:id="org.osgi.dmt.ddf.MutableMAP">
+      <title>public interface MutableMAP&lt;K, V&gt;<?line-break?> extends AddableMAP&lt;K, V&gt;</title>
+      <formalpara role="parameter">
+         <title>&lt;K&gt;</title>
+         <para>The key type, must be convertable to/from a string</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>&lt;V&gt;</title>
+         <para>The value type</para>
+      </formalpara>
+      <para>
+Allows the Multiple to be mutated, mapping to the actions Add and Delete.
+   </para>
+      <section xreflabel="delete(K)"
+               role="method"
+               xml:id="org.osgi.dmt.ddf.MutableMAP.delete-K-">
+         <title>public void delete(K key)</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="NODE" role="class" xml:id="org.osgi.dmt.ddf.NODE">
+      <title>public interface NODE</title>
+      <para>
+The NODE represents a node in the Device Management Tree.
+   </para>
+      <section xreflabel="getChildren()"
+               role="method"
+               xml:id="org.osgi.dmt.ddf.NODE.getChildren--">
+         <title>public Iterator&lt;NODE&gt; getChildren()</title>
+         <para role="description">
+The children of this node or <code>null</code> if this is a leaf node.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>the children of this node.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getName()"
+               role="method"
+               xml:id="org.osgi.dmt.ddf.NODE.getName--">
+         <title>public String getName()</title>
+         <para role="description">
+The node's name in the tree. This is only the name, not the complete
+ path.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>Node's name</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getParent()"
+               role="method"
+               xml:id="org.osgi.dmt.ddf.NODE.getParent--">
+         <title>public NODE getParent()</title>
+         <para role="description">
+Return the parent node of this node.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>the parent node.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getPath()"
+               role="method"
+               xml:id="org.osgi.dmt.ddf.NODE.getPath--">
+         <title>public String getPath()</title>
+         <para role="description">
+The complete path up unto the root of the current session.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>the relative part unto the root of the current session.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getValue(Class)"
+               role="method"
+               xml:id="org.osgi.dmt.ddf.NODE.getValue-Class-">
+         <title>public T getValue(Class&lt;T&gt; type)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The requested type</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>type</title>
+            <para>the class representing the requested type</para>
+         </formalpara>
+         <para role="description">
+Only for a leaf node, return its value converted to the given type.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A converted object or <code>null</code>.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="NodeType"
+            role="class"
+            xml:id="org.osgi.dmt.ddf.NodeType">
+      <title>@NodeType</title>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>RUNTIME</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>METHOD</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.dmt.ddf.NodeType.value--">
+         <title>String value</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="Opt" role="class" xml:id="org.osgi.dmt.ddf.Opt">
+      <title>public interface Opt&lt;T&gt;<?line-break?> extends NODE</title>
+      <formalpara role="parameter">
+         <title>&lt;T&gt;</title>
+         <para/>
+      </formalpara>
+      <para>
+An optional node.
+   </para>
+      <section xreflabel="isSet()"
+               role="method"
+               xml:id="org.osgi.dmt.ddf.Opt.isSet--">
+         <title>public boolean isSet()</title>
+         <para/>
+      </section>
+      <section xreflabel="opt()" role="method" xml:id="org.osgi.dmt.ddf.Opt.opt--">
+         <title>public T opt()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="Scope" role="class" xml:id="org.osgi.dmt.ddf.Scope">
+      <title>@Scope</title>
+      <para>
+Represents the Scope of a type.
+   </para>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>RUNTIME</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>METHOD</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.dmt.ddf.Scope.value--">
+         <title>Scope.SCOPE value</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="Scope.SCOPE"
+            role="class"
+            xml:id="org.osgi.dmt.ddf.Scope.SCOPE">
+      <title>enum Scope.SCOPE</title>
+      <section xreflabel="P" role="field" xml:id="org.osgi.dmt.ddf.Scope.SCOPE.P">
+         <title>P</title>
+      </section>
+      <section xreflabel="D" role="field" xml:id="org.osgi.dmt.ddf.Scope.SCOPE.D">
+         <title>D</title>
+      </section>
+      <section xreflabel="A" role="field" xml:id="org.osgi.dmt.ddf.Scope.SCOPE.A">
+         <title>A</title>
+      </section>
+      <section xreflabel="valueOf(String)"
+               role="method"
+               xml:id="org.osgi.dmt.ddf.Scope.SCOPE.valueOf-String-">
+         <title>public static Scope.SCOPE valueOf(String name)</title>
+         <para/>
+      </section>
+      <section xreflabel="values()"
+               role="method"
+               xml:id="org.osgi.dmt.ddf.Scope.SCOPE.values--">
+         <title>public static Scope.SCOPE[] values()</title>
+         <para/>
+      </section>
+   </section>
+</section>

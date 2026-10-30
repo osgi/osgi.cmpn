@@ -1,0 +1,2195 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.util.promise"
+         version="5"
+         role="package"
+         xml:id="org.osgi.util.promise">
+   <title>org.osgi.util.promise</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.util.promise-version">Version 1.3</releaseinfo>
+      <edition xml:id="org.osgi.util.promise-version.number">1.3</edition>
+   </info>
+   <para>
+Promise Package Version 1.3.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.util.promise; version="[1.3,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.util.promise; version="[1.3,1.4)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.promise.Deferred">
+                  <code>Deferred</code>
+               </link> - 
+A Deferred Promise resolution.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.promise.FailedPromisesException">
+                  <code>FailedPromisesException</code>
+               </link> - 
+Promise failure exception for a collection of failed Promises.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.promise.Failure">
+                  <code>Failure</code>
+               </link> - 
+Failure callback for a Promise.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.promise.Promise">
+                  <code>Promise</code>
+               </link> - 
+A Promise of a value.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.promise.PromiseFactory">
+                  <code>PromiseFactory</code>
+               </link> - 
+Promise factory to create Deferred and Promise objects.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.promise.PromiseFactory.Option">
+                  <code>PromiseFactory.Option</code>
+               </link> - 
+Defines the options for a Promise factory.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.promise.Promises">
+                  <code>Promises</code>
+               </link> - 
+Static helper methods for <link linkend="org.osgi.util.promise.Promise">Promise</link>s.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.promise.Success">
+                  <code>Success</code>
+               </link> - 
+Success callback for a Promise.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.promise.TimeoutException">
+                  <code>TimeoutException</code>
+               </link> - 
+Timeout exception for a Promise.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="Deferred"
+            role="class"
+            xml:id="org.osgi.util.promise.Deferred">
+      <title>public class Deferred&lt;T&gt;</title>
+      <formalpara role="parameter">
+         <title>&lt;T&gt;</title>
+         <para>The value type associated with the created Promise.</para>
+      </formalpara>
+      <para>
+A Deferred Promise resolution.
+ 
+ </para>
+      <para>
+ Instances of this class can be used to create a <link linkend="org.osgi.util.promise.Promise">Promise</link> that can be
+ resolved in the future. The <link linkend="org.osgi.util.promise.Deferred.getPromise--">associated</link> Promise can be
+ successfully resolved with <link linkend="org.osgi.util.promise.Deferred.resolve-T-">resolve(Object)</link> or resolved with a
+ failure with <link linkend="org.osgi.util.promise.Deferred.fail-Throwable-">fail(Throwable)</link>. It can also be resolved with the
+ resolution of another promise using <link linkend="org.osgi.util.promise.Deferred.resolveWith-Promise-">resolveWith(Promise)</link>.
+ 
+ </para>
+      <para>
+ The associated Promise can be provided to any one, but the Deferred object
+ should be made available only to the party that will responsible for
+ resolving the Promise.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Immutable </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="Deferred()"
+               role="method"
+               xml:id="org.osgi.util.promise.Deferred.Deferred--">
+         <title>public  Deferred()</title>
+         <para role="description">
+Create a new Deferred.
+ </para>
+         <para>
+ The <link linkend="org.osgi.util.promise.Deferred.getPromise--">associated promise</link> will use the default
+ callback executor and default scheduled executor.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.util.promise.PromiseFactory.deferred--">PromiseFactory.deferred()</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="fail(Throwable)"
+               role="method"
+               xml:id="org.osgi.util.promise.Deferred.fail-Throwable-">
+         <title>public void fail(Throwable failure)</title>
+         <formalpara role="parameter">
+            <title>failure</title>
+            <para>The failure of the resolved Promise. Must not be
+        <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Fail the Promise associated with this Deferred.
+ 
+ </para>
+         <para>
+ After the associated Promise is resolved with the specified failure, all
+ registered <link linkend="org.osgi.util.promise.Promise.onResolve-Runnable-">callbacks</link> are called and
+ any <link linkend="org.osgi.util.promise.Promise.then-Success-Failure-">chained</link> Promises are resolved.
+ This may occur asynchronously to this method.
+ </para>
+         <para>
+ Resolving the associated Promise <emphasis>happens-before</emphasis> any registered
+ callback is called. That is, in a registered callback,
+ <link linkend="org.osgi.util.promise.Promise.isDone--">Promise.isDone()</link> must return <code>true</code> and
+ <link linkend="org.osgi.util.promise.Promise.getValue--">Promise.getValue()</link> and <link linkend="org.osgi.util.promise.Promise.getFailure--">Promise.getFailure()</link> must not
+ block.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If the associated Promise was already
+         resolved.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getPromise()"
+               role="method"
+               xml:id="org.osgi.util.promise.Deferred.getPromise--">
+         <title>public Promise&lt;T&gt; getPromise()</title>
+         <para role="description">
+Returns the Promise associated with this Deferred.
+ </para>
+         <para>
+ All Promise objects created by the associated Promise will use the
+ executors of the associated Promise.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The Promise associated with this Deferred.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="resolve(T)"
+               role="method"
+               xml:id="org.osgi.util.promise.Deferred.resolve-T-">
+         <title>public void resolve(T value)</title>
+         <formalpara role="parameter">
+            <title>value</title>
+            <para>The value of the resolved Promise.</para>
+         </formalpara>
+         <para role="description">
+Successfully resolve the Promise associated with this Deferred.
+ 
+ </para>
+         <para>
+ After the associated Promise is resolved with the specified value, all
+ registered <link linkend="org.osgi.util.promise.Promise.onResolve-Runnable-">callbacks</link> are called and
+ any <link linkend="org.osgi.util.promise.Promise.then-Success-Failure-">chained</link> Promises are resolved.
+ This may occur asynchronously to this method.
+ </para>
+         <para>
+ Resolving the associated Promise <emphasis>happens-before</emphasis> any registered
+ callback is called. That is, in a registered callback,
+ <link linkend="org.osgi.util.promise.Promise.isDone--">Promise.isDone()</link> must return <code>true</code> and
+ <link linkend="org.osgi.util.promise.Promise.getValue--">Promise.getValue()</link> and <link linkend="org.osgi.util.promise.Promise.getFailure--">Promise.getFailure()</link> must not
+ block.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If the associated Promise was already
+         resolved.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="resolveWith(Promise)"
+               role="method"
+               xml:id="org.osgi.util.promise.Deferred.resolveWith-Promise-">
+         <title>public Promise&lt;Void&gt; resolveWith(Promise&lt;? extends T&gt; with)</title>
+         <formalpara role="parameter">
+            <title>with</title>
+            <para>A Promise whose value or failure must be used to resolve the
+        associated Promise. Must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Resolve the Promise associated with this Deferred with the specified
+ Promise.
+ 
+ </para>
+         <para>
+ If the specified Promise is successfully resolved, the associated Promise
+ is resolved with the value of the specified Promise. If the specified
+ Promise is resolved with a failure, the associated Promise is resolved
+ with the failure of the specified Promise.
+ 
+ </para>
+         <para>
+ After the associated Promise is resolved with the specified Promise, all
+ registered <link linkend="org.osgi.util.promise.Promise.onResolve-Runnable-">callbacks</link> are called and
+ any <link linkend="org.osgi.util.promise.Promise.then-Success-Failure-">chained</link> Promises are resolved.
+ This may occur asynchronously to this method.
+ </para>
+         <para>
+ Resolving the associated Promise <emphasis>happens-before</emphasis> any registered
+ callback is called. That is, in a registered callback,
+ <link linkend="org.osgi.util.promise.Promise.isDone--">Promise.isDone()</link> must return <code>true</code> and
+ <link linkend="org.osgi.util.promise.Promise.getValue--">Promise.getValue()</link> and <link linkend="org.osgi.util.promise.Promise.getFailure--">Promise.getFailure()</link> must not
+ block.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A Promise that is resolved only when the associated Promise is
+         resolved by the specified Promise. The returned Promise must be
+         successfully resolved with the value <code>null</code>, if the
+         associated Promise was resolved by the specified Promise. The
+         returned Promise must be resolved with a failure of
+         IllegalStateException, if the associated Promise was
+         already resolved when the specified Promise was resolved.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="resolveWith(CompletionStage)"
+               role="method"
+               xml:id="org.osgi.util.promise.Deferred.resolveWith-CompletionStage-">
+         <title>public Promise&lt;Void&gt; resolveWith(CompletionStage&lt;? extends T&gt; with)</title>
+         <formalpara role="parameter">
+            <title>with</title>
+            <para>A CompletionStage whose result must be used to resolve the
+            associated Promise. Must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Resolve the Promise associated with this Deferred with the specified
+ CompletionStage.
+ </para>
+         <para>
+ If the specified CompletionStage is completed normally, the associated
+ Promise is resolved with the value of the specified CompletionStage. If
+ the specified CompletionStage is completed exceptionally, the associated
+ Promise is resolved with the failure of the specified CompletionStage.
+ </para>
+         <para>
+ After the associated Promise is resolved with the specified
+ CompletionStage, all registered <link linkend="org.osgi.util.promise.Promise.onResolve-Runnable-">callbacks</link> are called and any <link linkend="org.osgi.util.promise.Promise.then-Success-Failure-">chained</link> Promises are resolved. This may occur asynchronously to this
+ method.
+ </para>
+         <para>
+ Resolving the associated Promise <emphasis>happens-before</emphasis> any registered
+ callback is called. That is, in a registered callback,
+ <link linkend="org.osgi.util.promise.Promise.isDone--">Promise.isDone()</link> must return <code>true</code> and
+ <link linkend="org.osgi.util.promise.Promise.getValue--">Promise.getValue()</link> and <link linkend="org.osgi.util.promise.Promise.getFailure--">Promise.getFailure()</link> must not
+ block.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A Promise that is resolved only when the associated Promise is
+         resolved by the specified CompletionStage. The returned Promise
+         must be successfully resolved with the value <code>null</code>, if the
+         associated Promise was resolved by the specified CompletionStage.
+         The returned Promise must be resolved with a failure of
+         IllegalStateException, if the associated Promise was
+         already resolved when the specified CompletionStage was
+         completed.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.2</para>
+         </formalpara>
+      </section>
+      <section xreflabel="toString()"
+               role="method"
+               xml:id="org.osgi.util.promise.Deferred.toString--">
+         <title>public String toString()</title>
+         <para role="description">
+Returns a string representation of the associated Promise.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A string representation of the associated Promise.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="FailedPromisesException"
+            role="class"
+            xml:id="org.osgi.util.promise.FailedPromisesException">
+      <title>public class FailedPromisesException<?line-break?> extends RuntimeException</title>
+      <para>
+Promise failure exception for a collection of failed Promises.
+   </para>
+      <section xreflabel="FailedPromisesException(Collection,Throwable)"
+               role="method"
+               xml:id="org.osgi.util.promise.FailedPromisesException.FailedPromisesException-Collection-Throwable-">
+         <title>public  FailedPromisesException(Collection&lt;Promise&lt;?&gt;&gt; failed, Throwable cause)</title>
+         <formalpara role="parameter">
+            <title>failed</title>
+            <para>A collection of Promises that have been resolved with a
+        failure. Must not be <code>null</code>, must not be empty and all of
+        the elements in the collection must not be <code>null</code>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>cause</title>
+            <para>The cause of this exception. This is typically the failure
+        of the first Promise in the specified collection.</para>
+         </formalpara>
+         <para role="description">
+Create a new FailedPromisesException with the specified Promises.
+   </para>
+      </section>
+      <section xreflabel="getFailedPromises()"
+               role="method"
+               xml:id="org.osgi.util.promise.FailedPromisesException.getFailedPromises--">
+         <title>public Collection&lt;Promise&lt;?&gt;&gt; getFailedPromises()</title>
+         <para role="description">
+Returns the collection of Promises that have been resolved with a
+ failure.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The collection of Promises that have been resolved with a
+         failure. The returned collection is unmodifiable.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="Failure"
+            role="class"
+            xml:id="org.osgi.util.promise.Failure">
+      <title>public interface Failure</title>
+      <para>
+Failure callback for a Promise.
+ 
+ </para>
+      <para>
+ A Failure callback is registered with a <link linkend="org.osgi.util.promise.Promise">Promise</link> using the
+ <link linkend="org.osgi.util.promise.Promise.then-Success-Failure-">Promise.then(Success, Failure)</link> method and is called if the Promise is
+ resolved with a failure.
+ 
+ </para>
+      <para>
+ This is a functional interface and can be used as the assignment target for a
+ lambda expression or method reference.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="fail(Promise)"
+               role="method"
+               xml:id="org.osgi.util.promise.Failure.fail-Promise-">
+         <title>public void fail(Promise&lt;?&gt; resolved) throws Exception</title>
+         <formalpara role="parameter">
+            <title>resolved</title>
+            <para>The failed resolved <link linkend="org.osgi.util.promise.Promise">Promise</link>.</para>
+         </formalpara>
+         <para role="description">
+Failure callback for a Promise.
+ 
+ </para>
+         <para>
+ This method is called if the Promise with which it is registered resolves
+ with a failure.
+ 
+ </para>
+         <para>
+ In the remainder of this description we will refer to the Promise
+ returned by <link linkend="org.osgi.util.promise.Promise.then-Success-Failure-">Promise.then(Success, Failure)</link> when this Failure
+ callback was registered as the chained Promise.
+ 
+ </para>
+         <para>
+ If this methods completes normally, the chained Promise must be failed
+ with the same exception which failed the resolved Promise. If this method
+ throws an exception, the chained Promise must be failed with the thrown
+ exception.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– The chained Promise must be failed with the thrown
+         exception.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="Promise"
+            role="class"
+            xml:id="org.osgi.util.promise.Promise">
+      <title>public interface Promise&lt;T&gt;</title>
+      <formalpara role="parameter">
+         <title>&lt;T&gt;</title>
+         <para>The value type associated with this Promise.</para>
+      </formalpara>
+      <para>
+A Promise of a value.
+ </para>
+      <para>
+ A Promise represents a future value. It handles the interactions for
+ asynchronous processing. A <link linkend="org.osgi.util.promise.Deferred">Deferred</link> object can be used to create a
+ Promise and later resolve the Promise. A Promise is used by the caller of an
+ asynchronous function to get the result or handle the error. The caller can
+ either get a callback when the Promise is resolved with a value or an error,
+ or the Promise can be used in chaining. In chaining, callbacks are provided
+ that receive the resolved Promise, and a new Promise is generated that
+ resolves based upon the result of a callback.
+ </para>
+      <para>
+ Both <link linkend="org.osgi.util.promise.Promise.onResolve-Runnable-">callbacks</link> and
+ <link linkend="org.osgi.util.promise.Promise.then-Success-Failure-">chaining</link> can be repeated any number of times,
+ even after the Promise has been resolved.
+ </para>
+      <para>
+ Example callback usage:
+ 
+ </para>
+      <programlisting> Promise&lt;String&gt; foo = foo();
+ foo.onResolve(() -&gt; System.out.println("resolved"));</programlisting>
+      <para>
+ 
+ Example chaining usage;
+ 
+ </para>
+      <programlisting> Success&lt;String,String&gt; doubler = p -&gt; Promises
+ 		.resolved(p.getValue() + p.getValue());
+ Promise&lt;String&gt; foo = foo().then(doubler).then(doubler);</programlisting>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="delay(long)"
+               role="method"
+               xml:id="org.osgi.util.promise.Promise.delay-long-">
+         <title>public Promise&lt;T&gt; delay(long milliseconds)</title>
+         <formalpara role="parameter">
+            <title>milliseconds</title>
+            <para>The time to delay in milliseconds. Zero and negative
+            time is treated as no delay.</para>
+         </formalpara>
+         <para role="description">
+Delay after the resolution of this Promise.
+ </para>
+         <para>
+ Once this Promise is resolved, resolve the returned Promise with this
+ Promise after the specified delay.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A Promise that is resolved with this Promise after this Promise
+         is resolved and the specified delay has elapsed.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+      </section>
+      <section xreflabel="fallbackTo(Promise)"
+               role="method"
+               xml:id="org.osgi.util.promise.Promise.fallbackTo-Promise-">
+         <title>public Promise&lt;T&gt; fallbackTo(Promise&lt;? extends T&gt; fallback)</title>
+         <formalpara role="parameter">
+            <title>fallback</title>
+            <para>The Promise whose value must be used to resolve the
+        returned Promise if this Promise resolves with a failure. Must not
+        be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Fall back to the value of the specified Promise if this Promise fails.
+ 
+ </para>
+         <para>
+ If this Promise is successfully resolved, the returned Promise must be
+ resolved with the value of this Promise.
+ 
+ </para>
+         <para>
+ If this Promise is resolved with a failure, the successful result of the
+ specified Promise is used to resolve the returned Promise. If the
+ specified Promise is resolved with a failure, the returned Promise must
+ be failed with the failure of this Promise rather than the failure of the
+ specified Promise.
+ 
+ </para>
+         <para>
+ This method may be called at any time including before and after this
+ Promise has been resolved.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A Promise that returns the value of this Promise or falls back to
+         the value of the specified Promise.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="fallbackTo(Promise,Class)"
+               role="method"
+               xml:id="org.osgi.util.promise.Promise.fallbackTo-Promise-Class-">
+         <title>public Promise&lt;T&gt; fallbackTo(Promise&lt;? extends T&gt; fallback, Class&lt;?&gt; failureType)</title>
+         <formalpara role="parameter">
+            <title>fallback</title>
+            <para>The Promise whose value must be used to resolve the
+            returned Promise if this Promise resolves with a failure and
+            the failure is an instance of the specified failure type. Must
+            not be <code>null</code>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>failureType</title>
+            <para>The type of failure for which this recovery will be
+            used. If the failure is not an instance of the failure type,
+            the specified recovery will not be called and the returned
+            Promise must be failed with the failure of this Promise. Must
+            not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Fall back to the value of the specified Promise if this Promise fails and
+ the failure is an instance of a failure type.
+ </para>
+         <para>
+ If this Promise is successfully resolved, the returned Promise must be
+ resolved with the value of this Promise.
+ </para>
+         <para>
+ If this Promise is resolved with a failure and the failure is an instance
+ of the specified failure type, the successful result of the specified
+ Promise is used to resolve the returned Promise. If the specified Promise
+ is resolved with a failure, the returned Promise must be failed with the
+ failure of this Promise rather than the failure of the specified Promise.
+ </para>
+         <para>
+ If this Promise is resolved with a failure and the failure is not an
+ instance of the specified failure type, the returned Promise must be
+ failed with the failure of this Promise.
+ </para>
+         <para>
+ This method may be called at any time including before and after this
+ Promise has been resolved.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A Promise that returns the value of this Promise or falls back to
+         the value of the specified Promise if the failure is an instance
+         of the specified failure type.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.3</para>
+         </formalpara>
+      </section>
+      <section xreflabel="filter(Predicate)"
+               role="method"
+               xml:id="org.osgi.util.promise.Promise.filter-Predicate-">
+         <title>public Promise&lt;T&gt; filter(Predicate&lt;? super T&gt; predicate)</title>
+         <formalpara role="parameter">
+            <title>predicate</title>
+            <para>The Predicate to evaluate the value of this Promise.
+            Must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Filter the value of this Promise.
+ </para>
+         <para>
+ If this Promise is successfully resolved, the returned Promise must
+ either be resolved with the value of this Promise, if the specified
+ Predicate accepts that value, or failed with a
+ <code>NoSuchElementException</code>, if the specified Predicate does not
+ accept that value. If the specified Predicate throws an exception, the
+ returned Promise must be failed with the exception.
+ </para>
+         <para>
+ If this Promise is resolved with a failure, the returned Promise must be
+ failed with that failure.
+ </para>
+         <para>
+ This method may be called at any time including before and after this
+ Promise has been resolved.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A Promise that filters the value of this Promise.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="flatMap(Function)"
+               role="method"
+               xml:id="org.osgi.util.promise.Promise.flatMap-Function-">
+         <title>public Promise&lt;R&gt; flatMap(Function&lt;? super T, Promise&lt;? extends R&gt;&gt; mapper)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;R&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;R&gt;</title>
+            <para>The value type associated with the returned Promise.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>mapper</title>
+            <para>The Function that must flatMap the value of this Promise to
+        a Promise that must be used to resolve the returned Promise. Must
+        not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+FlatMap the value of this Promise.
+ 
+ </para>
+         <para>
+ If this Promise is successfully resolved, the returned Promise must be
+ resolved with the Promise from the specified Function as applied to the
+ value of this Promise. If the specified Function throws an exception, the
+ returned Promise must be failed with the exception.
+ 
+ </para>
+         <para>
+ If this Promise is resolved with a failure, the returned Promise must be
+ failed with that failure.
+ 
+ </para>
+         <para>
+ This method may be called at any time including before and after this
+ Promise has been resolved.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A Promise that returns the value of this Promise as mapped by the
+         specified Function.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getFailure()"
+               role="method"
+               xml:id="org.osgi.util.promise.Promise.getFailure--">
+         <title>public Throwable getFailure() throws InterruptedException</title>
+         <para role="description">
+Returns the failure of this Promise.
+ 
+ </para>
+         <para>
+ If this Promise is not <link linkend="org.osgi.util.promise.Promise.isDone--">resolved</link>, this method must block
+ and wait for this Promise to be resolved before completing.
+ 
+ </para>
+         <para>
+ If this Promise was resolved with a failure, this method returns with the
+ failure of this Promise. If this Promise was successfully resolved, this
+ method must return <code>null</code>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The failure of this resolved Promise or <code>null</code> if this
+         Promise was successfully resolved.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>InterruptedException</code>– If the current thread was interrupted while
+         waiting.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getValue()"
+               role="method"
+               xml:id="org.osgi.util.promise.Promise.getValue--">
+         <title>public T getValue() throws InvocationTargetException, InterruptedException</title>
+         <para role="description">
+Returns the value of this Promise.
+ 
+ </para>
+         <para>
+ If this Promise is not <link linkend="org.osgi.util.promise.Promise.isDone--">resolved</link>, this method must block
+ and wait for this Promise to be resolved before completing.
+ 
+ </para>
+         <para>
+ If this Promise was successfully resolved, this method returns with the
+ value of this Promise. If this Promise was resolved with a failure, this
+ method must throw an <code>InvocationTargetException</code> with the
+ <link linkend="org.osgi.util.promise.Promise.getFailure--">failure exception</link> as the cause.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The value of this resolved Promise.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>InvocationTargetException</code>– If this Promise was resolved with a
+         failure. The cause of the <code>InvocationTargetException</code> is
+         the failure exception.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>InterruptedException</code>– If the current thread was interrupted while
+         waiting.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="isDone()"
+               role="method"
+               xml:id="org.osgi.util.promise.Promise.isDone--">
+         <title>public boolean isDone()</title>
+         <para role="description">
+Returns whether this Promise has been resolved.
+ 
+ </para>
+         <para>
+ This Promise may be successfully resolved or resolved with a failure.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>true</code> if this Promise was resolved either successfully or
+         with a failure; <code>false</code> if this Promise is unresolved.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="map(Function)"
+               role="method"
+               xml:id="org.osgi.util.promise.Promise.map-Function-">
+         <title>public Promise&lt;R&gt; map(Function&lt;? super T, ? extends R&gt; mapper)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;R&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;R&gt;</title>
+            <para>The value type associated with the returned Promise.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>mapper</title>
+            <para>The Function that must map the value of this Promise to the
+        value that must be used to resolve the returned Promise. Must not
+        be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Map the value of this Promise.
+ 
+ </para>
+         <para>
+ If this Promise is successfully resolved, the returned Promise must be
+ resolved with the value of specified Function as applied to the value of
+ this Promise. If the specified Function throws an exception, the returned
+ Promise must be failed with the exception.
+ 
+ </para>
+         <para>
+ If this Promise is resolved with a failure, the returned Promise must be
+ failed with that failure.
+ 
+ </para>
+         <para>
+ This method may be called at any time including before and after this
+ Promise has been resolved.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A Promise that returns the value of this Promise as mapped by the
+         specified Function.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="onFailure(Consumer)"
+               role="method"
+               xml:id="org.osgi.util.promise.Promise.onFailure-Consumer-">
+         <title>public Promise&lt;T&gt; onFailure(Consumer&lt;? super Throwable&gt; failure)</title>
+         <formalpara role="parameter">
+            <title>failure</title>
+            <para>The Consumer callback that receives the failure of this
+            Promise. Must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Register a callback to be called with the failure for this Promise when
+ this Promise is resolved with a failure. The callback will not be called
+ if this Promise is resolved successfully.
+ </para>
+         <para>
+ This method may be called at any time including before and after this
+ Promise has been resolved.
+ </para>
+         <para>
+ Resolving this Promise <emphasis>happens-before</emphasis> any registered callback is
+ called. That is, in a registered callback, <link linkend="org.osgi.util.promise.Promise.isDone--">isDone()</link> must return
+ <code>true</code> and <link linkend="org.osgi.util.promise.Promise.getValue--">getValue()</link> and <link linkend="org.osgi.util.promise.Promise.getFailure--">getFailure()</link> must not
+ block.
+ </para>
+         <para>
+ A callback may be called on a different thread than the thread which
+ registered the callback. So the callback must be thread safe but can rely
+ upon that the registration of the callback <emphasis>happens-before</emphasis> the
+ registered callback is called.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This Promise.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+      </section>
+      <section xreflabel="onFailure(Consumer,Class)"
+               role="method"
+               xml:id="org.osgi.util.promise.Promise.onFailure-Consumer-Class-">
+         <title>public Promise&lt;T&gt; onFailure(Consumer&lt;? super F&gt; failure, Class&lt;? extends F&gt; failureType)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;F&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;F&gt;</title>
+            <para>The failure type.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>failure</title>
+            <para>The Consumer callback that receives the failure of this
+            Promise if the failure is an instance of the specified failure
+            type. Must not be <code>null</code>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>failureType</title>
+            <para>The type of failure for which this callback will be
+            called. If the failure is not an instance of the specified
+            failure type, the specified callback will not be called. Must
+            not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Register a callback to be called with the failure for this Promise when
+ this Promise is resolved with a failure of a failure type. The callback
+ will not be called if this Promise is resolved successfully or if the
+ failure is not an instance of the specified failure type.
+ </para>
+         <para>
+ This method may be called at any time including before and after this
+ Promise has been resolved.
+ </para>
+         <para>
+ Resolving this Promise <emphasis>happens-before</emphasis> any registered callback is
+ called. That is, in a registered callback, <link linkend="org.osgi.util.promise.Promise.isDone--">isDone()</link> must return
+ <code>true</code> and <link linkend="org.osgi.util.promise.Promise.getValue--">getValue()</link> and <link linkend="org.osgi.util.promise.Promise.getFailure--">getFailure()</link> must not
+ block.
+ </para>
+         <para>
+ A callback may be called on a different thread than the thread which
+ registered the callback. So the callback must be thread safe but can rely
+ upon that the registration of the callback <emphasis>happens-before</emphasis> the
+ registered callback is called.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This Promise.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.3</para>
+         </formalpara>
+      </section>
+      <section xreflabel="onResolve(Runnable)"
+               role="method"
+               xml:id="org.osgi.util.promise.Promise.onResolve-Runnable-">
+         <title>public Promise&lt;T&gt; onResolve(Runnable callback)</title>
+         <formalpara role="parameter">
+            <title>callback</title>
+            <para>The callback to be called when this Promise is resolved.
+            Must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Register a callback to be called when this Promise is resolved.
+ </para>
+         <para>
+ The specified callback is called when this Promise is resolved either
+ successfully or with a failure.
+ </para>
+         <para>
+ This method may be called at any time including before and after this
+ Promise has been resolved.
+ </para>
+         <para>
+ Resolving this Promise <emphasis>happens-before</emphasis> any registered callback is
+ called. That is, in a registered callback, <link linkend="org.osgi.util.promise.Promise.isDone--">isDone()</link> must return
+ <code>true</code> and <link linkend="org.osgi.util.promise.Promise.getValue--">getValue()</link> and <link linkend="org.osgi.util.promise.Promise.getFailure--">getFailure()</link> must not
+ block.
+ </para>
+         <para>
+ A callback may be called on a different thread than the thread which
+ registered the callback. So the callback must be thread safe but can rely
+ upon that the registration of the callback <emphasis>happens-before</emphasis> the
+ registered callback is called.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This Promise.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="onSuccess(Consumer)"
+               role="method"
+               xml:id="org.osgi.util.promise.Promise.onSuccess-Consumer-">
+         <title>public Promise&lt;T&gt; onSuccess(Consumer&lt;? super T&gt; success)</title>
+         <formalpara role="parameter">
+            <title>success</title>
+            <para>The Consumer callback that receives the value of this
+            Promise. Must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Register a callback to be called with the result of this Promise when
+ this Promise is resolved successfully. The callback will not be called if
+ this Promise is resolved with a failure.
+ </para>
+         <para>
+ This method may be called at any time including before and after this
+ Promise has been resolved.
+ </para>
+         <para>
+ Resolving this Promise <emphasis>happens-before</emphasis> any registered callback is
+ called. That is, in a registered callback, <link linkend="org.osgi.util.promise.Promise.isDone--">isDone()</link> must return
+ <code>true</code> and <link linkend="org.osgi.util.promise.Promise.getValue--">getValue()</link> and <link linkend="org.osgi.util.promise.Promise.getFailure--">getFailure()</link> must not
+ block.
+ </para>
+         <para>
+ A callback may be called on a different thread than the thread which
+ registered the callback. So the callback must be thread safe but can rely
+ upon that the registration of the callback <emphasis>happens-before</emphasis> the
+ registered callback is called.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This Promise.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+      </section>
+      <section xreflabel="recover(Function)"
+               role="method"
+               xml:id="org.osgi.util.promise.Promise.recover-Function-">
+         <title>public Promise&lt;T&gt; recover(Function&lt;Promise&lt;?&gt;, ? extends T&gt; recovery)</title>
+         <formalpara role="parameter">
+            <title>recovery</title>
+            <para>If this Promise resolves with a failure, the specified
+        Function is called to produce a recovery value to be used to
+        resolve the returned Promise. Must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Recover from a failure of this Promise with a recovery value.
+ 
+ </para>
+         <para>
+ If this Promise is successfully resolved, the returned Promise must be
+ resolved with the value of this Promise.
+ 
+ </para>
+         <para>
+ If this Promise is resolved with a failure, the specified Function is
+ applied to this Promise to produce a recovery value.
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>If the recovery value is not <code>null</code>, the returned Promise must
+ be resolved with the recovery value.</para>
+            </listitem>
+            <listitem>
+               <para>If the recovery value is <code>null</code>, the returned Promise must be
+ failed with the failure of this Promise.</para>
+            </listitem>
+            <listitem>
+               <para>If the specified Function throws an exception, the returned Promise
+ must be failed with that exception.</para>
+            </listitem>
+         </itemizedlist>
+         <para>
+ To recover from a failure of this Promise with a recovery value of
+ <code>null</code>, the <link linkend="org.osgi.util.promise.Promise.recoverWith-Function-">recoverWith(Function)</link> method must be used. The
+ specified Function for <link linkend="org.osgi.util.promise.Promise.recoverWith-Function-">recoverWith(Function)</link> can return
+ <code>Promises.resolved(null)</code> to supply the desired <code>null</code> value.
+ 
+ </para>
+         <para>
+ This method may be called at any time including before and after this
+ Promise has been resolved.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A Promise that resolves with the value of this Promise or
+         recovers from the failure of this Promise.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="recover(Function,Class)"
+               role="method"
+               xml:id="org.osgi.util.promise.Promise.recover-Function-Class-">
+         <title>public Promise&lt;T&gt; recover(Function&lt;Promise&lt;?&gt;, ? extends T&gt; recovery, Class&lt;?&gt; failureType)</title>
+         <formalpara role="parameter">
+            <title>recovery</title>
+            <para>If this Promise resolves with a failure and the failure
+            is an instance of the specified failure type, the specified
+            Function is called to produce a recovery value to be used to
+            resolve the returned Promise. Must not be <code>null</code>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>failureType</title>
+            <para>The type of failure for which the specified recovery
+            will be used. If the failure is not an instance of the failure
+            type, the specified recovery will not be called and the
+            returned Promise must be failed with the failure of this
+            Promise. Must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Recover from a failure of this Promise with a recovery value if the
+ failure is an instance of a failure type.
+ </para>
+         <para>
+ If this Promise is successfully resolved, the returned Promise must be
+ resolved with the value of this Promise.
+ </para>
+         <para>
+ If this Promise is resolved with a failure and the failure is not an
+ instance of the specified failure type, the returned Promise must be
+ failed with the failure of this Promise.
+ </para>
+         <para>
+ If this Promise is resolved with a failure and the failure is an instance
+ of the specified failure type, the specified Function is applied to this
+ Promise to produce a recovery value.
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>If the recovery value is not <code>null</code>, the returned Promise must
+ be resolved with the recovery value.</para>
+            </listitem>
+            <listitem>
+               <para>If the recovery value is <code>null</code>, the returned Promise must be
+ failed with the failure of this Promise.</para>
+            </listitem>
+            <listitem>
+               <para>If the specified Function throws an exception, the returned Promise
+ must be failed with that exception.</para>
+            </listitem>
+         </itemizedlist>
+         <para>
+ To recover from a failure of this Promise with a recovery value of
+ <code>null</code>, the <link linkend="org.osgi.util.promise.Promise.recoverWith-Function-Class-">recoverWith(Function, Class)</link> method must be
+ used. The specified Function for <link linkend="org.osgi.util.promise.Promise.recoverWith-Function-Class-">recoverWith(Function, Class)</link>
+ can return <code>Promises.resolved(null)</code> to supply the desired
+ <code>null</code> value.
+ </para>
+         <para>
+ This method may be called at any time including before and after this
+ Promise has been resolved.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A Promise that resolves with the value of this Promise or
+         recovers from the failure of this Promise if the failure is an
+         instance of the specified failure type.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.3</para>
+         </formalpara>
+      </section>
+      <section xreflabel="recoverWith(Function)"
+               role="method"
+               xml:id="org.osgi.util.promise.Promise.recoverWith-Function-">
+         <title>public Promise&lt;T&gt; recoverWith(Function&lt;Promise&lt;?&gt;, Promise&lt;? extends T&gt;&gt; recovery)</title>
+         <formalpara role="parameter">
+            <title>recovery</title>
+            <para>If this Promise resolves with a failure, the specified
+        Function is called to produce a recovery Promise to be used to
+        resolve the returned Promise. Must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Recover from a failure of this Promise with a recovery Promise.
+ 
+ </para>
+         <para>
+ If this Promise is successfully resolved, the returned Promise must be
+ resolved with the value of this Promise.
+ 
+ </para>
+         <para>
+ If this Promise is resolved with a failure, the specified Function is
+ applied to this Promise to produce a recovery Promise.
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>If the recovery Promise is not <code>null</code>, the returned Promise
+ must be resolved with the recovery Promise.</para>
+            </listitem>
+            <listitem>
+               <para>If the recovery Promise is <code>null</code>, the returned Promise must be
+ failed with the failure of this Promise.</para>
+            </listitem>
+            <listitem>
+               <para>If the specified Function throws an exception, the returned Promise
+ must be failed with that exception.</para>
+            </listitem>
+         </itemizedlist>
+         <para>
+ This method may be called at any time including before and after this
+ Promise has been resolved.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A Promise that resolves with the value of this Promise or
+         recovers from the failure of this Promise.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="recoverWith(Function,Class)"
+               role="method"
+               xml:id="org.osgi.util.promise.Promise.recoverWith-Function-Class-">
+         <title>public Promise&lt;T&gt; recoverWith(Function&lt;Promise&lt;?&gt;, Promise&lt;? extends T&gt;&gt; recovery, Class&lt;?&gt; failureType)</title>
+         <formalpara role="parameter">
+            <title>recovery</title>
+            <para>If this Promise resolves with a failure and the failure
+            is an instance of the specified failure type, the specified
+            Function is called to produce a recovery Promise to be used to
+            resolve the returned Promise. Must not be <code>null</code>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>failureType</title>
+            <para>The type of failure for which this recovery will be
+            used. If the failure is not an instance of the failure type,
+            the specified recovery will not be called and the returned
+            Promise must be failed with the failure of this Promise. Must
+            not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Recover from a failure of this Promise with a recovery Promise if the
+ failure is an instance of a failure type.
+ </para>
+         <para>
+ If this Promise is successfully resolved, the returned Promise must be
+ resolved with the value of this Promise.
+ </para>
+         <para>
+ If this Promise is resolved with a failure and the failure is not an
+ instance of the specified failure type, the returned Promise must be
+ failed with the failure of this Promise.
+ </para>
+         <para>
+ If this Promise is resolved with a failure and the failure is an instance
+ of the specified failure type, the specified Function is applied to this
+ Promise to produce a recovery Promise.
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>If the recovery Promise is not <code>null</code>, the returned Promise
+ must be resolved with the recovery Promise.</para>
+            </listitem>
+            <listitem>
+               <para>If the recovery Promise is <code>null</code>, the returned Promise must be
+ failed with the failure of this Promise.</para>
+            </listitem>
+            <listitem>
+               <para>If the specified Function throws an exception, the returned Promise
+ must be failed with that exception.</para>
+            </listitem>
+         </itemizedlist>
+         <para>
+ This method may be called at any time including before and after this
+ Promise has been resolved.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A Promise that resolves with the value of this Promise or
+         recovers from the failure of this Promise if the failure is an
+         instance of the specified failure type.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.3</para>
+         </formalpara>
+      </section>
+      <section xreflabel="then(Success,Failure)"
+               role="method"
+               xml:id="org.osgi.util.promise.Promise.then-Success-Failure-">
+         <title>public Promise&lt;R&gt; then(Success&lt;? super T, ? extends R&gt; success, Failure failure)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;R&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;R&gt;</title>
+            <para>The value type associated with the returned Promise.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>success</title>
+            <para>The Success callback to be called when this Promise is
+            successfully resolved. May be <code>null</code> if no Success
+            callback is required. In this case, the returned Promise must
+            be resolved with the value <code>null</code> when this Promise is
+            successfully resolved.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>failure</title>
+            <para>The Failure callback to be called when this Promise is
+            resolved with a failure. May be <code>null</code> if no Failure
+            callback is required.</para>
+         </formalpara>
+         <para role="description">
+Chain a new Promise to this Promise with Success and Failure callbacks.
+ </para>
+         <para>
+ The specified <link linkend="org.osgi.util.promise.Success">Success</link> callback is called when this Promise is
+ successfully resolved and the specified <link linkend="org.osgi.util.promise.Failure">Failure</link> callback is
+ called when this Promise is resolved with a failure.
+ </para>
+         <para>
+ This method returns a new Promise which is chained to this Promise. The
+ returned Promise must be resolved when this Promise is resolved after the
+ specified Success or Failure callback is executed. The result of the
+ executed callback must be used to resolve the returned Promise. Multiple
+ calls to this method can be used to create a chain of promises which are
+ resolved in sequence.
+ </para>
+         <para>
+ If this Promise is successfully resolved, the Success callback is
+ executed and the result Promise, if any, or thrown exception is used to
+ resolve the returned Promise from this method. If this Promise is
+ resolved with a failure, the Failure callback is executed and the
+ returned Promise from this method is failed.
+ </para>
+         <para>
+ This method may be called at any time including before and after this
+ Promise has been resolved.
+ </para>
+         <para>
+ Resolving this Promise <emphasis>happens-before</emphasis> any registered callback is
+ called. That is, in a registered callback, <link linkend="org.osgi.util.promise.Promise.isDone--">isDone()</link> must return
+ <code>true</code> and <link linkend="org.osgi.util.promise.Promise.getValue--">getValue()</link> and <link linkend="org.osgi.util.promise.Promise.getFailure--">getFailure()</link> must not
+ block.
+ </para>
+         <para>
+ A callback may be called on a different thread than the thread which
+ registered the callback. So the callback must be thread safe but can rely
+ upon that the registration of the callback <emphasis>happens-before</emphasis> the
+ registered callback is called.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A new Promise which is chained to this Promise. The returned
+         Promise must be resolved when this Promise is resolved after the
+         specified Success or Failure callback, if any, is executed.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="then(Success)"
+               role="method"
+               xml:id="org.osgi.util.promise.Promise.then-Success-">
+         <title>public Promise&lt;R&gt; then(Success&lt;? super T, ? extends R&gt; success)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;R&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;R&gt;</title>
+            <para>The value type associated with the returned Promise.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>success</title>
+            <para>The Success callback to be called when this Promise is
+            successfully resolved. May be <code>null</code> if no Success
+            callback is required. In this case, the returned Promise must
+            be resolved with the value <code>null</code> when this Promise is
+            successfully resolved.</para>
+         </formalpara>
+         <para role="description">
+Chain a new Promise to this Promise with a Success callback.
+ </para>
+         <para>
+ This method performs the same function as calling
+ <link linkend="org.osgi.util.promise.Promise.then-Success-Failure-">then(Success, Failure)</link> with the specified Success callback and
+ <code>null</code> for the Failure callback.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A new Promise which is chained to this Promise. The returned
+         Promise must be resolved when this Promise is resolved after the
+         specified Success, if any, is executed.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.util.promise.Promise.then-Success-Failure-">then(Success, Failure)</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="thenAccept(Consumer)"
+               role="method"
+               xml:id="org.osgi.util.promise.Promise.thenAccept-Consumer-">
+         <title>public Promise&lt;T&gt; thenAccept(Consumer&lt;? super T&gt; consumer)</title>
+         <formalpara role="parameter">
+            <title>consumer</title>
+            <para>The Consumer callback that receives the value of this
+            Promise. Must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Chain a new Promise to this Promise with a Consumer callback that
+ receives the value of this Promise when it is successfully resolved.
+ </para>
+         <para>
+ The specified <link linkend="org.osgi.util.function.Consumer">Consumer</link> is called when this Promise is resolved
+ successfully.
+ </para>
+         <para>
+ This method returns a new Promise which is chained to this Promise. The
+ returned Promise must be resolved when this Promise is resolved after the
+ specified callback is executed. If the callback throws an exception, the
+ returned Promise is failed with that exception. Otherwise the returned
+ Promise is resolved with the success value from this Promise.
+ </para>
+         <para>
+ This method may be called at any time including before and after this
+ Promise has been resolved.
+ </para>
+         <para>
+ Resolving this Promise <emphasis>happens-before</emphasis> any registered callback is
+ called. That is, in a registered callback, <link linkend="org.osgi.util.promise.Promise.isDone--">isDone()</link> must return
+ <code>true</code> and <link linkend="org.osgi.util.promise.Promise.getValue--">getValue()</link> and <link linkend="org.osgi.util.promise.Promise.getFailure--">getFailure()</link> must not
+ block.
+ </para>
+         <para>
+ A callback may be called on a different thread than the thread which
+ registered the callback. So the callback must be thread safe but can rely
+ upon that the registration of the callback <emphasis>happens-before</emphasis> the
+ registered callback is called.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A new Promise which is chained to this Promise. The returned
+         Promise must be resolved when this Promise is resolved after the
+         specified Consumer is executed.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+      </section>
+      <section xreflabel="timeout(long)"
+               role="method"
+               xml:id="org.osgi.util.promise.Promise.timeout-long-">
+         <title>public Promise&lt;T&gt; timeout(long milliseconds)</title>
+         <formalpara role="parameter">
+            <title>milliseconds</title>
+            <para>The time to wait in milliseconds. Zero and negative
+            time is treated as an immediate timeout.</para>
+         </formalpara>
+         <para role="description">
+Time out the resolution of this Promise.
+ </para>
+         <para>
+ If this Promise is successfully resolved before the timeout, the returned
+ Promise is resolved with the value of this Promise. If this Promise is
+ resolved with a failure before the timeout, the returned Promise is
+ resolved with the failure of this Promise. If the timeout is reached
+ before this Promise is resolved, the returned Promise is failed with a
+ <link linkend="org.osgi.util.promise.TimeoutException">TimeoutException</link>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A Promise that is resolved when either this Promise is resolved
+         or the specified timeout is reached.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+      </section>
+      <section xreflabel="toCompletionStage()"
+               role="method"
+               xml:id="org.osgi.util.promise.Promise.toCompletionStage--">
+         <title>public CompletionStage&lt;T&gt; toCompletionStage()</title>
+         <para role="description">
+Returns a new CompletionStage that will be resolved with the result of
+ this Promise.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A new CompletionStage that will be resolved with the result of
+         this Promise.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.2</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="PromiseFactory"
+            role="class"
+            xml:id="org.osgi.util.promise.PromiseFactory">
+      <title>public class PromiseFactory</title>
+      <para>
+Promise factory to create Deferred and Promise objects.
+ </para>
+      <para>
+ Instances of this class can be used to create Deferred and Promise objects
+ which use the executors used to construct this object for any callback or
+ scheduled operation execution.</para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.1</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Immutable </para>
+      </formalpara>
+      <section xreflabel="PromiseFactory(Executor)"
+               role="method"
+               xml:id="org.osgi.util.promise.PromiseFactory.PromiseFactory-Executor-">
+         <title>public  PromiseFactory(Executor callbackExecutor)</title>
+         <formalpara role="parameter">
+            <title>callbackExecutor</title>
+            <para>The executor to use for callbacks. <code>null</code>
+            can be specified for the default callback executor.</para>
+         </formalpara>
+         <para role="description">
+Create a new PromiseFactory with the specified callback executor.
+ </para>
+         <para>
+ The default scheduled executor and default options will be used.</para>
+      </section>
+      <section xreflabel="PromiseFactory(Executor,ScheduledExecutorService)"
+               role="method"
+               xml:id="org.osgi.util.promise.PromiseFactory.PromiseFactory-Executor-ScheduledExecutorService-">
+         <title>public  PromiseFactory(Executor callbackExecutor, ScheduledExecutorService scheduledExecutor)</title>
+         <formalpara role="parameter">
+            <title>callbackExecutor</title>
+            <para>The executor to use for callbacks. <code>null</code>
+            can be specified for the default callback executor.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>scheduledExecutor</title>
+            <para>The scheduled executor for use for scheduled
+            operations. <code>null</code> can be specified for the default
+            scheduled executor.</para>
+         </formalpara>
+         <para role="description">
+Create a new PromiseFactory with the specified callback executor and
+ specified scheduled executor.
+ </para>
+         <para>
+ The default options will be used.</para>
+      </section>
+      <section xreflabel="PromiseFactory(Executor,ScheduledExecutorService,Option...)"
+               role="method"
+               xml:id="org.osgi.util.promise.PromiseFactory.PromiseFactory-Executor-ScheduledExecutorService-Option...-">
+         <title>public  PromiseFactory(Executor callbackExecutor, ScheduledExecutorService scheduledExecutor, PromiseFactory.Option... options)</title>
+         <formalpara role="parameter">
+            <title>callbackExecutor</title>
+            <para>The executor to use for callbacks. <code>null</code>
+            can be specified for the default callback executor.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>scheduledExecutor</title>
+            <para>The scheduled executor for use for scheduled
+            operations. <code>null</code> can be specified for the default
+            scheduled executor.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>options</title>
+            <para>Options for PromiseFactory.</para>
+         </formalpara>
+         <para role="description">
+Create a new PromiseFactory with the specified callback executor,
+ specified scheduled executor, and specified options.
+   </para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.2</para>
+         </formalpara>
+      </section>
+      <section xreflabel="all(Collection)"
+               role="method"
+               xml:id="org.osgi.util.promise.PromiseFactory.all-Collection-">
+         <title>public Promise&lt;List&lt;T&gt;&gt; all(Collection&lt;Promise&lt;S&gt;&gt; promises)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T, S extends T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The value type of the List value associated with the returned
+            Promise.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;S&gt;</title>
+            <para>The value type of the specified Promises.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>promises</title>
+            <para>The Promises which must be resolved before the returned
+            Promise must be resolved. Must not be <code>null</code> and all of
+            the elements in the collection must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Returns a new Promise that is a latch on the resolution of the specified
+ Promises.
+ </para>
+         <para>
+ The returned Promise uses the callback executor and scheduled executor of
+ this PromiseFactory object.
+ </para>
+         <para>
+ The returned Promise acts as a gate and must be resolved after all of the
+ specified Promises are resolved.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A Promise that must be successfully resolved with a List of the
+         values in the order of the specified Promises if all the
+         specified Promises are successfully resolved. The List in the
+         returned Promise is the property of the caller and is modifiable.
+         The returned Promise must be resolved with a failure of
+         <link linkend="org.osgi.util.promise.FailedPromisesException">FailedPromisesException</link> if any of the specified Promises
+         are resolved with a failure. The failure
+         <link linkend="org.osgi.util.promise.FailedPromisesException">FailedPromisesException</link> must contain all of the specified
+         Promises which resolved with a failure.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="deferred()"
+               role="method"
+               xml:id="org.osgi.util.promise.PromiseFactory.deferred--">
+         <title>public Deferred&lt;T&gt; deferred()</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The value type associated with the returned Deferred.</para>
+         </formalpara>
+         <para role="description">
+Create a new Deferred with the callback executor and scheduled executor
+ of this PromiseFactory object.
+ </para>
+         <para>
+ Use this method instead of <link linkend="org.osgi.util.promise.Deferred.Deferred--">Deferred.Deferred()</link> to create a new
+ <link linkend="org.osgi.util.promise.Deferred">Deferred</link> whose associated Promise uses executors other than the
+ default executors.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A new <link linkend="org.osgi.util.promise.Deferred">Deferred</link> with the callback and scheduled executors
+         of this PromiseFactory object</para>
+         </formalpara>
+      </section>
+      <section xreflabel="executor()"
+               role="method"
+               xml:id="org.osgi.util.promise.PromiseFactory.executor--">
+         <title>public Executor executor()</title>
+         <para role="description">
+Returns the executor to use for callbacks.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The executor to use for callbacks. This will be the default
+         callback executor if <code>null</code> was specified for the callback
+         executor when this PromiseFactory was created.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="failed(Throwable)"
+               role="method"
+               xml:id="org.osgi.util.promise.PromiseFactory.failed-Throwable-">
+         <title>public Promise&lt;T&gt; failed(Throwable failure)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The value type associated with the returned Promise.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>failure</title>
+            <para>The failure of the resolved Promise. Must not be
+            <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Returns a new Promise that has been resolved with the specified failure.
+ </para>
+         <para>
+ The returned Promise uses the callback executor and scheduled executor of
+ this PromiseFactory object.
+ </para>
+         <para>
+ Use this method instead of <link linkend="org.osgi.util.promise.Promises.failed-Throwable-">Promises.failed(Throwable)</link> to create a
+ Promise which uses executors other than the default executors.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A new Promise that has been resolved with the specified failure.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="inlineExecutor()"
+               role="method"
+               xml:id="org.osgi.util.promise.PromiseFactory.inlineExecutor--">
+         <title>public static Executor inlineExecutor()</title>
+         <para role="description">
+Returns an Executor implementation that executes tasks immediately on the
+ thread calling the <code>Executor.execute</code> method.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An Executor implementation that executes tasks immediately on the
+         thread calling the <code>Executor.execute</code> method.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="resolved(T)"
+               role="method"
+               xml:id="org.osgi.util.promise.PromiseFactory.resolved-T-">
+         <title>public Promise&lt;T&gt; resolved(T value)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The value type associated with the returned Promise.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>value</title>
+            <para>The value of the resolved Promise.</para>
+         </formalpara>
+         <para role="description">
+Returns a new Promise that has been resolved with the specified value.
+ </para>
+         <para>
+ The returned Promise uses the callback executor and scheduled executor of
+ this PromiseFactory object.
+ </para>
+         <para>
+ Use this method instead of <link linkend="org.osgi.util.promise.Promises.resolved-T-">Promises.resolved(Object)</link> to create a
+ Promise which uses executors other than the default executors.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A new Promise that has been resolved with the specified value.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="resolvedWith(CompletionStage)"
+               role="method"
+               xml:id="org.osgi.util.promise.PromiseFactory.resolvedWith-CompletionStage-">
+         <title>public Promise&lt;T&gt; resolvedWith(CompletionStage&lt;? extends T&gt; with)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The value type associated with the returned Promise.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>with</title>
+            <para>A CompletionStage whose result will be used to resolve the
+            returned Promise. Must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Returns a new Promise that will be resolved with the result of the
+ specified CompletionStage.
+ </para>
+         <para>
+ The returned Promise uses the callback executor and scheduled executor of
+ this PromiseFactory object.
+ </para>
+         <para>
+ If the specified CompletionStage is completed normally, the returned
+ Promise is resolved with the value of the specified CompletionStage. If
+ the specified CompletionStage is completed exceptionally, the returned
+ Promise is resolved with the exception of the specified CompletionStage.
+ </para>
+         <para>
+ After the returned Promise is resolved with the specified
+ CompletionStage, all registered <link linkend="org.osgi.util.promise.Promise.onResolve-Runnable-">callbacks</link> are called and any <link linkend="org.osgi.util.promise.Promise.then-Success-Failure-">chained</link> Promises are resolved. This may occur asynchronously to this
+ method.
+ </para>
+         <para>
+ Resolving the returned Promise <emphasis>happens-before</emphasis> any registered
+ callback is called. That is, in a registered callback,
+ <link linkend="org.osgi.util.promise.Promise.isDone--">Promise.isDone()</link> must return <code>true</code> and
+ <link linkend="org.osgi.util.promise.Promise.getValue--">Promise.getValue()</link> and <link linkend="org.osgi.util.promise.Promise.getFailure--">Promise.getFailure()</link> must not
+ block.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A new Promise that will be resolved with the result of the
+         specified CompletionStage.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.2</para>
+         </formalpara>
+      </section>
+      <section xreflabel="resolvedWith(Promise)"
+               role="method"
+               xml:id="org.osgi.util.promise.PromiseFactory.resolvedWith-Promise-">
+         <title>public Promise&lt;T&gt; resolvedWith(Promise&lt;? extends T&gt; with)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The value type associated with the returned Promise.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>with</title>
+            <para>A Promise whose value or failure must be used to resolve the
+            returned Promise. Must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Returns a new Promise that will be resolved with the specified Promise.
+ </para>
+         <para>
+ The returned Promise uses the callback executor and scheduled executor of
+ this PromiseFactory object.
+ </para>
+         <para>
+ If the specified Promise is successfully resolved, the returned Promise
+ is resolved with the value of the specified Promise. If the specified
+ Promise is resolved with a failure, the returned Promise is resolved with
+ the failure of the specified Promise.
+ </para>
+         <para>
+ After the returned Promise is resolved with the specified Promise, all
+ registered <link linkend="org.osgi.util.promise.Promise.onResolve-Runnable-">callbacks</link> are called and
+ any <link linkend="org.osgi.util.promise.Promise.then-Success-Failure-">chained</link> Promises are resolved.
+ This may occur asynchronously to this method.
+ </para>
+         <para>
+ Resolving the returned Promise <emphasis>happens-before</emphasis> any registered
+ callback is called. That is, in a registered callback,
+ <link linkend="org.osgi.util.promise.Promise.isDone--">Promise.isDone()</link> must return <code>true</code> and
+ <link linkend="org.osgi.util.promise.Promise.getValue--">Promise.getValue()</link> and <link linkend="org.osgi.util.promise.Promise.getFailure--">Promise.getFailure()</link> must not
+ block.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A new Promise that is resolved with the specified Promise.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.2</para>
+         </formalpara>
+      </section>
+      <section xreflabel="scheduledExecutor()"
+               role="method"
+               xml:id="org.osgi.util.promise.PromiseFactory.scheduledExecutor--">
+         <title>public ScheduledExecutorService scheduledExecutor()</title>
+         <para role="description">
+Returns the scheduled executor to use for scheduled operations.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The scheduled executor to use for scheduled operations. This will
+         be the default scheduled executor if <code>null</code> was specified
+         for the scheduled executor when this PromiseFactory was created.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="submit(Callable)"
+               role="method"
+               xml:id="org.osgi.util.promise.PromiseFactory.submit-Callable-">
+         <title>public Promise&lt;T&gt; submit(Callable&lt;? extends T&gt; task)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The value type associated with the returned Promise.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>task</title>
+            <para>The task whose result will be available from the returned
+            Promise.</para>
+         </formalpara>
+         <para role="description">
+Returns a new Promise that will hold the result of the specified task.
+ </para>
+         <para>
+ The returned Promise uses the callback executor and scheduled executor of
+ this PromiseFactory object.
+ </para>
+         <para>
+ The specified task will be executed on the <link linkend="org.osgi.util.promise.PromiseFactory.executor--">callback
+ executor</link>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A new Promise that will hold the result of the specified task.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="toPromise()"
+               role="method"
+               xml:id="org.osgi.util.promise.PromiseFactory.toPromise--">
+         <title>public Collector&lt;Promise&lt;S&gt;, ?, Promise&lt;List&lt;T&gt;&gt;&gt; toPromise()</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T, S extends T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The value type of the List value result of the collected
+            <link linkend="org.osgi.util.promise.PromiseFactory.all-Collection-">all(Collection)</link> Promise.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;S&gt;</title>
+            <para>The value type of the input Promises.</para>
+         </formalpara>
+         <para role="description">
+Returns a <code>Collector</code> that accumulates the results of the input
+ Promises into a new <link linkend="org.osgi.util.promise.PromiseFactory.all-Collection-">all(Collection)</link> Promise.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <code>Collector</code> which accumulates the results of all the
+         input Promises into a new <link linkend="org.osgi.util.promise.PromiseFactory.all-Collection-">all(Collection)</link> Promise.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.2</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="PromiseFactory.Option"
+            role="class"
+            xml:id="org.osgi.util.promise.PromiseFactory.Option">
+      <title>enum PromiseFactory.Option</title>
+      <para>
+Defines the options for a Promise factory.
+ </para>
+      <para>
+ The default options are no options unless the boolean system property
+ <code>org.osgi.util.promise.allowCurrentThread</code> is set to <code>false</code>.
+ When this is the case, the option <link linkend="org.osgi.util.promise.PromiseFactory.Option.CALLBACKS_EXECUTOR_THREAD">Option.CALLBACKS_EXECUTOR_THREAD</link>
+ is a default option.</para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.2</para>
+      </formalpara>
+      <section xreflabel="CALLBACKS_EXECUTOR_THREAD"
+               role="field"
+               xml:id="org.osgi.util.promise.PromiseFactory.Option.CALLBACKS_EXECUTOR_THREAD">
+         <title>CALLBACKS_EXECUTOR_THREAD</title>
+         <para>
+Run callbacks on an executor thread. If this option is not set,
+ callbacks added to a resolved Promise may be immediately called on
+ the caller's thread to avoid a thread context switch.
+   </para>
+      </section>
+      <section xreflabel="valueOf(String)"
+               role="method"
+               xml:id="org.osgi.util.promise.PromiseFactory.Option.valueOf-String-">
+         <title>public static PromiseFactory.Option valueOf(String name)</title>
+         <para/>
+      </section>
+      <section xreflabel="values()"
+               role="method"
+               xml:id="org.osgi.util.promise.PromiseFactory.Option.values--">
+         <title>public static PromiseFactory.Option[] values()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="Promises"
+            role="class"
+            xml:id="org.osgi.util.promise.Promises">
+      <title>public class Promises</title>
+      <para>
+Static helper methods for <link linkend="org.osgi.util.promise.Promise">Promise</link>s.
+ </para>
+      <para>
+ These methods return Promises which use the default callback executor and
+ default scheduled executor. See <link linkend="org.osgi.util.promise.PromiseFactory">PromiseFactory</link> for similar methods
+ which use executors other than the default executors.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <link linkend="org.osgi.util.promise.PromiseFactory">PromiseFactory</link>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="all(Collection)"
+               role="method"
+               xml:id="org.osgi.util.promise.Promises.all-Collection-">
+         <title>public static Promise&lt;List&lt;T&gt;&gt; all(Collection&lt;Promise&lt;S&gt;&gt; promises)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T, S extends T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The value type of the List value associated with the returned
+            Promise.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;S&gt;</title>
+            <para>A subtype of the value type of the List value associated with
+            the returned Promise.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>promises</title>
+            <para>The Promises which must be resolved before the returned
+            Promise must be resolved. Must not be <code>null</code> and all of
+            the elements in the collection must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Returns a new Promise that is a latch on the resolution of the specified
+ Promises.
+ </para>
+         <para>
+ The returned Promise acts as a gate and must be resolved after all of the
+ specified Promises are resolved.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A Promise which uses the default callback executor and default
+         scheduled executor that is resolved only when all the specified
+         Promises are resolved. The returned Promise must be successfully
+         resolved with a List of the values in the order of the specified
+         Promises if all the specified Promises are successfully resolved.
+         The List in the returned Promise is the property of the caller
+         and is modifiable. The returned Promise must be resolved with a
+         failure of <link linkend="org.osgi.util.promise.FailedPromisesException">FailedPromisesException</link> if any of the
+         specified Promises are resolved with a failure. The failure
+         <link linkend="org.osgi.util.promise.FailedPromisesException">FailedPromisesException</link> must contain all of the specified
+         Promises which resolved with a failure.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.util.promise.PromiseFactory.all-Collection-">PromiseFactory.all(Collection)</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="all(Promise...)"
+               role="method"
+               xml:id="org.osgi.util.promise.Promises.all-Promise...-">
+         <title>public static Promise&lt;List&lt;T&gt;&gt; all(Promise&lt;? extends T&gt;... promises)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The value type associated with the specified Promises.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>promises</title>
+            <para>The Promises which must be resolved before the returned
+            Promise must be resolved. Must not be <code>null</code> and all of
+            the arguments must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Returns a new Promise that is a latch on the resolution of the specified
+ Promises.
+ </para>
+         <para>
+ The new Promise acts as a gate and must be resolved after all of the
+ specified Promises are resolved.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A Promise which uses the default callback executor and scheduled
+         executor that is resolved only when all the specified Promises
+         are resolved. The returned Promise must be successfully resolved
+         with a List of the values in the order of the specified Promises
+         if all the specified Promises are successfully resolved. The List
+         in the returned Promise is the property of the caller and is
+         modifiable. The returned Promise must be resolved with a failure
+         of <link linkend="org.osgi.util.promise.FailedPromisesException">FailedPromisesException</link> if any of the specified
+         Promises are resolved with a failure. The failure
+         <link linkend="org.osgi.util.promise.FailedPromisesException">FailedPromisesException</link> must contain all of the specified
+         Promises which resolved with a failure.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.util.promise.PromiseFactory.all-Collection-">PromiseFactory.all(Collection)</link>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="failed(Throwable)"
+               role="method"
+               xml:id="org.osgi.util.promise.Promises.failed-Throwable-">
+         <title>public static Promise&lt;T&gt; failed(Throwable failure)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The value type associated with the returned Promise.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>failure</title>
+            <para>The failure of the resolved Promise. Must not be
+            <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Returns a new Promise that has been resolved with the specified failure.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A new Promise which uses the default callback executor and
+         default scheduled executor that has been resolved with the
+         specified failure.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.util.promise.PromiseFactory.failed-Throwable-">PromiseFactory.failed(Throwable)</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="resolved(T)"
+               role="method"
+               xml:id="org.osgi.util.promise.Promises.resolved-T-">
+         <title>public static Promise&lt;T&gt; resolved(T value)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The value type associated with the returned Promise.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>value</title>
+            <para>The value of the resolved Promise.</para>
+         </formalpara>
+         <para role="description">
+Returns a new Promise that has been resolved with the specified value.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A new Promise which uses the default callback executor and
+         default scheduled executor that has been resolved with the
+         specified value.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.util.promise.PromiseFactory.resolved-T-">PromiseFactory.resolved(Object)</link>
+            </para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="Success"
+            role="class"
+            xml:id="org.osgi.util.promise.Success">
+      <title>public interface Success&lt;T, R&gt;</title>
+      <formalpara role="parameter">
+         <title>&lt;T&gt;</title>
+         <para>The value type of the resolved Promise passed as input to this
+        callback.</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>&lt;R&gt;</title>
+         <para>The value type of the returned Promise from this callback.</para>
+      </formalpara>
+      <para>
+Success callback for a Promise.
+ 
+ </para>
+      <para>
+ A Success callback is registered with a <link linkend="org.osgi.util.promise.Promise">Promise</link> using the
+ <link linkend="org.osgi.util.promise.Promise.then-Success-">Promise.then(Success)</link> method and is called if the Promise is resolved
+ successfully.
+ 
+ </para>
+      <para>
+ This is a functional interface and can be used as the assignment target for a
+ lambda expression or method reference.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="call(Promise)"
+               role="method"
+               xml:id="org.osgi.util.promise.Success.call-Promise-">
+         <title>public Promise&lt;R&gt; call(Promise&lt;T&gt; resolved) throws Exception</title>
+         <formalpara role="parameter">
+            <title>resolved</title>
+            <para>The successfully resolved <link linkend="org.osgi.util.promise.Promise">Promise</link>.</para>
+         </formalpara>
+         <para role="description">
+Success callback for a Promise.
+ 
+ </para>
+         <para>
+ This method is called if the Promise with which it is registered resolves
+ successfully.
+ 
+ </para>
+         <para>
+ In the remainder of this description we will refer to the Promise
+ returned by this method as the returned Promise and the Promise returned
+ by <link linkend="org.osgi.util.promise.Promise.then-Success-">Promise.then(Success)</link> when this Success callback was
+ registered as the chained Promise.
+ 
+ </para>
+         <para>
+ If the returned Promise is <code>null</code> then the chained Promise must
+ resolve immediately with a successful value of <code>null</code>. If the
+ returned Promise is not <code>null</code> then the chained Promise must be
+ resolved when the returned Promise is resolved.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The Promise to use to resolve the chained Promise, or
+         <code>null</code> if the chained Promise is to be resolved immediately
+         with the value <code>null</code>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– The chained Promise must be failed with the thrown
+         exception.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="TimeoutException"
+            role="class"
+            xml:id="org.osgi.util.promise.TimeoutException">
+      <title>public class TimeoutException<?line-break?> extends Exception</title>
+      <para>
+Timeout exception for a Promise.
+   </para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.1</para>
+      </formalpara>
+      <section xreflabel="TimeoutException()"
+               role="method"
+               xml:id="org.osgi.util.promise.TimeoutException.TimeoutException--">
+         <title>public  TimeoutException()</title>
+         <para role="description">
+Create a new <code>TimeoutException</code>.
+   </para>
+      </section>
+   </section>
+</section>

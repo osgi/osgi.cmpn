@@ -1,0 +1,122 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.namespace.service"
+         version="5"
+         role="package"
+         xml:id="org.osgi.namespace.service">
+   <title>org.osgi.namespace.service</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.namespace.service-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.namespace.service-version.number">1.0</edition>
+   </info>
+   <para>
+Service Namespace Package Version 1.0.
+ 
+ </para>
+   <para>
+ Bundles should not need to import this package at runtime since all
+ the types in this package just contain constants for capability and 
+ requirement namespaces specified by the OSGi Working Group.</para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.namespace.service.ServiceNamespace">
+                  <code>ServiceNamespace</code>
+               </link> - 
+Service Capability and Requirement Namespace.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="ServiceNamespace"
+            role="class"
+            xml:id="org.osgi.namespace.service.ServiceNamespace">
+      <title>public final class ServiceNamespace<?line-break?> extends Namespace</title>
+      <para>
+Service Capability and Requirement Namespace.
+ 
+ </para>
+      <para>
+ This class defines the names for the attributes and directives for this
+ namespace.
+ 
+ </para>
+      <para>
+ All unspecified capability attributes are of one of the following types:
+ </para>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <code>String</code>
+            </para>
+         </listitem>
+         <listitem>
+            <para>
+               <code>Version</code>
+            </para>
+         </listitem>
+         <listitem>
+            <para>
+               <code>Long</code>
+            </para>
+         </listitem>
+         <listitem>
+            <para>
+               <code>Double</code>
+            </para>
+         </listitem>
+         <listitem>
+            <para>
+               <code>List&lt;String&gt;</code>
+            </para>
+         </listitem>
+         <listitem>
+            <para>
+               <code>List&lt;Version&gt;</code>
+            </para>
+         </listitem>
+         <listitem>
+            <para>
+               <code>List&lt;Long&gt;</code>
+            </para>
+         </listitem>
+         <listitem>
+            <para>
+               <code>List&lt;Double&gt;</code>
+            </para>
+         </listitem>
+      </itemizedlist>
+      <para>
+ and are used as arbitrary matching attributes for the capability. The values
+ associated with the specified directive and attribute keys are of type
+ <code>String</code>, unless otherwise indicated.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Immutable </para>
+      </formalpara>
+      <section xreflabel="CAPABILITY_OBJECTCLASS_ATTRIBUTE"
+               role="field"
+               xml:id="org.osgi.namespace.service.ServiceNamespace.CAPABILITY_OBJECTCLASS_ATTRIBUTE">
+         <title>public static final String CAPABILITY_OBJECTCLASS_ATTRIBUTE = "objectClass"</title>
+         <para>
+The capability attribute used to specify the types of the service. The
+ value of this attribute must be of type <code>List&lt;String&gt;</code>.
+ 
+ </para>
+         <para>
+ A <code>ServiceNamespace</code> capability should express a
+ <link linkend="org.osgi.resource.Namespace.CAPABILITY_USES_DIRECTIVE">uses constraint</link> for all the
+ packages mentioned in the value of this attribute.</para>
+      </section>
+      <section xreflabel="SERVICE_NAMESPACE"
+               role="field"
+               xml:id="org.osgi.namespace.service.ServiceNamespace.SERVICE_NAMESPACE">
+         <title>public static final String SERVICE_NAMESPACE = "osgi.service"</title>
+         <para>
+Namespace name for service capabilities and requirements.
+   </para>
+      </section>
+   </section>
+</section>

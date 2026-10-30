@@ -1,0 +1,84 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.namespace.unresolvable"
+         version="5"
+         role="package"
+         xml:id="org.osgi.namespace.unresolvable">
+   <title>org.osgi.namespace.unresolvable</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.namespace.unresolvable-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.namespace.unresolvable-version.number">1.0</edition>
+   </info>
+   <para>
+Unresolvable Namespace Package Version 1.0.
+ 
+ </para>
+   <para>
+ Bundles should not need to import this package at runtime since all
+ the types in this package just contain constants for capability and 
+ requirement namespaces specified by the OSGi Working Group.</para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.namespace.unresolvable.UnresolvableNamespace">
+                  <code>UnresolvableNamespace</code>
+               </link> - 
+Unresolvable Capability and Requirement Namespace.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="UnresolvableNamespace"
+            role="class"
+            xml:id="org.osgi.namespace.unresolvable.UnresolvableNamespace">
+      <title>public final class UnresolvableNamespace<?line-break?> extends Namespace</title>
+      <para>
+Unresolvable Capability and Requirement Namespace.
+ </para>
+      <para>
+ This class defines the names for the attributes and directives for this
+ namespace.
+ </para>
+      <para>
+ This class defines the names for the attributes and directives for this
+ namespace. All unspecified capability attributes are of type <code>String</code>
+ and are used as arbitrary matching attributes for the capability. The values
+ associated with the specified directive and attribute keys are of type
+ <code>String</code>, unless otherwise indicated.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Immutable </para>
+      </formalpara>
+      <section xreflabel="UNRESOLVABLE_FILTER"
+               role="field"
+               xml:id="org.osgi.namespace.unresolvable.UnresolvableNamespace.UNRESOLVABLE_FILTER">
+         <title>public static final String UNRESOLVABLE_FILTER = "(&amp;(must.not.resolve=*)(!(must.not.resolve=*)))"</title>
+         <para>
+An unresolvable filter expression.
+ </para>
+         <para>
+ This can be used as the filter expression for an UnresolvableNamespace
+ requirement.
+ 
+ </para>
+         <programlisting> @Requirement(namespace = UnresolvableNamespace.UNRESOLVABLE_NAMESPACE,
+              filter = UnresolvableNamespace.UNRESOLVABLE_FILTER)</programlisting>
+      </section>
+      <section xreflabel="UNRESOLVABLE_NAMESPACE"
+               role="field"
+               xml:id="org.osgi.namespace.unresolvable.UnresolvableNamespace.UNRESOLVABLE_NAMESPACE">
+         <title>public static final String UNRESOLVABLE_NAMESPACE = "osgi.unresolvable"</title>
+         <para>
+Namespace name for "unresolvable" capabilities and requirements.
+ </para>
+         <para>
+ This is typically used as follows to prevent a bundle from being
+ resolvable.
+ 
+ </para>
+         <programlisting> Require-Capability: osgi.unresolvable;
+   filter:="(&amp;(must.not.resolve=*)(!(must.not.resolve=*)))"</programlisting>
+      </section>
+   </section>
+</section>

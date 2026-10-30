@@ -1,0 +1,508 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.cdi"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.cdi">
+   <title>org.osgi.service.cdi</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.cdi-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.service.cdi-version.number">1.0</edition>
+   </info>
+   <para>
+CDI Integration Package Version 1.0.
+
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.cdi; version="[1.0,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.cdi; version="[1.0,1.1)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.CDIConstants">
+                  <code>CDIConstants</code>
+               </link> - 
+Defines CDI constants.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.ComponentType">
+                  <code>ComponentType</code>
+               </link> - 
+Define the possible values for <link linkend="org.osgi.service.cdi.runtime.dto.template.ComponentTemplateDTO.type">ComponentTemplateDTO.type</link>.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.ConfigurationPolicy">
+                  <code>ConfigurationPolicy</code>
+               </link> - 
+Defines the possible values for configuration policy.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.MaximumCardinality">
+                  <code>MaximumCardinality</code>
+               </link> - 
+Defines the possible values for maximum cardinality of dependencies.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.ReferencePolicy">
+                  <code>ReferencePolicy</code>
+               </link> - 
+Defines the possible values of the policy of a reference towards propagating
+ service changes to the CDI runtime
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.ReferencePolicyOption">
+                  <code>ReferencePolicyOption</code>
+               </link> - 
+Defines the possible values of the policy of a satisfied reference towards
+ new matching services appearing.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.ServiceScope">
+                  <code>ServiceScope</code>
+               </link> - 
+Possible values for <link linkend="org.osgi.service.cdi.runtime.dto.template.ActivationTemplateDTO.scope">ActivationTemplateDTO.scope</link>.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="CDIConstants"
+            role="class"
+            xml:id="org.osgi.service.cdi.CDIConstants">
+      <title>public class CDIConstants</title>
+      <para>
+Defines CDI constants.
+   </para>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="CDI_CAPABILITY_NAME"
+               role="field"
+               xml:id="org.osgi.service.cdi.CDIConstants.CDI_CAPABILITY_NAME">
+         <title>public static final String CDI_CAPABILITY_NAME = "osgi.cdi"</title>
+         <para>
+Capability name for CDI Integration.
+ </para>
+         <para>
+ Used in <code>Provide-Capability</code> and <code>Require-Capability</code> manifest
+ headers with the <code>osgi.extender</code> namespace. For example:
+
+ </para>
+         <programlisting> Require-Capability: osgi.extender; «
+  filter:="(&amp;(osgi.extender=osgi.cdi)(version&gt;=1.0)(!(version&gt;=2.0)))"</programlisting>
+      </section>
+      <section xreflabel="CDI_COMPONENT_NAME"
+               role="field"
+               xml:id="org.osgi.service.cdi.CDIConstants.CDI_COMPONENT_NAME">
+         <title>public static final String CDI_COMPONENT_NAME = "$"</title>
+         <para>
+Special string representing the name of a Component.
+
+ </para>
+         <para>
+ This string can be used with <link linkend="org.osgi.service.cdi.annotations.PID.value--">PID</link> OR
+ <link linkend="org.osgi.service.cdi.annotations.FactoryComponent.value--">factory PID</link> to specify the name of the
+ component.
+ </para>
+         <para>
+ For example:
+
+ </para>
+         <programlisting> @PID(CDI_COMPONENT_NAME)</programlisting>
+      </section>
+      <section xreflabel="CDI_CONTAINER_ID"
+               role="field"
+               xml:id="org.osgi.service.cdi.CDIConstants.CDI_CONTAINER_ID">
+         <title>public static final String CDI_CONTAINER_ID = "container.id"</title>
+         <para>
+The attribute of the CDI extender requirement declaring the container's id.
+
+ </para>
+         <programlisting> Require-Capability: osgi.extender; «
+  filter:="(&amp;(osgi.extender=osgi.cdi)(version&gt;=1.0)(!(version&gt;=2.0)))"; «
+  container.id="my.container"</programlisting>
+      </section>
+      <section xreflabel="CDI_CONTAINER_ID_PROPERTY"
+               role="field"
+               xml:id="org.osgi.service.cdi.CDIConstants.CDI_CONTAINER_ID_PROPERTY">
+         <title>public static final String CDI_CONTAINER_ID_PROPERTY = "osgi.cdi.container.id"</title>
+         <para>
+The key used for the container id service property in services provided by
+ CCR.
+   </para>
+      </section>
+      <section xreflabel="CDI_EXTENSION_PROPERTY"
+               role="field"
+               xml:id="org.osgi.service.cdi.CDIConstants.CDI_EXTENSION_PROPERTY">
+         <title>public static final String CDI_EXTENSION_PROPERTY = "osgi.cdi.extension"</title>
+         <para>
+A service property applied to
+ <code>javax.enterprise.inject.spi.Extension</code> services, whose value is
+ the name of the extension.
+   </para>
+      </section>
+      <section xreflabel="CDI_SPECIFICATION_VERSION"
+               role="field"
+               xml:id="org.osgi.service.cdi.CDIConstants.CDI_SPECIFICATION_VERSION">
+         <title>public static final String CDI_SPECIFICATION_VERSION = "1.0"</title>
+         <para>
+Compile time constant for the Specification Version of CDI Integration.
+ </para>
+         <para>
+ Used in <code>Version</code> and <code>Requirement</code> annotations. The value of
+ this compile time constant will change when the specification version of
+ CDI Integration is updated.</para>
+      </section>
+      <section xreflabel="REQUIREMENT_BEANS_ATTRIBUTE"
+               role="field"
+               xml:id="org.osgi.service.cdi.CDIConstants.REQUIREMENT_BEANS_ATTRIBUTE">
+         <title>public static final String REQUIREMENT_BEANS_ATTRIBUTE = "beans"</title>
+         <para>
+The '<code>beans</code>' attribute on the CDI extender requirement.
+ </para>
+         <para>
+ The value of this attribute is a list of bean class names that will be
+ processed by CCR. The default value is an empty list. For example:
+
+ </para>
+         <programlisting> Require-Capability: osgi.extender; «
+  filter:="(&amp;(osgi.extender=osgi.cdi)(version&gt;=1.0)(!(version&gt;=2.0)))"; «
+  beans:List&lt;String&gt;="com.acme.Foo,com.acme.bar.Baz"</programlisting>
+      </section>
+      <section xreflabel="REQUIREMENT_DESCRIPTOR_ATTRIBUTE"
+               role="field"
+               xml:id="org.osgi.service.cdi.CDIConstants.REQUIREMENT_DESCRIPTOR_ATTRIBUTE">
+         <title>public static final String REQUIREMENT_DESCRIPTOR_ATTRIBUTE = "descriptor"</title>
+         <para>
+The '<code>descriptor</code>' attribute on the CDI extender requirement.
+ </para>
+         <para>
+ The value of this attribute is a list of bean CDI bean descriptor file
+ paths to be searched on the <code>Bundle-ClassPath</code>. For example:
+
+ </para>
+         <programlisting> Require-Capability: osgi.extender; «
+  filter:="(&amp;(osgi.extender=osgi.cdi)(version&gt;=1.0)(!(version&gt;=2.0)))"; «
+  descriptor:List&lt;String&gt;="META-INF/beans.xml"</programlisting>
+      </section>
+   </section>
+   <section xreflabel="ComponentType"
+            role="class"
+            xml:id="org.osgi.service.cdi.ComponentType">
+      <title>enum ComponentType</title>
+      <para>
+Define the possible values for <link linkend="org.osgi.service.cdi.runtime.dto.template.ComponentTemplateDTO.type">ComponentTemplateDTO.type</link>.
+   </para>
+      <section xreflabel="CONTAINER"
+               role="field"
+               xml:id="org.osgi.service.cdi.ComponentType.CONTAINER">
+         <title>CONTAINER</title>
+         <para>
+The component is the <emphasis>Container Component</emphasis>.
+   </para>
+      </section>
+      <section xreflabel="SINGLE"
+               role="field"
+               xml:id="org.osgi.service.cdi.ComponentType.SINGLE">
+         <title>SINGLE</title>
+         <para>
+The component is an <emphasis>Single Component</emphasis>.
+   </para>
+      </section>
+      <section xreflabel="FACTORY"
+               role="field"
+               xml:id="org.osgi.service.cdi.ComponentType.FACTORY">
+         <title>FACTORY</title>
+         <para>
+The component is an <emphasis>Factory Component</emphasis>.
+   </para>
+      </section>
+      <section xreflabel="valueOf(String)"
+               role="method"
+               xml:id="org.osgi.service.cdi.ComponentType.valueOf-String-">
+         <title>public static ComponentType valueOf(String name)</title>
+         <para/>
+      </section>
+      <section xreflabel="values()"
+               role="method"
+               xml:id="org.osgi.service.cdi.ComponentType.values--">
+         <title>public static ComponentType[] values()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="ConfigurationPolicy"
+            role="class"
+            xml:id="org.osgi.service.cdi.ConfigurationPolicy">
+      <title>enum ConfigurationPolicy</title>
+      <para>
+Defines the possible values for configuration policy.
+   </para>
+      <section xreflabel="OPTIONAL"
+               role="field"
+               xml:id="org.osgi.service.cdi.ConfigurationPolicy.OPTIONAL">
+         <title>OPTIONAL</title>
+         <para>
+Defines the optional configuration policy.
+   </para>
+      </section>
+      <section xreflabel="REQUIRED"
+               role="field"
+               xml:id="org.osgi.service.cdi.ConfigurationPolicy.REQUIRED">
+         <title>REQUIRED</title>
+         <para>
+Defines the required configuration policy.
+   </para>
+      </section>
+      <section xreflabel="valueOf(String)"
+               role="method"
+               xml:id="org.osgi.service.cdi.ConfigurationPolicy.valueOf-String-">
+         <title>public static ConfigurationPolicy valueOf(String name)</title>
+         <para/>
+      </section>
+      <section xreflabel="values()"
+               role="method"
+               xml:id="org.osgi.service.cdi.ConfigurationPolicy.values--">
+         <title>public static ConfigurationPolicy[] values()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="MaximumCardinality"
+            role="class"
+            xml:id="org.osgi.service.cdi.MaximumCardinality">
+      <title>enum MaximumCardinality</title>
+      <para>
+Defines the possible values for maximum cardinality of dependencies.
+   </para>
+      <section xreflabel="ONE"
+               role="field"
+               xml:id="org.osgi.service.cdi.MaximumCardinality.ONE">
+         <title>ONE</title>
+         <para>
+Defines a unary reference.
+   </para>
+      </section>
+      <section xreflabel="MANY"
+               role="field"
+               xml:id="org.osgi.service.cdi.MaximumCardinality.MANY">
+         <title>MANY</title>
+         <para>
+Defines a plural reference.
+   </para>
+      </section>
+      <section xreflabel="fromInt(int)"
+               role="method"
+               xml:id="org.osgi.service.cdi.MaximumCardinality.fromInt-int-">
+         <title>public static MaximumCardinality fromInt(int value)</title>
+         <formalpara role="parameter">
+            <title>value</title>
+            <para>The integer representation of an upper cardinality boundary</para>
+         </formalpara>
+         <para role="description">
+Resolve an integer to an upper cardinality boundary.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The enum representation of the upper cardinality boundary
+         described by <code>value</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="toInt()"
+               role="method"
+               xml:id="org.osgi.service.cdi.MaximumCardinality.toInt--">
+         <title>public int toInt()</title>
+         <para role="description">
+Convert this upper cardinality boundary to an integer
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The integer representation of this upper cardinality boundary</para>
+         </formalpara>
+      </section>
+      <section xreflabel="valueOf(String)"
+               role="method"
+               xml:id="org.osgi.service.cdi.MaximumCardinality.valueOf-String-">
+         <title>public static MaximumCardinality valueOf(String name)</title>
+         <para/>
+      </section>
+      <section xreflabel="values()"
+               role="method"
+               xml:id="org.osgi.service.cdi.MaximumCardinality.values--">
+         <title>public static MaximumCardinality[] values()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="ReferencePolicy"
+            role="class"
+            xml:id="org.osgi.service.cdi.ReferencePolicy">
+      <title>enum ReferencePolicy</title>
+      <para>
+Defines the possible values of the policy of a reference towards propagating
+ service changes to the CDI runtime
+   </para>
+      <section xreflabel="STATIC"
+               role="field"
+               xml:id="org.osgi.service.cdi.ReferencePolicy.STATIC">
+         <title>STATIC</title>
+         <para>
+Reboot the CDI component that depends on this reference
+   </para>
+      </section>
+      <section xreflabel="DYNAMIC"
+               role="field"
+               xml:id="org.osgi.service.cdi.ReferencePolicy.DYNAMIC">
+         <title>DYNAMIC</title>
+         <para>
+Update the CDI reference
+   </para>
+      </section>
+      <section xreflabel="valueOf(String)"
+               role="method"
+               xml:id="org.osgi.service.cdi.ReferencePolicy.valueOf-String-">
+         <title>public static ReferencePolicy valueOf(String name)</title>
+         <para/>
+      </section>
+      <section xreflabel="values()"
+               role="method"
+               xml:id="org.osgi.service.cdi.ReferencePolicy.values--">
+         <title>public static ReferencePolicy[] values()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="ReferencePolicyOption"
+            role="class"
+            xml:id="org.osgi.service.cdi.ReferencePolicyOption">
+      <title>enum ReferencePolicyOption</title>
+      <para>
+Defines the possible values of the policy of a satisfied reference towards
+ new matching services appearing.
+   </para>
+      <section xreflabel="GREEDY"
+               role="field"
+               xml:id="org.osgi.service.cdi.ReferencePolicyOption.GREEDY">
+         <title>GREEDY</title>
+         <para>
+Consume the matching service applying it's <link linkend="org.osgi.service.cdi.ReferencePolicy">ReferencePolicy</link>
+         </para>
+      </section>
+      <section xreflabel="RELUCTANT"
+               role="field"
+               xml:id="org.osgi.service.cdi.ReferencePolicyOption.RELUCTANT">
+         <title>RELUCTANT</title>
+         <para>
+Do not consume the matching service
+   </para>
+      </section>
+      <section xreflabel="valueOf(String)"
+               role="method"
+               xml:id="org.osgi.service.cdi.ReferencePolicyOption.valueOf-String-">
+         <title>public static ReferencePolicyOption valueOf(String name)</title>
+         <para/>
+      </section>
+      <section xreflabel="values()"
+               role="method"
+               xml:id="org.osgi.service.cdi.ReferencePolicyOption.values--">
+         <title>public static ReferencePolicyOption[] values()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="ServiceScope"
+            role="class"
+            xml:id="org.osgi.service.cdi.ServiceScope">
+      <title>enum ServiceScope</title>
+      <para>
+Possible values for <link linkend="org.osgi.service.cdi.runtime.dto.template.ActivationTemplateDTO.scope">ActivationTemplateDTO.scope</link>.
+   </para>
+      <section xreflabel="SINGLETON"
+               role="field"
+               xml:id="org.osgi.service.cdi.ServiceScope.SINGLETON">
+         <title>SINGLETON</title>
+         <para>
+This activation will only ever create one instance
+ </para>
+         <para>
+ The instance is created after the parent component becomes satisfied and
+ is destroyed before the parent component becomes unsatisfied.
+ </para>
+         <para>
+ If <link linkend="org.osgi.service.cdi.runtime.dto.template.ActivationTemplateDTO.serviceClasses">ActivationTemplateDTO.serviceClasses</link> is not empty the instance
+ will be registered as an OSGi service with
+ <code>service.scope=singleton</code>.</para>
+      </section>
+      <section xreflabel="BUNDLE"
+               role="field"
+               xml:id="org.osgi.service.cdi.ServiceScope.BUNDLE">
+         <title>BUNDLE</title>
+         <para>
+This activation will register an OSGi service with
+ <code>service.scope=bundle</code>.
+ </para>
+         <para>
+ The service is registered just after all <link linkend="org.osgi.service.cdi.ServiceScope.SINGLETON">SINGLETON</link> activations
+ are set up and just before all <link linkend="org.osgi.service.cdi.ServiceScope.SINGLETON">SINGLETON</link> activations are torn
+ down.
+ </para>
+         <para>
+ The <link linkend="org.osgi.service.cdi.runtime.dto.template.ActivationTemplateDTO.serviceClasses">ActivationTemplateDTO.serviceClasses</link> is not empty when this
+ scope is used.</para>
+      </section>
+      <section xreflabel="PROTOTYPE"
+               role="field"
+               xml:id="org.osgi.service.cdi.ServiceScope.PROTOTYPE">
+         <title>PROTOTYPE</title>
+         <para>
+This activation will register an OSGi service with
+ <code>service.scope=prototype</code>.
+ </para>
+         <para>
+ The service is registered just after all <link linkend="org.osgi.service.cdi.ServiceScope.SINGLETON">SINGLETON</link> activations
+ are set up and just before all <link linkend="org.osgi.service.cdi.ServiceScope.SINGLETON">SINGLETON</link> activations are torn
+ down.
+ </para>
+         <para>
+ The <link linkend="org.osgi.service.cdi.runtime.dto.template.ActivationTemplateDTO.serviceClasses">ActivationTemplateDTO.serviceClasses</link> is not empty when this
+ scope is used.</para>
+      </section>
+      <section xreflabel="valueOf(String)"
+               role="method"
+               xml:id="org.osgi.service.cdi.ServiceScope.valueOf-String-">
+         <title>public static ServiceScope valueOf(String name)</title>
+         <para/>
+      </section>
+      <section xreflabel="values()"
+               role="method"
+               xml:id="org.osgi.service.cdi.ServiceScope.values--">
+         <title>public static ServiceScope[] values()</title>
+         <para/>
+      </section>
+   </section>
+</section>

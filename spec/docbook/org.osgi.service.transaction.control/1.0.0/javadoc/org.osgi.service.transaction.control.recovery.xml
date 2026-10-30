@@ -1,0 +1,140 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.transaction.control.recovery"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.transaction.control.recovery">
+   <title>org.osgi.service.transaction.control.recovery</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.transaction.control.recovery-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.service.transaction.control.recovery-version.number">1.0</edition>
+   </info>
+   <para>
+Transaction Control Service Recovery Package Version 1.0.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.transaction.control.recovery; version="[1.0,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.transaction.control.recovery; version="[1.0,1.1)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.transaction.control.recovery.RecoverableXAResource">
+                  <code>RecoverableXAResource</code>
+               </link> - 
+A <link linkend="org.osgi.service.transaction.control.recovery.RecoverableXAResource">RecoverableXAResource</link> service may be provided by a
+ <link linkend="org.osgi.service.transaction.control.ResourceProvider">ResourceProvider</link> if they are able to support XA recovery
+ operations.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="RecoverableXAResource"
+            role="class"
+            xml:id="org.osgi.service.transaction.control.recovery.RecoverableXAResource">
+      <title>public interface RecoverableXAResource</title>
+      <para>
+A <link linkend="org.osgi.service.transaction.control.recovery.RecoverableXAResource">RecoverableXAResource</link> service may be provided by a
+ <link linkend="org.osgi.service.transaction.control.ResourceProvider">ResourceProvider</link> if they are able to support XA recovery
+ operations.
+ 
+ There are two main sorts of recovery:
+ 
+ </para>
+      <itemizedlist>
+         <listitem>
+            <para>Recovery after a remote failure, where the local transaction
+       manager runs throughout</para>
+         </listitem>
+         <listitem>
+            <para>Recovery after a local failure, where the transaction manager
+       replays in-doubt transactions from its log</para>
+         </listitem>
+      </itemizedlist>
+      <para>
+ 
+ This service is used in both of these cases. 
+ 
+ The identifier returned by <link linkend="org.osgi.service.transaction.control.recovery.RecoverableXAResource.getId--">getId()</link> provides a persistent name 
+ that can be used to correlate usage of the resource both before and after
+ failure. This identifier must also be passed to 
+ <link linkend="org.osgi.service.transaction.control.TransactionContext.registerXAResource-javax.transaction.xa.XAResource-String-">TransactionContext.registerXAResource(XAResource, String)</link> each time
+ the recoverable resource is used.
+   </para>
+      <section xreflabel="OSGI_RECOVERY_ENABLED"
+               role="field"
+               xml:id="org.osgi.service.transaction.control.recovery.RecoverableXAResource.OSGI_RECOVERY_ENABLED">
+         <title>public static final String OSGI_RECOVERY_ENABLED = "osgi.recovery.enabled"</title>
+         <para>
+This service property key is used by <link linkend="org.osgi.service.transaction.control.TransactionControl">TransactionControl</link> services
+ and <link linkend="org.osgi.service.transaction.control.ResourceProvider">ResourceProvider</link> factories to indicate that they can support
+ transaction recovery.
+   </para>
+      </section>
+      <section xreflabel="getId()"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.recovery.RecoverableXAResource.getId--">
+         <title>public String getId()</title>
+         <para role="description">
+Get the id of this resource. This should be unique, and persist between
+ restarts
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>an identifier, never <code>null</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="getXAResource()"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.recovery.RecoverableXAResource.getXAResource--">
+         <title>public XAResource getXAResource() throws Exception</title>
+         <para role="description">
+Get a new, valid XAResource that can be used in recovery
+ 
+ This XAResource will be returned later using the 
+ <link linkend="org.osgi.service.transaction.control.recovery.RecoverableXAResource.releaseXAResource-javax.transaction.xa.XAResource-">releaseXAResource(XAResource)</link> method
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>a valid, connected, XAResource</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– If it is not possible to acquire a valid
+ XAResource at the current time, for example if the database
+ is temporarily unavailable.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="releaseXAResource(javax.transaction.xa.XAResource)"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.recovery.RecoverableXAResource.releaseXAResource-javax.transaction.xa.XAResource-">
+         <title>public void releaseXAResource(XAResource xaRes)</title>
+         <formalpara role="parameter">
+            <title>xaRes</title>
+            <para>An XAResource previously returned
+ by <link linkend="org.osgi.service.transaction.control.recovery.RecoverableXAResource.getXAResource--">getXAResource()</link>
+            </para>
+         </formalpara>
+         <para role="description">
+Release the XAResource that has been used for recovery
+   </para>
+      </section>
+   </section>
+</section>

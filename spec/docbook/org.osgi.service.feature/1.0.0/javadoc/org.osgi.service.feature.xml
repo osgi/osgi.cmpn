@@ -1,0 +1,1699 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.feature"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.feature">
+   <title>org.osgi.service.feature</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.feature-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.service.feature-version.number">1.0</edition>
+   </info>
+   <para>
+Feature Package Version 1.0.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.feature; version="[1.0,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.feature; version="[1.0,1.1)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.feature.BuilderFactory">
+                  <code>BuilderFactory</code>
+               </link> - 
+The Builder Factory can be used to obtain builders for the various entities.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.feature.Feature">
+                  <code>Feature</code>
+               </link> - 
+The Feature Model Feature.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.feature.FeatureArtifact">
+                  <code>FeatureArtifact</code>
+               </link> - 
+An Artifact is an entity with an ID, for use in extensions.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.feature.FeatureArtifactBuilder">
+                  <code>FeatureArtifactBuilder</code>
+               </link> - 
+A builder for <link linkend="org.osgi.service.feature.FeatureArtifact">FeatureArtifact</link> objects.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.feature.FeatureBuilder">
+                  <code>FeatureBuilder</code>
+               </link> - 
+A builder for <link linkend="org.osgi.service.feature.Feature">Feature</link> Models.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.feature.FeatureBundle">
+                  <code>FeatureBundle</code>
+               </link> - 
+A Bundle which is part of a feature.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.feature.FeatureBundleBuilder">
+                  <code>FeatureBundleBuilder</code>
+               </link> - 
+A builder for Feature Model <link linkend="org.osgi.service.feature.FeatureBundle">FeatureBundle</link> objects.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.feature.FeatureConfiguration">
+                  <code>FeatureConfiguration</code>
+               </link> - 
+Represents an OSGi Configuration in the Feature Model.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.feature.FeatureConfigurationBuilder">
+                  <code>FeatureConfigurationBuilder</code>
+               </link> - 
+A builder for Feature Model <link linkend="org.osgi.service.feature.FeatureConfiguration">FeatureConfiguration</link> objects.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.feature.FeatureConstants">
+                  <code>FeatureConstants</code>
+               </link> - 
+Defines standard constants for the Feature specification.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.feature.FeatureExtension">
+                  <code>FeatureExtension</code>
+               </link> - 
+A Feature Model Extension.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.feature.FeatureExtension.Kind">
+                  <code>FeatureExtension.Kind</code>
+               </link> - 
+The kind of extension: optional, mandatory or transient.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.feature.FeatureExtension.Type">
+                  <code>FeatureExtension.Type</code>
+               </link> - 
+The type of extension
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.feature.FeatureExtensionBuilder">
+                  <code>FeatureExtensionBuilder</code>
+               </link> - 
+A builder for Feature Model <link linkend="org.osgi.service.feature.FeatureExtension">FeatureExtension</link> objects.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.feature.FeatureService">
+                  <code>FeatureService</code>
+               </link> - 
+The Feature service is the primary entry point for interacting with the
+ feature model.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.feature.ID">
+                  <code>ID</code>
+               </link> - 
+ID used to denote an artifact.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="BuilderFactory"
+            role="class"
+            xml:id="org.osgi.service.feature.BuilderFactory">
+      <title>public interface BuilderFactory</title>
+      <para>
+The Builder Factory can be used to obtain builders for the various entities.
+   </para>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="newArtifactBuilder(ID)"
+               role="method"
+               xml:id="org.osgi.service.feature.BuilderFactory.newArtifactBuilder-ID-">
+         <title>public FeatureArtifactBuilder newArtifactBuilder(ID id)</title>
+         <formalpara role="parameter">
+            <title>id</title>
+            <para>The artifact ID for the artifact object being built.</para>
+         </formalpara>
+         <para role="description">
+Obtain a new builder for Artifact objects.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The builder.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="newBundleBuilder(ID)"
+               role="method"
+               xml:id="org.osgi.service.feature.BuilderFactory.newBundleBuilder-ID-">
+         <title>public FeatureBundleBuilder newBundleBuilder(ID id)</title>
+         <formalpara role="parameter">
+            <title>id</title>
+            <para>The ID for the bundle object being built. If the ID has no
+            <code>type</code> specified, a default type of @{code jar} is
+            assumed.</para>
+         </formalpara>
+         <para role="description">
+Obtain a new builder for Bundle objects.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The builder.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="newConfigurationBuilder(String)"
+               role="method"
+               xml:id="org.osgi.service.feature.BuilderFactory.newConfigurationBuilder-String-">
+         <title>public FeatureConfigurationBuilder newConfigurationBuilder(String pid)</title>
+         <formalpara role="parameter">
+            <title>pid</title>
+            <para>The persistent ID for the Configuration being built.</para>
+         </formalpara>
+         <para role="description">
+Obtain a new builder for Configuration objects.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The builder.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="newConfigurationBuilder(String,String)"
+               role="method"
+               xml:id="org.osgi.service.feature.BuilderFactory.newConfigurationBuilder-String-String-">
+         <title>public FeatureConfigurationBuilder newConfigurationBuilder(String factoryPid, String name)</title>
+         <formalpara role="parameter">
+            <title>factoryPid</title>
+            <para>The factory persistent ID for the Configuration being built.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>name</title>
+            <para>The name of the configuration being built. The PID for the configuration
+ will be the factoryPid + '~' + name</para>
+         </formalpara>
+         <para role="description">
+Obtain a new builder for Factory Configuration objects.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The builder.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="newExtensionBuilder(String,Type,Kind)"
+               role="method"
+               xml:id="org.osgi.service.feature.BuilderFactory.newExtensionBuilder-String-Type-Kind-">
+         <title>public FeatureExtensionBuilder newExtensionBuilder(String name, FeatureExtension.Type type, FeatureExtension.Kind kind)</title>
+         <formalpara role="parameter">
+            <title>name</title>
+            <para>The extension name.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>type</title>
+            <para>The type of extension: JSON, Text or Artifacts.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>kind</title>
+            <para>The kind of extension: Mandatory, Optional or Transient.</para>
+         </formalpara>
+         <para role="description">
+Obtain a new builder for Feature objects.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The builder.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="newFeatureBuilder(ID)"
+               role="method"
+               xml:id="org.osgi.service.feature.BuilderFactory.newFeatureBuilder-ID-">
+         <title>public FeatureBuilder newFeatureBuilder(ID id)</title>
+         <formalpara role="parameter">
+            <title>id</title>
+            <para>The ID for the feature object being built. If the ID has no
+            <code>type</code> specified, a default type of <code>osgifeature</code>
+            is assumed.</para>
+         </formalpara>
+         <para role="description">
+Obtain a new builder for Feature objects.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The builder.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="Feature"
+            role="class"
+            xml:id="org.osgi.service.feature.Feature">
+      <title>public interface Feature</title>
+      <para>
+The Feature Model Feature.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="getBundles()"
+               role="method"
+               xml:id="org.osgi.service.feature.Feature.getBundles--">
+         <title>public List&lt;FeatureBundle&gt; getBundles()</title>
+         <para role="description">
+Get the bundles.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The bundles. The returned list is unmodifiable.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getCategories()"
+               role="method"
+               xml:id="org.osgi.service.feature.Feature.getCategories--">
+         <title>public List&lt;String&gt; getCategories()</title>
+         <para role="description">
+Get the categories.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The categories. The returned list is unmodifiable.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getConfigurations()"
+               role="method"
+               xml:id="org.osgi.service.feature.Feature.getConfigurations--">
+         <title>public Map&lt;String, FeatureConfiguration&gt; getConfigurations()</title>
+         <para role="description">
+Get the configurations. The iteration order of the returned map should
+ follow the definition order of the configurations in the feature.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The configurations. The returned map is unmodifiable.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getDescription()"
+               role="method"
+               xml:id="org.osgi.service.feature.Feature.getDescription--">
+         <title>public Optional&lt;String&gt; getDescription()</title>
+         <para role="description">
+Get the description.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The description.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getDocURL()"
+               role="method"
+               xml:id="org.osgi.service.feature.Feature.getDocURL--">
+         <title>public Optional&lt;String&gt; getDocURL()</title>
+         <para role="description">
+Get the documentation URL.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The documentation URL.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getExtensions()"
+               role="method"
+               xml:id="org.osgi.service.feature.Feature.getExtensions--">
+         <title>public Map&lt;String, FeatureExtension&gt; getExtensions()</title>
+         <para role="description">
+Get the extensions. The iteration order of the returned map should follow
+ the definition order of the extensions in the feature.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The extensions. The returned map is unmodifiable.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getID()"
+               role="method"
+               xml:id="org.osgi.service.feature.Feature.getID--">
+         <title>public ID getID()</title>
+         <para role="description">
+Get the Feature's ID.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The ID of this Feature.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getLicense()"
+               role="method"
+               xml:id="org.osgi.service.feature.Feature.getLicense--">
+         <title>public Optional&lt;String&gt; getLicense()</title>
+         <para role="description">
+Get the license of this Feature. The syntax of the value follows the
+ Bundle-License header syntax. See the 'Bundle Manifest Headers' section
+ in the OSGi Core specification.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The license.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getName()"
+               role="method"
+               xml:id="org.osgi.service.feature.Feature.getName--">
+         <title>public Optional&lt;String&gt; getName()</title>
+         <para role="description">
+Get the name.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The name.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getSCM()"
+               role="method"
+               xml:id="org.osgi.service.feature.Feature.getSCM--">
+         <title>public Optional&lt;String&gt; getSCM()</title>
+         <para role="description">
+Get the SCM information relating to the feature. The syntax of the value
+ follows the Bundle-SCM format. See the 'Bundle Manifest Headers' section
+ in the OSGi Core specification.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The SCM information.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getVariables()"
+               role="method"
+               xml:id="org.osgi.service.feature.Feature.getVariables--">
+         <title>public Map&lt;String, Object&gt; getVariables()</title>
+         <para role="description">
+Get the variables. The iteration order of the returned map should follow
+ the definition order of the variables in the feature. Values are of type:
+ String, Boolean or BigDecimal for numbers. The <code>null</code> JSON value is
+ represented by a null value in the map.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The variables. The returned map is unmodifiable.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getVendor()"
+               role="method"
+               xml:id="org.osgi.service.feature.Feature.getVendor--">
+         <title>public Optional&lt;String&gt; getVendor()</title>
+         <para role="description">
+Get the vendor.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The vendor.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="isComplete()"
+               role="method"
+               xml:id="org.osgi.service.feature.Feature.isComplete--">
+         <title>public boolean isComplete()</title>
+         <para role="description">
+Get whether the feature is complete or not.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>Completeness value.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="FeatureArtifact"
+            role="class"
+            xml:id="org.osgi.service.feature.FeatureArtifact">
+      <title>public interface FeatureArtifact</title>
+      <para>
+An Artifact is an entity with an ID, for use in extensions.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="getID()"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureArtifact.getID--">
+         <title>public ID getID()</title>
+         <para role="description">
+Get the artifact's ID.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The ID of this artifact.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getMetadata()"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureArtifact.getMetadata--">
+         <title>public Map&lt;String, Object&gt; getMetadata()</title>
+         <para role="description">
+Get the metadata for this artifact.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The metadata. The returned map is unmodifiable.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="FeatureArtifactBuilder"
+            role="class"
+            xml:id="org.osgi.service.feature.FeatureArtifactBuilder">
+      <title>public interface FeatureArtifactBuilder</title>
+      <para>
+A builder for <link linkend="org.osgi.service.feature.FeatureArtifact">FeatureArtifact</link> objects.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="addMetadata(String,Object)"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureArtifactBuilder.addMetadata-String-Object-">
+         <title>public FeatureArtifactBuilder addMetadata(String key, Object value)</title>
+         <formalpara role="parameter">
+            <title>key</title>
+            <para>Metadata key.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>value</title>
+            <para>Metadata value.</para>
+         </formalpara>
+         <para role="description">
+Add metadata for this Artifact.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This builder.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="addMetadata(Map)"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureArtifactBuilder.addMetadata-Map-">
+         <title>public FeatureArtifactBuilder addMetadata(Map&lt;String, Object&gt; metadata)</title>
+         <formalpara role="parameter">
+            <title>metadata</title>
+            <para>The map with metadata.</para>
+         </formalpara>
+         <para role="description">
+Add metadata for this Artifact by providing a map. All metadata in the
+ map is added to any previously provided metadata.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This builder.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="build()"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureArtifactBuilder.build--">
+         <title>public FeatureArtifact build()</title>
+         <para role="description">
+Build the Artifact object. Can only be called once on a builder. After
+ calling this method the current builder instance cannot be used any more.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The Feature Artifact.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="FeatureBuilder"
+            role="class"
+            xml:id="org.osgi.service.feature.FeatureBuilder">
+      <title>public interface FeatureBuilder</title>
+      <para>
+A builder for <link linkend="org.osgi.service.feature.Feature">Feature</link> Models.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="addBundles(FeatureBundle...)"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureBuilder.addBundles-FeatureBundle...-">
+         <title>public FeatureBuilder addBundles(FeatureBundle... bundles)</title>
+         <formalpara role="parameter">
+            <title>bundles</title>
+            <para>The Bundles to add.</para>
+         </formalpara>
+         <para role="description">
+Add Bundles to the Feature.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This builder.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="addCategories(String...)"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureBuilder.addCategories-String...-">
+         <title>public FeatureBuilder addCategories(String... categories)</title>
+         <formalpara role="parameter">
+            <title>categories</title>
+            <para>The Categories.</para>
+         </formalpara>
+         <para role="description">
+Adds one or more categories to the Feature.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This builder.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="addConfigurations(FeatureConfiguration...)"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureBuilder.addConfigurations-FeatureConfiguration...-">
+         <title>public FeatureBuilder addConfigurations(FeatureConfiguration... configs)</title>
+         <formalpara role="parameter">
+            <title>configs</title>
+            <para>The Configurations to add.</para>
+         </formalpara>
+         <para role="description">
+Add Configurations to the Feature.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This builder.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="addExtensions(FeatureExtension...)"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureBuilder.addExtensions-FeatureExtension...-">
+         <title>public FeatureBuilder addExtensions(FeatureExtension... extensions)</title>
+         <formalpara role="parameter">
+            <title>extensions</title>
+            <para>The Extensions to add.</para>
+         </formalpara>
+         <para role="description">
+Add Extensions to the Feature
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This builder.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="addVariable(String,Object)"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureBuilder.addVariable-String-Object-">
+         <title>public FeatureBuilder addVariable(String key, Object defaultValue)</title>
+         <formalpara role="parameter">
+            <title>key</title>
+            <para>The key.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>defaultValue</title>
+            <para>The default value.</para>
+         </formalpara>
+         <para role="description">
+Add a variable to the Feature. If a variable with the specified key
+ already exists it is replaced with this one. Variable values are of type:
+ String, Boolean or BigDecimal for numbers.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This builder.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– if the value is of an invalid type.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="addVariables(Map)"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureBuilder.addVariables-Map-">
+         <title>public FeatureBuilder addVariables(Map&lt;String, Object&gt; variables)</title>
+         <formalpara role="parameter">
+            <title>variables</title>
+            <para>to be added.</para>
+         </formalpara>
+         <para role="description">
+Add a map of variables to the Feature. Pre-existing variables with the
+ same key in are overwritten if these keys exist in the map. Variable
+ values are of type: String, Boolean or BigDecimal for numbers.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This builder.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– if a value is of an invalid type.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="build()"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureBuilder.build--">
+         <title>public Feature build()</title>
+         <para role="description">
+Build the Feature. Can only be called once on a builder. After
+ calling this method the current builder instance cannot be used any more.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The Feature.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="setComplete(boolean)"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureBuilder.setComplete-boolean-">
+         <title>public FeatureBuilder setComplete(boolean complete)</title>
+         <formalpara role="parameter">
+            <title>complete</title>
+            <para>If the feature is complete.</para>
+         </formalpara>
+         <para role="description">
+Set the Feature Complete flag. If this method is not called the complete
+ flag defaults to <code>false</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This builder.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="setDescription(String)"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureBuilder.setDescription-String-">
+         <title>public FeatureBuilder setDescription(String description)</title>
+         <formalpara role="parameter">
+            <title>description</title>
+            <para>The description.</para>
+         </formalpara>
+         <para role="description">
+Set the Feature Description.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This builder.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="setDocURL(String)"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureBuilder.setDocURL-String-">
+         <title>public FeatureBuilder setDocURL(String docURL)</title>
+         <formalpara role="parameter">
+            <title>docURL</title>
+            <para>The Documentation URL.</para>
+         </formalpara>
+         <para role="description">
+Set the documentation URL.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This builder.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="setLicense(String)"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureBuilder.setLicense-String-">
+         <title>public FeatureBuilder setLicense(String license)</title>
+         <formalpara role="parameter">
+            <title>license</title>
+            <para>The License.</para>
+         </formalpara>
+         <para role="description">
+Set the License.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This builder.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="setName(String)"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureBuilder.setName-String-">
+         <title>public FeatureBuilder setName(String name)</title>
+         <formalpara role="parameter">
+            <title>name</title>
+            <para>The Name.</para>
+         </formalpara>
+         <para role="description">
+Set the Feature Name.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This builder.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="setSCM(String)"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureBuilder.setSCM-String-">
+         <title>public FeatureBuilder setSCM(String scm)</title>
+         <formalpara role="parameter">
+            <title>scm</title>
+            <para>The SCM information.</para>
+         </formalpara>
+         <para role="description">
+Set the SCM information.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This builder.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="setVendor(String)"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureBuilder.setVendor-String-">
+         <title>public FeatureBuilder setVendor(String vendor)</title>
+         <formalpara role="parameter">
+            <title>vendor</title>
+            <para>The Vendor.</para>
+         </formalpara>
+         <para role="description">
+Set the Vendor.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This builder.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="FeatureBundle"
+            role="class"
+            xml:id="org.osgi.service.feature.FeatureBundle">
+      <title>public interface FeatureBundle</title>
+      <para>
+A Bundle which is part of a feature.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="getID()"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureBundle.getID--">
+         <title>public ID getID()</title>
+         <para role="description">
+Get the bundle's ID.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The ID of this bundle.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getMetadata()"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureBundle.getMetadata--">
+         <title>public Map&lt;String, Object&gt; getMetadata()</title>
+         <para role="description">
+Get the metadata for this bundle.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The metadata. The returned map is unmodifiable.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="FeatureBundleBuilder"
+            role="class"
+            xml:id="org.osgi.service.feature.FeatureBundleBuilder">
+      <title>public interface FeatureBundleBuilder</title>
+      <para>
+A builder for Feature Model <link linkend="org.osgi.service.feature.FeatureBundle">FeatureBundle</link> objects.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="addMetadata(String,Object)"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureBundleBuilder.addMetadata-String-Object-">
+         <title>public FeatureBundleBuilder addMetadata(String key, Object value)</title>
+         <formalpara role="parameter">
+            <title>key</title>
+            <para>Metadata key.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>value</title>
+            <para>Metadata value.</para>
+         </formalpara>
+         <para role="description">
+Add metadata for this Bundle.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This builder.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="addMetadata(Map)"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureBundleBuilder.addMetadata-Map-">
+         <title>public FeatureBundleBuilder addMetadata(Map&lt;String, Object&gt; metadata)</title>
+         <formalpara role="parameter">
+            <title>metadata</title>
+            <para>The map with metadata.</para>
+         </formalpara>
+         <para role="description">
+Add metadata for this Bundle by providing a map. All
+ metadata in the map is added to any previously provided
+ metadata.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This builder.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="build()"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureBundleBuilder.build--">
+         <title>public FeatureBundle build()</title>
+         <para role="description">
+Build the Bundle object. Can only be called once on a builder. After
+ calling this method the current builder instance cannot be used any more.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The Bundle.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="FeatureConfiguration"
+            role="class"
+            xml:id="org.osgi.service.feature.FeatureConfiguration">
+      <title>public interface FeatureConfiguration</title>
+      <para>
+Represents an OSGi Configuration in the Feature Model.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="getFactoryPid()"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureConfiguration.getFactoryPid--">
+         <title>public Optional&lt;String&gt; getFactoryPid()</title>
+         <para role="description">
+Get the Factory PID from the configuration, if any.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The Factory PID, or <code>null</code> if there is none.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getPid()"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureConfiguration.getPid--">
+         <title>public String getPid()</title>
+         <para role="description">
+Get the PID from the configuration.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The PID.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getValues()"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureConfiguration.getValues--">
+         <title>public Map&lt;String, Object&gt; getValues()</title>
+         <para role="description">
+Get the configuration key-value map.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The key-value map. The returned map is unmodifiable.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="FeatureConfigurationBuilder"
+            role="class"
+            xml:id="org.osgi.service.feature.FeatureConfigurationBuilder">
+      <title>public interface FeatureConfigurationBuilder</title>
+      <para>
+A builder for Feature Model <link linkend="org.osgi.service.feature.FeatureConfiguration">FeatureConfiguration</link> objects.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="addValue(String,Object)"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureConfigurationBuilder.addValue-String-Object-">
+         <title>public FeatureConfigurationBuilder addValue(String key, Object value)</title>
+         <formalpara role="parameter">
+            <title>key</title>
+            <para>The configuration key.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>value</title>
+            <para>The configuration value. Acceptable data types are the data
+            type supported by the Configuration Admin service, which are
+            the Primary Property Types as defined for the Filter Syntax in
+            the OSGi Core specification.</para>
+         </formalpara>
+         <para role="description">
+Add a configuration value for this Configuration object. If a value with
+ the same key was previously provided (regardless of case) the previous
+ value is overwritten.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This builder.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– if the value is of an invalid type.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="addValues(Map)"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureConfigurationBuilder.addValues-Map-">
+         <title>public FeatureConfigurationBuilder addValues(Map&lt;String, Object&gt; configValues)</title>
+         <formalpara role="parameter">
+            <title>configValues</title>
+            <para>The map of configuration values to add. Acceptable
+            value types are the data type supported by the Configuration
+            Admin service, which are the Primary Property Types as defined
+            for the Filter Syntax in the OSGi Core specification.</para>
+         </formalpara>
+         <para role="description">
+Add a map of configuration values for this Configuration object. Values
+ will be added to any previously provided configuration values. If a value
+ with the same key was previously provided (regardless of case) the
+ previous value is overwritten.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This builder.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– if a value is of an invalid type or if
+             the same key is provided in different capitalizations
+             (regardless of case).</para>
+         </formalpara>
+      </section>
+      <section xreflabel="build()"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureConfigurationBuilder.build--">
+         <title>public FeatureConfiguration build()</title>
+         <para role="description">
+Build the Configuration object. Can only be called once on a builder. After
+ calling this method the current builder instance cannot be used any more.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The Configuration.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="FeatureConstants"
+            role="class"
+            xml:id="org.osgi.service.feature.FeatureConstants">
+      <title>public final class FeatureConstants</title>
+      <para>
+Defines standard constants for the Feature specification.
+   </para>
+      <section xreflabel="FEATURE_IMPLEMENTATION"
+               role="field"
+               xml:id="org.osgi.service.feature.FeatureConstants.FEATURE_IMPLEMENTATION">
+         <title>public static final String FEATURE_IMPLEMENTATION = "osgi.feature"</title>
+         <para>
+The name of the implementation capability for the Feature specification.
+   </para>
+      </section>
+      <section xreflabel="FEATURE_SPECIFICATION_VERSION"
+               role="field"
+               xml:id="org.osgi.service.feature.FeatureConstants.FEATURE_SPECIFICATION_VERSION">
+         <title>public static final String FEATURE_SPECIFICATION_VERSION = "1.0"</title>
+         <para>
+The version of the implementation capability for the Feature
+ specification.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="FeatureExtension"
+            role="class"
+            xml:id="org.osgi.service.feature.FeatureExtension">
+      <title>public interface FeatureExtension</title>
+      <para>
+A Feature Model Extension. Extensions can contain either Text, JSON or
+ a list of Artifacts. </para>
+      <para>
+ Extensions are of one of the following kinds:
+ </para>
+      <itemizedlist>
+         <listitem>
+            <para> Mandatory: this extension must be processed by the runtime
+ </para>
+         </listitem>
+         <listitem>
+            <para> Optional: this extension does not have to be processed by the runtime
+ </para>
+         </listitem>
+         <listitem>
+            <para> Transient: this extension contains transient information such as caching
+ data that is for optimization purposes. It may be changed or removed and is
+ not part of the feature's identity.
+ </para>
+         </listitem>
+      </itemizedlist>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="getArtifacts()"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureExtension.getArtifacts--">
+         <title>public List&lt;FeatureArtifact&gt; getArtifacts()</title>
+         <para role="description">
+Get the Artifacts from this extension.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The Artifacts. The returned list is unmodifiable.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If called on an extension which is not of
+             type ARTIFACTS.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getJSON()"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureExtension.getJSON--">
+         <title>public String getJSON()</title>
+         <para role="description">
+Get the JSON from this extension.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The JSON.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If called on an extension which is not of
+             type JSON.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getKind()"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureExtension.getKind--">
+         <title>public FeatureExtension.Kind getKind()</title>
+         <para role="description">
+Get the extension kind.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The kind.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getName()"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureExtension.getName--">
+         <title>public String getName()</title>
+         <para role="description">
+Get the extension name.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The name.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getText()"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureExtension.getText--">
+         <title>public List&lt;String&gt; getText()</title>
+         <para role="description">
+Get the Text from this extension.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The lines of text. The returned list is unmodifiable.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If called on an extension which is not of
+             type TEXT.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getType()"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureExtension.getType--">
+         <title>public FeatureExtension.Type getType()</title>
+         <para role="description">
+Get the extension type.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The type.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="FeatureExtension.Kind"
+            role="class"
+            xml:id="org.osgi.service.feature.FeatureExtension.Kind">
+      <title>enum FeatureExtension.Kind</title>
+      <para>
+The kind of extension: optional, mandatory or transient.
+   </para>
+      <section xreflabel="MANDATORY"
+               role="field"
+               xml:id="org.osgi.service.feature.FeatureExtension.Kind.MANDATORY">
+         <title>MANDATORY</title>
+         <para>
+A mandatory extension must be processed.
+   </para>
+      </section>
+      <section xreflabel="OPTIONAL"
+               role="field"
+               xml:id="org.osgi.service.feature.FeatureExtension.Kind.OPTIONAL">
+         <title>OPTIONAL</title>
+         <para>
+An optional extension can be ignored if no processor is found.
+   </para>
+      </section>
+      <section xreflabel="TRANSIENT"
+               role="field"
+               xml:id="org.osgi.service.feature.FeatureExtension.Kind.TRANSIENT">
+         <title>TRANSIENT</title>
+         <para>
+A transient extension contains computed information which can be used
+ as a cache to speed up operation.
+   </para>
+      </section>
+      <section xreflabel="valueOf(String)"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureExtension.Kind.valueOf-String-">
+         <title>public static FeatureExtension.Kind valueOf(String name)</title>
+         <para/>
+      </section>
+      <section xreflabel="values()"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureExtension.Kind.values--">
+         <title>public static FeatureExtension.Kind[] values()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="FeatureExtension.Type"
+            role="class"
+            xml:id="org.osgi.service.feature.FeatureExtension.Type">
+      <title>enum FeatureExtension.Type</title>
+      <para>
+The type of extension
+   </para>
+      <section xreflabel="JSON"
+               role="field"
+               xml:id="org.osgi.service.feature.FeatureExtension.Type.JSON">
+         <title>JSON</title>
+         <para>
+A JSON extension.
+   </para>
+      </section>
+      <section xreflabel="TEXT"
+               role="field"
+               xml:id="org.osgi.service.feature.FeatureExtension.Type.TEXT">
+         <title>TEXT</title>
+         <para>
+A plain text extension.
+   </para>
+      </section>
+      <section xreflabel="ARTIFACTS"
+               role="field"
+               xml:id="org.osgi.service.feature.FeatureExtension.Type.ARTIFACTS">
+         <title>ARTIFACTS</title>
+         <para>
+An extension that is a list of artifact identifiers.
+   </para>
+      </section>
+      <section xreflabel="valueOf(String)"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureExtension.Type.valueOf-String-">
+         <title>public static FeatureExtension.Type valueOf(String name)</title>
+         <para/>
+      </section>
+      <section xreflabel="values()"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureExtension.Type.values--">
+         <title>public static FeatureExtension.Type[] values()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="FeatureExtensionBuilder"
+            role="class"
+            xml:id="org.osgi.service.feature.FeatureExtensionBuilder">
+      <title>public interface FeatureExtensionBuilder</title>
+      <para>
+A builder for Feature Model <link linkend="org.osgi.service.feature.FeatureExtension">FeatureExtension</link> objects.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="addArtifact(FeatureArtifact)"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureExtensionBuilder.addArtifact-FeatureArtifact-">
+         <title>public FeatureExtensionBuilder addArtifact(FeatureArtifact artifact)</title>
+         <formalpara role="parameter">
+            <title>artifact</title>
+            <para>The artifact to add.</para>
+         </formalpara>
+         <para role="description">
+Add an Artifact to the extension. Can only be called for extensions of
+ type <link linkend="org.osgi.service.feature.FeatureExtension.Type.ARTIFACTS">FeatureExtension.Type.ARTIFACTS</link>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This builder.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="addText(String)"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureExtensionBuilder.addText-String-">
+         <title>public FeatureExtensionBuilder addText(String text)</title>
+         <formalpara role="parameter">
+            <title>text</title>
+            <para>The text to be added.</para>
+         </formalpara>
+         <para role="description">
+Add a line of text to the extension. Can only be called for extensions of
+ type <link linkend="org.osgi.service.feature.FeatureExtension.Type.TEXT">FeatureExtension.Type.TEXT</link>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This builder.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="build()"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureExtensionBuilder.build--">
+         <title>public FeatureExtension build()</title>
+         <para role="description">
+Build the Extension. Can only be called once on a builder. After
+ calling this method the current builder instance cannot be used any more.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The Extension.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="setJSON(String)"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureExtensionBuilder.setJSON-String-">
+         <title>public FeatureExtensionBuilder setJSON(String json)</title>
+         <formalpara role="parameter">
+            <title>json</title>
+            <para>The JSON to be added.</para>
+         </formalpara>
+         <para role="description">
+Add JSON in String form to the extension. Can only be called for
+ extensions of type <link linkend="org.osgi.service.feature.FeatureExtension.Type.JSON">FeatureExtension.Type.JSON</link>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This builder.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="FeatureService"
+            role="class"
+            xml:id="org.osgi.service.feature.FeatureService">
+      <title>public interface FeatureService</title>
+      <para>
+The Feature service is the primary entry point for interacting with the
+ feature model.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="getBuilderFactory()"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureService.getBuilderFactory--">
+         <title>public BuilderFactory getBuilderFactory()</title>
+         <para role="description">
+Get a factory which can be used to build feature model entities.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A builder factory.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getID(String,String,String)"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureService.getID-String-String-String-">
+         <title>public ID getID(String groupId, String artifactId, String version)</title>
+         <formalpara role="parameter">
+            <title>groupId</title>
+            <para>The group ID (not <code>null</code>, not empty).</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>artifactId</title>
+            <para>The artifact ID (not <code>null</code>, not empty).</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>version</title>
+            <para>The version (not <code>null</code>, not empty).</para>
+         </formalpara>
+         <para role="description">
+Obtain an ID.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The ID.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getID(String,String,String,String)"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureService.getID-String-String-String-String-">
+         <title>public ID getID(String groupId, String artifactId, String version, String type)</title>
+         <formalpara role="parameter">
+            <title>groupId</title>
+            <para>The group ID (not <code>null</code>, not empty).</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>artifactId</title>
+            <para>The artifact ID (not <code>null</code>, not empty).</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>version</title>
+            <para>The version (not <code>null</code>, not empty).</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>type</title>
+            <para>The type (not <code>null</code>, not empty).</para>
+         </formalpara>
+         <para role="description">
+Obtain an ID.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The ID.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getID(String,String,String,String,String)"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureService.getID-String-String-String-String-String-">
+         <title>public ID getID(String groupId, String artifactId, String version, String type, String classifier)</title>
+         <formalpara role="parameter">
+            <title>groupId</title>
+            <para>The group ID (not <code>null</code>, not empty).</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>artifactId</title>
+            <para>The artifact ID (not <code>null</code>, not empty).</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>version</title>
+            <para>The version (not <code>null</code>, not empty).</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>type</title>
+            <para>The type (not <code>null</code>, not empty).</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>classifier</title>
+            <para>The classifier (not <code>null</code>, not empty).</para>
+         </formalpara>
+         <para role="description">
+Obtain an ID.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The ID.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getIDfromMavenCoordinates(String)"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureService.getIDfromMavenCoordinates-String-">
+         <title>public ID getIDfromMavenCoordinates(String coordinates)</title>
+         <formalpara role="parameter">
+            <title>coordinates</title>
+            <para>The Maven Coordinates.</para>
+         </formalpara>
+         <para role="description">
+Obtain an ID from a Maven Coordinates formatted string. The supported
+ syntax is as follows:
+ </para>
+         <para>
+            <code>groupId ':' artifactId ( ':' type ( ':' classifier )? )? ':' version</code>
+         </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>the ID.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="readFeature(Reader)"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureService.readFeature-Reader-">
+         <title>public Feature readFeature(Reader jsonReader) throws IOException</title>
+         <formalpara role="parameter">
+            <title>jsonReader</title>
+            <para>A Reader to the JSON input</para>
+         </formalpara>
+         <para role="description">
+Read a Feature from JSON
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The Feature represented by the JSON</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IOException</code>– When reading fails</para>
+         </formalpara>
+      </section>
+      <section xreflabel="writeFeature(Feature,Writer)"
+               role="method"
+               xml:id="org.osgi.service.feature.FeatureService.writeFeature-Feature-Writer-">
+         <title>public void writeFeature(Feature feature, Writer jsonWriter) throws IOException</title>
+         <formalpara role="parameter">
+            <title>feature</title>
+            <para>the Feature to write.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>jsonWriter</title>
+            <para>A Writer to which the Feature should be written.</para>
+         </formalpara>
+         <para role="description">
+Write a Feature Model to JSON
+   </para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IOException</code>– When writing fails.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="ID" role="class" xml:id="org.osgi.service.feature.ID">
+      <title>public interface ID</title>
+      <para>
+ID used to denote an artifact. This could be a feature model, a bundle which
+ is part of the feature model or some other artifact.
+ </para>
+      <para>
+ Artifact IDs follow the Maven convention of having:
+ </para>
+      <itemizedlist>
+         <listitem>
+            <para>A group ID
+ </para>
+         </listitem>
+         <listitem>
+            <para>An artifact ID
+ </para>
+         </listitem>
+         <listitem>
+            <para>A version
+ </para>
+         </listitem>
+         <listitem>
+            <para>A type identifier (optional)
+ </para>
+         </listitem>
+         <listitem>
+            <para>A classifier (optional)
+ </para>
+         </listitem>
+      </itemizedlist>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="FEATURE_ID_TYPE"
+               role="field"
+               xml:id="org.osgi.service.feature.ID.FEATURE_ID_TYPE">
+         <title>public static final String FEATURE_ID_TYPE = "osgifeature"</title>
+         <para>
+ID type for use with Features.
+   </para>
+      </section>
+      <section xreflabel="getArtifactId()"
+               role="method"
+               xml:id="org.osgi.service.feature.ID.getArtifactId--">
+         <title>public String getArtifactId()</title>
+         <para role="description">
+Get the artifact ID.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The artifact ID.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getClassifier()"
+               role="method"
+               xml:id="org.osgi.service.feature.ID.getClassifier--">
+         <title>public Optional&lt;String&gt; getClassifier()</title>
+         <para role="description">
+Get the classifier.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The classifier.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getGroupId()"
+               role="method"
+               xml:id="org.osgi.service.feature.ID.getGroupId--">
+         <title>public String getGroupId()</title>
+         <para role="description">
+Get the group ID.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The group ID.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getType()"
+               role="method"
+               xml:id="org.osgi.service.feature.ID.getType--">
+         <title>public Optional&lt;String&gt; getType()</title>
+         <para role="description">
+Get the type identifier.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The type identifier.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getVersion()"
+               role="method"
+               xml:id="org.osgi.service.feature.ID.getVersion--">
+         <title>public String getVersion()</title>
+         <para role="description">
+Get the version.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The version.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="toString()"
+               role="method"
+               xml:id="org.osgi.service.feature.ID.toString--">
+         <title>public String toString()</title>
+         <para role="description">
+This method returns the ID using the following syntax:
+ </para>
+         <para>
+            <code>groupId ':' artifactId ( ':' type ( ':' classifier )? )? ':' version</code>
+         </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The string representation.</para>
+         </formalpara>
+         <para/>
+      </section>
+   </section>
+</section>

@@ -1,0 +1,871 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.metatype"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.metatype">
+   <title>org.osgi.service.metatype</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.metatype-version">Version 1.4</releaseinfo>
+      <edition xml:id="org.osgi.service.metatype-version.number">1.4</edition>
+   </info>
+   <para>
+Metatype Package Version 1.4.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.metatype; version="[1.4,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.metatype; version="[1.4,1.5)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.metatype.AttributeDefinition">
+                  <code>AttributeDefinition</code>
+               </link> - 
+An interface to describe an attribute.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.metatype.MetaTypeInformation">
+                  <code>MetaTypeInformation</code>
+               </link> - 
+A MetaType Information object is created by the MetaTypeService to return
+ meta type information for a specific bundle.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.metatype.MetaTypeProvider">
+                  <code>MetaTypeProvider</code>
+               </link> - 
+Provides access to metatypes.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.metatype.MetaTypeService">
+                  <code>MetaTypeService</code>
+               </link> - 
+The MetaType Service can be used to obtain meta type information for a
+ bundle.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.metatype.ObjectClassDefinition">
+                  <code>ObjectClassDefinition</code>
+               </link> - 
+Description for the data type information of an objectclass.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="AttributeDefinition"
+            role="class"
+            xml:id="org.osgi.service.metatype.AttributeDefinition">
+      <title>public interface AttributeDefinition</title>
+      <para>
+An interface to describe an attribute.
+ 
+ </para>
+      <para>
+ An <code>AttributeDefinition</code> object defines a description of the data type
+ of a property/attribute.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="BIGDECIMAL"
+               role="field"
+               xml:id="org.osgi.service.metatype.AttributeDefinition.BIGDECIMAL">
+         <title>public static final int BIGDECIMAL = 10</title>
+         <para>
+The <code>BIGDECIMAL</code> type.
+ 
+ Attributes of this type should be stored as <code>BigDecimal</code>,
+ <code>List&lt;BigDecimal&gt;</code> or <code>BigDecimal[]</code> objects depending on
+ <link linkend="org.osgi.service.metatype.AttributeDefinition.getCardinality--">getCardinality()</link>.
+   </para>
+         <formalpara role="parameter">
+            <title>Deprecated</title>
+            <para>As of 1.1.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="BIGINTEGER"
+               role="field"
+               xml:id="org.osgi.service.metatype.AttributeDefinition.BIGINTEGER">
+         <title>public static final int BIGINTEGER = 9</title>
+         <para>
+The <code>BIGINTEGER</code> type.
+ 
+ Attributes of this type should be stored as <code>BigInteger</code>,
+ <code>List&lt;BigInteger&gt;</code> or <code>BigInteger[]</code> objects, depending on
+ the <link linkend="org.osgi.service.metatype.AttributeDefinition.getCardinality--">getCardinality()</link> value.
+   </para>
+         <formalpara role="parameter">
+            <title>Deprecated</title>
+            <para>As of 1.1.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="BOOLEAN"
+               role="field"
+               xml:id="org.osgi.service.metatype.AttributeDefinition.BOOLEAN">
+         <title>public static final int BOOLEAN = 11</title>
+         <para>
+The <code>BOOLEAN</code> type.
+ 
+ Attributes of this type should be stored as <code>Boolean</code>,
+ <code>List&lt;Boolean&gt;</code> or <code>boolean[]</code> objects depending on
+ <link linkend="org.osgi.service.metatype.AttributeDefinition.getCardinality--">getCardinality()</link>.
+   </para>
+      </section>
+      <section xreflabel="BYTE"
+               role="field"
+               xml:id="org.osgi.service.metatype.AttributeDefinition.BYTE">
+         <title>public static final int BYTE = 6</title>
+         <para>
+The <code>BYTE</code> type.
+ 
+ Attributes of this type should be stored as <code>Byte</code>,
+ <code>List&lt;Byte&gt;</code> or <code>byte[]</code> objects, depending on the
+ <link linkend="org.osgi.service.metatype.AttributeDefinition.getCardinality--">getCardinality()</link> value.
+   </para>
+      </section>
+      <section xreflabel="CHARACTER"
+               role="field"
+               xml:id="org.osgi.service.metatype.AttributeDefinition.CHARACTER">
+         <title>public static final int CHARACTER = 5</title>
+         <para>
+The <code>CHARACTER</code> type.
+ 
+ Attributes of this type should be stored as <code>Character</code>,
+ <code>List&lt;Character&gt;</code> or <code>char[]</code> objects, depending on the
+ <link linkend="org.osgi.service.metatype.AttributeDefinition.getCardinality--">getCardinality()</link> value.
+   </para>
+      </section>
+      <section xreflabel="DOUBLE"
+               role="field"
+               xml:id="org.osgi.service.metatype.AttributeDefinition.DOUBLE">
+         <title>public static final int DOUBLE = 7</title>
+         <para>
+The <code>DOUBLE</code> type.
+ 
+ Attributes of this type should be stored as <code>Double</code>,
+ <code>List&lt;Double&gt;</code> or <code>double[]</code> objects, depending on the
+ <link linkend="org.osgi.service.metatype.AttributeDefinition.getCardinality--">getCardinality()</link> value.
+   </para>
+      </section>
+      <section xreflabel="FLOAT"
+               role="field"
+               xml:id="org.osgi.service.metatype.AttributeDefinition.FLOAT">
+         <title>public static final int FLOAT = 8</title>
+         <para>
+The <code>FLOAT</code> type.
+ 
+ Attributes of this type should be stored as <code>Float</code>,
+ <code>List&lt;Float&gt;</code> or <code>float[]</code> objects, depending on the
+ <link linkend="org.osgi.service.metatype.AttributeDefinition.getCardinality--">getCardinality()</link> value.
+   </para>
+      </section>
+      <section xreflabel="INTEGER"
+               role="field"
+               xml:id="org.osgi.service.metatype.AttributeDefinition.INTEGER">
+         <title>public static final int INTEGER = 3</title>
+         <para>
+The <code>INTEGER</code> type.
+ 
+ Attributes of this type should be stored as <code>Integer</code>,
+ <code>List&lt;Integer&gt;</code> or <code>int[]</code> objects, depending on the
+ <link linkend="org.osgi.service.metatype.AttributeDefinition.getCardinality--">getCardinality()</link> value.
+   </para>
+      </section>
+      <section xreflabel="LONG"
+               role="field"
+               xml:id="org.osgi.service.metatype.AttributeDefinition.LONG">
+         <title>public static final int LONG = 2</title>
+         <para>
+The <code>LONG</code> type.
+ 
+ Attributes of this type should be stored as <code>Long</code>,
+ <code>List&lt;Long&gt;</code> or <code>long[]</code> objects, depending on the
+ <link linkend="org.osgi.service.metatype.AttributeDefinition.getCardinality--">getCardinality()</link> value.
+   </para>
+      </section>
+      <section xreflabel="PASSWORD"
+               role="field"
+               xml:id="org.osgi.service.metatype.AttributeDefinition.PASSWORD">
+         <title>public static final int PASSWORD = 12</title>
+         <para>
+The <code>PASSWORD</code> type.
+ 
+ Attributes of this type must be stored as <code>String</code>,
+ <code>List&lt;String&gt;</code> or <code>String[]</code> objects depending on
+ <link linkend="org.osgi.service.metatype.AttributeDefinition.getCardinality--">getCardinality()</link>. A <code>PASSWORD</code> must be treated as a string
+ but the type can be used to disguise the information when displayed to a
+ user to prevent others from seeing it.
+   </para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.2</para>
+         </formalpara>
+      </section>
+      <section xreflabel="SHORT"
+               role="field"
+               xml:id="org.osgi.service.metatype.AttributeDefinition.SHORT">
+         <title>public static final int SHORT = 4</title>
+         <para>
+The <code>SHORT</code> type.
+ 
+ Attributes of this type should be stored as <code>Short</code>,
+ <code>List&lt;Short&gt;</code> or <code>short[]</code> objects, depending on the
+ <link linkend="org.osgi.service.metatype.AttributeDefinition.getCardinality--">getCardinality()</link> value.
+   </para>
+      </section>
+      <section xreflabel="STRING"
+               role="field"
+               xml:id="org.osgi.service.metatype.AttributeDefinition.STRING">
+         <title>public static final int STRING = 1</title>
+         <para>
+The <code>STRING</code> type.
+ 
+ </para>
+         <para>
+ Attributes of this type should be stored as <code>String</code>,
+ <code>List&lt;String&gt;</code> or <code>String[]</code> objects, depending on the
+ <link linkend="org.osgi.service.metatype.AttributeDefinition.getCardinality--">getCardinality()</link> value.</para>
+      </section>
+      <section xreflabel="getCardinality()"
+               role="method"
+               xml:id="org.osgi.service.metatype.AttributeDefinition.getCardinality--">
+         <title>public int getCardinality()</title>
+         <para role="description">
+Return the cardinality of this attribute.
+ 
+ The OSGi environment handles multi valued attributes in arrays ([]) or in
+ <code>List</code> objects. The return value is defined as follows:
+ 
+ </para>
+         <programlisting> 
+    x = Integer.MIN_VALUE    no limit, but use List
+    x &lt; 0                    -x = max occurrences, store in List
+    x &gt; 0                     x = max occurrences, store in array []
+    x = Integer.MAX_VALUE    no limit, but use array []
+    x = 0                     1 occurrence required</programlisting>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The cardinality of this attribute.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getDefaultValue()"
+               role="method"
+               xml:id="org.osgi.service.metatype.AttributeDefinition.getDefaultValue--">
+         <title>public String[] getDefaultValue()</title>
+         <para role="description">
+Return a default for this attribute.
+ 
+ The object must be of the appropriate type as defined by the cardinality
+ and <code>getType()</code>. The return type is a list of <code>String</code>
+ objects that can be converted to the appropriate type. The cardinality of
+ the return array must follow the absolute cardinality of this type. For
+ example, if the cardinality = 0, the array must contain 1 element. If the
+ cardinality is 1, it must contain 0 or 1 elements. If it is -5, it must
+ contain from 0 to max 5 elements. Note that the special case of a 0
+ cardinality, meaning a single value, does not allow arrays or lists of 0
+ elements.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>Return a default value or <code>null</code> if no default exists.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getDescription()"
+               role="method"
+               xml:id="org.osgi.service.metatype.AttributeDefinition.getDescription--">
+         <title>public String getDescription()</title>
+         <para role="description">
+Return a description of this attribute.
+ 
+ The description may be localized and must describe the semantics of this
+ type and any constraints.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The localized description of the definition.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getID()"
+               role="method"
+               xml:id="org.osgi.service.metatype.AttributeDefinition.getID--">
+         <title>public String getID()</title>
+         <para role="description">
+Unique identity for this attribute.
+ 
+ Attributes share a global namespace in the registry. For example, an
+ attribute <code>cn</code> or <code>commonName</code> must always be a
+ <code>String</code> and the semantics are always a name of some object. They
+ share this aspect with LDAP/X.500 attributes. In these standards the OSI
+ Object Identifier (OID) is used to uniquely identify an attribute. If
+ such an OID exists, (which can be requested at several standard
+ organizations and many companies already have a node in the tree) it can
+ be returned here. Otherwise, a unique id should be returned which can be
+ a Java class name (reverse domain name) or generated with a GUID
+ algorithm. Note that all LDAP defined attributes already have an OID. It
+ is strongly advised to define the attributes from existing LDAP schemes
+ which will give the OID. Many such schemes exist ranging from postal
+ addresses to DHCP parameters.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The id or oid</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getName()"
+               role="method"
+               xml:id="org.osgi.service.metatype.AttributeDefinition.getName--">
+         <title>public String getName()</title>
+         <para role="description">
+Get the name of the attribute. This name may be localized.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The localized name of the definition.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getOptionLabels()"
+               role="method"
+               xml:id="org.osgi.service.metatype.AttributeDefinition.getOptionLabels--">
+         <title>public String[] getOptionLabels()</title>
+         <para role="description">
+Return a list of labels of option values.
+ 
+ </para>
+         <para>
+ The purpose of this method is to allow menus with localized labels. It is
+ associated with <code>getOptionValues</code>. The labels returned here are
+ ordered in the same way as the values in that method.
+ 
+ </para>
+         <para>
+ If the function returns <code>null</code>, there are no option labels
+ available.
+ </para>
+         <para>
+ This list must be in the same sequence as the <code>getOptionValues()</code>
+ method. That is, for each index i in <code>getOptionLabels</code>, i in
+ <code>getOptionValues()</code> should be the associated value.
+ 
+ </para>
+         <para>
+ For example, if an attribute can have the value male, female, unknown,
+ this list can return (for dutch)
+ <code>new String[] { "Man", "Vrouw", "Onbekend" }</code>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A list values</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getOptionValues()"
+               role="method"
+               xml:id="org.osgi.service.metatype.AttributeDefinition.getOptionValues--">
+         <title>public String[] getOptionValues()</title>
+         <para role="description">
+Return a list of option values that this attribute can take.
+ 
+ </para>
+         <para>
+ If the function returns <code>null</code>, there are no option values
+ available.
+ 
+ </para>
+         <para>
+ Each value must be acceptable to validate() (return "") and must be a
+ <code>String</code> object that can be converted to the data type defined by
+ getType() for this attribute.
+ 
+ </para>
+         <para>
+ This list must be in the same sequence as <code>getOptionLabels()</code>. That
+ is, for each index i in <code>getOptionValues</code>, i in
+ <code>getOptionLabels()</code> should be the label.
+ 
+ </para>
+         <para>
+ For example, if an attribute can have the value male, female, unknown,
+ this list can return
+ <code>new String[] { "male", "female", "unknown" }</code>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A list values</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getType()"
+               role="method"
+               xml:id="org.osgi.service.metatype.AttributeDefinition.getType--">
+         <title>public int getType()</title>
+         <para role="description">
+Return the type for this attribute.
+ 
+ </para>
+         <para>
+ Defined in the following constants which map to the appropriate Java
+ type. <link linkend="org.osgi.service.metatype.AttributeDefinition.STRING">STRING</link>,<link linkend="org.osgi.service.metatype.AttributeDefinition.LONG">LONG</link>,<link linkend="org.osgi.service.metatype.AttributeDefinition.INTEGER">INTEGER</link>, <link linkend="org.osgi.service.metatype.AttributeDefinition.SHORT">SHORT</link>,
+ <link linkend="org.osgi.service.metatype.AttributeDefinition.CHARACTER">CHARACTER</link>, <link linkend="org.osgi.service.metatype.AttributeDefinition.BYTE">BYTE</link>,<link linkend="org.osgi.service.metatype.AttributeDefinition.DOUBLE">DOUBLE</link>,<link linkend="org.osgi.service.metatype.AttributeDefinition.FLOAT">FLOAT</link>,
+ <link linkend="org.osgi.service.metatype.AttributeDefinition.BOOLEAN">BOOLEAN</link>, <link linkend="org.osgi.service.metatype.AttributeDefinition.PASSWORD">PASSWORD</link>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The type for this attribute.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="validate(String)"
+               role="method"
+               xml:id="org.osgi.service.metatype.AttributeDefinition.validate-String-">
+         <title>public String validate(String value)</title>
+         <formalpara role="parameter">
+            <title>value</title>
+            <para>The value before turning it into the basic data type. If the
+            cardinality indicates a multi-valued attribute then the given
+            string must be escaped.</para>
+         </formalpara>
+         <para role="description">
+Validate an attribute in <code>String</code> form. An attribute might be
+ further constrained in value. This method will attempt to validate the
+ attribute according to these constraints. It can return three different
+ values:
+ 
+ </para>
+         <programlisting>  null           No validation present
+  ""             No problems detected
+  "..."          A localized description of why the value is wrong</programlisting>
+         <para>
+ 
+ If the cardinality of this attribute is multi-valued then this string
+ must be interpreted as a comma delimited string. The complete value must
+ be trimmed from white space as well as spaces around commas. Commas (
+ <code>','</code> \u002C) and spaces (<code>' '</code> \u0020) and
+ backslashes (<code>'\'</code> \u005C) can be escaped with another
+ backslash. Escaped spaces must not be trimmed. For example:
+ 
+ </para>
+         <programlisting> value="  a\,b,b\,c,\ c\\,d   " =&gt; [ "a,b", "b,c", " c\", "d" ]</programlisting>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>null</code>, "", or another string</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="MetaTypeInformation"
+            role="class"
+            xml:id="org.osgi.service.metatype.MetaTypeInformation">
+      <title>public interface MetaTypeInformation<?line-break?> extends MetaTypeProvider</title>
+      <para>
+A MetaType Information object is created by the MetaTypeService to return
+ meta type information for a specific bundle.
+   </para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.1</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="getBundle()"
+               role="method"
+               xml:id="org.osgi.service.metatype.MetaTypeInformation.getBundle--">
+         <title>public Bundle getBundle()</title>
+         <para role="description">
+Return the bundle for which this object provides meta type information.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>Bundle for which this object provides meta type information.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getFactoryPids()"
+               role="method"
+               xml:id="org.osgi.service.metatype.MetaTypeInformation.getFactoryPids--">
+         <title>public String[] getFactoryPids()</title>
+         <para role="description">
+Return the Factory PIDs (for ManagedServiceFactories) for which
+ ObjectClassDefinition information is available.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>Array of Factory PIDs.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getPids()"
+               role="method"
+               xml:id="org.osgi.service.metatype.MetaTypeInformation.getPids--">
+         <title>public String[] getPids()</title>
+         <para role="description">
+Return the PIDs (for ManagedServices) for which ObjectClassDefinition
+ information is available.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>Array of PIDs.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="MetaTypeProvider"
+            role="class"
+            xml:id="org.osgi.service.metatype.MetaTypeProvider">
+      <title>public interface MetaTypeProvider</title>
+      <para>
+Provides access to metatypes. This interface can be implemented on a Managed
+ Service or Managed Service Factory as well as registered as a service. When
+ registered as a service, it must be registered with a
+ <link linkend="org.osgi.service.metatype.MetaTypeProvider.METATYPE_FACTORY_PID">METATYPE_FACTORY_PID</link> or <link linkend="org.osgi.service.metatype.MetaTypeProvider.METATYPE_PID">METATYPE_PID</link> service property (or
+ both). Any PID mentioned in either of these factories must be a valid
+ argument to the <link linkend="org.osgi.service.metatype.MetaTypeProvider.getObjectClassDefinition-String-String-">getObjectClassDefinition(String, String)</link> method.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="METATYPE_FACTORY_PID"
+               role="field"
+               xml:id="org.osgi.service.metatype.MetaTypeProvider.METATYPE_FACTORY_PID">
+         <title>public static final String METATYPE_FACTORY_PID = "metatype.factory.pid"</title>
+         <para>
+Service property to signal that this service has
+ <link linkend="org.osgi.service.metatype.ObjectClassDefinition">ObjectClassDefinition</link> objects for the given factory PIDs. The
+ type of this service property is <code>String+</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.2</para>
+         </formalpara>
+      </section>
+      <section xreflabel="METATYPE_PID"
+               role="field"
+               xml:id="org.osgi.service.metatype.MetaTypeProvider.METATYPE_PID">
+         <title>public static final String METATYPE_PID = "metatype.pid"</title>
+         <para>
+Service property to signal that this service has
+ <link linkend="org.osgi.service.metatype.ObjectClassDefinition">ObjectClassDefinition</link> objects for the given PIDs. The type of
+ this service property is <code>String+</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.2</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getLocales()"
+               role="method"
+               xml:id="org.osgi.service.metatype.MetaTypeProvider.getLocales--">
+         <title>public String[] getLocales()</title>
+         <para role="description">
+Return a list of available locales.
+ 
+ The results must be names that consists of language [ _ country [ _
+ variation ]] as is customary in the <code>Locale</code> class.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An array of locale strings or <code>null</code> if there is no locale
+         specific localization can be found.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getObjectClassDefinition(String,String)"
+               role="method"
+               xml:id="org.osgi.service.metatype.MetaTypeProvider.getObjectClassDefinition-String-String-">
+         <title>public ObjectClassDefinition getObjectClassDefinition(String id, String locale)</title>
+         <formalpara role="parameter">
+            <title>id</title>
+            <para>The ID of the requested object class. This can be a pid or
+        factory pid returned by getPids or getFactoryPids.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>locale</title>
+            <para>The locale of the definition or <code>null</code> for default
+        locale.</para>
+         </formalpara>
+         <para role="description">
+Returns an object class definition for the specified id localized to the
+ specified locale.
+ 
+ </para>
+         <para>
+ The locale parameter must be a name that consists of <code>language</code>[
+ "_" <code>country</code>[ "_" <code>variation</code>] ] as is customary in the
+ <code>Locale</code> class. This <code>Locale</code> class is not used because
+ certain profiles do not contain it.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <code>ObjectClassDefinition</code> object.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– If the id or locale arguments are not
+         valid</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="MetaTypeService"
+            role="class"
+            xml:id="org.osgi.service.metatype.MetaTypeService">
+      <title>public interface MetaTypeService</title>
+      <para>
+The MetaType Service can be used to obtain meta type information for a
+ bundle. The MetaType Service will examine the specified bundle for meta type
+ documents to create the returned <code>MetaTypeInformation</code> object.
+ 
+ </para>
+      <para>
+ If the specified bundle does not contain any meta type documents, then a
+ <code>MetaTypeInformation</code> object will be returned that wrappers any
+ <code>ManagedService</code> or <code>ManagedServiceFactory</code> services registered
+ by the specified bundle that implement <code>MetaTypeProvider</code>. Thus the
+ MetaType Service can be used to retrieve meta type information for bundles
+ which contain a meta type documents or which provide their own
+ <code>MetaTypeProvider</code> objects.</para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.1</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="METATYPE_CAPABILITY_NAME"
+               role="field"
+               xml:id="org.osgi.service.metatype.MetaTypeService.METATYPE_CAPABILITY_NAME">
+         <title>public static final String METATYPE_CAPABILITY_NAME = "osgi.metatype"</title>
+         <para>
+Capability name for meta type document processors.
+ </para>
+         <para>
+ Used in <code>Provide-Capability</code> and <code>Require-Capability</code>
+ manifest headers with the <code>osgi.extender</code> namespace. For example:
+ 
+ </para>
+         <programlisting> Require-Capability: osgi.extender;
+  filter:="(&amp;(osgi.extender=osgi.metatype)(version&gt;=1.4)(!(version&gt;=2.0)))"</programlisting>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.3</para>
+         </formalpara>
+      </section>
+      <section xreflabel="METATYPE_DOCUMENTS_LOCATION"
+               role="field"
+               xml:id="org.osgi.service.metatype.MetaTypeService.METATYPE_DOCUMENTS_LOCATION">
+         <title>public static final String METATYPE_DOCUMENTS_LOCATION = "OSGI-INF/metatype"</title>
+         <para>
+Location of meta type documents. The MetaType Service will process each
+ entry in the meta type documents directory.
+   </para>
+      </section>
+      <section xreflabel="METATYPE_SPECIFICATION_VERSION"
+               role="field"
+               xml:id="org.osgi.service.metatype.MetaTypeService.METATYPE_SPECIFICATION_VERSION">
+         <title>public static final String METATYPE_SPECIFICATION_VERSION = "1.4"</title>
+         <para>
+Compile time constant for the Specification Version of MetaType Service.
+ </para>
+         <para>
+ Used in <code>Version</code> and <code>Requirement</code> annotations. The value of
+ this compile time constant will change when the specification version of
+ MetaType Service is updated.</para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.4</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getMetaTypeInformation(Bundle)"
+               role="method"
+               xml:id="org.osgi.service.metatype.MetaTypeService.getMetaTypeInformation-Bundle-">
+         <title>public MetaTypeInformation getMetaTypeInformation(Bundle bundle)</title>
+         <formalpara role="parameter">
+            <title>bundle</title>
+            <para>The bundle for which meta type information is requested.</para>
+         </formalpara>
+         <para role="description">
+Return the MetaType information for the specified bundle.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A MetaTypeInformation object for the specified bundle.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="ObjectClassDefinition"
+            role="class"
+            xml:id="org.osgi.service.metatype.ObjectClassDefinition">
+      <title>public interface ObjectClassDefinition</title>
+      <para>
+Description for the data type information of an objectclass.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="ALL"
+               role="field"
+               xml:id="org.osgi.service.metatype.ObjectClassDefinition.ALL">
+         <title>public static final int ALL = -1</title>
+         <para>
+Argument for <code>getAttributeDefinitions(int)</code>.
+ </para>
+         <para>
+            <code>ALL</code> indicates that all the definitions are returned. The value is
+ -1.</para>
+      </section>
+      <section xreflabel="OPTIONAL"
+               role="field"
+               xml:id="org.osgi.service.metatype.ObjectClassDefinition.OPTIONAL">
+         <title>public static final int OPTIONAL = 2</title>
+         <para>
+Argument for <code>getAttributeDefinitions(int)</code>.
+ </para>
+         <para>
+            <code>OPTIONAL</code> indicates that only the optional definitions are
+ returned. The value is 2.</para>
+      </section>
+      <section xreflabel="REQUIRED"
+               role="field"
+               xml:id="org.osgi.service.metatype.ObjectClassDefinition.REQUIRED">
+         <title>public static final int REQUIRED = 1</title>
+         <para>
+Argument for <code>getAttributeDefinitions(int)</code>.
+ </para>
+         <para>
+            <code>REQUIRED</code> indicates that only the required definitions are
+ returned. The value is 1.</para>
+      </section>
+      <section xreflabel="getAttributeDefinitions(int)"
+               role="method"
+               xml:id="org.osgi.service.metatype.ObjectClassDefinition.getAttributeDefinitions-int-">
+         <title>public AttributeDefinition[] getAttributeDefinitions(int filter)</title>
+         <formalpara role="parameter">
+            <title>filter</title>
+            <para>
+               <code>ALL</code>,<code>REQUIRED</code>,<code>OPTIONAL</code>
+            </para>
+         </formalpara>
+         <para role="description">
+Return the attribute definitions for this object class.
+ 
+ </para>
+         <para>
+ Return a set of attributes. The filter parameter can distinguish between
+ <code>ALL</code>,<code>REQUIRED</code> or the <code>OPTIONAL</code> attributes.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An array of attribute definitions or <code>null</code> if no
+         attributes are selected</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getDescription()"
+               role="method"
+               xml:id="org.osgi.service.metatype.ObjectClassDefinition.getDescription--">
+         <title>public String getDescription()</title>
+         <para role="description">
+Return a description of this object class.
+ 
+ The description may be localized.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The description of this object class.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getIcon(int)"
+               role="method"
+               xml:id="org.osgi.service.metatype.ObjectClassDefinition.getIcon-int-">
+         <title>public InputStream getIcon(int size) throws IOException</title>
+         <formalpara role="parameter">
+            <title>size</title>
+            <para>Requested size of an icon. For example, a 16x16 pixel icon
+        has a size of 16</para>
+         </formalpara>
+         <para role="description">
+Return an <code>InputStream</code> object that can be used to create an icon
+ from.
+ 
+ </para>
+         <para>
+ Indicate the size and return an <code>InputStream</code> object containing an
+ icon. The returned icon maybe larger or smaller than the indicated size.
+ 
+ </para>
+         <para>
+ The icon may depend on the localization.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An InputStream representing an icon or <code>null</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IOException</code>– If the <code>InputStream</code> cannot be returned.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getID()"
+               role="method"
+               xml:id="org.osgi.service.metatype.ObjectClassDefinition.getID--">
+         <title>public String getID()</title>
+         <para role="description">
+Return the id of this object class.
+ </para>
+         <para>
+            <code>ObjectDefintion</code> objects share a global namespace in the registry.
+ They share this aspect with LDAP/X.500 attributes. In these standards the
+ OSI Object Identifier (OID) is used to uniquely identify object classes.
+ If such an OID exists, (which can be requested at several standard
+ organizations and many companies already have a node in the tree) it can
+ be returned here. Otherwise, a unique id should be returned which can be
+ a Java class name (reverse domain name) or generated with a GUID
+ algorithm. Note that all LDAP defined object classes already have an OID
+ associated. It is strongly advised to define the object classes from
+ existing LDAP schemes which will give the OID for free. Many such schemes
+ exist ranging from postal addresses to DHCP parameters.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The id of this object class.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getName()"
+               role="method"
+               xml:id="org.osgi.service.metatype.ObjectClassDefinition.getName--">
+         <title>public String getName()</title>
+         <para role="description">
+Return the name of this object class.
+ 
+ The name may be localized.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The name of this object class.</para>
+         </formalpara>
+      </section>
+   </section>
+</section>

@@ -1,0 +1,1070 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.metatype.annotations"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.metatype.annotations">
+   <title>org.osgi.service.metatype.annotations</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.metatype.annotations-version">Version 1.4</releaseinfo>
+      <edition xml:id="org.osgi.service.metatype.annotations-version.number">1.4</edition>
+   </info>
+   <para>
+Metatype Annotations Package Version 1.4.
+ </para>
+   <para>
+ This package is not used at runtime. Annotated classes are processed by tools
+ to generate Meta Type Resources which are used at runtime.</para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.metatype.annotations.AttributeDefinition">
+                  <code>AttributeDefinition</code>
+               </link> - <code>AttributeDefinition</code> information for the annotated method.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.metatype.annotations.AttributeType">
+                  <code>AttributeType</code>
+               </link> - 
+Attribute types for the <link linkend="org.osgi.service.metatype.annotations.AttributeDefinition">AttributeDefinition</link> annotation.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.metatype.annotations.Designate">
+                  <code>Designate</code>
+               </link> - 
+Generate a <code>Designate</code> element in the Meta Type Resource for an
+ <link linkend="org.osgi.service.metatype.annotations.ObjectClassDefinition">ObjectClassDefinition</link> using the annotated Declarative Services
+ component.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.metatype.annotations.Icon">
+                  <code>Icon</code>
+               </link> - <code>Icon</code> information for an <link linkend="org.osgi.service.metatype.annotations.ObjectClassDefinition">ObjectClassDefinition</link>.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.metatype.annotations.ObjectClassDefinition">
+                  <code>ObjectClassDefinition</code>
+               </link> - 
+Generate a Meta Type Resource using the annotated type.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.metatype.annotations.Option">
+                  <code>Option</code>
+               </link> - <code>Option</code> information for an <link linkend="org.osgi.service.metatype.annotations.AttributeDefinition">AttributeDefinition</link>.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.metatype.annotations.RequireMetaTypeExtender">
+                  <code>RequireMetaTypeExtender</code>
+               </link> - 
+This annotation can be used to require the Meta Type extender to process
+ metatype resources.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.metatype.annotations.RequireMetaTypeImplementation">
+                  <code>RequireMetaTypeImplementation</code>
+               </link> - 
+This annotation can be used to require the Meta Type implementation.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="AttributeDefinition"
+            role="class"
+            xml:id="org.osgi.service.metatype.annotations.AttributeDefinition">
+      <title>@AttributeDefinition</title>
+      <para>
+         <code>AttributeDefinition</code> information for the annotated method.
+ </para>
+      <para>
+ Each method of a type annotated by <link linkend="org.osgi.service.metatype.annotations.ObjectClassDefinition">ObjectClassDefinition</link> has an
+ implied AttributeDefinition annotation. This annotation is only used to
+ specify non-default AttributeDefinition information.
+ </para>
+      <para>
+ The <code>id</code> of this AttributeDefinition is generated from the name of the
+ annotated method as follows:
+ </para>
+      <itemizedlist>
+         <listitem>
+            <para>A single dollar sign (<code>'$'</code> \u0024) is removed unless it is
+ followed by:
+ </para>
+            <itemizedlist>
+               <listitem>
+                  <para>A low line (<code>'_'</code> \u005F) and a dollar sign in which case the
+ three consecutive characters ( <code>"$_$"</code>) are changed to a single
+ hyphen-minus (<code>'-'</code> \u002D).</para>
+               </listitem>
+               <listitem>
+                  <para>Another dollar sign in which case the two consecutive dollar signs (
+ <code>"$$"</code>) are changed to a single dollar sign.</para>
+               </listitem>
+            </itemizedlist>
+         </listitem>
+         <listitem>
+            <para>A low line (<code>'_'</code> \u005F) is changed to a full stop (
+ <code>'.'</code> \u002E) unless is it followed by another low line in which
+ case the two consecutive low lines (<code>"__"</code>) are changed to a single low
+ line.</para>
+         </listitem>
+         <listitem>
+            <para>All other characters are unchanged.</para>
+         </listitem>
+         <listitem>
+            <para>If the type declaring the method also declares a <code>PREFIX_</code> field
+ whose value is a compile-time constant String, then the id is prefixed with
+ the value of the <code>PREFIX_</code> field.</para>
+         </listitem>
+      </itemizedlist>
+      <para>
+ However, if the type annotated by <link linkend="org.osgi.service.metatype.annotations.ObjectClassDefinition">ObjectClassDefinition</link> is a
+ <emphasis>single-element annotation</emphasis>, then the id for the <code>value</code> method
+ is derived from the name of the annotation type rather than the name of the
+ method. In this case, the simple name of the annotation type, that is, the
+ name of the class without any package name or outer class name, if the
+ annotation type is an inner class, must be converted to the <code>value</code>
+ method's id as follows:
+ </para>
+      <itemizedlist>
+         <listitem>
+            <para>When a lower case character is followed by an upper case character, a
+ full stop (<code>'.'</code> \u002E) is inserted between them.</para>
+         </listitem>
+         <listitem>
+            <para>Each upper case character is converted to lower case.</para>
+         </listitem>
+         <listitem>
+            <para>All other characters are unchanged.</para>
+         </listitem>
+         <listitem>
+            <para>If the annotation type declares a <code>PREFIX_</code> field whose value is a
+ compile-time constant String, then the id is prefixed with the value of the
+ <code>PREFIX_</code> field.</para>
+         </listitem>
+      </itemizedlist>
+      <para>
+ This id is the value of the id attribute of the generate AD element and is
+ used as the name of the corresponding configuration property.
+ </para>
+      <para>
+ This annotation is not processed at runtime. It must be processed by tools
+ and used to contribute to a Meta Type Resource document for the bundle.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>The AD element of a Meta Type Resource.</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>METHOD</code>
+         </para>
+      </formalpara>
+      <section xreflabel="name"
+               role="method"
+               xml:id="org.osgi.service.metatype.annotations.AttributeDefinition.name--">
+         <title>String name default ""</title>
+         <para role="description">
+The human readable name of this AttributeDefinition.
+ </para>
+         <para>
+ If not specified, the name of this AttributeDefinition is derived from
+ the name of the annotated method. For example, low line (<code>'_'</code>
+ \u005F), dollar sign (<code>'$'</code> \u0024), and hyphen-minus
+ (<code>'-'</code> \u002D) are replaced with space (<code>' '</code> \u0020)
+ and space is inserted between camel case words.
+ </para>
+         <para>
+ If the name begins with the percent sign (<code>'%'</code> \u0025), the
+ name can be <link linkend="org.osgi.service.metatype.annotations.ObjectClassDefinition.localization--">localized</link>.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The name attribute of the AD element of a Meta Type Resource.</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="description"
+               role="method"
+               xml:id="org.osgi.service.metatype.annotations.AttributeDefinition.description--">
+         <title>String description default ""</title>
+         <para role="description">
+The human readable description of this AttributeDefinition.
+ 
+ </para>
+         <para>
+ If not specified, the description of this AttributeDefinition is the
+ empty string.
+ 
+ </para>
+         <para>
+ If the description begins with the percent sign (<code>'%'</code> \u0025),
+ the description can be <link linkend="org.osgi.service.metatype.annotations.ObjectClassDefinition.localization--">localized</link>.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The description attribute of the AD element of a Meta Type Resource.</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="type"
+               role="method"
+               xml:id="org.osgi.service.metatype.annotations.AttributeDefinition.type--">
+         <title>AttributeType type default STRING</title>
+         <para role="description">
+The type of this AttributeDefinition.
+ 
+ </para>
+         <para>
+ This must be one of the defined <link linkend="org.osgi.service.metatype.annotations.AttributeType">attributes types</link>.
+ 
+ </para>
+         <para>
+ If not specified, the type is derived from the return type of the
+ annotated method. Return types of <code>Class</code> and <code>Enum</code> are
+ mapped to <link linkend="org.osgi.service.metatype.annotations.AttributeType.STRING">STRING</link>. If the return type is
+ <code>List</code>, <code>Set</code>, <code>Collection</code>, <code>Iterable</code> or some
+ type which can be determined at annotation processing time to
+ </para>
+         <orderedlist>
+            <listitem>
+               <para>be a subtype of <code>Collection</code> and</para>
+            </listitem>
+            <listitem>
+               <para>have a public no argument constructor,</para>
+            </listitem>
+         </orderedlist>
+         <para>
+ then the type is derived from the generic type. For example, a return
+ type of <code>List&lt;String&gt;</code> will be mapped to
+ <link linkend="org.osgi.service.metatype.annotations.AttributeType.STRING">STRING</link>. A return type of a single
+ dimensional array is supported and the type is the component type of the
+ array. Multi dimensional arrays are not supported. Annotation return
+ types are not supported. Any unrecognized type is mapped to
+ <link linkend="org.osgi.service.metatype.annotations.AttributeType.STRING">STRING</link>. A tool processing the annotation
+ should declare an error for unsupported return types.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The type attribute of the AD element of a Meta Type Resource.</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="cardinality"
+               role="method"
+               xml:id="org.osgi.service.metatype.annotations.AttributeDefinition.cardinality--">
+         <title>int cardinality default 0</title>
+         <para role="description">
+The cardinality of this AttributeDefinition.
+ 
+ </para>
+         <para>
+ If not specified, the cardinality is derived from the return type of the
+ annotated method. For an array return type, the cardinality is a large
+ positive value. If the return type is <code>List</code>, <code>Set</code>,
+ <code>Collection</code>, <code>Iterable</code> or some type which can be determined
+ at annotation processing time to
+ </para>
+         <orderedlist>
+            <listitem>
+               <para>be a subtype of <code>Collection</code> and</para>
+            </listitem>
+            <listitem>
+               <para>have a public no argument constructor,</para>
+            </listitem>
+         </orderedlist>
+         <para>
+ the cardinality is a large negative value. Otherwise, the cardinality is
+ 0.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The cardinality attribute of the AD element of a Meta Type Resource.</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="min"
+               role="method"
+               xml:id="org.osgi.service.metatype.annotations.AttributeDefinition.min--">
+         <title>String min default ""</title>
+         <para role="description">
+The minimum value for this AttributeDefinition.
+ 
+ </para>
+         <para>
+ If not specified, there is no minimum value.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The min attribute of the AD element of a Meta Type Resource.</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="max"
+               role="method"
+               xml:id="org.osgi.service.metatype.annotations.AttributeDefinition.max--">
+         <title>String max default ""</title>
+         <para role="description">
+The maximum value for this AttributeDefinition.
+ 
+ </para>
+         <para>
+ If not specified, there is no maximum value.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The max attribute of the AD element of a Meta Type Resource.</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="defaultValue"
+               role="method"
+               xml:id="org.osgi.service.metatype.annotations.AttributeDefinition.defaultValue--">
+         <title>String[] defaultValue default {}</title>
+         <para role="description">
+The default value for this AttributeDefinition.
+ 
+ </para>
+         <para>
+ The specified values are concatenated into a comma delimited list to
+ become the value of the <code>default</code> attribute of the generated
+ <code>AD</code> element.
+ 
+ </para>
+         <para>
+ If not specified and the annotated method is an annotation element that
+ has a <code>default</code> value, then the value of this element is the
+ <code>default</code> value of the annotated element. Otherwise, there is no
+ default value.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The default attribute of the AD element of a Meta Type Resource.</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="required"
+               role="method"
+               xml:id="org.osgi.service.metatype.annotations.AttributeDefinition.required--">
+         <title>boolean required default true</title>
+         <para role="description">
+The required value for this AttributeDefinition.
+ 
+ </para>
+         <para>
+ If not specified, the value is <code>true</code>.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The required attribute of the AD element of a Meta Type Resource.</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="options"
+               role="method"
+               xml:id="org.osgi.service.metatype.annotations.AttributeDefinition.options--">
+         <title>Option[] options default {}</title>
+         <para role="description">
+The option information for this AttributeDefinition.
+ 
+ </para>
+         <para>
+ For each specified <link linkend="org.osgi.service.metatype.annotations.Option">Option</link>, an <code>Option</code> element is generated
+ for this AttributeDefinition.
+
+ </para>
+         <para>
+ If not specified, the option information is derived from the return type
+ of the annotated method. If the return type is an <code>enum</code>, a single
+ dimensional array of an <code>enum</code>, or a <code>List</code>, <code>Set</code>,
+ <code>Collection</code>, <code>Iterable</code> or some type which can be determined
+ at annotation processing time to
+ </para>
+         <orderedlist>
+            <listitem>
+               <para>be a subtype of <code>Collection</code> and</para>
+            </listitem>
+            <listitem>
+               <para>have a public no argument constructor,</para>
+            </listitem>
+         </orderedlist>
+         <para>
+ with a generic type of an <code>enum</code>, then the value of this element
+ has an <link linkend="org.osgi.service.metatype.annotations.Option">Option</link> for each value of the <code>enum</code>. The label and
+ value of each <link linkend="org.osgi.service.metatype.annotations.Option">Option</link> are set to the name of the corresponding
+ <code>enum</code> value. Otherwise, no <code>Option</code> elements will be
+ generated.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The Option element of a Meta Type Resource.</code>
+            </para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="AttributeType"
+            role="class"
+            xml:id="org.osgi.service.metatype.annotations.AttributeType">
+      <title>enum AttributeType</title>
+      <para>
+Attribute types for the <link linkend="org.osgi.service.metatype.annotations.AttributeDefinition">AttributeDefinition</link> annotation.
+   </para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <link linkend="org.osgi.service.metatype.annotations.AttributeDefinition.type--">AttributeDefinition.type()</link>
+         </para>
+      </formalpara>
+      <section xreflabel="STRING"
+               role="field"
+               xml:id="org.osgi.service.metatype.annotations.AttributeType.STRING">
+         <title>STRING</title>
+         <para>
+The <code>String</code> type.
+ 
+ </para>
+         <para>
+ Attributes of this type should be stored as <code>String</code>,
+ <code>List&lt;String&gt;</code> or <code>String[]</code> objects, depending on the
+ <link linkend="org.osgi.service.metatype.annotations.AttributeDefinition.cardinality--">cardinality</link> value.</para>
+      </section>
+      <section xreflabel="LONG"
+               role="field"
+               xml:id="org.osgi.service.metatype.annotations.AttributeType.LONG">
+         <title>LONG</title>
+         <para>
+The <code>Long</code> type.
+ 
+ </para>
+         <para>
+ Attributes of this type should be stored as <code>Long</code>,
+ <code>List&lt;Long&gt;</code> or <code>long[]</code> objects, depending on the
+ <code>AttributeDefinition#cardinality() cardinality</code> value.</para>
+      </section>
+      <section xreflabel="INTEGER"
+               role="field"
+               xml:id="org.osgi.service.metatype.annotations.AttributeType.INTEGER">
+         <title>INTEGER</title>
+         <para>
+The <code>Integer</code> type.
+ 
+ </para>
+         <para>
+ Attributes of this type should be stored as <code>Integer</code>,
+ <code>List&lt;Integer&gt;</code> or <code>int[]</code> objects, depending on the
+ <code>AttributeDefinition#cardinality() cardinality</code> value.</para>
+      </section>
+      <section xreflabel="SHORT"
+               role="field"
+               xml:id="org.osgi.service.metatype.annotations.AttributeType.SHORT">
+         <title>SHORT</title>
+         <para>
+The <code>Short</code> type.
+ 
+ </para>
+         <para>
+ Attributes of this type should be stored as <code>Short</code>,
+ <code>List&lt;Short&gt;</code> or <code>short[]</code> objects, depending on the
+ <code>AttributeDefinition#cardinality() cardinality</code> value.</para>
+      </section>
+      <section xreflabel="CHARACTER"
+               role="field"
+               xml:id="org.osgi.service.metatype.annotations.AttributeType.CHARACTER">
+         <title>CHARACTER</title>
+         <para>
+The <code>Character</code> type.
+ 
+ </para>
+         <para>
+ Attributes of this type should be stored as <code>Character</code>,
+ <code>List&lt;Character&gt;</code> or <code>char[]</code> objects, depending on the
+ <code>AttributeDefinition#cardinality() cardinality</code> value.</para>
+      </section>
+      <section xreflabel="BYTE"
+               role="field"
+               xml:id="org.osgi.service.metatype.annotations.AttributeType.BYTE">
+         <title>BYTE</title>
+         <para>
+The <code>Byte</code> type.
+ 
+ </para>
+         <para>
+ Attributes of this type should be stored as <code>Byte</code>,
+ <code>List&lt;Byte&gt;</code> or <code>byte[]</code> objects, depending on the
+ <code>AttributeDefinition#cardinality() cardinality</code> value.</para>
+      </section>
+      <section xreflabel="DOUBLE"
+               role="field"
+               xml:id="org.osgi.service.metatype.annotations.AttributeType.DOUBLE">
+         <title>DOUBLE</title>
+         <para>
+The <code>Double</code> type.
+ 
+ </para>
+         <para>
+ Attributes of this type should be stored as <code>Double</code>,
+ <code>List&lt;Double&gt;</code> or <code>double[]</code> objects, depending on the
+ <code>AttributeDefinition#cardinality() cardinality</code> value.</para>
+      </section>
+      <section xreflabel="FLOAT"
+               role="field"
+               xml:id="org.osgi.service.metatype.annotations.AttributeType.FLOAT">
+         <title>FLOAT</title>
+         <para>
+The <code>Float</code> type.
+ 
+ </para>
+         <para>
+ Attributes of this type should be stored as <code>Float</code>,
+ <code>List&lt;Float&gt;</code> or <code>float[]</code> objects, depending on the
+ <code>AttributeDefinition#cardinality() cardinality</code> value.</para>
+      </section>
+      <section xreflabel="BOOLEAN"
+               role="field"
+               xml:id="org.osgi.service.metatype.annotations.AttributeType.BOOLEAN">
+         <title>BOOLEAN</title>
+         <para>
+The <code>Boolean</code> type.
+ 
+ </para>
+         <para>
+ Attributes of this type should be stored as <code>Boolean</code>,
+ <code>List&lt;Boolean&gt;</code> or <code>boolean[]</code> objects depending on
+ <code>AttributeDefinition#cardinality() cardinality</code>.</para>
+      </section>
+      <section xreflabel="PASSWORD"
+               role="field"
+               xml:id="org.osgi.service.metatype.annotations.AttributeType.PASSWORD">
+         <title>PASSWORD</title>
+         <para>
+The <code>Password</code> type.
+ 
+ </para>
+         <para>
+ Attributes of this type must be stored as <code>String</code>,
+ <code>List&lt;String&gt;</code> or <code>String[]</code> objects depending on
+ <link linkend="org.osgi.service.metatype.annotations.AttributeDefinition.cardinality--">cardinality</link>.
+ 
+ </para>
+         <para>
+ A <code>Password</code> must be treated as a <code>String</code> but the type can
+ be used to disguise the information when displayed to a user to prevent
+ it from being seen.</para>
+      </section>
+      <section xreflabel="toString()"
+               role="method"
+               xml:id="org.osgi.service.metatype.annotations.AttributeType.toString--">
+         <title>public String toString()</title>
+         <para/>
+      </section>
+      <section xreflabel="valueOf(String)"
+               role="method"
+               xml:id="org.osgi.service.metatype.annotations.AttributeType.valueOf-String-">
+         <title>public static AttributeType valueOf(String name)</title>
+         <para/>
+      </section>
+      <section xreflabel="values()"
+               role="method"
+               xml:id="org.osgi.service.metatype.annotations.AttributeType.values--">
+         <title>public static AttributeType[] values()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="Designate"
+            role="class"
+            xml:id="org.osgi.service.metatype.annotations.Designate">
+      <title>@Designate</title>
+      <para>
+Generate a <code>Designate</code> element in the Meta Type Resource for an
+ <link linkend="org.osgi.service.metatype.annotations.ObjectClassDefinition">ObjectClassDefinition</link> using the annotated Declarative Services
+ component.
+ 
+ </para>
+      <para>
+ This annotation must be used on a type that is also annotated with the
+ Declarative Services Component annotation. The component must only have a single PID which is
+ used for the generated <code>Designate</code> element.
+ 
+ </para>
+      <para>
+ This annotation is not processed at runtime. It must be processed by tools
+ and used to contribute to a Meta Type Resource document for the bundle.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>The Designate element of a Meta Type Resource.</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="ocd"
+               role="method"
+               xml:id="org.osgi.service.metatype.annotations.Designate.ocd--">
+         <title>Class&lt;?&gt; ocd</title>
+         <para role="description">
+The type of the <link linkend="org.osgi.service.metatype.annotations.ObjectClassDefinition">ObjectClassDefinition</link> for this Designate.
+ 
+ </para>
+         <para>
+ The specified type must be annotated with <link linkend="org.osgi.service.metatype.annotations.ObjectClassDefinition">ObjectClassDefinition</link>.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The ocdref attribute of the Designate element of a Meta Type Resource.</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="factory"
+               role="method"
+               xml:id="org.osgi.service.metatype.annotations.Designate.factory--">
+         <title>boolean factory default false</title>
+         <para role="description">
+Specifies whether this Designate is for a factory PID.
+ 
+ </para>
+         <para>
+ If <code>false</code>, then the PID value from the annotated component will be
+ used in the <code>pid</code> attribute of the generated <code>Designate</code>
+ element. If <code>true</code>, then the PID value from the annotated component
+ will be used in the <code>factoryPid</code> attribute of the generated
+ <code>Designate</code> element.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The pid and factoryPid attributes of the Designate element of a Meta Type Resource.</code>
+            </para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="Icon"
+            role="class"
+            xml:id="org.osgi.service.metatype.annotations.Icon">
+      <title>@Icon</title>
+      <para>
+         <code>Icon</code> information for an <link linkend="org.osgi.service.metatype.annotations.ObjectClassDefinition">ObjectClassDefinition</link>.
+   </para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <link linkend="org.osgi.service.metatype.annotations.ObjectClassDefinition.icon--">ObjectClassDefinition.icon()</link>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code/>
+         </para>
+      </formalpara>
+      <section xreflabel="resource"
+               role="method"
+               xml:id="org.osgi.service.metatype.annotations.Icon.resource--">
+         <title>String resource</title>
+         <para role="description">
+The resource name for this Icon.
+ 
+ </para>
+         <para>
+ The resource is a URL. The resource URL can be relative to the root of
+ the bundle containing the Meta Type Resource.
+ 
+ </para>
+         <para>
+ If the resource begins with the percent sign (<code>'%'</code> \u0025),
+ the resource can be <link linkend="org.osgi.service.metatype.annotations.ObjectClassDefinition.localization--">localized</link>.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The resource attribute of the Icon element of a Meta Type Resource.</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="size"
+               role="method"
+               xml:id="org.osgi.service.metatype.annotations.Icon.size--">
+         <title>int size</title>
+         <para role="description">
+The pixel size of this Icon.
+ 
+ </para>
+         <para>
+ For example, 32 represents a 32x32 icon.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The size attribute of the Icon element of a Meta Type Resource.</code>
+            </para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="ObjectClassDefinition"
+            role="class"
+            xml:id="org.osgi.service.metatype.annotations.ObjectClassDefinition">
+      <title>@ObjectClassDefinition</title>
+      <para>
+Generate a Meta Type Resource using the annotated type.
+ </para>
+      <para>
+ This annotation can be used without defining any element values since
+ defaults can be generated from the annotated type. Each method of the
+ annotated type has an implied <link linkend="org.osgi.service.metatype.annotations.AttributeDefinition">AttributeDefinition</link> annotation if not
+ explicitly annotated.
+ </para>
+      <para>
+ This annotation may only be used on annotation types and interface types. Use
+ on concrete or abstract class types is unsupported. If applied to an
+ interface then all methods inherited from super types are included as
+ attributes.
+ </para>
+      <para>
+ This annotation is not processed at runtime. It must be processed by tools
+ and used to generate a Meta Type Resource document for the bundle.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>The OCD element of a Meta Type Resource.</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="id"
+               role="method"
+               xml:id="org.osgi.service.metatype.annotations.ObjectClassDefinition.id--">
+         <title>String id default ""</title>
+         <para role="description">
+The id of this ObjectClassDefinition.
+ 
+ </para>
+         <para>
+ If not specified, the id of this ObjectClassDefinition is the fully
+ qualified name of the annotated type using the dollar sign (<code>'$'</code>
+ \u0024) to separate nested class names from the name of their
+ enclosing class. The id is not to be confused with a PID which can be
+ specified by the <link linkend="org.osgi.service.metatype.annotations.ObjectClassDefinition.pid--">pid()</link> or <link linkend="org.osgi.service.metatype.annotations.ObjectClassDefinition.factoryPid--">factoryPid()</link> element.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The id attribute of the OCD element of a Meta Type Resource.</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="name"
+               role="method"
+               xml:id="org.osgi.service.metatype.annotations.ObjectClassDefinition.name--">
+         <title>String name default ""</title>
+         <para role="description">
+The human readable name of this ObjectClassDefinition.
+ 
+ </para>
+         <para>
+ If not specified, the name of this ObjectClassDefinition is derived from
+ the <link linkend="org.osgi.service.metatype.annotations.ObjectClassDefinition.id--">id()</link>. For example, low line (<code>'_'</code> \u005F) and
+ dollar sign (<code>'$'</code> \u0024) are replaced with space (<code>' '</code>
+ \u0020) and space is inserted between camel case words.
+ 
+ </para>
+         <para>
+ If the name begins with the percent sign (<code>'%'</code> \u0025), the
+ name can be <link linkend="org.osgi.service.metatype.annotations.ObjectClassDefinition.localization--">localized</link>.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The name attribute of the OCD element of a Meta Type Resource.</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="description"
+               role="method"
+               xml:id="org.osgi.service.metatype.annotations.ObjectClassDefinition.description--">
+         <title>String description default ""</title>
+         <para role="description">
+The human readable description of this ObjectClassDefinition.
+ 
+ </para>
+         <para>
+ If not specified, the description of this ObjectClassDefinition is the
+ empty string.
+ 
+ </para>
+         <para>
+ If the description begins with the percent sign (<code>'%'</code> \u0025),
+ the description can be <link linkend="org.osgi.service.metatype.annotations.ObjectClassDefinition.localization--">localized</link>.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The description attribute of the OCD element of a Meta Type Resource.</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="localization"
+               role="method"
+               xml:id="org.osgi.service.metatype.annotations.ObjectClassDefinition.localization--">
+         <title>String localization default ""</title>
+         <para role="description">
+The localization resource of this ObjectClassDefinition.
+ 
+ </para>
+         <para>
+ This refers to a resource property entry in the bundle that can be
+ augmented with locale information. If not specified, the localization
+ resource for this ObjectClassDefinition is the string
+ "OSGI-INF/l10n/" followed by the <link linkend="org.osgi.service.metatype.annotations.ObjectClassDefinition.id--">id()</link>.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The localization attribute of the MetaData element of a Meta Type Resource.</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="pid"
+               role="method"
+               xml:id="org.osgi.service.metatype.annotations.ObjectClassDefinition.pid--">
+         <title>String[] pid default {}</title>
+         <para role="description">
+The PIDs associated with this ObjectClassDefinition.
+ </para>
+         <para>
+ For each specified PID, a <code>Designate</code> element with a pid attribute
+ is generated that <link linkend="org.osgi.service.metatype.annotations.ObjectClassDefinition.id--">references</link> this ObjectClassDefinition.
+ </para>
+         <para>
+ The <link linkend="org.osgi.service.metatype.annotations.Designate">Designate</link> annotation can also be used to associate a
+ Declarative Services component with an ObjectClassDefinition and generate
+ a <code>Designate</code> element.
+ </para>
+         <para>
+ A special string (<code>"$"</code>) can be used to specify the fully qualified
+ name of the annotated type as a PID. For example:
+ 
+ </para>
+         <programlisting> @ObjectClassDefinition(pid="$")</programlisting>
+         <para>
+ 
+ Tools creating a Meta Type Resource from this annotation must replace the
+ special string with the fully qualified name of the annotated type.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The pid attribute of the Designate element of a Meta Type Resource.</code>, <link linkend="org.osgi.service.metatype.annotations.Designate">Designate</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="factoryPid"
+               role="method"
+               xml:id="org.osgi.service.metatype.annotations.ObjectClassDefinition.factoryPid--">
+         <title>String[] factoryPid default {}</title>
+         <para role="description">
+The factory PIDs associated with this ObjectClassDefinition.
+ </para>
+         <para>
+ For each specified factory PID, a <code>Designate</code> element with a
+ factoryPid attribute is generated that <link linkend="org.osgi.service.metatype.annotations.ObjectClassDefinition.id--">references</link> this
+ ObjectClassDefinition.
+ </para>
+         <para>
+ The <link linkend="org.osgi.service.metatype.annotations.Designate">Designate</link> annotation can also be used to associate a
+ Declarative Services component with an ObjectClassDefinition and generate
+ a <code>Designate</code> element.
+ </para>
+         <para>
+ A special string (<code>"$"</code>) can be used to specify the fully qualified
+ name of the annotated type as a factory PID. For example:
+ 
+ </para>
+         <programlisting> @ObjectClassDefinition(factoryPid="$")</programlisting>
+         <para>
+ 
+ Tools creating a Meta Type Resource from this annotation must replace the
+ special string with the fully qualified name of the annotated type.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The factoryPid attribute of the Designate element of a Meta Type Resource.</code>, <link linkend="org.osgi.service.metatype.annotations.Designate">Designate</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="icon"
+               role="method"
+               xml:id="org.osgi.service.metatype.annotations.ObjectClassDefinition.icon--">
+         <title>Icon[] icon default {}</title>
+         <para role="description">
+The icon resources associated with this ObjectClassDefinition.
+ 
+ </para>
+         <para>
+ For each specified <link linkend="org.osgi.service.metatype.annotations.Icon">Icon</link>, an <code>Icon</code> element is generated for
+ this ObjectClassDefinition. If not specified, no <code>Icon</code> elements
+ will be generated.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The Icon element of a Meta Type Resource.</code>
+            </para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="Option"
+            role="class"
+            xml:id="org.osgi.service.metatype.annotations.Option">
+      <title>@Option</title>
+      <para>
+         <code>Option</code> information for an <link linkend="org.osgi.service.metatype.annotations.AttributeDefinition">AttributeDefinition</link>.
+   </para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <link linkend="org.osgi.service.metatype.annotations.AttributeDefinition.options--">AttributeDefinition.options()</link>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code/>
+         </para>
+      </formalpara>
+      <section xreflabel="label"
+               role="method"
+               xml:id="org.osgi.service.metatype.annotations.Option.label--">
+         <title>String label default ""</title>
+         <para role="description">
+The human readable label of this Option.
+ 
+ </para>
+         <para>
+ If not specified, the label of this Option is the empty string.
+ 
+ </para>
+         <para>
+ If the label begins with the percent sign (<code>'%'</code> \u0025), the
+ label can be <link linkend="org.osgi.service.metatype.annotations.ObjectClassDefinition.localization--">localized</link>.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The label attribute of the Option element of a Meta Type Resource.</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.metatype.annotations.Option.value--">
+         <title>String value</title>
+         <para role="description">
+The value of this Option.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The value attribute of the Option element of a Meta Type Resource.</code>
+            </para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="RequireMetaTypeExtender"
+            role="class"
+            xml:id="org.osgi.service.metatype.annotations.RequireMetaTypeExtender">
+      <title>@RequireMetaTypeExtender</title>
+      <para>
+This annotation can be used to require the Meta Type extender to process
+ metatype resources. It can be used directly, or as a meta-annotation.
+   </para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.4</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>, <code>PACKAGE</code>
+         </para>
+      </formalpara>
+   </section>
+   <section xreflabel="RequireMetaTypeImplementation"
+            role="class"
+            xml:id="org.osgi.service.metatype.annotations.RequireMetaTypeImplementation">
+      <title>@RequireMetaTypeImplementation</title>
+      <para>
+This annotation can be used to require the Meta Type implementation. It can
+ be used directly, or as a meta-annotation.
+   </para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.4</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>, <code>PACKAGE</code>
+         </para>
+      </formalpara>
+   </section>
+</section>

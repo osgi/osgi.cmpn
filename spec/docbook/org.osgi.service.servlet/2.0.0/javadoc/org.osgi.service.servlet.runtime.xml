@@ -1,0 +1,141 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.servlet.runtime"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.servlet.runtime">
+   <title>org.osgi.service.servlet.runtime</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.servlet.runtime-version">Version 2.0</releaseinfo>
+      <edition xml:id="org.osgi.service.servlet.runtime-version.number">2.0</edition>
+   </info>
+   <para>
+Http Runtime Package Version 2.0.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.servlet.runtime; version="[2.0,3.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.servlet.runtime; version="[2.0,2.1)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.HttpServiceRuntime">
+                  <code>HttpServiceRuntime</code>
+               </link> - 
+The HttpServiceRuntime service represents the runtime information of a
+ Servlet Whiteboard implementation.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.HttpServiceRuntimeConstants">
+                  <code>HttpServiceRuntimeConstants</code>
+               </link> - 
+Defines standard names for Http Runtime Service constants.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="HttpServiceRuntime"
+            role="class"
+            xml:id="org.osgi.service.servlet.runtime.HttpServiceRuntime">
+      <title>public interface HttpServiceRuntime</title>
+      <para>
+The HttpServiceRuntime service represents the runtime information of a
+ Servlet Whiteboard implementation.
+ </para>
+      <para>
+ It provides access to DTOs representing the current state of the service.
+ </para>
+      <para>
+ The HttpServiceRuntime service must be registered with the
+ <link linkend="org.osgi.service.servlet.runtime.HttpServiceRuntimeConstants.HTTP_SERVICE_ENDPOINT">HttpServiceRuntimeConstants.HTTP_SERVICE_ENDPOINT</link> service property.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="calculateRequestInfoDTO(String)"
+               role="method"
+               xml:id="org.osgi.service.servlet.runtime.HttpServiceRuntime.calculateRequestInfoDTO-String-">
+         <title>public RequestInfoDTO calculateRequestInfoDTO(String path)</title>
+         <formalpara role="parameter">
+            <title>path</title>
+            <para>The request path, relative to the root of the Servlet Whiteboard
+        implementation.</para>
+         </formalpara>
+         <para role="description">
+Return a request info DTO containing the services involved with
+ processing a request for the specified path.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The request info DTO for the specified path.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getRuntimeDTO()"
+               role="method"
+               xml:id="org.osgi.service.servlet.runtime.HttpServiceRuntime.getRuntimeDTO--">
+         <title>public RuntimeDTO getRuntimeDTO()</title>
+         <para role="description">
+Return the runtime DTO representing the current state.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The runtime DTO.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="HttpServiceRuntimeConstants"
+            role="class"
+            xml:id="org.osgi.service.servlet.runtime.HttpServiceRuntimeConstants">
+      <title>public final class HttpServiceRuntimeConstants</title>
+      <para>
+Defines standard names for Http Runtime Service constants.
+   </para>
+      <section xreflabel="HTTP_SERVICE_ENDPOINT"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.HttpServiceRuntimeConstants.HTTP_SERVICE_ENDPOINT">
+         <title>public static final String HTTP_SERVICE_ENDPOINT = "osgi.http.endpoint"</title>
+         <para>
+Http Runtime Service service property specifying the endpoints upon which
+ the Servlet Whiteboard implementation is listening.
+ </para>
+         <para>
+ An endpoint value is a URL or a relative path, to which the Servlet
+ Whiteboard implementation is listening. For example,
+ <code>http://192.168.1.10:8080/</code> or <code>/myapp/</code>. A relative path may
+ be used if the scheme and authority parts of the URL are not known, e.g.
+ in a bridged Servlet Whiteboard implementation. If the Servlet Whiteboard
+ implementation is serving the root context and neither scheme nor
+ authority is known, the value of the property is "/". Both, a URL and a
+ relative path, must end with a slash.
+ </para>
+         <para>
+ An Servlet Whiteboard implementation can be listening on multiple
+ endpoints.
+ </para>
+         <para>
+ The value of this service property must be of type <code>String</code>,
+ <code>String[]</code>, or <code>Collection&lt;String&gt;</code>.</para>
+      </section>
+   </section>
+</section>

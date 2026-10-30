@@ -1,0 +1,158 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.async.delegate"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.async.delegate">
+   <title>org.osgi.service.async.delegate</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.async.delegate-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.service.async.delegate-version.number">1.0</edition>
+   </info>
+   <para>
+Asynchronous Services Delegation Package Version 1.0.
+ 
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package contains only
+ interfaces that are implemented by consumers.
+ 
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.async.delegate; version="[1.0,2.0)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.async.delegate.AsyncDelegate">
+                  <code>AsyncDelegate</code>
+               </link> - 
+This interface is used by services to allow them to optimize Asynchronous
+ calls where they are capable of executing more efficiently.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="AsyncDelegate"
+            role="class"
+            xml:id="org.osgi.service.async.delegate.AsyncDelegate">
+      <title>public interface AsyncDelegate</title>
+      <para>
+This interface is used by services to allow them to optimize Asynchronous
+ calls where they are capable of executing more efficiently.
+ 
+ </para>
+      <para>
+ This may mean that the service has access to its own thread pool, or that it
+ can delegate work to a remote node, or act in some other way to reduce the
+ load on the Asynchronous Services implementation when making an asynchronous
+ call.</para>
+      <section xreflabel="async(Method,Object[])"
+               role="method"
+               xml:id="org.osgi.service.async.delegate.AsyncDelegate.async-Method-Object---">
+         <title>public Promise&lt;?&gt; async(Method m, Object[] args) throws Exception</title>
+         <formalpara role="parameter">
+            <title>m</title>
+            <para>The method to be asynchronously invoked.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>args</title>
+            <para>The arguments to be used to invoke the method.</para>
+         </formalpara>
+         <para role="description">
+Invoke the specified method as an asynchronous task with the specified
+ arguments.
+ 
+ </para>
+         <para>
+ This method can be used by clients, or the Async Service, to optimize
+ Asynchronous execution of methods.
+ 
+ </para>
+         <para>
+ When called, this method should invoke the supplied method using the
+ supplied arguments asynchronously, returning a Promise that can be used
+ to access the result.
+ 
+ </para>
+         <para>
+ If the method cannot be executed asynchronously by this method then
+ <code>null</code> must be returned.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A Promise representing the asynchronous result, or <code>null</code>
+         if this method cannot be asynchronously invoked.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– An exception should be thrown only if there was a
+         serious error that prevented the asynchronous task from starting.
+         For example, the specified method does not exist on this object.
+         Exceptions must not be thrown to indicate that the call does not
+         support asynchronous invocation. Instead this method must return
+         <code>null</code>. Exceptions must also not be thrown to indicate a
+         failure from the execution of the underlying method. This must be
+         handled by failing the returned Promise.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="execute(Method,Object[])"
+               role="method"
+               xml:id="org.osgi.service.async.delegate.AsyncDelegate.execute-Method-Object---">
+         <title>public boolean execute(Method m, Object[] args) throws Exception</title>
+         <formalpara role="parameter">
+            <title>m</title>
+            <para>The method to be asynchronously invoked.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>args</title>
+            <para>The arguments to be used to invoke the method.</para>
+         </formalpara>
+         <para role="description">
+Invoke the specified method as a "fire-and-forget" asynchronous task with
+ the specified arguments.
+ 
+ </para>
+         <para>
+ This method can be used by clients, or the Async Service, to optimize
+ Asynchronous execution of methods.
+ 
+ </para>
+         <para>
+ When called, this method should invoke the specified method using the
+ specified arguments asynchronously. This method differs from
+ <link linkend="org.osgi.service.async.delegate.AsyncDelegate.async-Method-Object---">async(Method, Object[])</link> in that it does not return a Promise.
+ This method therefore allows the implementation to perform more
+ aggressive optimizations because the end result of the invocation does
+ not need to be returned to the caller.
+ 
+ </para>
+         <para>
+ If the method cannot be executed asynchronously by this method then
+ <code>false</code> must be returned.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>true</code> if the asynchronous execution request has been
+         accepted, or <code>false</code> if this method cannot be
+         asynchronously invoked by the AsyncDelegate.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– An exception should be thrown only if there was a
+         serious error that prevented the asynchronous task from starting.
+         For example, the specified method does not exist on this object.
+         Exceptions must not be thrown to indicate that the call does not
+         support asynchronous invocation. Instead this method must return
+         <code>false</code>. Exceptions must also not be thrown to indicate a
+         failure from the execution of the underlying method.</para>
+         </formalpara>
+      </section>
+   </section>
+</section>

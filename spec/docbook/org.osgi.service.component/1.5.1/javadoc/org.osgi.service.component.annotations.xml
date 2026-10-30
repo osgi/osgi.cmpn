@@ -1,0 +1,1943 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.component.annotations"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.component.annotations">
+   <title>org.osgi.service.component.annotations</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.component.annotations-version">Version 1.5</releaseinfo>
+      <edition xml:id="org.osgi.service.component.annotations-version.number">1.5</edition>
+   </info>
+   <para>
+Service Component Annotations Package Version 1.5.
+ </para>
+   <para>
+ This package is not used at runtime. Annotated classes are processed by tools
+ to generate Component Descriptions which are used at runtime.</para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.annotations.Activate">
+                  <code>Activate</code>
+               </link> - 
+Identify the annotated member as part of the activation of a Service
+ Component.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.annotations.CollectionType">
+                  <code>CollectionType</code>
+               </link> - 
+Collection types for the <link linkend="org.osgi.service.component.annotations.Reference">Reference</link> annotation.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.annotations.Component">
+                  <code>Component</code>
+               </link> - 
+Identify the annotated class as a Service Component.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.annotations.ComponentPropertyType">
+                  <code>ComponentPropertyType</code>
+               </link> - 
+Identify the annotated annotation as a Component Property Type.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.annotations.ConfigurationPolicy">
+                  <code>ConfigurationPolicy</code>
+               </link> - 
+Configuration Policy for the <link linkend="org.osgi.service.component.annotations.Component">Component</link> annotation.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.annotations.Deactivate">
+                  <code>Deactivate</code>
+               </link> - 
+Identify the annotated method as the <code>deactivate</code> method of a Service
+ Component.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.annotations.FieldOption">
+                  <code>FieldOption</code>
+               </link> - 
+Field options for the <link linkend="org.osgi.service.component.annotations.Reference">Reference</link> annotation.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.annotations.Modified">
+                  <code>Modified</code>
+               </link> - 
+Identify the annotated method as the <code>modified</code> method of a Service
+ Component.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.annotations.Reference">
+                  <code>Reference</code>
+               </link> - 
+Identify the annotated member or parameter as a reference of a Service
+ Component.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.annotations.ReferenceCardinality">
+                  <code>ReferenceCardinality</code>
+               </link> - 
+Cardinality for the <link linkend="org.osgi.service.component.annotations.Reference">Reference</link> annotation.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.annotations.ReferencePolicy">
+                  <code>ReferencePolicy</code>
+               </link> - 
+Policy for the <link linkend="org.osgi.service.component.annotations.Reference">Reference</link> annotation.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.annotations.ReferencePolicyOption">
+                  <code>ReferencePolicyOption</code>
+               </link> - 
+Policy option for the <link linkend="org.osgi.service.component.annotations.Reference">Reference</link> annotation.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.annotations.ReferenceScope">
+                  <code>ReferenceScope</code>
+               </link> - 
+Reference scope for the <link linkend="org.osgi.service.component.annotations.Reference">Reference</link> annotation.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.annotations.RequireServiceComponentRuntime">
+                  <code>RequireServiceComponentRuntime</code>
+               </link> - 
+This annotation can be used to require the Service Component Runtime to
+ process Declarative Services components.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.annotations.ServiceScope">
+                  <code>ServiceScope</code>
+               </link> - 
+Service scope for the <link linkend="org.osgi.service.component.annotations.Component">Component</link> annotation.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="Activate"
+            role="class"
+            xml:id="org.osgi.service.component.annotations.Activate">
+      <title>@Activate</title>
+      <para>
+Identify the annotated member as part of the activation of a Service
+ Component.
+ </para>
+      <para>
+ When this annotation is applied to a:
+ </para>
+      <itemizedlist>
+         <listitem>
+            <para>Method - The method is the <code>activate</code> method of the Component.</para>
+         </listitem>
+         <listitem>
+            <para>Constructor - The constructor will be used to construct the Component and
+ can be called with activation objects and bound services as parameters.</para>
+         </listitem>
+         <listitem>
+            <para>Field - The field will contain an activation object of the Component. The
+ field must be set after the constructor is called and before calling any
+ other method on the fully constructed component instance. That is, there is a
+ <emphasis>happens-before</emphasis> relationship between the field being set and calling
+ any method on the fully constructed component instance such as the
+ <code>activate</code> method.</para>
+         </listitem>
+      </itemizedlist>
+      <para>
+ This annotation is not processed at runtime by Service Component Runtime. It
+ must be processed by tools and used to add a Component Description to the
+ bundle.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>The init, activate, and activation-fields attributes of the component element of a Component Description.</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.1</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>METHOD</code>, <code>FIELD</code>, <code>CONSTRUCTOR</code>
+         </para>
+      </formalpara>
+   </section>
+   <section xreflabel="CollectionType"
+            role="class"
+            xml:id="org.osgi.service.component.annotations.CollectionType">
+      <title>enum CollectionType</title>
+      <para>
+Collection types for the <link linkend="org.osgi.service.component.annotations.Reference">Reference</link> annotation.
+   </para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.4</para>
+      </formalpara>
+      <section xreflabel="SERVICE"
+               role="field"
+               xml:id="org.osgi.service.component.annotations.CollectionType.SERVICE">
+         <title>SERVICE</title>
+         <para>
+The service collection type is used to indicate the collection holds the
+ bound service objects.
+ </para>
+         <para>
+ This is the default collection type.</para>
+      </section>
+      <section xreflabel="REFERENCE"
+               role="field"
+               xml:id="org.osgi.service.component.annotations.CollectionType.REFERENCE">
+         <title>REFERENCE</title>
+         <para>
+The reference collection type is used to indicate the collection holds
+ Service References for the bound services.
+   </para>
+      </section>
+      <section xreflabel="SERVICEOBJECTS"
+               role="field"
+               xml:id="org.osgi.service.component.annotations.CollectionType.SERVICEOBJECTS">
+         <title>SERVICEOBJECTS</title>
+         <para>
+The serviceobjects collection type is used to indicate the collection
+ holds Component Service Objects for the bound services.
+   </para>
+      </section>
+      <section xreflabel="PROPERTIES"
+               role="field"
+               xml:id="org.osgi.service.component.annotations.CollectionType.PROPERTIES">
+         <title>PROPERTIES</title>
+         <para>
+The properties collection type is used to indicate the collection holds
+ unmodifiable Maps containing the service properties of the bound
+ services.
+ </para>
+         <para>
+ The Maps must implement <code>Comparable</code> with the <code>compareTo</code>
+ method comparing service property maps using an ordering which is the
+ same as the natural ordering of <code>ServiceReference</code>s as specified in
+ <code>ServiceReference.compareTo</code>.</para>
+      </section>
+      <section xreflabel="TUPLE"
+               role="field"
+               xml:id="org.osgi.service.component.annotations.CollectionType.TUPLE">
+         <title>TUPLE</title>
+         <para>
+The tuple collection type is used to indicate the collection holds
+ unmodifiable Map.Entries whose key is an unmodifiable Map containing the
+ service properties of the bound service, as specified in
+ <link linkend="org.osgi.service.component.annotations.CollectionType.PROPERTIES">PROPERTIES</link>, and whose value is the bound service object.
+ </para>
+         <para>
+ The Map.Entries must implement <code>Comparable</code> with the
+ <code>compareTo</code> method comparing service property maps using an
+ ordering which is the same as the natural ordering of
+ <code>ServiceReference</code>s as specified in
+ <code>ServiceReference.compareTo</code>.</para>
+      </section>
+      <section xreflabel="toString()"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.CollectionType.toString--">
+         <title>public String toString()</title>
+         <para/>
+      </section>
+      <section xreflabel="valueOf(String)"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.CollectionType.valueOf-String-">
+         <title>public static CollectionType valueOf(String name)</title>
+         <para/>
+      </section>
+      <section xreflabel="values()"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.CollectionType.values--">
+         <title>public static CollectionType[] values()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="Component"
+            role="class"
+            xml:id="org.osgi.service.component.annotations.Component">
+      <title>@Component</title>
+      <para>
+Identify the annotated class as a Service Component.
+ 
+ </para>
+      <para>
+ The annotated class is the implementation class of the Component.
+ 
+ </para>
+      <para>
+ This annotation is not processed at runtime by Service Component Runtime. It
+ must be processed by tools and used to add a Component Description to the
+ bundle.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>The component element of a Component Description.</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="name"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.Component.name--">
+         <title>String name default ""</title>
+         <para role="description">
+The name of this Component.
+ 
+ </para>
+         <para>
+ If not specified, the name of this Component is the fully qualified type
+ name of the class being annotated.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The name attribute of the component element of a Component Description.</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="service"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.Component.service--">
+         <title>Class&lt;?&gt;[] service default {}</title>
+         <para role="description">
+The types under which to register this Component as a service.
+ 
+ </para>
+         <para>
+ If no service should be registered, the empty value
+ <code>{}</code> must be specified.
+ 
+ </para>
+         <para>
+ If not specified, the service types for this Component are all the
+ <emphasis>directly</emphasis> implemented interfaces of the class being annotated.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The service element of a Component Description.</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="factory"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.Component.factory--">
+         <title>String factory default ""</title>
+         <para role="description">
+The factory identifier of this Component. Specifying a factory identifier
+ makes this Component a Factory Component.
+ 
+ </para>
+         <para>
+ If not specified, the default is that this Component is not a Factory
+ Component.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The factory attribute of the component element of a Component Description.</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="servicefactory"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.Component.servicefactory--">
+         <title>boolean servicefactory default false</title>
+         <para role="description">
+Declares whether this Component uses the OSGi ServiceFactory concept and
+ each bundle using this Component's service will receive a different
+ component instance.
+ 
+ </para>
+         <para>
+ This element is ignored when the <link linkend="org.osgi.service.component.annotations.Component.scope--">scope()</link> element does not have
+ the default value. If <code>true</code>, this Component uses
+ <link linkend="org.osgi.service.component.annotations.ServiceScope.BUNDLE">bundle</link> service scope. If <code>false</code> or not
+ specified, this Component uses <link linkend="org.osgi.service.component.annotations.ServiceScope.SINGLETON">singleton</link>
+ service scope. If the <link linkend="org.osgi.service.component.annotations.Component.factory--">factory()</link> element is specified or the
+ <link linkend="org.osgi.service.component.annotations.Component.immediate--">immediate()</link> element is specified with <code>true</code>, this element
+ can only be specified with <code>false</code>.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The scope attribute of the service element of a Component Description.</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Deprecated</title>
+            <para>Since 1.3. Replaced by <link linkend="org.osgi.service.component.annotations.Component.scope--">scope()</link>.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="enabled"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.Component.enabled--">
+         <title>boolean enabled default true</title>
+         <para role="description">
+Declares whether this Component is enabled when the bundle declaring it
+ is started.
+ </para>
+         <para>
+ If <code>true</code> or not specified, this Component is enabled. If
+ <code>false</code>, this Component is disabled.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The enabled attribute of the component element of a Component Description.</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="immediate"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.Component.immediate--">
+         <title>boolean immediate default false</title>
+         <para role="description">
+Declares whether this Component must be immediately activated upon
+ becoming satisfied or whether activation should be delayed.
+ 
+ </para>
+         <para>
+ If <code>true</code>, this Component must be immediately activated upon
+ becoming satisfied. If <code>false</code>, activation of this Component is
+ delayed. If this property is specified, its value must be <code>false</code>
+ if the <link linkend="org.osgi.service.component.annotations.Component.factory--">factory()</link> property is also specified or must be
+ <code>true</code> if the <link linkend="org.osgi.service.component.annotations.Component.service--">service()</link> property is specified with an
+ empty value.
+ 
+ </para>
+         <para>
+ If not specified, the default is <code>false</code> if the <link linkend="org.osgi.service.component.annotations.Component.factory--">factory()</link>
+ property is specified or the <link linkend="org.osgi.service.component.annotations.Component.service--">service()</link> property is not specified
+ or specified with a non-empty value and <code>true</code> otherwise.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The immediate attribute of the component element of a Component Description.</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="property"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.Component.property--">
+         <title>String[] property default {}</title>
+         <para role="description">
+Properties for this Component.
+ </para>
+         <para>
+ Each property string is specified as <code>"name=value"</code>. The type of
+ the property value can be specified in the name as
+ <code>name:type=value</code>. The type must be one of the property types
+ supported by the <code>type</code> attribute of the <code>property</code> element
+ of a Component Description.
+ </para>
+         <para>
+ To specify a property with multiple values, use multiple name, value
+ pairs. For example, <code>{"foo=bar", "foo=baz"}</code>.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The property element of a Component Description.</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="properties"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.Component.properties--">
+         <title>String[] properties default {}</title>
+         <para role="description">
+Property entries for this Component.
+ 
+ </para>
+         <para>
+ Specifies the name of an entry in the bundle whose contents conform to a
+ standard Java Properties File. The entry is read and processed to obtain
+ the properties and their values.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The properties element of a Component Description.</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="xmlns"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.Component.xmlns--">
+         <title>String xmlns default ""</title>
+         <para role="description">
+The XML name space of the Component Description for this Component.
+ 
+ </para>
+         <para>
+ If not specified, the XML name space of the Component Description for
+ this Component should be the lowest Declarative Services XML name space
+ which supports all the specification features used by this Component.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The XML name space specified for a Component Description.</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="configurationPolicy"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.Component.configurationPolicy--">
+         <title>ConfigurationPolicy configurationPolicy default OPTIONAL</title>
+         <para role="description">
+The configuration policy of this Component.
+ 
+ </para>
+         <para>
+ Controls whether component configurations must be satisfied depending on
+ the presence of a corresponding Configuration object in the OSGi
+ Configuration Admin service. A corresponding configuration is a
+ Configuration object where the PID equals the name of the component.
+ 
+ </para>
+         <para>
+ If not specified, the configuration policy is based upon whether the
+ component is also annotated with the Meta Type
+ Designate
+ annotation.
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>Not annotated with <code>Designate</code> - The configuration policy is
+ <link linkend="org.osgi.service.component.annotations.ConfigurationPolicy.OPTIONAL">OPTIONAL</link>.</para>
+            </listitem>
+            <listitem>
+               <para>Annotated with <code>Designate(factory=false)</code> - The configuration
+ policy is <link linkend="org.osgi.service.component.annotations.ConfigurationPolicy.OPTIONAL">OPTIONAL</link>.</para>
+            </listitem>
+            <listitem>
+               <para>Annotated with <code>Designate(factory=true)</code> - The configuration
+ policy is <link linkend="org.osgi.service.component.annotations.ConfigurationPolicy.REQUIRE">REQUIRE</link>.</para>
+            </listitem>
+         </itemizedlist>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The configuration-policy attribute of the component element of a Component Description.</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+      </section>
+      <section xreflabel="configurationPid"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.Component.configurationPid--">
+         <title>String[] configurationPid default {"$"}</title>
+         <para role="description">
+The configuration PIDs for the configuration of this Component.
+ </para>
+         <para>
+ Each value specifies a configuration PID for this Component.
+ </para>
+         <para>
+ If no value is specified, the name of this Component is used as the
+ configuration PID of this Component.
+ </para>
+         <para>
+ A special string (<code>"$"</code>) can be used to specify the name of
+ the component as a configuration PID. The <link linkend="org.osgi.service.component.annotations.Component.NAME">NAME</link> constant holds
+ this special string. For example:
+ 
+ </para>
+         <programlisting> @Component(configurationPid={"com.acme.system", Component.NAME})</programlisting>
+         <para>
+ 
+ Tools creating a Component Description from this annotation must replace
+ the special string with the actual name of this Component.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The configuration-pid attribute of the component element of a Component Description.</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.2</para>
+         </formalpara>
+      </section>
+      <section xreflabel="scope"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.Component.scope--">
+         <title>ServiceScope scope default DEFAULT</title>
+         <para role="description">
+The service scope for the service of this Component.
+ 
+ </para>
+         <para>
+ If not specified (and the deprecated <link linkend="org.osgi.service.component.annotations.Component.servicefactory--">servicefactory()</link> element is
+ not specified), the <link linkend="org.osgi.service.component.annotations.ServiceScope.SINGLETON">singleton</link> service
+ scope is used. If the <link linkend="org.osgi.service.component.annotations.Component.factory--">factory()</link> element is specified or the
+ <link linkend="org.osgi.service.component.annotations.Component.immediate--">immediate()</link> element is specified with <code>true</code>, this element
+ can only be specified with the <link linkend="org.osgi.service.component.annotations.ServiceScope.SINGLETON">singleton</link>
+ service scope.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The scope attribute of the service element of a Component Description.</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.3</para>
+         </formalpara>
+      </section>
+      <section xreflabel="reference"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.Component.reference--">
+         <title>Reference[] reference default {}</title>
+         <para role="description">
+The lookup strategy references of this Component.
+ </para>
+         <para>
+ To access references using the lookup strategy, <link linkend="org.osgi.service.component.annotations.Reference">Reference</link>
+ annotations are specified naming the reference and declaring the type of
+ the referenced service. The referenced service can be accessed using one
+ of the <code>locateService</code> methods of <code>ComponentContext</code>.
+ </para>
+         <para>
+ To access references using method injection, bind methods are annotated
+ with <link linkend="org.osgi.service.component.annotations.Reference">Reference</link>. To access references using field injection,
+ fields are annotated with <link linkend="org.osgi.service.component.annotations.Reference">Reference</link>. To access references using
+ constructor injection, constructor parameters are annotated with
+ <link linkend="org.osgi.service.component.annotations.Reference">Reference</link>.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The reference element of a Component Description.</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.3</para>
+         </formalpara>
+      </section>
+      <section xreflabel="factoryProperty"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.Component.factoryProperty--">
+         <title>String[] factoryProperty default {}</title>
+         <para role="description">
+Factory properties for this Factory Component.
+ </para>
+         <para>
+ Each factory property string is specified as <code>"name=value"</code>. The
+ type of the factory property value can be specified in the name as
+ <code>name:type=value</code>. The type must be one of the factory property
+ types supported by the <code>type</code> attribute of the
+ <code>factory-property</code> element of a Component Description.
+ </para>
+         <para>
+ To specify a factory property with multiple values, use multiple name,
+ value pairs. For example, <code>{"foo=bar", "foo=baz"}</code>.
+ </para>
+         <para>
+ If specified, the <link linkend="org.osgi.service.component.annotations.Component.factory--">factory()</link> element must also be specified to
+ indicate the component is a Factory Component.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The factory-property element of a Component Description.</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.4</para>
+         </formalpara>
+      </section>
+      <section xreflabel="factoryProperties"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.Component.factoryProperties--">
+         <title>String[] factoryProperties default {}</title>
+         <para role="description">
+Factory property entries for this Factory Component.
+ </para>
+         <para>
+ Specifies the name of an entry in the bundle whose contents conform to a
+ standard Java Properties File. The entry is read and processed to obtain
+ the factory properties and their values.
+ </para>
+         <para>
+ If specified, the <link linkend="org.osgi.service.component.annotations.Component.factory--">factory()</link> element must also be specified to
+ indicate the component is a Factory Component.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The factory-properties element of a Component Description.</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.4</para>
+         </formalpara>
+      </section>
+      <section xreflabel="NAME"
+               role="field"
+               xml:id="org.osgi.service.component.annotations.Component.NAME">
+         <title>String NAME = "$"</title>
+         <para>
+Special string representing the name of this Component.
+ 
+ </para>
+         <para>
+ This string can be used in <link linkend="org.osgi.service.component.annotations.Component.configurationPid--">configurationPid()</link> to specify the
+ name of the component as a configuration PID. For example:
+ 
+ </para>
+         <programlisting> @Component(configurationPid={"com.acme.system", Component.NAME})</programlisting>
+         <para>
+ 
+ Tools creating a Component Description from this annotation must replace
+ the special string with the actual name of this Component.
+   </para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.3</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="ComponentPropertyType"
+            role="class"
+            xml:id="org.osgi.service.component.annotations.ComponentPropertyType">
+      <title>@ComponentPropertyType</title>
+      <para>
+Identify the annotated annotation as a Component Property Type.
+ </para>
+      <para>
+ Component Property Types can be applied as annotations to the implementation
+ class of the Component. They can also be used as activation objects which
+ means they can be used as parameter types for the component's constructor and
+ life cycle methods <link linkend="org.osgi.service.component.annotations.Activate">Activate</link>, <link linkend="org.osgi.service.component.annotations.Deactivate">Deactivate</link>, and <link linkend="org.osgi.service.component.annotations.Modified">Modified</link>
+ as well as activation fields.
+ </para>
+      <para>
+ Component Property Types do not have to be annotated with this annotation to
+ be used as parameter types but they must be annotated with this annotation to
+ be used as annotations on the implementation class of the Component.
+ </para>
+      <para>
+ This annotation is not processed at runtime by Service Component Runtime. It
+ must be processed by tools and used to add a Component Description to the
+ bundle.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types.</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.4</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>ANNOTATION_TYPE</code>
+         </para>
+      </formalpara>
+   </section>
+   <section xreflabel="ConfigurationPolicy"
+            role="class"
+            xml:id="org.osgi.service.component.annotations.ConfigurationPolicy">
+      <title>enum ConfigurationPolicy</title>
+      <para>
+Configuration Policy for the <link linkend="org.osgi.service.component.annotations.Component">Component</link> annotation.
+ 
+ </para>
+      <para>
+ Controls whether component configurations must be satisfied depending on the
+ presence of a corresponding Configuration object in the OSGi Configuration
+ Admin service. A corresponding configuration is a Configuration object where
+ the PID is the name of the component.</para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.1</para>
+      </formalpara>
+      <section xreflabel="OPTIONAL"
+               role="field"
+               xml:id="org.osgi.service.component.annotations.ConfigurationPolicy.OPTIONAL">
+         <title>OPTIONAL</title>
+         <para>
+Use the corresponding Configuration object if present but allow the
+ component to be satisfied even if the corresponding Configuration object
+ is not present.
+   </para>
+      </section>
+      <section xreflabel="REQUIRE"
+               role="field"
+               xml:id="org.osgi.service.component.annotations.ConfigurationPolicy.REQUIRE">
+         <title>REQUIRE</title>
+         <para>
+There must be a corresponding Configuration object for the component
+ configuration to become satisfied.
+   </para>
+      </section>
+      <section xreflabel="IGNORE"
+               role="field"
+               xml:id="org.osgi.service.component.annotations.ConfigurationPolicy.IGNORE">
+         <title>IGNORE</title>
+         <para>
+Always allow the component configuration to be satisfied and do not use
+ the corresponding Configuration object even if it is present.
+   </para>
+      </section>
+      <section xreflabel="toString()"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.ConfigurationPolicy.toString--">
+         <title>public String toString()</title>
+         <para/>
+      </section>
+      <section xreflabel="valueOf(String)"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.ConfigurationPolicy.valueOf-String-">
+         <title>public static ConfigurationPolicy valueOf(String name)</title>
+         <para/>
+      </section>
+      <section xreflabel="values()"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.ConfigurationPolicy.values--">
+         <title>public static ConfigurationPolicy[] values()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="Deactivate"
+            role="class"
+            xml:id="org.osgi.service.component.annotations.Deactivate">
+      <title>@Deactivate</title>
+      <para>
+Identify the annotated method as the <code>deactivate</code> method of a Service
+ Component.
+ 
+ </para>
+      <para>
+ The annotated method is the deactivate method of the Component.
+ 
+ </para>
+      <para>
+ This annotation is not processed at runtime by Service Component Runtime. It
+ must be processed by tools and used to add a Component Description to the
+ bundle.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>The deactivate attribute of the component element of a Component Description.</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.1</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>METHOD</code>
+         </para>
+      </formalpara>
+   </section>
+   <section xreflabel="FieldOption"
+            role="class"
+            xml:id="org.osgi.service.component.annotations.FieldOption">
+      <title>enum FieldOption</title>
+      <para>
+Field options for the <link linkend="org.osgi.service.component.annotations.Reference">Reference</link> annotation.
+   </para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.3</para>
+      </formalpara>
+      <section xreflabel="UPDATE"
+               role="field"
+               xml:id="org.osgi.service.component.annotations.FieldOption.UPDATE">
+         <title>UPDATE</title>
+         <para>
+The update field option is used to update the collection referenced by
+ the field when there are changes to the bound services.
+ 
+ </para>
+         <para>
+ This field option can only be used when the field reference has dynamic
+ policy and multiple cardinality.</para>
+      </section>
+      <section xreflabel="REPLACE"
+               role="field"
+               xml:id="org.osgi.service.component.annotations.FieldOption.REPLACE">
+         <title>REPLACE</title>
+         <para>
+The replace field option is used to replace the field value with a new
+ value when there are changes to the bound services.
+   </para>
+      </section>
+      <section xreflabel="toString()"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.FieldOption.toString--">
+         <title>public String toString()</title>
+         <para/>
+      </section>
+      <section xreflabel="valueOf(String)"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.FieldOption.valueOf-String-">
+         <title>public static FieldOption valueOf(String name)</title>
+         <para/>
+      </section>
+      <section xreflabel="values()"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.FieldOption.values--">
+         <title>public static FieldOption[] values()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="Modified"
+            role="class"
+            xml:id="org.osgi.service.component.annotations.Modified">
+      <title>@Modified</title>
+      <para>
+Identify the annotated method as the <code>modified</code> method of a Service
+ Component.
+ 
+ </para>
+      <para>
+ The annotated method is the modified method of the Component.
+ 
+ </para>
+      <para>
+ This annotation is not processed at runtime by Service Component Runtime. It
+ must be processed by tools and used to add a Component Description to the
+ bundle.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>The modified attribute of the component element of a Component Description.</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.1</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>METHOD</code>
+         </para>
+      </formalpara>
+   </section>
+   <section xreflabel="Reference"
+            role="class"
+            xml:id="org.osgi.service.component.annotations.Reference">
+      <title>@Reference</title>
+      <para>
+Identify the annotated member or parameter as a reference of a Service
+ Component.
+ </para>
+      <para>
+ When the annotation is applied to a method, the method is the bind method of
+ the reference.
+ </para>
+      <para>
+ When the annotation is applied to a field, the field will contain the bound
+ service(s) of the reference.
+ </para>
+      <para>
+ When the annotation is applied to a parameter of a constructor, the parameter
+ will contain the bound service(s) of the reference.
+ </para>
+      <para>
+ This annotation is not processed at runtime by Service Component Runtime. It
+ must be processed by tools and used to add a Component Description to the
+ bundle.
+ </para>
+      <para>
+ In the generated Component Description for a component, the references must
+ be ordered in ascending lexicographical order (using <code>String.compareTo</code>
+ ) of the reference <link linkend="org.osgi.service.component.annotations.Reference.name--">name</link>s.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>The reference element of a Component Description.</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>METHOD</code>, <code>FIELD</code>, <code>PARAMETER</code>
+         </para>
+      </formalpara>
+      <section xreflabel="name"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.Reference.name--">
+         <title>String name default ""</title>
+         <para role="description">
+The name of this reference.
+ </para>
+         <para>
+ The name of this reference must be specified when using this annotation
+ in the <link linkend="org.osgi.service.component.annotations.Component.reference--">Component.reference()</link> element since there is no annotated
+ member from which the name can be determined. If not specified, the name
+ of this reference is based upon how this annotation is used:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>Annotated method - If the method name begins with <code>bind</code>,
+ <code>set</code> or <code>add</code>, that prefix is removed to create the name of
+ the reference. Otherwise, the name of the reference is the method
+ name.</para>
+            </listitem>
+            <listitem>
+               <para>Annotated field - The name of the reference is the field name.</para>
+            </listitem>
+            <listitem>
+               <para>Annotated constructor parameter - The name of the reference is the
+ parameter name.</para>
+            </listitem>
+         </itemizedlist>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The name attribute of the reference element of a Component Description.</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="service"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.Reference.service--">
+         <title>Class&lt;?&gt; service default Object.class</title>
+         <para role="description">
+The type of the service for this reference.
+ </para>
+         <para>
+ The type of the service for this reference must be specified when using
+ this annotation in the <link linkend="org.osgi.service.component.annotations.Component.reference--">Component.reference()</link> element since there
+ is no annotated member from which the type of the service can be
+ determined.
+ </para>
+         <para>
+ If not specified, the type of the service for this reference is based
+ upon how this annotation is used:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>Annotated method - The type of the service is the type of the first
+ parameter of the method.</para>
+            </listitem>
+            <listitem>
+               <para>Annotated field - The type of the service is based upon the
+ cardinality of the reference and the type of the field being annotated.
+ If the cardinality is either <link linkend="org.osgi.service.component.annotations.ReferenceCardinality.MULTIPLE">0..n</link>,
+ or <link linkend="org.osgi.service.component.annotations.ReferenceCardinality.AT_LEAST_ONE">1..n</link>, the type of the field
+ must be one of <code>java.util.Collection</code>, <code>java.util.List</code>, or a
+ subtype of <code>java.util.Collection</code>, so the type of the service is
+ the generic type of the collection. If the cardinality is either
+ <link linkend="org.osgi.service.component.annotations.ReferenceCardinality.OPTIONAL">0..1</link> or
+ <link linkend="org.osgi.service.component.annotations.ReferenceCardinality.MANDATORY">1..1</link>, and the type of the field is
+ <code>java.util.Optional</code>, the type of the service is the generic type
+ of the <code>java.util.Optional</code>. Otherwise, the type of the service is
+ the type of the field.</para>
+            </listitem>
+            <listitem>
+               <para>Annotated constructor parameter - The type of the service is based
+ upon the cardinality of the reference and the type of the parameter being
+ annotated. If the cardinality is either
+ <link linkend="org.osgi.service.component.annotations.ReferenceCardinality.MULTIPLE">0..n</link>, or
+ <link linkend="org.osgi.service.component.annotations.ReferenceCardinality.AT_LEAST_ONE">1..n</link>, the type of the parameter
+ must be one of <code>java.util.Collection</code> or <code>java.util.List</code>, so
+ the type of the service is the generic type of the collection. If the
+ cardinality is either <link linkend="org.osgi.service.component.annotations.ReferenceCardinality.OPTIONAL">0..1</link> or
+ <link linkend="org.osgi.service.component.annotations.ReferenceCardinality.MANDATORY">1..1</link>, and the type of the
+ parameter is <code>java.util.Optional</code>, the type of the service is the
+ generic type of the <code>java.util.Optional</code>. Otherwise, the type of
+ the service is the type of the parameter.</para>
+            </listitem>
+         </itemizedlist>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The interface attribute of the reference element of a Component Description.</code>, <link linkend="org.osgi.service.component.AnyService">AnyService</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="cardinality"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.Reference.cardinality--">
+         <title>ReferenceCardinality cardinality default MANDATORY</title>
+         <para role="description">
+The cardinality of this reference.
+ </para>
+         <para>
+ If not specified, the cardinality of this reference is based upon how
+ this annotation is used:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>Annotated method - The cardinality is
+ <link linkend="org.osgi.service.component.annotations.ReferenceCardinality.MANDATORY">1..1</link>.</para>
+            </listitem>
+            <listitem>
+               <para>Annotated field - The cardinality is based on the type of the field.
+ If the type is either <code>java.util.Collection</code>,
+ <code>java.util.List</code>, or a subtype of <code>java.util.Collection</code>, the
+ cardinality is <link linkend="org.osgi.service.component.annotations.ReferenceCardinality.MULTIPLE">0..n</link>. If the type is
+ <code>java.util.Optional</code>, the cardinality is
+ <link linkend="org.osgi.service.component.annotations.ReferenceCardinality.OPTIONAL">0..1</link>. Otherwise the cardinality is
+ <link linkend="org.osgi.service.component.annotations.ReferenceCardinality.MANDATORY">1..1</link>.</para>
+            </listitem>
+            <listitem>
+               <para>Annotated constructor parameter - The cardinality is based on the
+ type of the parameter. If the type is either <code>java.util.Collection</code>
+ or <code>java.util.List</code>, the cardinality is
+ <link linkend="org.osgi.service.component.annotations.ReferenceCardinality.MULTIPLE">0..n</link>. If the type is
+ <code>java.util.Optional</code>, the cardinality is
+ <link linkend="org.osgi.service.component.annotations.ReferenceCardinality.OPTIONAL">0..1</link>. Otherwise the cardinality is
+ <link linkend="org.osgi.service.component.annotations.ReferenceCardinality.MANDATORY">1..1</link>.</para>
+            </listitem>
+            <listitem>
+               <para>
+                  <link linkend="org.osgi.service.component.annotations.Component.reference--">Component.reference()</link> element - The cardinality is
+ <link linkend="org.osgi.service.component.annotations.ReferenceCardinality.MANDATORY">1..1</link>.</para>
+            </listitem>
+         </itemizedlist>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The cardinality attribute of the reference element of a Component Description.</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="policy"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.Reference.policy--">
+         <title>ReferencePolicy policy default STATIC</title>
+         <para role="description">
+The policy for this reference.
+ </para>
+         <para>
+ If not specified, the policy of this reference is based upon how this
+ annotation is used:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>Annotated method - The policy is <link linkend="org.osgi.service.component.annotations.ReferencePolicy.STATIC">STATIC</link>.</para>
+            </listitem>
+            <listitem>
+               <para>Annotated field - The policy is based on the modifiers of the field.
+ If the field is declared <code>volatile</code>, the policy is
+ <link linkend="org.osgi.service.component.annotations.ReferencePolicy.DYNAMIC">ReferencePolicy.DYNAMIC</link>. Otherwise the policy is
+ <link linkend="org.osgi.service.component.annotations.ReferencePolicy.STATIC">STATIC</link>.</para>
+            </listitem>
+            <listitem>
+               <para>Annotated constructor parameter - The policy is
+ <link linkend="org.osgi.service.component.annotations.ReferencePolicy.STATIC">STATIC</link>. STATIC policy must be used for
+ constructor parameters.</para>
+            </listitem>
+            <listitem>
+               <para>
+                  <link linkend="org.osgi.service.component.annotations.Component.reference--">Component.reference()</link> element - The policy is
+ <link linkend="org.osgi.service.component.annotations.ReferencePolicy.STATIC">STATIC</link>.</para>
+            </listitem>
+         </itemizedlist>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The policy attribute of the reference element of a Component Description.</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="target"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.Reference.target--">
+         <title>String target default ""</title>
+         <para role="description">
+The target property for this reference.
+ </para>
+         <para>
+ If not specified, no target property is set. A target property must be
+ specified if the <link linkend="org.osgi.service.component.annotations.Reference.service--">service()</link> element refers to <link linkend="org.osgi.service.component.AnyService">AnyService</link>.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The target attribute of the reference element of a Component Description.</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="policyOption"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.Reference.policyOption--">
+         <title>ReferencePolicyOption policyOption default RELUCTANT</title>
+         <para role="description">
+The policy option for this reference.
+ 
+ </para>
+         <para>
+ If not specified, the <link linkend="org.osgi.service.component.annotations.ReferencePolicyOption.RELUCTANT">RELUCTANT</link>
+ reference policy option is used.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The policy-option attribute of the reference element of a Component Description.</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.2</para>
+         </formalpara>
+      </section>
+      <section xreflabel="scope"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.Reference.scope--">
+         <title>ReferenceScope scope default BUNDLE</title>
+         <para role="description">
+The reference scope for this reference.
+ 
+ </para>
+         <para>
+ If not specified, the <link linkend="org.osgi.service.component.annotations.ReferenceScope.BUNDLE">bundle</link> reference
+ scope is used.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The scope attribute of the reference element of a Component Description.</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.3</para>
+         </formalpara>
+      </section>
+      <section xreflabel="bind"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.Reference.bind--">
+         <title>String bind default ""</title>
+         <para role="description">
+The name of the bind method for this reference.
+ </para>
+         <para>
+ If specified and this reference annotates a method, the specified name
+ must match the name of the annotated method.
+ </para>
+         <para>
+ If not specified, the name of the bind method is based upon how this
+ annotation is used:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>Annotated method - The name of the annotated method is the name of
+ the bind method.</para>
+            </listitem>
+            <listitem>
+               <para>Annotated field - There is no bind method name.</para>
+            </listitem>
+            <listitem>
+               <para>Annotated constructor parameter - There is no bind method name.</para>
+            </listitem>
+            <listitem>
+               <para>
+                  <link linkend="org.osgi.service.component.annotations.Component.reference--">Component.reference()</link> element - There is no bind method name.
+ </para>
+            </listitem>
+         </itemizedlist>
+         <para>
+ If there is a bind method name, the component must contain a method with
+ that name.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The bind attribute of the reference element of a Component Description.</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.3</para>
+         </formalpara>
+      </section>
+      <section xreflabel="updated"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.Reference.updated--">
+         <title>String updated default ""</title>
+         <para role="description">
+The name of the updated method for this reference.
+ </para>
+         <para>
+ If not specified, the name of the updated method is based upon how this
+ annotation is used:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>Annotated method - The name of the updated method is created from the
+ name of the annotated method. If the name of the annotated method begins
+ with <code>bind</code>, <code>set</code> or <code>add</code>, that prefix is replaced
+ with <code>updated</code> to create the name candidate for the updated method.
+ Otherwise, <code>updated</code> is prefixed to the name of the annotated
+ method to create the name candidate for the updated method. If the
+ component type contains a method with the candidate name, the candidate
+ name is used as the name of the updated method. To declare no updated
+ method when the component type contains a method with the candidate name,
+ the value <code>"-"</code> must be used.</para>
+            </listitem>
+            <listitem>
+               <para>Annotated field - There is no updated method name.</para>
+            </listitem>
+            <listitem>
+               <para>Annotated constructor parameter - There is no updated method
+ name.</para>
+            </listitem>
+            <listitem>
+               <para>
+                  <link linkend="org.osgi.service.component.annotations.Component.reference--">Component.reference()</link> element - There is no updated method
+ name.</para>
+            </listitem>
+         </itemizedlist>
+         <para>
+ If there is an updated method name, the component must contain a method
+ with that name.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The updated attribute of the reference element of a Component Description.</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.2</para>
+         </formalpara>
+      </section>
+      <section xreflabel="unbind"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.Reference.unbind--">
+         <title>String unbind default ""</title>
+         <para role="description">
+The name of the unbind method for this reference.
+ </para>
+         <para>
+ If not specified, the name of the unbind method is based upon how this
+ annotation is used:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>Annotated method - The name of the unbind method is created from the
+ name of the annotated method. If the name of the annotated method begins
+ with <code>bind</code>, <code>set</code> or <code>add</code>, that prefix is replaced
+ with <code>unbind</code>, <code>unset</code> or <code>remove</code>, respectively, to
+ create the name candidate for the unbind method. Otherwise, <code>un</code> is
+ prefixed to the name of the annotated method to create the name candidate
+ for the unbind method. If the component type contains a method with the
+ candidate name, the candidate name is used as the name of the unbind
+ method. To declare no unbind method when the component type contains a
+ method with the candidate name, the value <code>"-"</code> must be used.</para>
+            </listitem>
+            <listitem>
+               <para>Annotated field - There is no unbind method name.</para>
+            </listitem>
+            <listitem>
+               <para>Annotated constructor parameter - There is no unbind method
+ name.</para>
+            </listitem>
+            <listitem>
+               <para>
+                  <link linkend="org.osgi.service.component.annotations.Component.reference--">Component.reference()</link> element - There is no unbind method
+ name.</para>
+            </listitem>
+         </itemizedlist>
+         <para>
+ If there is an unbind method name, the component must contain a method
+ with that name.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The unbind attribute of the reference element of a Component Description.</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="field"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.Reference.field--">
+         <title>String field default ""</title>
+         <para role="description">
+The name of the field for this reference.
+ </para>
+         <para>
+ If specified and this reference annotates a field, the specified name
+ must match the name of the annotated field.
+ </para>
+         <para>
+ If not specified, the name of the field is based upon how this annotation
+ is used:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>Annotated method - There is no field name.</para>
+            </listitem>
+            <listitem>
+               <para>Annotated field - The name of the annotated field is the name of the
+ field.</para>
+            </listitem>
+            <listitem>
+               <para>Annotated constructor parameter - There is no field name.</para>
+            </listitem>
+            <listitem>
+               <para>
+                  <link linkend="org.osgi.service.component.annotations.Component.reference--">Component.reference()</link> element - There is no field name.</para>
+            </listitem>
+         </itemizedlist>
+         <para>
+ If there is a field name, the component must contain a field with that
+ name.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The field attribute of the reference element of a Component Description.</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.3</para>
+         </formalpara>
+      </section>
+      <section xreflabel="fieldOption"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.Reference.fieldOption--">
+         <title>FieldOption fieldOption default REPLACE</title>
+         <para role="description">
+The field option for this reference.
+ </para>
+         <para>
+ If not specified, the field option is based upon how this annotation is
+ used:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>Annotated method - There is no field option.</para>
+            </listitem>
+            <listitem>
+               <para>Annotated field - The field option is based upon the policy and
+ cardinality of the reference and the modifiers of the field. If the
+ policy is <link linkend="org.osgi.service.component.annotations.ReferencePolicy.DYNAMIC">ReferencePolicy.DYNAMIC</link>, the cardinality is
+ <link linkend="org.osgi.service.component.annotations.ReferenceCardinality.MULTIPLE">0..n</link> or
+ <link linkend="org.osgi.service.component.annotations.ReferenceCardinality.AT_LEAST_ONE">1..n</link>, and the field is declared
+ <code>final</code>, the field option is <link linkend="org.osgi.service.component.annotations.FieldOption.UPDATE">FieldOption.UPDATE</link>. Otherwise,
+ the field option is <link linkend="org.osgi.service.component.annotations.FieldOption.REPLACE">FieldOption.REPLACE</link>.</para>
+            </listitem>
+            <listitem>
+               <para>Annotated constructor parameter - There is no field option.</para>
+            </listitem>
+            <listitem>
+               <para>
+                  <link linkend="org.osgi.service.component.annotations.Component.reference--">Component.reference()</link> element - There is no field
+ option.</para>
+            </listitem>
+         </itemizedlist>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The field-option attribute of the reference element of a Component Description.</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.3</para>
+         </formalpara>
+      </section>
+      <section xreflabel="parameter"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.Reference.parameter--">
+         <title>int parameter default 0</title>
+         <para role="description">
+The zero-based parameter number of the constructor parameter for this
+ reference.
+ </para>
+         <para>
+ If specified and this reference annotates an constructor parameter, the
+ specified value must match the zero-based parameter number of the
+ annotated constructor parameter.
+ </para>
+         <para>
+ If not specified, the parameter number is based upon how this annotation
+ is used:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>Annotated method - There is no parameter number.</para>
+            </listitem>
+            <listitem>
+               <para>Annotated field - There is no parameter number.</para>
+            </listitem>
+            <listitem>
+               <para>Annotated constructor parameter - The zero-based parameter number of
+ the parameter.</para>
+            </listitem>
+            <listitem>
+               <para>
+                  <link linkend="org.osgi.service.component.annotations.Component.reference--">Component.reference()</link> element - There is no parameter
+ number.</para>
+            </listitem>
+         </itemizedlist>
+         <para>
+ If there is a parameter number, the component must declare a constructor
+ that has a parameter having the zero-based parameter number.</para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The parameter attribute of the reference element of a Component Description.</code>, <code>The init attribute of the component element of a Component Description.</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.4</para>
+         </formalpara>
+      </section>
+      <section xreflabel="collectionType"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.Reference.collectionType--">
+         <title>CollectionType collectionType default SERVICE</title>
+         <para role="description">
+The collection type for this reference.
+ </para>
+         <para>
+ If not specified, the collection type is based upon how this annotation
+ is used:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>Annotated method - There is no collection type.</para>
+            </listitem>
+            <listitem>
+               <para>Annotated field - The collection type is based upon the cardinality
+ of the reference and the type of the field. If the cardinality is either
+ <link linkend="org.osgi.service.component.annotations.ReferenceCardinality.MULTIPLE">0..n</link> or
+ <link linkend="org.osgi.service.component.annotations.ReferenceCardinality.AT_LEAST_ONE">1..n</link>, the collection type is
+ inferred from the generic type of the <code>java.util.Collection</code>. If
+ the cardinality is either <link linkend="org.osgi.service.component.annotations.ReferenceCardinality.OPTIONAL">0..1</link> or
+ <link linkend="org.osgi.service.component.annotations.ReferenceCardinality.MANDATORY">1..1</link>, and the type of the field is
+ <code>java.util.Optional</code>, the collection type is inferred from the
+ generic type of the <code>java.util.Optional</code>. Otherwise, there is no
+ collection type</para>
+            </listitem>
+            <listitem>
+               <para>Annotated constructor method parameter - The collection type is based
+ upon the cardinality of the reference and the type of the parameter. If
+ the cardinality is either <link linkend="org.osgi.service.component.annotations.ReferenceCardinality.MULTIPLE">0..n</link> or
+ <link linkend="org.osgi.service.component.annotations.ReferenceCardinality.AT_LEAST_ONE">1..n</link>, the collection type is
+ inferred from the generic type of the <code>java.util.Collection</code>. If
+ the cardinality is either <link linkend="org.osgi.service.component.annotations.ReferenceCardinality.OPTIONAL">0..1</link> or
+ <link linkend="org.osgi.service.component.annotations.ReferenceCardinality.MANDATORY">1..1</link>, and the type of the
+ parameter is <code>java.util.Optional</code>, the collection type is inferred
+ from the generic type of the <code>java.util.Optional</code>. Otherwise, there
+ is no collection type</para>
+            </listitem>
+            <listitem>
+               <para>
+                  <link linkend="org.osgi.service.component.annotations.Component.reference--">Component.reference()</link> element - There is no collection
+ type.</para>
+            </listitem>
+         </itemizedlist>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <code>The field-collection-type attribute of the reference element of a Component Description.</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.4</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="ReferenceCardinality"
+            role="class"
+            xml:id="org.osgi.service.component.annotations.ReferenceCardinality">
+      <title>enum ReferenceCardinality</title>
+      <para>
+Cardinality for the <link linkend="org.osgi.service.component.annotations.Reference">Reference</link> annotation.
+ 
+ </para>
+      <para>
+ Specifies if the reference is optional and if the component implementation
+ support a single bound service or multiple bound services.</para>
+      <section xreflabel="OPTIONAL"
+               role="field"
+               xml:id="org.osgi.service.component.annotations.ReferenceCardinality.OPTIONAL">
+         <title>OPTIONAL</title>
+         <para>
+The reference is optional and unary. That is, the reference has a
+ cardinality of <code>0..1</code>.
+   </para>
+      </section>
+      <section xreflabel="MANDATORY"
+               role="field"
+               xml:id="org.osgi.service.component.annotations.ReferenceCardinality.MANDATORY">
+         <title>MANDATORY</title>
+         <para>
+The reference is mandatory and unary. That is, the reference has a
+ cardinality of <code>1..1</code>.
+   </para>
+      </section>
+      <section xreflabel="MULTIPLE"
+               role="field"
+               xml:id="org.osgi.service.component.annotations.ReferenceCardinality.MULTIPLE">
+         <title>MULTIPLE</title>
+         <para>
+The reference is optional and multiple. That is, the reference has a
+ cardinality of <code>0..n</code>.
+   </para>
+      </section>
+      <section xreflabel="AT_LEAST_ONE"
+               role="field"
+               xml:id="org.osgi.service.component.annotations.ReferenceCardinality.AT_LEAST_ONE">
+         <title>AT_LEAST_ONE</title>
+         <para>
+The reference is mandatory and multiple. That is, the reference has a
+ cardinality of <code>1..n</code>.
+   </para>
+      </section>
+      <section xreflabel="toString()"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.ReferenceCardinality.toString--">
+         <title>public String toString()</title>
+         <para/>
+      </section>
+      <section xreflabel="valueOf(String)"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.ReferenceCardinality.valueOf-String-">
+         <title>public static ReferenceCardinality valueOf(String name)</title>
+         <para/>
+      </section>
+      <section xreflabel="values()"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.ReferenceCardinality.values--">
+         <title>public static ReferenceCardinality[] values()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="ReferencePolicy"
+            role="class"
+            xml:id="org.osgi.service.component.annotations.ReferencePolicy">
+      <title>enum ReferencePolicy</title>
+      <para>
+Policy for the <link linkend="org.osgi.service.component.annotations.Reference">Reference</link> annotation.
+   </para>
+      <section xreflabel="STATIC"
+               role="field"
+               xml:id="org.osgi.service.component.annotations.ReferencePolicy.STATIC">
+         <title>STATIC</title>
+         <para>
+The static policy is the most simple policy and is the default policy. A
+ component instance never sees any of the dynamics. Component
+ configurations are deactivated before any bound service for a reference
+ having a static policy becomes unavailable. If a target service is
+ available to replace the bound service which became unavailable, the
+ component configuration must be reactivated and bound to the replacement
+ service.
+   </para>
+      </section>
+      <section xreflabel="DYNAMIC"
+               role="field"
+               xml:id="org.osgi.service.component.annotations.ReferencePolicy.DYNAMIC">
+         <title>DYNAMIC</title>
+         <para>
+The dynamic policy is slightly more complex since the component
+ implementation must properly handle changes in the set of bound services.
+ With the dynamic policy, SCR can change the set of bound services without
+ deactivating a component configuration. If the component uses method
+ injection to access services, then the component instance will be
+ notified of changes in the set of bound services by calls to the bind and
+ unbind methods.
+   </para>
+      </section>
+      <section xreflabel="toString()"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.ReferencePolicy.toString--">
+         <title>public String toString()</title>
+         <para/>
+      </section>
+      <section xreflabel="valueOf(String)"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.ReferencePolicy.valueOf-String-">
+         <title>public static ReferencePolicy valueOf(String name)</title>
+         <para/>
+      </section>
+      <section xreflabel="values()"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.ReferencePolicy.values--">
+         <title>public static ReferencePolicy[] values()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="ReferencePolicyOption"
+            role="class"
+            xml:id="org.osgi.service.component.annotations.ReferencePolicyOption">
+      <title>enum ReferencePolicyOption</title>
+      <para>
+Policy option for the <link linkend="org.osgi.service.component.annotations.Reference">Reference</link> annotation.
+   </para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.2</para>
+      </formalpara>
+      <section xreflabel="RELUCTANT"
+               role="field"
+               xml:id="org.osgi.service.component.annotations.ReferencePolicyOption.RELUCTANT">
+         <title>RELUCTANT</title>
+         <para>
+The reluctant policy option is the default policy option for both
+ <link linkend="org.osgi.service.component.annotations.ReferencePolicy.STATIC">static</link> and <link linkend="org.osgi.service.component.annotations.ReferencePolicy.DYNAMIC">dynamic</link> reference policies. When a new target service for a reference
+ becomes available, references having the reluctant policy option for the
+ static policy or the dynamic policy with a unary cardinality will ignore
+ the new target service. References having the dynamic policy with a
+ multiple cardinality will bind the new target service.
+   </para>
+      </section>
+      <section xreflabel="GREEDY"
+               role="field"
+               xml:id="org.osgi.service.component.annotations.ReferencePolicyOption.GREEDY">
+         <title>GREEDY</title>
+         <para>
+The greedy policy option is a valid policy option for both
+ <link linkend="org.osgi.service.component.annotations.ReferencePolicy.STATIC">static</link> and <link linkend="org.osgi.service.component.annotations.ReferencePolicy.DYNAMIC">dynamic</link> reference policies. When a new target service for a reference
+ becomes available, references having the greedy policy option will bind
+ the new target service.
+   </para>
+      </section>
+      <section xreflabel="toString()"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.ReferencePolicyOption.toString--">
+         <title>public String toString()</title>
+         <para/>
+      </section>
+      <section xreflabel="valueOf(String)"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.ReferencePolicyOption.valueOf-String-">
+         <title>public static ReferencePolicyOption valueOf(String name)</title>
+         <para/>
+      </section>
+      <section xreflabel="values()"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.ReferencePolicyOption.values--">
+         <title>public static ReferencePolicyOption[] values()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="ReferenceScope"
+            role="class"
+            xml:id="org.osgi.service.component.annotations.ReferenceScope">
+      <title>enum ReferenceScope</title>
+      <para>
+Reference scope for the <link linkend="org.osgi.service.component.annotations.Reference">Reference</link> annotation.
+   </para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.3</para>
+      </formalpara>
+      <section xreflabel="BUNDLE"
+               role="field"
+               xml:id="org.osgi.service.component.annotations.ReferenceScope.BUNDLE">
+         <title>BUNDLE</title>
+         <para>
+A single service object is used for all references to the service in this
+ bundle.
+   </para>
+      </section>
+      <section xreflabel="PROTOTYPE"
+               role="field"
+               xml:id="org.osgi.service.component.annotations.ReferenceScope.PROTOTYPE">
+         <title>PROTOTYPE</title>
+         <para>
+If the bound service has prototype service scope, then each instance of
+ the component with this reference can receive a unique instance of the
+ service. If the bound service does not have prototype service scope, then
+ this reference scope behaves the same as <link linkend="org.osgi.service.component.annotations.ReferenceScope.BUNDLE">BUNDLE</link>.
+   </para>
+      </section>
+      <section xreflabel="PROTOTYPE_REQUIRED"
+               role="field"
+               xml:id="org.osgi.service.component.annotations.ReferenceScope.PROTOTYPE_REQUIRED">
+         <title>PROTOTYPE_REQUIRED</title>
+         <para>
+Bound services must have prototype service scope. Each instance of the
+ component with this reference can receive a unique instance of the
+ service.
+   </para>
+      </section>
+      <section xreflabel="toString()"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.ReferenceScope.toString--">
+         <title>public String toString()</title>
+         <para/>
+      </section>
+      <section xreflabel="valueOf(String)"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.ReferenceScope.valueOf-String-">
+         <title>public static ReferenceScope valueOf(String name)</title>
+         <para/>
+      </section>
+      <section xreflabel="values()"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.ReferenceScope.values--">
+         <title>public static ReferenceScope[] values()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="RequireServiceComponentRuntime"
+            role="class"
+            xml:id="org.osgi.service.component.annotations.RequireServiceComponentRuntime">
+      <title>@RequireServiceComponentRuntime</title>
+      <para>
+This annotation can be used to require the Service Component Runtime to
+ process Declarative Services components. It can be used directly, or as a
+ meta-annotation.
+   </para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.4</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>, <code>PACKAGE</code>
+         </para>
+      </formalpara>
+   </section>
+   <section xreflabel="ServiceScope"
+            role="class"
+            xml:id="org.osgi.service.component.annotations.ServiceScope">
+      <title>enum ServiceScope</title>
+      <para>
+Service scope for the <link linkend="org.osgi.service.component.annotations.Component">Component</link> annotation.
+   </para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.3</para>
+      </formalpara>
+      <section xreflabel="SINGLETON"
+               role="field"
+               xml:id="org.osgi.service.component.annotations.ServiceScope.SINGLETON">
+         <title>SINGLETON</title>
+         <para>
+When the component is registered as a service, it must be registered as a
+ bundle scope service but only a single instance of the component must be
+ used for all bundles using the service.
+   </para>
+      </section>
+      <section xreflabel="BUNDLE"
+               role="field"
+               xml:id="org.osgi.service.component.annotations.ServiceScope.BUNDLE">
+         <title>BUNDLE</title>
+         <para>
+When the component is registered as a service, it must be registered as a
+ bundle scope service and an instance of the component must be created for
+ each bundle using the service.
+   </para>
+      </section>
+      <section xreflabel="PROTOTYPE"
+               role="field"
+               xml:id="org.osgi.service.component.annotations.ServiceScope.PROTOTYPE">
+         <title>PROTOTYPE</title>
+         <para>
+When the component is registered as a service, it must be registered as a
+ prototype scope service and an instance of the component must be created
+ for each distinct request for the service.
+   </para>
+      </section>
+      <section xreflabel="DEFAULT"
+               role="field"
+               xml:id="org.osgi.service.component.annotations.ServiceScope.DEFAULT">
+         <title>DEFAULT</title>
+         <para>
+Default element value for annotation. This is used to distinguish the
+ default value for an element and should not otherwise be used.
+   </para>
+      </section>
+      <section xreflabel="toString()"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.ServiceScope.toString--">
+         <title>public String toString()</title>
+         <para/>
+      </section>
+      <section xreflabel="valueOf(String)"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.ServiceScope.valueOf-String-">
+         <title>public static ServiceScope valueOf(String name)</title>
+         <para/>
+      </section>
+      <section xreflabel="values()"
+               role="method"
+               xml:id="org.osgi.service.component.annotations.ServiceScope.values--">
+         <title>public static ServiceScope[] values()</title>
+         <para/>
+      </section>
+   </section>
+</section>

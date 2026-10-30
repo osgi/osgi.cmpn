@@ -1,0 +1,2331 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.dmt.residential"
+         version="5"
+         role="package"
+         xml:id="org.osgi.dmt.residential">
+   <title>org.osgi.dmt.residential</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.dmt.residential-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.dmt.residential-version.number">1.0</edition>
+   </info>
+   <section xreflabel="$" role="class" xml:id="org.osgi.dmt.residential.-">
+      <title>$</title>
+      <para>
+The $ describes the root node for OSGi Residential Management. The path to
+ this node is defined in the system property: <code>org.osgi.dmt.residential</code>
+ .
+   </para>
+      <table tabstyle="ddfsubtree" pgwide="1">
+         <title>Sub-tree Description for $</title>
+         <tgroup cols="6">
+            <colspec colwidth="1*"/>
+            <colspec colwidth="0.6*"/>
+            <colspec colwidth="1.5*"/>
+            <colspec colwidth="0.5*"/>
+            <colspec colwidth="0.2*"/>
+            <colspec colwidth="2.5*"/>
+            <thead>
+               <row>
+                  <entry>Name</entry>
+                  <entry>Act</entry>
+                  <entry>Type</entry>
+                  <entry>Card.</entry>
+                  <entry>S</entry>
+                  <entry>Description</entry>
+               </row>
+            </thead>
+            <tbody>
+               <row>
+                  <entry>
+                     <para xreflabel="Framework" xml:id="org.osgi.dmt.residential.-.Framework--">
+                        <code>Framework</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>Framework</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>P</code>
+                  </entry>
+                  <entry>
+                     <para>
+The Framework node used to manage the local framework.
+   </para>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para xreflabel="Filter" xml:id="org.osgi.dmt.residential.-.Filter--">
+                        <code>Filter</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>MAP</code>
+                  </entry>
+                  <entry>
+                     <code>0,1</code>
+                  </entry>
+                  <entry>
+                     <code>P</code>
+                  </entry>
+                  <entry morerows="1">
+                     <para>
+The Filter node searches the nodes in a tree that correspond to a target
+ URI and an optional filter expression. A new <link linkend="org.osgi.dmt.residential.Filter">Filter</link> is created by
+ adding a node to the Filter node. The name of the node is chosen by the
+ remote manager. If multiple managers are active they must agree on a
+ scheme to avoid conflicts or an atomic sessions must be used to claim
+ exclusiveness.
+ </para>
+                     <para>
+ Filter nodes are persistent but an implementation can remove the node
+ after a suitable timeout that should at least be 1 hour.
+ </para>
+                     <para>
+ If this functionality is not supported on this device then the node is
+ not present.</para>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para>
+                        <code>  [String]</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Add Del Get </code>
+                  </entry>
+                  <entry>
+                     <code>Filter</code>
+                  </entry>
+                  <entry>
+                     <code>0..*</code>
+                  </entry>
+                  <entry>
+                     <code>D</code>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para xreflabel="Log" xml:id="org.osgi.dmt.residential.-.Log--">
+                        <code>Log</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>Log</code>
+                  </entry>
+                  <entry>
+                     <code>0,1</code>
+                  </entry>
+                  <entry>
+                     <code>P</code>
+                  </entry>
+                  <entry>
+                     <para>
+Access to the optional Log.
+ </para>
+                     <para>
+ If this functionality is not supported on this device then the node is
+ not present.</para>
+                  </entry>
+               </row>
+            </tbody>
+         </tgroup>
+      </table>
+   </section>
+   <section xreflabel="Bundle"
+            role="class"
+            xml:id="org.osgi.dmt.residential.Bundle">
+      <title>Bundle</title>
+      <para>
+The management node for a Bundle. It provides access to the life cycle
+ control of the bundle as well to its metadata, resources, and wiring.
+ </para>
+      <para/>
+      <para>
+ To install a new bundle an instance of this node must be created. Since many
+ of the sub-nodes are not yet valid as the information from the bundle is not
+ yet available. These nodes are marked to be optional and will only exists
+ after the bundle has been really installed.
+   </para>
+      <section xreflabel="FRAGMENT"
+               role="field"
+               xml:id="org.osgi.dmt.residential.Bundle.FRAGMENT">
+         <title>FRAGMENT = "FRAGMENT"</title>
+         <para>
+The type returned for a fragment bundle.
+   </para>
+      </section>
+      <section xreflabel="INSTALLED"
+               role="field"
+               xml:id="org.osgi.dmt.residential.Bundle.INSTALLED">
+         <title>INSTALLED = "INSTALLED"</title>
+         <para>
+The Bundle <code>INSTALLED</code> state.
+   </para>
+      </section>
+      <section xreflabel="RESOLVED"
+               role="field"
+               xml:id="org.osgi.dmt.residential.Bundle.RESOLVED">
+         <title>RESOLVED = "RESOLVED"</title>
+         <para>
+The Bundle <code>RESOLVED</code> state.
+   </para>
+      </section>
+      <section xreflabel="STARTING"
+               role="field"
+               xml:id="org.osgi.dmt.residential.Bundle.STARTING">
+         <title>STARTING = "STARTING"</title>
+         <para>
+The Bundle <code>STARTING</code> state.
+   </para>
+      </section>
+      <section xreflabel="ACTIVE"
+               role="field"
+               xml:id="org.osgi.dmt.residential.Bundle.ACTIVE">
+         <title>ACTIVE = "ACTIVE"</title>
+         <para>
+The Bundle <code>ACTIVE</code> state.
+   </para>
+      </section>
+      <section xreflabel="STOPPING"
+               role="field"
+               xml:id="org.osgi.dmt.residential.Bundle.STOPPING">
+         <title>STOPPING = "STOPPING"</title>
+         <para>
+The Bundle <code>STOPPING</code> state.
+   </para>
+      </section>
+      <section xreflabel="UNINSTALLED"
+               role="field"
+               xml:id="org.osgi.dmt.residential.Bundle.UNINSTALLED">
+         <title>UNINSTALLED = "UNINSTALLED"</title>
+         <para>
+The Bundle <code>UNINSTALLED</code> state.
+   </para>
+         <table tabstyle="ddfsubtree" pgwide="1">
+            <title>Sub-tree Description for Bundle</title>
+            <tgroup cols="6">
+               <colspec colwidth="1*"/>
+               <colspec colwidth="0.6*"/>
+               <colspec colwidth="1.5*"/>
+               <colspec colwidth="0.5*"/>
+               <colspec colwidth="0.2*"/>
+               <colspec colwidth="2.5*"/>
+               <thead>
+                  <row>
+                     <entry>Name</entry>
+                     <entry>Act</entry>
+                     <entry>Type</entry>
+                     <entry>Card.</entry>
+                     <entry>S</entry>
+                     <entry>Description</entry>
+                  </row>
+               </thead>
+               <tbody>
+                  <row>
+                     <entry>
+                        <para xreflabel="URL" xml:id="org.osgi.dmt.residential.Bundle.URL--">
+                           <code>URL</code>
+                        </para>
+                     </entry>
+                     <entry>
+                        <code>Get Set </code>
+                     </entry>
+                     <entry>
+                        <code>string</code>
+                     </entry>
+                     <entry>
+                        <code>1</code>
+                     </entry>
+                     <entry>
+                        <code>A</code>
+                     </entry>
+                     <entry>
+                        <para>
+The URL to download the archive from for this bundle.
+ 
+ By default this is the empty string. In an atomic session this URL can be
+ replaced to a new URL, which will trigger an update of this bundle during
+ commit. If this value is set it must point to a valid JAR from which a
+ URL can be downloaded, unless it is the system bundle. If it is the empty
+ string no action must be taken except when it is the system bundle.
+ 
+ </para>
+                        <para>
+ If the URL of Bundle 0 (The system bundle) is replaced to any value,
+ including the empty string, then the framework will restart.
+ </para>
+                        <para>
+ If both a the URL node has been set the bundle must be updated before any
+ of the other aspects are handled like <link linkend="org.osgi.dmt.residential.Bundle.RequestedState--">RequestedState</link> and <link linkend="org.osgi.dmt.residential.Bundle.StartLevel--">StartLevel</link>.</para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para xreflabel="AutoStart"
+                              xml:id="org.osgi.dmt.residential.Bundle.AutoStart--">
+                           <code>AutoStart</code>
+                        </para>
+                     </entry>
+                     <entry>
+                        <code>Get Set </code>
+                     </entry>
+                     <entry>
+                        <code>boolean</code>
+                     </entry>
+                     <entry>
+                        <code>1</code>
+                     </entry>
+                     <entry>
+                        <code>A</code>
+                     </entry>
+                     <entry>
+                        <para>
+Indicates if this Bundle must be started when the Framework is started.
+ </para>
+                        <para>
+ If the AutoStart node is <code>true</code> then this bundle is started when
+ the framework is started and its <link linkend="org.osgi.dmt.residential.Bundle.StartLevel--">StartLevel</link> is met.
+ </para>
+                        <para>
+ If the <code>AutoStart</code> node is set to <code>true</code> and the bundle is
+ not started then it will automatically be started if the start level
+ permits it. If the <code>AutoStart</code> node is set to <code>false</code> then
+ the bundle must not be stopped immediately.
+ </para>
+                        <para>
+ If the <code>AutoStart</code> value of the System Bundle is changed then the
+ operation must be ignored.
+ </para>
+                        <para>
+ The default value for this node is <code>true</code>
+                        </para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para xreflabel="FaultType"
+                              xml:id="org.osgi.dmt.residential.Bundle.FaultType--">
+                           <code>FaultType</code>
+                        </para>
+                     </entry>
+                     <entry>
+                        <code>Get </code>
+                     </entry>
+                     <entry>
+                        <code>integer</code>
+                     </entry>
+                     <entry>
+                        <code>0,1</code>
+                     </entry>
+                     <entry>
+                        <code>A</code>
+                     </entry>
+                     <entry>
+                        <para>
+The BundleException type associated with a failure on this bundle, -1 if
+ no fault is associated with this bundle. If there was no Bundle Exception
+ associated with the failure the code must be 0 (UNSPECIFIED). The
+ <link linkend="org.osgi.dmt.residential.Bundle.FaultMessage--">FaultMessage</link> provides a human readable message.
+ </para>
+                        <para/>
+                        <para>
+ Only present after the bundle is installed.
+   </para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para xreflabel="FaultMessage"
+                              xml:id="org.osgi.dmt.residential.Bundle.FaultMessage--">
+                           <code>FaultMessage</code>
+                        </para>
+                     </entry>
+                     <entry>
+                        <code>Get </code>
+                     </entry>
+                     <entry>
+                        <code>string</code>
+                     </entry>
+                     <entry>
+                        <code>0,1</code>
+                     </entry>
+                     <entry>
+                        <code>A</code>
+                     </entry>
+                     <entry>
+                        <para>
+A human readable message detailing an error situation or an empty string
+ if no fault is associated with this bundle.
+ </para>
+                        <para/>
+                        <para>
+ Only present after the bundle is installed.
+   </para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para xreflabel="BundleId"
+                              xml:id="org.osgi.dmt.residential.Bundle.BundleId--">
+                           <code>BundleId</code>
+                        </para>
+                     </entry>
+                     <entry>
+                        <code>Get </code>
+                     </entry>
+                     <entry>
+                        <code>long</code>
+                     </entry>
+                     <entry>
+                        <code>0,1</code>
+                     </entry>
+                     <entry>
+                        <code>A</code>
+                     </entry>
+                     <entry>
+                        <para>
+The Bundle Id as defined by the <code>getBundleId()</code> method.
+ </para>
+                        <para>
+ If there is no installed Bundle yet, then this node is not present.</para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para xreflabel="SymbolicName"
+                              xml:id="org.osgi.dmt.residential.Bundle.SymbolicName--">
+                           <code>SymbolicName</code>
+                        </para>
+                     </entry>
+                     <entry>
+                        <code>Get </code>
+                     </entry>
+                     <entry>
+                        <code>string</code>
+                     </entry>
+                     <entry>
+                        <code>0,1</code>
+                     </entry>
+                     <entry>
+                        <code>A</code>
+                     </entry>
+                     <entry>
+                        <para>
+The Bundle Symbolic Name as defined by the Bundle
+ <code>getSymbolicName()</code> method. If this result is <code>null</code> then the
+ value of this node must be the empty string.
+ </para>
+                        <para>
+ If there is no installed Bundle yet, then this node is not present.</para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para xreflabel="Version" xml:id="org.osgi.dmt.residential.Bundle.Version--">
+                           <code>Version</code>
+                        </para>
+                     </entry>
+                     <entry>
+                        <code>Get </code>
+                     </entry>
+                     <entry>
+                        <code>string</code>
+                     </entry>
+                     <entry>
+                        <code>0,1</code>
+                     </entry>
+                     <entry>
+                        <code>A</code>
+                     </entry>
+                     <entry>
+                        <para>
+The Bundle's version as defined by the Bundle <code>getVersion()</code>
+ method.
+ 
+ </para>
+                        <para>
+ If there is no installed Bundle yet, then this node is not present.</para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para xreflabel="BundleType"
+                              xml:id="org.osgi.dmt.residential.Bundle.BundleType--">
+                           <code>BundleType</code>
+                        </para>
+                     </entry>
+                     <entry>
+                        <code>Get </code>
+                     </entry>
+                     <entry>
+                        <code>LIST</code>
+                     </entry>
+                     <entry>
+                        <code>0,1</code>
+                     </entry>
+                     <entry>
+                        <code>A</code>
+                     </entry>
+                     <entry morerows="1">
+                        <para>
+A list of the types of the bundle. Currently only a single type is
+ provided:
+ </para>
+                        <itemizedlist>
+                           <listitem>
+                              <para>
+                                 <link linkend="org.osgi.dmt.residential.Bundle.FRAGMENT">FRAGMENT</link>
+                              </para>
+                           </listitem>
+                        </itemizedlist>
+                        <para>
+ If there is no installed Bundle yet, then this node is not present.</para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para>
+                           <code>  [list]</code>
+                        </para>
+                     </entry>
+                     <entry>
+                        <code>Get </code>
+                     </entry>
+                     <entry>
+                        <code>string</code>
+                     </entry>
+                     <entry>
+                        <code>0..*</code>
+                     </entry>
+                     <entry>
+                        <code>D</code>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para xreflabel="Headers" xml:id="org.osgi.dmt.residential.Bundle.Headers--">
+                           <code>Headers</code>
+                        </para>
+                     </entry>
+                     <entry>
+                        <code>Get </code>
+                     </entry>
+                     <entry>
+                        <code>MAP</code>
+                     </entry>
+                     <entry>
+                        <code>0,1</code>
+                     </entry>
+                     <entry>
+                        <code>A</code>
+                     </entry>
+                     <entry morerows="1">
+                        <para>
+The Bundle <code>getHeaders()</code> method.
+ </para>
+                        <para>
+ If there is no installed Bundle yet, then this node is not present.</para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para>
+                           <code>  [String]</code>
+                        </para>
+                     </entry>
+                     <entry>
+                        <code>Get </code>
+                     </entry>
+                     <entry>
+                        <code>string</code>
+                     </entry>
+                     <entry>
+                        <code>0..*</code>
+                     </entry>
+                     <entry>
+                        <code>D</code>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para xreflabel="Location"
+                              xml:id="org.osgi.dmt.residential.Bundle.Location--">
+                           <code>Location</code>
+                        </para>
+                     </entry>
+                     <entry>
+                        <code>Get </code>
+                     </entry>
+                     <entry>
+                        <code>string</code>
+                     </entry>
+                     <entry>
+                        <code>1</code>
+                     </entry>
+                     <entry>
+                        <code>A</code>
+                     </entry>
+                     <entry>
+                        <para>
+The Bundle's Location as defined by the Bundle <code>getLocation()</code>
+ method.
+ </para>
+                        <para>
+ The location is specified by the management agent when the bundle is
+ installed. This location should be a unique name for a bundle chosen by
+ the management system. The Bundle Location is immutable for the Bundle's
+ life (it is not changed when the Bundle is updated). The Bundle Location
+ is also part of the URI to this node.</para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para xreflabel="State" xml:id="org.osgi.dmt.residential.Bundle.State--">
+                           <code>State</code>
+                        </para>
+                     </entry>
+                     <entry>
+                        <code>Get </code>
+                     </entry>
+                     <entry>
+                        <code>string</code>
+                     </entry>
+                     <entry>
+                        <code>0,1</code>
+                     </entry>
+                     <entry>
+                        <code>A</code>
+                     </entry>
+                     <entry>
+                        <para>
+Return the state of the current Bundle. The values can be:
+ 
+ </para>
+                        <itemizedlist>
+                           <listitem>
+                              <para>
+                                 <link linkend="org.osgi.dmt.residential.Bundle.INSTALLED">INSTALLED</link>
+                              </para>
+                           </listitem>
+                           <listitem>
+                              <para>
+                                 <link linkend="org.osgi.dmt.residential.Bundle.RESOLVED">RESOLVED</link>
+                              </para>
+                           </listitem>
+                           <listitem>
+                              <para>
+                                 <link linkend="org.osgi.dmt.residential.Bundle.STARTING">STARTING</link>
+                              </para>
+                           </listitem>
+                           <listitem>
+                              <para>
+                                 <link linkend="org.osgi.dmt.residential.Bundle.ACTIVE">ACTIVE</link>
+                              </para>
+                           </listitem>
+                           <listitem>
+                              <para>
+                                 <link linkend="org.osgi.dmt.residential.Bundle.STOPPING">STOPPING</link>
+                              </para>
+                           </listitem>
+                        </itemizedlist>
+                        <para/>
+                        <para>
+ If there is no installed Bundle yet, then this node is not present.
+ </para>
+                        <para/>
+                        <para>
+ The default value is <link linkend="org.osgi.dmt.residential.Bundle.UNINSTALLED">UNINSTALLED</link> after creation.
+   </para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para xreflabel="RequestedState"
+                              xml:id="org.osgi.dmt.residential.Bundle.RequestedState--">
+                           <code>RequestedState</code>
+                        </para>
+                     </entry>
+                     <entry>
+                        <code>Get Set </code>
+                     </entry>
+                     <entry>
+                        <code>string</code>
+                     </entry>
+                     <entry>
+                        <code>1</code>
+                     </entry>
+                     <entry>
+                        <code>A</code>
+                     </entry>
+                     <entry>
+                        <para>
+Is the requested state the manager wants the bundle to be in. Can be:
+ </para>
+                        <para/>
+                        <itemizedlist>
+                           <listitem>
+                              <para>
+                                 <link linkend="org.osgi.dmt.residential.Bundle.INSTALLED">INSTALLED</link> - Ensure the bundle is stopped and refreshed.</para>
+                           </listitem>
+                           <listitem>
+                              <para>
+                                 <link linkend="org.osgi.dmt.residential.Bundle.RESOLVED">RESOLVED</link> - Ensure the bundle is resolved.</para>
+                           </listitem>
+                           <listitem>
+                              <para>
+                                 <link linkend="org.osgi.dmt.residential.Bundle.ACTIVE">ACTIVE</link> - Ensure the bundle is started.</para>
+                           </listitem>
+                           <listitem>
+                              <para>
+                                 <link linkend="org.osgi.dmt.residential.Bundle.UNINSTALLED">UNINSTALLED</link> - Uninstall the bundle.</para>
+                           </listitem>
+                        </itemizedlist>
+                        <para>
+ The Requested State is a request. The management agent must attempt to
+ achieve the desired state but there is a no guarantee that this state is
+ achievable. For example,a Framework can resolve a bundle at any time or
+ the active start level can prevent a bundle from running. Any errors must
+ be reported on <link linkend="org.osgi.dmt.residential.Bundle.FaultType--">FaultType</link> and <link linkend="org.osgi.dmt.residential.Bundle.FaultMessage--">FaultMessage</link>.
+ </para>
+                        <para>
+ 
+ If the <link linkend="org.osgi.dmt.residential.Bundle.AutoStart--">AutoStart</link> node is <code>true</code> then the
+ bundle must be persistently started, otherwise it must be transiently
+ started. If the <link linkend="org.osgi.dmt.residential.Bundle.StartLevel--">StartLevel</link> is not met then the
+ commit must fail if <link linkend="org.osgi.dmt.residential.Bundle.AutoStart--">AutoStart</link> is <code>false</code> as a
+ Bundle cannot be transiently started when the start level is not met.
+ </para>
+                        <para>
+ If both a the <link linkend="org.osgi.dmt.residential.Bundle.URL--">URL</link> node has been set as well as the
+ RequestedState node then this must result in an update after which the
+ bundle should go to the RequestedState.
+ </para>
+                        <para>
+ The RequestedState must be stored persistently so that it contains the
+ last requested state. The initial value of the RequestedState must be
+ <link linkend="org.osgi.dmt.residential.Bundle.INSTALLED">INSTALLED</link>.</para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para xreflabel="StartLevel"
+                              xml:id="org.osgi.dmt.residential.Bundle.StartLevel--">
+                           <code>StartLevel</code>
+                        </para>
+                     </entry>
+                     <entry>
+                        <code>Get Set </code>
+                     </entry>
+                     <entry>
+                        <code>integer</code>
+                     </entry>
+                     <entry>
+                        <code>1</code>
+                     </entry>
+                     <entry>
+                        <code>A</code>
+                     </entry>
+                     <entry>
+                        <para>
+The Bundle's current Start Level as defined by the BundleStartLevel adapt
+ interface <code>getStartLevel()</code> method. Changing the StartLevel can
+ change the Bundle State as a bundle can become eligible for starting or
+ stopping.
+ </para>
+                        <para>
+ If the <link linkend="org.osgi.dmt.residential.Bundle.URL--">URL</link> node is set then a bundle must be updated
+ before the start level is set,</para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para xreflabel="LastModified"
+                              xml:id="org.osgi.dmt.residential.Bundle.LastModified--">
+                           <code>LastModified</code>
+                        </para>
+                     </entry>
+                     <entry>
+                        <code>Get </code>
+                     </entry>
+                     <entry>
+                        <code>date_time</code>
+                     </entry>
+                     <entry>
+                        <code>0,1</code>
+                     </entry>
+                     <entry>
+                        <code>A</code>
+                     </entry>
+                     <entry>
+                        <para>
+The Last Modified time of this bundle as defined by the Bundle
+ <code>getlastModified()</code> method.
+ </para>
+                        <para>
+ If there is no installed Bundle yet then this node is not present.</para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para xreflabel="Wires" xml:id="org.osgi.dmt.residential.Bundle.Wires--">
+                           <code>Wires</code>
+                        </para>
+                     </entry>
+                     <entry>
+                        <code>Get </code>
+                     </entry>
+                     <entry>
+                        <code>MAP</code>
+                     </entry>
+                     <entry>
+                        <code>0,1</code>
+                     </entry>
+                     <entry>
+                        <code>A</code>
+                     </entry>
+                     <entry morerows="2">
+                        <para>
+A MAP of name space -&gt; to Wire. A Wire is a relation between to bundles
+ where the type of the relation is defined by the name space. For example,
+ <code>osgi.wiring.package</code> name space defines the exporting and
+ importing of packages. Standard osgi name spaces are:
+ </para>
+                        <itemizedlist>
+                           <listitem>
+                              <para>
+                                 <code>osgi.wiring.bundle</code>
+                              </para>
+                           </listitem>
+                           <listitem>
+                              <para>
+                                 <code>osgi.wiring.package</code>
+                              </para>
+                           </listitem>
+                           <listitem>
+                              <para>
+                                 <code>osgi.wiring.host</code>
+                              </para>
+                           </listitem>
+                        </itemizedlist>
+                        <para>
+ As the Core specification allows custom name spaces this list can be more
+ extensive.
+ </para>
+                        <para>
+ This specification adds one additional name space to reflect the
+ services, this is the <code>osgi.wiring.rmt.service</code> name space. This
+ name space will have a wire for each time a registered service by this
+ Bundle was gotten for the first time by a bundle. A capability in the
+ service name space holds all the registered service properties. The
+ requirement has no attributes and a single <code>filter</code> directive that
+ matches the service id property.
+ </para>
+                        <para>
+ If there is no installed Bundle yet then this node is not present.</para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para>
+                           <code>  [String]</code>
+                        </para>
+                     </entry>
+                     <entry>
+                        <code>Get </code>
+                     </entry>
+                     <entry>
+                        <code>LIST</code>
+                     </entry>
+                     <entry>
+                        <code>0..*</code>
+                     </entry>
+                     <entry>
+                        <code>D</code>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para>
+                           <code>    [list]</code>
+                        </para>
+                     </entry>
+                     <entry>
+                        <code>Get </code>
+                     </entry>
+                     <entry>
+                        <code>Wire</code>
+                     </entry>
+                     <entry>
+                        <code>0..*</code>
+                     </entry>
+                     <entry>
+                        <code>D</code>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para xreflabel="Signers" xml:id="org.osgi.dmt.residential.Bundle.Signers--">
+                           <code>Signers</code>
+                        </para>
+                     </entry>
+                     <entry>
+                        <code>Get </code>
+                     </entry>
+                     <entry>
+                        <code>LIST</code>
+                     </entry>
+                     <entry>
+                        <code>0,1</code>
+                     </entry>
+                     <entry>
+                        <code>A</code>
+                     </entry>
+                     <entry morerows="1">
+                        <para>
+Return all signers of the bundle. See the Bundle
+ <code>getSignerCertificates()</code> method with the <code>SIGNERS_ALL</code>
+ parameter.
+ </para>
+                        <para>
+ If there is no installed Bundle yet then this node is not present.</para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para>
+                           <code>  [list]</code>
+                        </para>
+                     </entry>
+                     <entry>
+                        <code>Get </code>
+                     </entry>
+                     <entry>
+                        <code>Certificate</code>
+                     </entry>
+                     <entry>
+                        <code>0..*</code>
+                     </entry>
+                     <entry>
+                        <code>D</code>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para xreflabel="Entries" xml:id="org.osgi.dmt.residential.Bundle.Entries--">
+                           <code>Entries</code>
+                        </para>
+                     </entry>
+                     <entry>
+                        <code>Get </code>
+                     </entry>
+                     <entry>
+                        <code>LIST</code>
+                     </entry>
+                     <entry>
+                        <code>0,1</code>
+                     </entry>
+                     <entry>
+                        <code>A</code>
+                     </entry>
+                     <entry morerows="1">
+                        <para>
+An optional node providing access to the entries in the Bundle's JAR.
+ This list must be created from the Bundle <code>getEntryPaths()</code> method
+ called with an empty String. For each found entry, an Entry object must
+ be made available.
+ </para>
+                        <para>
+ If there is no installed Bundle yet then this node is not present.</para>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para>
+                           <code>  [list]</code>
+                        </para>
+                     </entry>
+                     <entry>
+                        <code>Get </code>
+                     </entry>
+                     <entry>
+                        <code>Entry</code>
+                     </entry>
+                     <entry>
+                        <code>0..*</code>
+                     </entry>
+                     <entry>
+                        <code>D</code>
+                     </entry>
+                  </row>
+                  <row>
+                     <entry>
+                        <para xreflabel="InstanceId"
+                              xml:id="org.osgi.dmt.residential.Bundle.InstanceId--">
+                           <code>InstanceId</code>
+                        </para>
+                     </entry>
+                     <entry>
+                        <code>Get </code>
+                     </entry>
+                     <entry>
+                        <code>integer</code>
+                     </entry>
+                     <entry>
+                        <code>1</code>
+                     </entry>
+                     <entry>
+                        <code>A</code>
+                     </entry>
+                     <entry>
+                        <para>
+Instance Id used by foreign protocol adapters as a unique integer key not
+ equal to 0.
+ 
+ The instance id for a bundle must be (Bundle Id % 2^32) + 1.
+   </para>
+                     </entry>
+                  </row>
+               </tbody>
+            </tgroup>
+         </table>
+      </section>
+   </section>
+   <section xreflabel="Bundle.Certificate"
+            role="class"
+            xml:id="org.osgi.dmt.residential.Bundle.Certificate">
+      <title>Bundle.Certificate</title>
+      <para>
+Place holder for the Signers DN names.
+   </para>
+      <table tabstyle="ddfsubtree" pgwide="1">
+         <title>Sub-tree Description for Bundle.Certificate</title>
+         <tgroup cols="6">
+            <colspec colwidth="1*"/>
+            <colspec colwidth="0.6*"/>
+            <colspec colwidth="1.5*"/>
+            <colspec colwidth="0.5*"/>
+            <colspec colwidth="0.2*"/>
+            <colspec colwidth="2.5*"/>
+            <thead>
+               <row>
+                  <entry>Name</entry>
+                  <entry>Act</entry>
+                  <entry>Type</entry>
+                  <entry>Card.</entry>
+                  <entry>S</entry>
+                  <entry>Description</entry>
+               </row>
+            </thead>
+            <tbody>
+               <row>
+                  <entry>
+                     <para xreflabel="IsTrusted"
+                           xml:id="org.osgi.dmt.residential.Bundle.Certificate.IsTrusted--">
+                        <code>IsTrusted</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>boolean</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry>
+                     <para>
+Return if this Certificate is trusted.
+   </para>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para xreflabel="CertificateChain"
+                           xml:id="org.osgi.dmt.residential.Bundle.Certificate.CertificateChain--">
+                        <code>CertificateChain</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>LIST</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry morerows="1">
+                     <para>
+A list of signer DNs of the certificates in the chain.
+   </para>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para>
+                        <code>  [list]</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>string</code>
+                  </entry>
+                  <entry>
+                     <code>0..*</code>
+                  </entry>
+                  <entry>
+                     <code>D</code>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para xreflabel="InstanceId"
+                           xml:id="org.osgi.dmt.residential.Bundle.Certificate.InstanceId--">
+                        <code>InstanceId</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>integer</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry>
+                     <para>
+Instance Id to allow addressing by Instance Id.
+   </para>
+                  </entry>
+               </row>
+            </tbody>
+         </tgroup>
+      </table>
+   </section>
+   <section xreflabel="Bundle.Entry"
+            role="class"
+            xml:id="org.osgi.dmt.residential.Bundle.Entry">
+      <title>Bundle.Entry</title>
+      <para>
+An Entry describes an entry in the Bundle, it combines the path of an
+ entry with the content. Only entries that have content will be returned,
+ that is, empty directories in the Bundle's archive are not returned.
+   </para>
+      <table tabstyle="ddfsubtree" pgwide="1">
+         <title>Sub-tree Description for Bundle.Entry</title>
+         <tgroup cols="6">
+            <colspec colwidth="1*"/>
+            <colspec colwidth="0.6*"/>
+            <colspec colwidth="1.5*"/>
+            <colspec colwidth="0.5*"/>
+            <colspec colwidth="0.2*"/>
+            <colspec colwidth="2.5*"/>
+            <thead>
+               <row>
+                  <entry>Name</entry>
+                  <entry>Act</entry>
+                  <entry>Type</entry>
+                  <entry>Card.</entry>
+                  <entry>S</entry>
+                  <entry>Description</entry>
+               </row>
+            </thead>
+            <tbody>
+               <row>
+                  <entry>
+                     <para xreflabel="Path" xml:id="org.osgi.dmt.residential.Bundle.Entry.Path--">
+                        <code>Path</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>string</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry>
+                     <para>
+The path in the Bundle archive to the entry.
+   </para>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para xreflabel="Content"
+                           xml:id="org.osgi.dmt.residential.Bundle.Entry.Content--">
+                        <code>Content</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>binary</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry>
+                     <para>
+The binary content of the entry.
+   </para>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para xreflabel="InstanceId"
+                           xml:id="org.osgi.dmt.residential.Bundle.Entry.InstanceId--">
+                        <code>InstanceId</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>integer</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry>
+                     <para>
+Instance Id to allow addressing by Instance Id.
+   </para>
+                  </entry>
+               </row>
+            </tbody>
+         </tgroup>
+      </table>
+   </section>
+   <section xreflabel="Filter"
+            role="class"
+            xml:id="org.osgi.dmt.residential.Filter">
+      <title>Filter</title>
+      <para>
+A Filter node can find the nodes in a given sub-tree that correspond to a
+ given filter expression. This Filter node is a generic mechanism to select a
+ part of the sub-tree (<emphasis>except</emphasis> itself).
+ </para>
+      <para>
+ Searching is done by treating an interior node as a map where its leaf nodes
+ are attributes for a filter expression. That is, an interior node matches
+ when a filter matches on its children. The matching nodes' URIs are gathered
+ under a <link linkend="org.osgi.dmt.residential.Filter.ResultUriList--">ResultUriList</link> node and as a virtual sub-tree
+ under the <link linkend="org.osgi.dmt.residential.Filter.Result--">Result</link> node.
+ </para>
+      <para>
+ The Filter node can specify the <link linkend="org.osgi.dmt.residential.Filter.Target--">Target</link> node. The
+ <link linkend="org.osgi.dmt.residential.Filter.Target--">Target</link> is an absolute URI ending in a slash, potentially
+ with wild cards. Only nodes that match the target node are included in the
+ result.
+ </para>
+      <para>
+ There are two different wild cards:
+ </para>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <emphasis>Asterisk</emphasis> (<code>'*'</code> \u002A) - Specifies a wild card for
+ one interior node name only. That is <code>A/*</code>
+               <code>/</code> matches an interior
+ nodes <code>A/B</code>, <code>A/C</code>, but not <code>A/X/Y</code>. The asterisk wild card
+ can be used anywhere in the URI like <code>A/*</code>
+               <code>/C</code>. Partial matches
+ are not supported, that is a URI like <code>A/xyz*</code> is invalid.</para>
+         </listitem>
+         <listitem>
+            <para>
+               <emphasis>Minus sign</emphasis> (<code>'-'</code> \u002D) - Specifies a wildcard for
+ any number of descendant nodes. This is <code>A/-/X/</code> matches <code>A/B/X</code>,
+ <code>A/C/X</code>, but also <code>A/X</code>. Partial matches are not supported, that
+ is a URI like <code>A/xyz-</code> is not supported. The - wild card must not be
+ used at the last segment of a URI</para>
+         </listitem>
+      </itemizedlist>
+      <para>
+ The <link linkend="org.osgi.dmt.residential.Filter.Target--">Target</link> node selects a set of nodes <code>N</code> that can
+ be viewed as a list of URIs or as a virtual sub-tree. The <link linkend="org.osgi.dmt.residential.Filter.Result--">Result</link> node is the virtual sub-tree (beginning at the session base) and the
+ <link linkend="org.osgi.dmt.residential.Filter.ResultUriList--">ResultUriList</link> is a LIST of session relative URIs.
+ The actual selection of the nodes must be postponed until either of these
+ nodes (or one of their sub-nodes) is accessed for the first time. Either
+ nodes represent a read-only snapshot that is valid until the end of the
+ session.
+ </para>
+      <para>
+ It is possible to further refine the selection by specifying the Filter node.
+ The Filter node is an LDAP filter expression or a simple wild card ('*')
+ which selects all the nodes. As the wild card is the default, all nodes
+ selected by the <link linkend="org.osgi.dmt.residential.Filter.Target--">Target</link> are selected by default.
+ </para>
+      <para>
+ The Filter must be applied to each of the nodes selected by target in the set
+ <code>N</code>. By definition, these nodes are <emphasis>interior nodes only</emphasis>. LDAP
+ expressions assert values depending on their <emphasis>key</emphasis>. In this case, the
+ child leaf nodes of a node in set <code>N</code> are treated as the property on
+ their parent node.
+ </para>
+      <para>
+ The attribute name in the LDAP filter can only reference a direct leaf node
+ of the node in the set <code>N</code> or an interior node with the DDF type
+ <link linkend="org.osgi.service.dmt.DmtConstants.DDF_LIST">org.osgi.service.dmt.DmtConstants.DDF_LIST</link> with leaf nodes as
+ children, i.e. a <emphasis>LIST</emphasis>. A LIST of primitives must be treated in the
+ filter as a multi valued property, any of its values satisfy an assertion on
+ that attribute.
+ </para>
+      <para>
+ Attribute names must not contains a slash, that is, it is only possible to
+ assert values directly below the node selected by the <code>target</code>.
+ </para>
+      <para>
+ 
+ Each of these leaf nodes and LISTs can be used in the LDAP Filter as a
+ key/value pair. The comparison must be done with the type used in the Dmt
+ Data object of the compared node. That is, if the Dmt Admin data is a number,
+ then the comparison rules of the number must be used. The attributes given to
+ the filter must be converted to the Java object that represents their type.
+ </para>
+      <para>
+ The set <code>N</code> must therefore consists only of nodes where the Filter
+ matches.
+ </para>
+      <para>
+ It is allowed to change the <link linkend="org.osgi.dmt.residential.Filter.Target--">Target</link> or the Filter node after
+ the results are read. In that case, the <link linkend="org.osgi.dmt.residential.Filter.Result--">Result</link> and
+ <link linkend="org.osgi.dmt.residential.Filter.ResultUriList--">ResultUriList</link> must be cleared instantaneously and
+ the search redone once either result node is read.
+ </para>
+      <para>
+ The initial value of <link linkend="org.osgi.dmt.residential.Filter.Target--">Target</link> is the empty string, which
+ indicates no target.</para>
+      <table tabstyle="ddfsubtree" pgwide="1">
+         <title>Sub-tree Description for Filter</title>
+         <tgroup cols="6">
+            <colspec colwidth="1*"/>
+            <colspec colwidth="0.6*"/>
+            <colspec colwidth="1.5*"/>
+            <colspec colwidth="0.5*"/>
+            <colspec colwidth="0.2*"/>
+            <colspec colwidth="2.5*"/>
+            <thead>
+               <row>
+                  <entry>Name</entry>
+                  <entry>Act</entry>
+                  <entry>Type</entry>
+                  <entry>Card.</entry>
+                  <entry>S</entry>
+                  <entry>Description</entry>
+               </row>
+            </thead>
+            <tbody>
+               <row>
+                  <entry>
+                     <para xreflabel="Target" xml:id="org.osgi.dmt.residential.Filter.Target--">
+                        <code>Target</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get Set </code>
+                  </entry>
+                  <entry>
+                     <code>string</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry>
+                     <para>
+An absolute URI always ending in a slash ('/'), with optional wildcards,
+ selecting a set of sub-nodes <code>N</code>. Wildcards can be an asterisk (
+ <code>'*'</code> \u002A) or a minus sign (<code>'-'</code> \u002D). An
+ asterisk can be used in place of a single node name in the URI, a minus
+ sign stands for any number of consecutive node names. The default value
+ of this node is the empty string, which indicates that no nodes must be
+ selected. Changing this value must clear any existing results. If the
+ <link linkend="org.osgi.dmt.residential.Filter.Result--">Result()</link> or <link linkend="org.osgi.dmt.residential.Filter.ResultUriList--">ResultUriList</link> is read to
+ get <code>N</code> then a new search must be executed.
+ </para>
+                     <para>
+ A URI must always end in '/' to indicate that the target can only select
+ interior nodes.</para>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para xreflabel="Filter" xml:id="org.osgi.dmt.residential.Filter.Filter--">
+                        <code>Filter</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get Set </code>
+                  </entry>
+                  <entry>
+                     <code>string</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry>
+                     <para>
+An optional filter expression that filters nodes in the set <code>N</code>
+ selected by <link linkend="org.osgi.dmt.residential.Filter.Target--">Target</link>. The filter expression is an LDAP
+ filter or an asterisk ('*'). An asterisk is the default value and matches
+ any node in set <code>N</code>. If an LDAP expression is set in the Filter
+ node then the set <code>N</code> must only contain nodes that match the given
+ filter. The values the filter asserts are the immediate leafs and LIST
+ nodes of the nodes in set <code>N</code>. The name of these child nodes is the
+ name of the attribute matched in the filter.
+ </para>
+                     <para>
+ The nodes can be removed by the Filter implementation after a timeout
+ defined by the implementation.</para>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para xreflabel="Limit" xml:id="org.osgi.dmt.residential.Filter.Limit--">
+                        <code>Limit</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get Set </code>
+                  </entry>
+                  <entry>
+                     <code>integer</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry>
+                     <para>
+Limits the number of results to the given number. If this node is not set
+ there is no limit. The default value is not set, thus no limit.
+   </para>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para xreflabel="Result" xml:id="org.osgi.dmt.residential.Filter.Result--">
+                        <code>Result</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>NODE</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry>
+                     <para>
+The Result tree is a virtual read-only tree of all nodes that were
+ selected by the <link linkend="org.osgi.dmt.residential.Filter.Target--">Target</link> and matched the Filter, that is,
+ all nodes in set <code>N</code>. The <link linkend="org.osgi.dmt.residential.Filter.Result--">Result</link> node acts as a
+ parent instead of the session root for each node in <code>N</code>.
+ </para>
+                     <para>
+ The <link linkend="org.osgi.dmt.residential.Filter.Result--">Result</link> node is a snapshot taken the first time it
+ is accessed after a change in the <code>Filter</code> and/or the
+ <code>Target</code> nodes.</para>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para xreflabel="ResultUriList"
+                           xml:id="org.osgi.dmt.residential.Filter.ResultUriList--">
+                        <code>ResultUriList</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>LIST</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry morerows="1">
+                     <para>
+A list of URIs of nodes in the Device Management Tree from the node
+ selected by the <link linkend="org.osgi.dmt.residential.Filter.Target--">Target</link> that match the Filter node. All
+ URIs are relative to current session.
+ 
+ The <link linkend="org.osgi.dmt.residential.Filter.Result--">Result</link> node is a snapshot taken the first time it
+ is accessed after a change in the <code>Filter</code> and/or the
+ <code>Target</code> nodes.
+   </para>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para>
+                        <code>  [list]</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>string</code>
+                  </entry>
+                  <entry>
+                     <code>0..*</code>
+                  </entry>
+                  <entry>
+                     <code>D</code>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para xreflabel="InstanceId"
+                           xml:id="org.osgi.dmt.residential.Filter.InstanceId--">
+                        <code>InstanceId</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>integer</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry>
+                     <para>
+Instance Id to allow addressing by Instance Id.
+   </para>
+                  </entry>
+               </row>
+            </tbody>
+         </tgroup>
+      </table>
+   </section>
+   <section xreflabel="Framework"
+            role="class"
+            xml:id="org.osgi.dmt.residential.Framework">
+      <title>Framework</title>
+      <para>
+The Framework node represents the information about the Framework itself.
+ 
+ The Framework node allows manipulation of the OSGi framework, start level,
+ framework life cycle, and bundle life cycle.
+ </para>
+      <para>
+ All modifications to a Framework object must occur in an atomic session. All
+ changes to the framework must occur during the commit.
+ </para>
+      <para>
+ The Framework node allows the manager to install (create a new child node in
+ <link linkend="org.osgi.dmt.residential.Framework.Bundle--">Bundle</link>), to uninstall change the state of the bundle (see
+ <link linkend="org.osgi.dmt.residential.Bundle.RequestedState--">Bundle.RequestedState()</link>), update the bundle (see <link linkend="org.osgi.dmt.residential.Bundle.URL--">URL</link> ), start/stop bundles, and update the framework. The implementation must
+ execute these actions in the following order during the commit of the
+ session:
+ </para>
+      <orderedlist>
+         <listitem>
+            <para>Create a snapshot of the current installed bundles and their state.</para>
+         </listitem>
+         <listitem>
+            <para>stop all bundles that will be uinstalled and updated</para>
+         </listitem>
+         <listitem>
+            <para>Uninstall all the to be uninstalled bundles (bundles whose RequestedState
+ is <link linkend="org.osgi.dmt.residential.Bundle.UNINSTALLED">Bundle.UNINSTALLED</link>)</para>
+         </listitem>
+         <listitem>
+            <para>Update all bundles that have a modified <link linkend="org.osgi.dmt.residential.Bundle.URL--">URL</link> with
+ this URL using the Bundle <code>update(InputStream)</code> method in the order
+ that the order that the URLs were last set.</para>
+         </listitem>
+         <listitem>
+            <para>Install any new bundles from their <link linkend="org.osgi.dmt.residential.Bundle.URL--">URL</link> in the order
+ that the order that the URLs were last set.</para>
+         </listitem>
+         <listitem>
+            <para>Refresh all bundles that were updated and installed</para>
+         </listitem>
+         <listitem>
+            <para>Ensure that all the bundles have their correct start level</para>
+         </listitem>
+         <listitem>
+            <para>If the <link linkend="org.osgi.dmt.residential.Bundle.RequestedState--">RequestedState</link> was set, follow
+ this state. Otherwise ensure that any Bundles that have the
+ <link linkend="org.osgi.dmt.residential.Bundle.AutoStart--">AutoStart</link> flag set to <code>true</code> are started
+ persistently. Transiently started bundles that were stopped in this process
+ are not restarted. The bundle id order must be used.</para>
+         </listitem>
+         <listitem>
+            <para>Wait until the desired start level has been reached</para>
+         </listitem>
+         <listitem>
+            <para>Return from the commit without error.</para>
+         </listitem>
+      </orderedlist>
+      <para>
+ If any of the above steps runs in an error (except the restart) than the
+ actions should be undone and the system state must be restored to the
+ snapshot.
+ </para>
+      <para>
+ If the System Bundle was updated (its URL) node was modified, then after the
+ commit has returned successfully, the OSGi Framework must be restarted.</para>
+      <table tabstyle="ddfsubtree" pgwide="1">
+         <title>Sub-tree Description for Framework</title>
+         <tgroup cols="6">
+            <colspec colwidth="1*"/>
+            <colspec colwidth="0.6*"/>
+            <colspec colwidth="1.5*"/>
+            <colspec colwidth="0.5*"/>
+            <colspec colwidth="0.2*"/>
+            <colspec colwidth="2.5*"/>
+            <thead>
+               <row>
+                  <entry>Name</entry>
+                  <entry>Act</entry>
+                  <entry>Type</entry>
+                  <entry>Card.</entry>
+                  <entry>S</entry>
+                  <entry>Description</entry>
+               </row>
+            </thead>
+            <tbody>
+               <row>
+                  <entry>
+                     <para xreflabel="StartLevel"
+                           xml:id="org.osgi.dmt.residential.Framework.StartLevel--">
+                        <code>StartLevel</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get Set </code>
+                  </entry>
+                  <entry>
+                     <code>integer</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry>
+                     <para>
+The StartLevel manages the Framework's current Start Level. Maps to the
+ Framework Start Level <code>set/getStartLevel()</code> methods.
+ </para>
+                     <para>
+ This node can set the requested Framework's StartLevel, however it
+ doesn't store the value. This node returns the Framework's StartLevel at
+ the moment of the call.</para>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para xreflabel="InitialBundleStartLevel"
+                           xml:id="org.osgi.dmt.residential.Framework.InitialBundleStartLevel--">
+                        <code>InitialBundleStartLevel</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get Set </code>
+                  </entry>
+                  <entry>
+                     <code>integer</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry>
+                     <para>
+Configures the initial bundle start level, maps to the the
+ FrameworkStartLevel <code>set/getInitialBundleStartLevel()</code> method.
+   </para>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para xreflabel="Bundle" xml:id="org.osgi.dmt.residential.Framework.Bundle--">
+                        <code>Bundle</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>MAP</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry morerows="1">
+                     <para>
+The MAP of location -&gt; Bundle. Each Bundle is uniquely identified by its
+ location. The location is a string that must be unique for each bundle
+ and can be chosen by the management system.
+ </para>
+                     <para>
+ The Bundles node will be automatically filled from the installed bundles,
+ representing the actual state.
+ </para>
+                     <para>
+ New bundles can be installed by creating a new node with a given
+ location. At commit, this bundle will be installed from their
+ <link linkend="org.osgi.dmt.residential.Bundle.URL--">Bundle.URL</link> node.
+ </para>
+                     <para>
+ The location of the System Bundle must be "System Bundle" (see the Core's
+ <code>Constants.SYSTEM_BUNDLE_LOCATION</code>), this node cannot be
+ uninstalled and most operations on this node have special meaning.
+ </para>
+                     <para>
+ It is strongly recommended to use a logical name for the location of a
+ bundle, for example reverse domain names or a UUID.
+ </para>
+                     <para>
+ To uninstall a bundle, set the <link linkend="org.osgi.dmt.residential.Bundle.RequestedState--">Bundle.RequestedState</link> to
+ <code>UNINSTALLED</code>, the nodes in <link linkend="org.osgi.dmt.residential.Framework.Bundle--">Bundle</link> cannot be deleted.</para>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para>
+                        <code>  [String]</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Add Get </code>
+                  </entry>
+                  <entry>
+                     <code>Bundle</code>
+                  </entry>
+                  <entry>
+                     <code>0..*</code>
+                  </entry>
+                  <entry>
+                     <code>D</code>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para xreflabel="Property"
+                           xml:id="org.osgi.dmt.residential.Framework.Property--">
+                        <code>Property</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>MAP</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry morerows="1">
+                     <para>
+The Framework Properties.
+ </para>
+                     <para>
+ The Framework properties come from the Bundle Context
+ <code>getProperty()</code> method. However, this method does not provide the
+ names of the available properties. If the handler of this node is aware
+ of the framework properties then these should be used to provide the node
+ names. If these properties are now known, the handler must synthesize the
+ names from the following sources
+ </para>
+                     <itemizedlist>
+                        <listitem>
+                           <para>System Properties (as they are backing the Framework properties)</para>
+                        </listitem>
+                        <listitem>
+                           <para>Launching properties as defined in the OSGi Core specification</para>
+                        </listitem>
+                        <listitem>
+                           <para>Properties in the residential specification</para>
+                        </listitem>
+                        <listitem>
+                           <para>Other known properties</para>
+                        </listitem>
+                     </itemizedlist>
+                     <para/>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para>
+                        <code>  [String]</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>string</code>
+                  </entry>
+                  <entry>
+                     <code>0..*</code>
+                  </entry>
+                  <entry>
+                     <code>D</code>
+                  </entry>
+               </row>
+            </tbody>
+         </tgroup>
+      </table>
+   </section>
+   <section xreflabel="Wire"
+            role="class"
+            xml:id="org.osgi.dmt.residential.Wire">
+      <title>Wire</title>
+      <para>
+A Wire is a link between two bundles where the semantics of this link is
+ defined by the used name space. This is closely modeled after the Wiring API
+ in the Core Framework.
+   </para>
+      <table tabstyle="ddfsubtree" pgwide="1">
+         <title>Sub-tree Description for Wire</title>
+         <tgroup cols="6">
+            <colspec colwidth="1*"/>
+            <colspec colwidth="0.6*"/>
+            <colspec colwidth="1.5*"/>
+            <colspec colwidth="0.5*"/>
+            <colspec colwidth="0.2*"/>
+            <colspec colwidth="2.5*"/>
+            <thead>
+               <row>
+                  <entry>Name</entry>
+                  <entry>Act</entry>
+                  <entry>Type</entry>
+                  <entry>Card.</entry>
+                  <entry>S</entry>
+                  <entry>Description</entry>
+               </row>
+            </thead>
+            <tbody>
+               <row>
+                  <entry>
+                     <para xreflabel="Namespace"
+                           xml:id="org.osgi.dmt.residential.Wire.Namespace--">
+                        <code>Namespace</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>string</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry>
+                     <para>
+The name space of this wire. Can be:
+ </para>
+                     <itemizedlist>
+                        <listitem>
+                           <para>osgi.wiring.bundle - Defined in the OSGi Core</para>
+                        </listitem>
+                        <listitem>
+                           <para>osgi.wiring.package - Defined in the OSGi Core</para>
+                        </listitem>
+                        <listitem>
+                           <para>osgi.wiring.host - Defined in the OSGi Core</para>
+                        </listitem>
+                        <listitem>
+                           <para>osgi.wiring.rmt.service - Defined in this specification</para>
+                        </listitem>
+                        <listitem>
+                           <para>* - Generic name spaces</para>
+                        </listitem>
+                     </itemizedlist>
+                     <para>
+ The osgi.wiring.rmt.service name space is not defined by the OSGi Core as
+ it is not part of the module layer. The name space has the following
+ layout:
+ </para>
+                     <itemizedlist>
+                        <listitem>
+                           <para>Requirement - A filter on the service.id service property.</para>
+                        </listitem>
+                        <listitem>
+                           <para>Capability - All service properties as attributes. No defined
+ directives.</para>
+                        </listitem>
+                        <listitem>
+                           <para>Requirer - The bundle that has gotten the service</para>
+                        </listitem>
+                        <listitem>
+                           <para>Provider - The bundle that has registered the service</para>
+                        </listitem>
+                     </itemizedlist>
+                     <para>
+ There is a wire for each registration-get pair. That is, if a service is
+ registered by A and gotten by B and C then there are two wires:
+ <code>B-&gt;A</code> and <code>C-&gt;A</code>.</para>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para xreflabel="Requirement"
+                           xml:id="org.osgi.dmt.residential.Wire.Requirement--">
+                        <code>Requirement</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>Requirement</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry>
+                     <para>
+The Requirement that caused this wire.
+   </para>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para xreflabel="Capability"
+                           xml:id="org.osgi.dmt.residential.Wire.Capability--">
+                        <code>Capability</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>Capability</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry>
+                     <para>
+The Capability that satisfied the requirement of this wire.
+   </para>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para xreflabel="Requirer" xml:id="org.osgi.dmt.residential.Wire.Requirer--">
+                        <code>Requirer</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>string</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry>
+                     <para>
+The location of the Bundle that contains the requirement for this wire.
+   </para>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para xreflabel="Provider" xml:id="org.osgi.dmt.residential.Wire.Provider--">
+                        <code>Provider</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>string</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry>
+                     <para>
+The location of the Bundle that provides the capability for this wire.
+   </para>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para xreflabel="InstanceId"
+                           xml:id="org.osgi.dmt.residential.Wire.InstanceId--">
+                        <code>InstanceId</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>integer</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry>
+                     <para>
+Instance Id to allow addressing by Instance Id.
+   </para>
+                  </entry>
+               </row>
+            </tbody>
+         </tgroup>
+      </table>
+   </section>
+   <section xreflabel="Wire.Capability"
+            role="class"
+            xml:id="org.osgi.dmt.residential.Wire.Capability">
+      <title>Wire.Capability</title>
+      <para>
+Describes a Capability.
+   </para>
+      <table tabstyle="ddfsubtree" pgwide="1">
+         <title>Sub-tree Description for Wire.Capability</title>
+         <tgroup cols="6">
+            <colspec colwidth="1*"/>
+            <colspec colwidth="0.6*"/>
+            <colspec colwidth="1.5*"/>
+            <colspec colwidth="0.5*"/>
+            <colspec colwidth="0.2*"/>
+            <colspec colwidth="2.5*"/>
+            <thead>
+               <row>
+                  <entry>Name</entry>
+                  <entry>Act</entry>
+                  <entry>Type</entry>
+                  <entry>Card.</entry>
+                  <entry>S</entry>
+                  <entry>Description</entry>
+               </row>
+            </thead>
+            <tbody>
+               <row>
+                  <entry>
+                     <para xreflabel="Directive"
+                           xml:id="org.osgi.dmt.residential.Wire.Capability.Directive--">
+                        <code>Directive</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>MAP</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry morerows="1">
+                     <para>
+The Directives for this capability.
+   </para>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para>
+                        <code>  [String]</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>string</code>
+                  </entry>
+                  <entry>
+                     <code>0..*</code>
+                  </entry>
+                  <entry>
+                     <code>D</code>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para xreflabel="Attribute"
+                           xml:id="org.osgi.dmt.residential.Wire.Capability.Attribute--">
+                        <code>Attribute</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>MAP</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry morerows="1">
+                     <para>
+The Attributes for this capability.
+   </para>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para>
+                        <code>  [String]</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>string</code>
+                  </entry>
+                  <entry>
+                     <code>0..*</code>
+                  </entry>
+                  <entry>
+                     <code>D</code>
+                  </entry>
+               </row>
+            </tbody>
+         </tgroup>
+      </table>
+   </section>
+   <section xreflabel="Wire.Requirement"
+            role="class"
+            xml:id="org.osgi.dmt.residential.Wire.Requirement">
+      <title>Wire.Requirement</title>
+      <para>
+Describes a Requirement.
+   </para>
+      <table tabstyle="ddfsubtree" pgwide="1">
+         <title>Sub-tree Description for Wire.Requirement</title>
+         <tgroup cols="6">
+            <colspec colwidth="1*"/>
+            <colspec colwidth="0.6*"/>
+            <colspec colwidth="1.5*"/>
+            <colspec colwidth="0.5*"/>
+            <colspec colwidth="0.2*"/>
+            <colspec colwidth="2.5*"/>
+            <thead>
+               <row>
+                  <entry>Name</entry>
+                  <entry>Act</entry>
+                  <entry>Type</entry>
+                  <entry>Card.</entry>
+                  <entry>S</entry>
+                  <entry>Description</entry>
+               </row>
+            </thead>
+            <tbody>
+               <row>
+                  <entry>
+                     <para xreflabel="Filter"
+                           xml:id="org.osgi.dmt.residential.Wire.Requirement.Filter--">
+                        <code>Filter</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>string</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry>
+                     <para>
+The Filter string for this requirement.
+   </para>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para xreflabel="Directive"
+                           xml:id="org.osgi.dmt.residential.Wire.Requirement.Directive--">
+                        <code>Directive</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>MAP</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry morerows="1">
+                     <para>
+The Directives for this requirement. These directives must contain
+ the filter: directive as described by the Core.
+   </para>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para>
+                        <code>  [String]</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>string</code>
+                  </entry>
+                  <entry>
+                     <code>0..*</code>
+                  </entry>
+                  <entry>
+                     <code>D</code>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para xreflabel="Attribute"
+                           xml:id="org.osgi.dmt.residential.Wire.Requirement.Attribute--">
+                        <code>Attribute</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>MAP</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry morerows="1">
+                     <para>
+The Attributes for this requirement.
+   </para>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para>
+                        <code>  [String]</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>string</code>
+                  </entry>
+                  <entry>
+                     <code>0..*</code>
+                  </entry>
+                  <entry>
+                     <code>D</code>
+                  </entry>
+               </row>
+            </tbody>
+         </tgroup>
+      </table>
+   </section>
+</section>

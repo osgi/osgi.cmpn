@@ -1,0 +1,265 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.component.runtime"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.component.runtime">
+   <title>org.osgi.service.component.runtime</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.component.runtime-version">Version 1.5</releaseinfo>
+      <edition xml:id="org.osgi.service.component.runtime-version.number">1.5</edition>
+   </info>
+   <para>
+Service Component Runtime Package Version 1.5.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.component.runtime; version="[1.5,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.component.runtime; version="[1.5,1.6)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.component.runtime.ServiceComponentRuntime">
+                  <code>ServiceComponentRuntime</code>
+               </link> - 
+The <code>ServiceComponentRuntime</code> service represents the Declarative
+ Services actor, known as Service Component Runtime (SCR), that manages the
+ service components and their life cycle.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="ServiceComponentRuntime"
+            role="class"
+            xml:id="org.osgi.service.component.runtime.ServiceComponentRuntime">
+      <title>public interface ServiceComponentRuntime</title>
+      <para>
+The <code>ServiceComponentRuntime</code> service represents the Declarative
+ Services actor, known as Service Component Runtime (SCR), that manages the
+ service components and their life cycle. The <code>ServiceComponentRuntime</code>
+ service allows introspection of the components managed by Service Component
+ Runtime.
+ </para>
+      <para>
+ This service differentiates between a <link linkend="org.osgi.service.component.runtime.dto.ComponentDescriptionDTO">ComponentDescriptionDTO</link> and a
+ <link linkend="org.osgi.service.component.runtime.dto.ComponentConfigurationDTO">ComponentConfigurationDTO</link>. A <link linkend="org.osgi.service.component.runtime.dto.ComponentDescriptionDTO">ComponentDescriptionDTO</link> is a
+ representation of a declared component description. A
+ <link linkend="org.osgi.service.component.runtime.dto.ComponentConfigurationDTO">ComponentConfigurationDTO</link> is a representation of an actual instance
+ of a declared component description parameterized by component properties.
+ </para>
+      <para>
+ This service must be registered with a <link linkend="org.osgi.framework.Constants.SERVICE_CHANGECOUNT">Constants.SERVICE_CHANGECOUNT</link>
+ service property that must be updated each time the SCR DTOs available from
+ this service change.
+ </para>
+      <para>
+ Access to this service requires the
+ <code>ServicePermission[ServiceComponentRuntime, GET]</code> permission. It is
+ intended that only administrative bundles should be granted this permission
+ to limit access to the potentially intrusive methods provided by this
+ service.</para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.3</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="disableComponent(ComponentDescriptionDTO)"
+               role="method"
+               xml:id="org.osgi.service.component.runtime.ServiceComponentRuntime.disableComponent-ComponentDescriptionDTO-">
+         <title>public Promise&lt;Void&gt; disableComponent(ComponentDescriptionDTO description)</title>
+         <formalpara role="parameter">
+            <title>description</title>
+            <para>The component description to disable. Must not be
+            <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Disables the specified component description.
+ </para>
+         <para>
+ If the specified component description is currently disabled, this method
+ has no effect.
+ </para>
+         <para>
+ This method must return after changing the enabled state of the specified
+ component description. Any actions that result from this, such as
+ activating or deactivating a component configuration, must occur
+ asynchronously to this method call.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A promise that will be resolved when the actions that result from
+         changing the enabled state of the specified component have
+         completed. If the provided description does not belong to an
+         active bundle, a failed promise is returned.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.component.runtime.ServiceComponentRuntime.isComponentEnabled-ComponentDescriptionDTO-">isComponentEnabled(ComponentDescriptionDTO)</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="enableComponent(ComponentDescriptionDTO)"
+               role="method"
+               xml:id="org.osgi.service.component.runtime.ServiceComponentRuntime.enableComponent-ComponentDescriptionDTO-">
+         <title>public Promise&lt;Void&gt; enableComponent(ComponentDescriptionDTO description)</title>
+         <formalpara role="parameter">
+            <title>description</title>
+            <para>The component description to enable. Must not be
+            <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Enables the specified component description.
+ </para>
+         <para>
+ If the specified component description is currently enabled, this method
+ has no effect.
+ </para>
+         <para>
+ This method must return after changing the enabled state of the specified
+ component description. Any actions that result from this, such as
+ activating or deactivating a component configuration, must occur
+ asynchronously to this method call.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A promise that will be resolved when the actions that result from
+         changing the enabled state of the specified component have
+         completed. If the provided description does not belong to an
+         active bundle, a failed promise is returned.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.component.runtime.ServiceComponentRuntime.isComponentEnabled-ComponentDescriptionDTO-">isComponentEnabled(ComponentDescriptionDTO)</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="getComponentConfigurationDTOs(ComponentDescriptionDTO)"
+               role="method"
+               xml:id="org.osgi.service.component.runtime.ServiceComponentRuntime.getComponentConfigurationDTOs-ComponentDescriptionDTO-">
+         <title>public Collection&lt;ComponentConfigurationDTO&gt; getComponentConfigurationDTOs(ComponentDescriptionDTO description)</title>
+         <formalpara role="parameter">
+            <title>description</title>
+            <para>The component description. Must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Returns the component configurations for the specified component
+ description.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A collection containing a snapshot of the current component
+         configurations for the specified component description. An empty
+         collection is returned if there are none or if the provided
+         component description does not belong to an active bundle.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getComponentDescriptionDTO(Bundle,String)"
+               role="method"
+               xml:id="org.osgi.service.component.runtime.ServiceComponentRuntime.getComponentDescriptionDTO-Bundle-String-">
+         <title>public ComponentDescriptionDTO getComponentDescriptionDTO(Bundle bundle, String name)</title>
+         <formalpara role="parameter">
+            <title>bundle</title>
+            <para>The bundle declaring the component description. Must not be
+        <code>null</code>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>name</title>
+            <para>The name of the component description. Must not be
+        <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Returns the <link linkend="org.osgi.service.component.runtime.dto.ComponentDescriptionDTO">ComponentDescriptionDTO</link> declared with the specified name
+ by the specified bundle.
+ 
+ </para>
+         <para>
+ Only component descriptions from active bundles are returned.
+ <code>null</code> if no such component is declared by the given <code>bundle</code>
+ or the bundle is not active.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The declared component description or <code>null</code> if the
+         specified bundle is not active or does not declare a component
+         description with the specified name.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getComponentDescriptionDTOs(Bundle...)"
+               role="method"
+               xml:id="org.osgi.service.component.runtime.ServiceComponentRuntime.getComponentDescriptionDTOs-Bundle...-">
+         <title>public Collection&lt;ComponentDescriptionDTO&gt; getComponentDescriptionDTOs(Bundle... bundles)</title>
+         <formalpara role="parameter">
+            <title>bundles</title>
+            <para>The bundles whose declared component descriptions are to
+        be returned. Specifying no bundles, or the equivalent of an empty
+        <code>Bundle</code> array, will return the declared component
+        descriptions from all active bundles.</para>
+         </formalpara>
+         <para role="description">
+Returns the component descriptions declared by the specified active
+ bundles.
+ 
+ </para>
+         <para>
+ Only component descriptions from active bundles are returned. If the
+ specified bundles have no declared components or are not active, an empty
+ collection is returned.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The declared component descriptions of the specified active
+         <code>bundles</code>. An empty collection is returned if there are no
+         component descriptions for the specified active bundles.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="isComponentEnabled(ComponentDescriptionDTO)"
+               role="method"
+               xml:id="org.osgi.service.component.runtime.ServiceComponentRuntime.isComponentEnabled-ComponentDescriptionDTO-">
+         <title>public boolean isComponentEnabled(ComponentDescriptionDTO description)</title>
+         <formalpara role="parameter">
+            <title>description</title>
+            <para>The component description. Must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Returns whether the specified component description is currently enabled.
+ 
+ </para>
+         <para>
+ The enabled state of a component description is initially set by the
+ <link linkend="org.osgi.service.component.runtime.dto.ComponentDescriptionDTO.defaultEnabled">enabled</link> attribute of the
+ component description.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>true</code> if the specified component description is currently
+         enabled. Otherwise, <code>false</code>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.component.runtime.ServiceComponentRuntime.enableComponent-ComponentDescriptionDTO-">enableComponent(ComponentDescriptionDTO)</link>, <link linkend="org.osgi.service.component.runtime.ServiceComponentRuntime.disableComponent-ComponentDescriptionDTO-">disableComponent(ComponentDescriptionDTO)</link>, <link linkend="org.osgi.service.component.ComponentContext.disableComponent-String-">ComponentContext.disableComponent(String)</link>, <link linkend="org.osgi.service.component.ComponentContext.enableComponent-String-">ComponentContext.enableComponent(String)</link>
+            </para>
+         </formalpara>
+      </section>
+   </section>
+</section>
