@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.osgi</groupId>
+	<artifactId>osgi.cmpn.reactor</artifactId>
+	<version>${revision}</version>
+	<packaging>pom</packaging>
+	<description>OSGi Compendium Release</description>
+
+	<!-- The version lives in exactly one place: .mvn/maven.config
+	     (-Drevision=...). Maven picks that file up from the repo root for
+	     every build, and the release workflow matches the git tag against
+	     it. No revision property here — a second copy would just drift. -->
+	<parent>
+		<groupId>org.osgi</groupId>
+		<artifactId>org.osgi.maven.pom.parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<!-- The SNAPSHOT parent is deployed to Central snapshots, not Maven
+	     Central. The repositories declared in the parent cannot help to
+	     resolve the parent itself, but repositories declared here in the
+	     child are used for parent resolution — without this block a fresh
+	     clone cannot build. Remove once the parent is a Central release. -->
+	<repositories>
+		<repository>
+			<id>central-snapshots</id>
+			<name>Central Snapshots</name>
+			<url>https://central.sonatype.com/repository/maven-snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
+	<!-- Plugin and build-extension dependencies (e.g. the tck-bnd-plugins
+	     jar on the bnd-maven-plugin classpath) resolve via
+	     pluginRepositories, not repositories — same snapshot store. -->
+	<pluginRepositories>
+		<pluginRepository>
+			<id>central-snapshots</id>
+			<name>Central Snapshots</name>
+			<url>https://central.sonatype.com/repository/maven-snapshots/</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</pluginRepository>
+	</pluginRepositories>
+
+	<properties>
+		<osgi.scm.repository>osgi/osgi.cmpn</osgi.scm.repository>
+
+		<!-- One version per specification repository. It selects the DocBook
+		     artifact org.osgi.spec:<repo> for the book. The values are the
+		     versions of OSGi Compendium Release 8.1. -->
+		<org.osgi.namespace.extender.version>1.0.1</org.osgi.namespace.extender.version>
+		<org.osgi.service.async.version>1.0.0</org.osgi.service.async.version>
+		<org.osgi.service.cdi.version>1.0.1</org.osgi.service.cdi.version>
+		<org.osgi.service.clusterinfo.version>1.0.0</org.osgi.service.clusterinfo.version>
+		<org.osgi.service.cm.version>1.6.1</org.osgi.service.cm.version>
+		<org.osgi.service.component.version>1.5.1</org.osgi.service.component.version>
+		<org.osgi.service.configurator.version>1.0.1</org.osgi.service.configurator.version>
+		<org.osgi.service.coordinator.version>1.0.2</org.osgi.service.coordinator.version>
+		<org.osgi.service.dal.version>1.0.2</org.osgi.service.dal.version>
+		<org.osgi.service.dal.functions.version>1.0.1</org.osgi.service.dal.functions.version>
+		<org.osgi.service.device.version>1.1.1</org.osgi.service.device.version>
+		<org.osgi.service.dmt.version>2.0.2</org.osgi.service.dmt.version>
+		<org.osgi.service.enocean.version>1.0.1</org.osgi.service.enocean.version>
+		<org.osgi.service.event.version>1.4.1</org.osgi.service.event.version>
+		<org.osgi.service.feature.version>1.0.0</org.osgi.service.feature.version>
+		<org.osgi.service.jakartars.version>2.0.0</org.osgi.service.jakartars.version>
+		<org.osgi.service.jdbc.version>1.1.0</org.osgi.service.jdbc.version>
+		<org.osgi.service.jndi.version>1.0.1</org.osgi.service.jndi.version>
+		<org.osgi.service.jpa.version>1.1.1</org.osgi.service.jpa.version>
+		<org.osgi.service.log.stream.version>1.0.0</org.osgi.service.log.stream.version>
+		<org.osgi.service.metatype.version>1.4.1</org.osgi.service.metatype.version>
+		<org.osgi.service.networkadapter.version>1.0.1</org.osgi.service.networkadapter.version>
+		<org.osgi.service.onem2m.version>1.0.0</org.osgi.service.onem2m.version>
+		<org.osgi.service.prefs.version>1.1.2</org.osgi.service.prefs.version>
+		<org.osgi.service.remoteserviceadmin.version>1.1.0</org.osgi.service.remoteserviceadmin.version>
+		<org.osgi.service.repository.version>1.1.0</org.osgi.service.repository.version>
+		<org.osgi.service.resourcemonitoring.version>1.0.1</org.osgi.service.resourcemonitoring.version>
+		<org.osgi.service.rest.version>1.0.0</org.osgi.service.rest.version>
+		<org.osgi.service.serial.version>1.0.1</org.osgi.service.serial.version>
+		<org.osgi.service.serviceloader.version>1.0.0</org.osgi.service.serviceloader.version>
+		<org.osgi.service.servlet.version>2.0.0</org.osgi.service.servlet.version>
+		<org.osgi.service.tr069todmt.version>1.0.2</org.osgi.service.tr069todmt.version>
+		<org.osgi.service.transaction.control.version>1.0.0</org.osgi.service.transaction.control.version>
+		<org.osgi.service.typedevent.version>1.0.0</org.osgi.service.typedevent.version>
+		<org.osgi.service.upnp.version>1.2.1</org.osgi.service.upnp.version>
+		<org.osgi.service.usbinfo.version>1.0.1</org.osgi.service.usbinfo.version>
+		<org.osgi.service.useradmin.version>1.1.1</org.osgi.service.useradmin.version>
+		<org.osgi.service.wireadmin.version>1.0.2</org.osgi.service.wireadmin.version>
+		<org.osgi.service.zigbee.version>1.0.1</org.osgi.service.zigbee.version>
+		<org.osgi.util.converter.version>1.0.9</org.osgi.util.converter.version>
+		<org.osgi.util.promise.version>1.3.0</org.osgi.util.promise.version>
+		<org.osgi.util.pushstream.version>1.1.0</org.osgi.util.pushstream.version>
+		<org.osgi.util.xml.version>1.0.2</org.osgi.util.xml.version>
+		<org.osgi.service.jta.version>1.0.0</org.osgi.service.jta.version>
+		<org.osgi.service.war.version>1.0.0</org.osgi.service.war.version>
+		<!-- javadoc only, included by other chapters -->
+		<org.osgi.namespace.contract.version>1.0.0</org.osgi.namespace.contract.version>
+		<org.osgi.namespace.implementation.version>1.0.0</org.osgi.namespace.implementation.version>
+		<org.osgi.namespace.service.version>1.0.0</org.osgi.namespace.service.version>
+		<org.osgi.namespace.unresolvable.version>1.0.0</org.osgi.namespace.unresolvable.version>
+		<org.osgi.util.function.version>1.2.0</org.osgi.util.function.version>
+	</properties>
+
+	<modules>
+		<module>spec</module>
+	</modules>
+
+	<build>
+		<plugins>
+			<!-- Resolve ${revision} before install/deploy. The parent manages this
+			     plugin but does not activate it, so every installed pom kept the
+			     unresolved property in its parent reference: consuming a module
+			     from the repository — or publishing it — then fails. Declared
+			     here in the reactor, the modules inherit it. -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>flatten-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<!-- the release number for titles:
+				     ${parsedVersion.majorVersion}.${parsedVersion.minorVersion} -->
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>parse-version</id>
+						<goals>
+							<goal>parse-version</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

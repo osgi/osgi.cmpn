@@ -1,0 +1,127 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.jakartars.runtime"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.jakartars.runtime">
+   <title>org.osgi.service.jakartars.runtime</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.jakartars.runtime-version">Version 2.0</releaseinfo>
+      <edition xml:id="org.osgi.service.jakartars.runtime-version.number">2.0</edition>
+   </info>
+   <para>
+Jakarta RESTful Web Services Runtime Package Version 1.0.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.jakartars.runtime; version="[1.0,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.jakartars.runtime; version="[1.0,1.1)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.jakartars.runtime.JakartarsServiceRuntime">
+                  <code>JakartarsServiceRuntime</code>
+               </link> - 
+The JakartarsServiceRuntime service represents the runtime information of a
+ Jakarta RESTful Web Services Whiteboard implementation.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.jakartars.runtime.JakartarsServiceRuntimeConstants">
+                  <code>JakartarsServiceRuntimeConstants</code>
+               </link> - 
+Defines standard names for Jakarta RESTful Web Services Runtime Service
+ constants.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="JakartarsServiceRuntime"
+            role="class"
+            xml:id="org.osgi.service.jakartars.runtime.JakartarsServiceRuntime">
+      <title>public interface JakartarsServiceRuntime</title>
+      <para>
+The JakartarsServiceRuntime service represents the runtime information of a
+ Jakarta RESTful Web Services Whiteboard implementation.
+ </para>
+      <para>
+ It provides access to DTOs representing the current state of the service.
+ </para>
+      <para>
+ The JakartarsServiceRuntime service must be registered with the
+ <link linkend="org.osgi.service.jakartars.runtime.JakartarsServiceRuntimeConstants.JAKARTA_RS_SERVICE_ENDPOINT">JakartarsServiceRuntimeConstants.JAKARTA_RS_SERVICE_ENDPOINT</link> service
+ property.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="getRuntimeDTO()"
+               role="method"
+               xml:id="org.osgi.service.jakartars.runtime.JakartarsServiceRuntime.getRuntimeDTO--">
+         <title>public RuntimeDTO getRuntimeDTO()</title>
+         <para role="description">
+Return the runtime DTO representing the current state.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The runtime DTO.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="JakartarsServiceRuntimeConstants"
+            role="class"
+            xml:id="org.osgi.service.jakartars.runtime.JakartarsServiceRuntimeConstants">
+      <title>public final class JakartarsServiceRuntimeConstants</title>
+      <para>
+Defines standard names for Jakarta RESTful Web Services Runtime Service
+ constants.
+   </para>
+      <section xreflabel="JAKARTA_RS_SERVICE_ENDPOINT"
+               role="field"
+               xml:id="org.osgi.service.jakartars.runtime.JakartarsServiceRuntimeConstants.JAKARTA_RS_SERVICE_ENDPOINT">
+         <title>public static final String JAKARTA_RS_SERVICE_ENDPOINT = "osgi.jakartars.endpoint"</title>
+         <para>
+Jakarta RESTful Web Services Runtime Service service property specifying
+ the endpoints upon which the Jakarta RESTful Web Services implementation
+ is available.
+ </para>
+         <para>
+ An endpoint value is a URL or a relative path, to which the Jakarta
+ RESTful Web Services Whiteboard implementation is listening. For example,
+ <code>http://192.168.1.10:8080/</code> or <code>/myapp/</code>. A relative path may
+ be used if the scheme and authority parts of the URL are not known, e.g.
+ if a bridged Http Whiteboard implementation is used. If the Jakarta
+ RESTful Web Services Whiteboard implementation is serving the root
+ context and neither scheme nor authority is known, the value of the
+ property is "/". Both, a URL and a relative path, must end with a slash.
+ </para>
+         <para>
+ A Jakarta RESTful Web Services Whiteboard implementation can be listening
+ on multiple endpoints.
+ </para>
+         <para>
+ The value of this service property must be of type <code>String</code>,
+ <code>String[]</code>, or <code>Collection&lt;String&gt;</code>.</para>
+      </section>
+   </section>
+</section>

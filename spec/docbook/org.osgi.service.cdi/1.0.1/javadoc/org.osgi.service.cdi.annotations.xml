@@ -1,0 +1,1319 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.cdi.annotations"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.cdi.annotations">
+   <title>org.osgi.service.cdi.annotations</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.cdi.annotations-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.service.cdi.annotations-version.number">1.0</edition>
+   </info>
+   <para>
+CDI Integration Package Version 1.0.
+
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.cdi.annotations; version="[1.0,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.cdi.annotations; version="[1.0,1.1)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.Bean">
+                  <code>Bean</code>
+               </link> - 
+Annotation used to indicate that build tooling must be included the class in
+ the <code>osgi.cdi</code>
+               <code>beans</code> list.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.BeanPropertyType">
+                  <code>BeanPropertyType</code>
+               </link> - 
+Identify the annotated annotation as a Bean Property Type.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.BeanPropertyType.Literal">
+                  <code>BeanPropertyType.Literal</code>
+               </link> - 
+Support inline instantiation of the <link linkend="org.osgi.service.cdi.annotations.BeanPropertyType">BeanPropertyType</link> annotation.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.Beans">
+                  <code>Beans</code>
+               </link> - 
+Annotation used to indicate that build tooling must be included the specified
+ classes in the <code>osgi.cdi</code>
+               <code>beans</code> list.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.ComponentProperties">
+                  <code>ComponentProperties</code>
+               </link> - 
+Annotation used with Inject in order to have component properties
+ injected.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.ComponentProperties.Literal">
+                  <code>ComponentProperties.Literal</code>
+               </link> - 
+Support inline instantiation of the <link linkend="org.osgi.service.cdi.annotations.ComponentProperties">ComponentProperties</link> annotation.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.ComponentScoped">
+                  <code>ComponentScoped</code>
+               </link> - 
+This scope is used to declare a bean who's lifecycle is determined by the
+ state of it's OSGi dependencies and the <link linkend="org.osgi.service.cdi.annotations.SingleComponent">SingleComponent(s)</link> and <link linkend="org.osgi.service.cdi.annotations.FactoryComponent">FactoryComponent(s)</link> that may
+ reference it through injection.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.ComponentScoped.Literal">
+                  <code>ComponentScoped.Literal</code>
+               </link> - 
+Support inline instantiation of the <link linkend="org.osgi.service.cdi.annotations.ComponentScoped">ComponentScoped</link> annotation.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.FactoryComponent">
+                  <code>FactoryComponent</code>
+               </link> - 
+Identifies a factory component.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.FactoryComponent.Literal">
+                  <code>FactoryComponent.Literal</code>
+               </link> - 
+Support inline instantiation of the <link linkend="org.osgi.service.cdi.annotations.FactoryComponent">FactoryComponent</link> annotation.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.MinimumCardinality">
+                  <code>MinimumCardinality</code>
+               </link> - 
+Annotation used in conjunction with <link linkend="org.osgi.service.cdi.annotations.Reference">Reference</link> to specify the minimum
+ cardinality reference property.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.MinimumCardinality.Literal">
+                  <code>MinimumCardinality.Literal</code>
+               </link> - 
+Support inline instantiation of the <link linkend="org.osgi.service.cdi.annotations.MinimumCardinality">MinimumCardinality</link> annotation.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.PID">
+                  <code>PID</code>
+               </link> - 
+Annotation used in collaboration with <link linkend="org.osgi.service.cdi.annotations.ComponentScoped">ComponentScoped</link> to specify
+ singleton configurations and their policy.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.PID.Literal">
+                  <code>PID.Literal</code>
+               </link> - 
+Support inline instantiation of the <link linkend="org.osgi.service.cdi.annotations.PID">PID</link> annotation.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.PIDs">
+                  <code>PIDs</code>
+               </link> - 
+Annotation used in conjunction with <link linkend="org.osgi.service.cdi.annotations.ComponentScoped">ComponentScoped</link> in order to
+ associate configurations with the component bean.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.PIDs.Literal">
+                  <code>PIDs.Literal</code>
+               </link> - 
+Support inline instantiation of the <link linkend="org.osgi.service.cdi.annotations.PIDs">PIDs</link> annotation.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.PrototypeRequired">
+                  <code>PrototypeRequired</code>
+               </link> - 
+Used with <link linkend="org.osgi.service.cdi.annotations.Reference">@Reference</link>, <link linkend="org.osgi.service.cdi.reference.BindService">BindService</link>,
+ <link linkend="org.osgi.service.cdi.reference.BindBeanServiceObjects">BindBeanServiceObjects</link> and <link linkend="org.osgi.service.cdi.reference.BindServiceReference">BindServiceReference</link> to indicate
+ that the service must be <code>service.scope=prototype</code>.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.PrototypeRequired.Literal">
+                  <code>PrototypeRequired.Literal</code>
+               </link> - 
+Support inline instantiation of the <link linkend="org.osgi.service.cdi.annotations.PrototypeRequired">PrototypeRequired</link> annotation.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.Reference">
+                  <code>Reference</code>
+               </link> - 
+Annotation used on injection points informing the CDI container that the
+ injection should apply a service obtained from the OSGi registry.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.Reference.Any">
+                  <code>Reference.Any</code>
+               </link> - 
+A marker type used in <link linkend="org.osgi.service.cdi.annotations.Reference.value--">Reference.value</link> to indicate that a
+ reference injection point may accept any service type(s).
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.Reference.Literal">
+                  <code>Reference.Literal</code>
+               </link> - 
+Support inline instantiation of the <link linkend="org.osgi.service.cdi.annotations.Reference">Reference</link> annotation.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.Reluctant">
+                  <code>Reluctant</code>
+               </link> - 
+Annotation used to indicate that the behavior of the reference should be
+ reluctant.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.Reluctant.Literal">
+                  <code>Reluctant.Literal</code>
+               </link> - 
+Support inline instantiation of the <link linkend="org.osgi.service.cdi.annotations.Reluctant">Reluctant</link> annotation.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.RequireCDIExtender">
+                  <code>RequireCDIExtender</code>
+               </link> - 
+This annotation can be used to require the CDI Component Runtime extender.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.RequireCDIImplementation">
+                  <code>RequireCDIImplementation</code>
+               </link> - 
+This annotation can be used to require the CDI Component Runtime
+ implementation.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.Service">
+                  <code>Service</code>
+               </link> - 
+Annotation used to specify that a bean should be published as a service.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.Service.Literal">
+                  <code>Service.Literal</code>
+               </link> - 
+Support inline instantiation of the <link linkend="org.osgi.service.cdi.annotations.Service">Service</link> annotation.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.ServiceInstance">
+                  <code>ServiceInstance</code>
+               </link> - 
+Annotation used on beans, observer methods and observer fields to specify the
+ service scope for the service.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.ServiceInstance.Literal">
+                  <code>ServiceInstance.Literal</code>
+               </link> - 
+Support inline instantiation of the <link linkend="org.osgi.service.cdi.annotations.ServiceInstance">ServiceInstance</link> annotation.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.SingleComponent">
+                  <code>SingleComponent</code>
+               </link> - 
+Identifies a single component.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.SingleComponent.Literal">
+                  <code>SingleComponent.Literal</code>
+               </link> - 
+Support inline instantiation of the <link linkend="org.osgi.service.cdi.annotations.SingleComponent">SingleComponent</link> annotation.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="Bean"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.Bean">
+      <title>@Bean</title>
+      <para>
+Annotation used to indicate that build tooling must be included the class in
+ the <code>osgi.cdi</code>
+         <code>beans</code> list.
+   </para>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+   </section>
+   <section xreflabel="BeanPropertyType"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.BeanPropertyType">
+      <title>@BeanPropertyType</title>
+      <para>
+Identify the annotated annotation as a Bean Property Type.
+ </para>
+      <para>
+ Bean Property Type can be applied to beans annotated with
+ <link linkend="org.osgi.service.cdi.annotations.SingleComponent">SingleComponent</link>, <link linkend="org.osgi.service.cdi.annotations.FactoryComponent">FactoryComponent</link>, to beans annotated with
+ ApplicationScoped or Dependent where the <link linkend="org.osgi.service.cdi.annotations.Service">Service</link>
+ annotation is applied, to methods and fields marked as Produces where
+ the <link linkend="org.osgi.service.cdi.annotations.Service">Service</link> annotation is applied, or to injection points where the
+ <link linkend="org.osgi.service.cdi.annotations.Reference">Reference</link> annotation is applied.
+ </para>
+      <para/>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Bean Property Types.</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>RUNTIME</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>ANNOTATION_TYPE</code>
+         </para>
+      </formalpara>
+   </section>
+   <section xreflabel="BeanPropertyType.Literal"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.BeanPropertyType.Literal">
+      <title>public static final class BeanPropertyType.Literal<?line-break?> extends AnnotationLiteral&lt;BeanPropertyType&gt;<?line-break?> implements BeanPropertyType</title>
+      <para>
+Support inline instantiation of the <link linkend="org.osgi.service.cdi.annotations.BeanPropertyType">BeanPropertyType</link> annotation.
+   </para>
+      <section xreflabel="INSTANCE"
+               role="field"
+               xml:id="org.osgi.service.cdi.annotations.BeanPropertyType.Literal.INSTANCE">
+         <title>public static final BeanPropertyType INSTANCE</title>
+         <para>
+Default instance.
+   </para>
+      </section>
+      <section xreflabel="Literal()"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.BeanPropertyType.Literal.Literal--">
+         <title>public  Literal()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="Beans"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.Beans">
+      <title>@Beans</title>
+      <para>
+Annotation used to indicate that build tooling must be included the specified
+ classes in the <code>osgi.cdi</code>
+         <code>beans</code> list.
+   </para>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>PACKAGE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.Beans.value--">
+         <title>Class&lt;?&gt;[] value default {}</title>
+         <para role="description">
+Specify the list of classes from the current package. Specifying no value
+ (or an empty array) indicates to include all classes in the package.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="ComponentProperties"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.ComponentProperties">
+      <title>@ComponentProperties</title>
+      <para>
+Annotation used with Inject in order to have component properties
+ injected.
+ </para>
+      <para>
+ See "Component Properties".</para>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>RUNTIME</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>FIELD</code>, <code>PARAMETER</code>
+         </para>
+      </formalpara>
+   </section>
+   <section xreflabel="ComponentProperties.Literal"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.ComponentProperties.Literal">
+      <title>public static final class ComponentProperties.Literal<?line-break?> extends AnnotationLiteral&lt;ComponentProperties&gt;<?line-break?> implements ComponentProperties</title>
+      <para>
+Support inline instantiation of the <link linkend="org.osgi.service.cdi.annotations.ComponentProperties">ComponentProperties</link> annotation.
+   </para>
+      <section xreflabel="INSTANCE"
+               role="field"
+               xml:id="org.osgi.service.cdi.annotations.ComponentProperties.Literal.INSTANCE">
+         <title>public static final ComponentProperties INSTANCE</title>
+         <para>
+Default instance.
+   </para>
+      </section>
+      <section xreflabel="Literal()"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.ComponentProperties.Literal.Literal--">
+         <title>public  Literal()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="ComponentScoped"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.ComponentScoped">
+      <title>@ComponentScoped</title>
+      <para>
+This scope is used to declare a bean who's lifecycle is determined by the
+ state of it's OSGi dependencies and the <link linkend="org.osgi.service.cdi.annotations.SingleComponent">SingleComponent(s)</link> and <link linkend="org.osgi.service.cdi.annotations.FactoryComponent">FactoryComponent(s)</link> that may
+ reference it through injection.
+   </para>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>RUNTIME</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>FIELD</code>, <code>METHOD</code>, <code>PARAMETER</code>, <code>TYPE</code>
+         </para>
+      </formalpara>
+   </section>
+   <section xreflabel="ComponentScoped.Literal"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.ComponentScoped.Literal">
+      <title>public static final class ComponentScoped.Literal<?line-break?> extends AnnotationLiteral&lt;ComponentScoped&gt;<?line-break?> implements ComponentScoped</title>
+      <para>
+Support inline instantiation of the <link linkend="org.osgi.service.cdi.annotations.ComponentScoped">ComponentScoped</link> annotation.
+   </para>
+      <section xreflabel="INSTANCE"
+               role="field"
+               xml:id="org.osgi.service.cdi.annotations.ComponentScoped.Literal.INSTANCE">
+         <title>public static final ComponentScoped INSTANCE</title>
+         <para>
+Default instance.
+   </para>
+      </section>
+      <section xreflabel="Literal()"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.ComponentScoped.Literal.Literal--">
+         <title>public  Literal()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="FactoryComponent"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.FactoryComponent">
+      <title>@FactoryComponent</title>
+      <para>
+Identifies a factory component.
+ </para>
+      <para>
+ Factory components MUST always be <link linkend="org.osgi.service.cdi.annotations.ComponentScoped">ComponentScoped</link>.
+ Applying any other scope will result in a definition error.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Factory Component</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>RUNTIME</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.FactoryComponent.value--">
+         <title>String value default "$"</title>
+         <para role="description">
+The configuration PID for the configuration of this Component.
+
+ </para>
+         <para>
+ The value specifies a configuration PID who's configuration properties are
+ available at injection points in the component.
+
+ </para>
+         <para>
+ A special string (<code>"$"</code>) can be used to specify the name of the
+ component as a configuration PID. The <link linkend="org.osgi.service.cdi.CDIConstants.CDI_COMPONENT_NAME">CDI_COMPONENT_NAME</link> constant holds this special string.
+
+ </para>
+         <para>
+ For example:
+
+ </para>
+         <programlisting>
+            <code>@FactoryPID(CDI_COMPONENT_NAME)</code>
+         </programlisting>
+      </section>
+   </section>
+   <section xreflabel="FactoryComponent.Literal"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.FactoryComponent.Literal">
+      <title>public static final class FactoryComponent.Literal<?line-break?> extends AnnotationLiteral&lt;FactoryComponent&gt;<?line-break?> implements FactoryComponent</title>
+      <para>
+Support inline instantiation of the <link linkend="org.osgi.service.cdi.annotations.FactoryComponent">FactoryComponent</link> annotation.
+   </para>
+      <section xreflabel="of(String)"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.FactoryComponent.Literal.of-String-">
+         <title>public static final FactoryComponent.Literal of(String pid)</title>
+         <formalpara role="parameter">
+            <title>pid</title>
+            <para>the factory configuration pid</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>an instance of <link linkend="org.osgi.service.cdi.annotations.FactoryComponent">FactoryComponent</link>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="value()"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.FactoryComponent.Literal.value--">
+         <title>public String value()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="MinimumCardinality"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.MinimumCardinality">
+      <title>@MinimumCardinality</title>
+      <para>
+Annotation used in conjunction with <link linkend="org.osgi.service.cdi.annotations.Reference">Reference</link> to specify the minimum
+ cardinality reference property.
+ </para>
+      <para>
+ Specifying the <link linkend="org.osgi.service.cdi.annotations.MinimumCardinality">MinimumCardinality</link> annotation with the value of
+ <code>0</code> on a unary reference is a definition error.</para>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>RUNTIME</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>FIELD</code>, <code>PARAMETER</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.MinimumCardinality.value--">
+         <title>int value default 1</title>
+         <para role="description">
+The minimum cardinality of the reference.
+ </para>
+         <para>
+ The value must be a positive integer.
+ </para>
+         <para>
+ For example:
+
+ </para>
+         <programlisting>
+            <code>@MinimumCardinality(3)</code>
+         </programlisting>
+      </section>
+   </section>
+   <section xreflabel="MinimumCardinality.Literal"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.MinimumCardinality.Literal">
+      <title>public static final class MinimumCardinality.Literal<?line-break?> extends AnnotationLiteral&lt;MinimumCardinality&gt;<?line-break?> implements MinimumCardinality</title>
+      <para>
+Support inline instantiation of the <link linkend="org.osgi.service.cdi.annotations.MinimumCardinality">MinimumCardinality</link> annotation.
+   </para>
+      <section xreflabel="of(int)"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.MinimumCardinality.Literal.of-int-">
+         <title>public static final MinimumCardinality.Literal of(int value)</title>
+         <formalpara role="parameter">
+            <title>value</title>
+            <para>the minimum cardinality</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>an instance of <link linkend="org.osgi.service.cdi.annotations.MinimumCardinality">MinimumCardinality</link>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="value()"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.MinimumCardinality.Literal.value--">
+         <title>public int value()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="PID"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.PID">
+      <title>@PID</title>
+      <para>
+Annotation used in collaboration with <link linkend="org.osgi.service.cdi.annotations.ComponentScoped">ComponentScoped</link> to specify
+ singleton configurations and their policy.
+   </para>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>RUNTIME</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>FIELD</code>, <code>METHOD</code>, <code>PARAMETER</code>, <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.PID.value--">
+         <title>String value default "$"</title>
+         <para role="description">
+The configuration PID for the configuration of this Component.
+
+ </para>
+         <para>
+ The value specifies a configuration PID who's configuration properties are
+ available at injection points in the component.
+
+ </para>
+         <para>
+ A special string (<code>"$"</code>) can be used to specify the name of the
+ component as a configuration PID. The <link linkend="org.osgi.service.cdi.CDIConstants.CDI_COMPONENT_NAME">CDI_COMPONENT_NAME</link> constant holds this special string.
+
+ </para>
+         <para>
+ For example:
+
+ </para>
+         <programlisting>
+            <code>@PID(CDI_COMPONENT_NAME)</code>
+         </programlisting>
+      </section>
+      <section xreflabel="policy"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.PID.policy--">
+         <title>ConfigurationPolicy policy default OPTIONAL</title>
+         <para role="description">
+The configuration policy associated with this PID.
+
+ </para>
+         <para>
+ Controls how the configuration must be satisfied depending on the presence
+ and type of a corresponding Configuration object in the OSGi Configuration
+ Admin service. Corresponding configuration is a Configuration object where
+ the PID is equal to <link linkend="org.osgi.service.cdi.annotations.PID.value--">value</link>.
+
+ </para>
+         <para>
+ If not specified, the configuration is not required.</para>
+      </section>
+   </section>
+   <section xreflabel="PID.Literal"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.PID.Literal">
+      <title>public static final class PID.Literal<?line-break?> extends AnnotationLiteral&lt;PID&gt;<?line-break?> implements PID</title>
+      <para>
+Support inline instantiation of the <link linkend="org.osgi.service.cdi.annotations.PID">PID</link> annotation.
+   </para>
+      <section xreflabel="of(String,ConfigurationPolicy)"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.PID.Literal.of-String-ConfigurationPolicy-">
+         <title>public static final PID.Literal of(String pid, ConfigurationPolicy policy)</title>
+         <formalpara role="parameter">
+            <title>pid</title>
+            <para>the configuration pid</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>policy</title>
+            <para>the policy of the configuration</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>an instance of <link linkend="org.osgi.service.cdi.annotations.PID">PID</link>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="policy()"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.PID.Literal.policy--">
+         <title>public ConfigurationPolicy policy()</title>
+         <para/>
+      </section>
+      <section xreflabel="value()"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.PID.Literal.value--">
+         <title>public String value()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="PIDs"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.PIDs">
+      <title>@PIDs</title>
+      <para>
+Annotation used in conjunction with <link linkend="org.osgi.service.cdi.annotations.ComponentScoped">ComponentScoped</link> in order to
+ associate configurations with the component bean.
+   </para>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>RUNTIME</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>FIELD</code>, <code>METHOD</code>, <code>PARAMETER</code>, <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.PIDs.value--">
+         <title>PID[] value</title>
+         <para role="description">
+The set of ordered configurations available to the component.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="PIDs.Literal"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.PIDs.Literal">
+      <title>public static final class PIDs.Literal<?line-break?> extends AnnotationLiteral&lt;PIDs&gt;<?line-break?> implements PIDs</title>
+      <para>
+Support inline instantiation of the <link linkend="org.osgi.service.cdi.annotations.PIDs">PIDs</link> annotation.
+   </para>
+      <section xreflabel="of(PID[])"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.PIDs.Literal.of-PID---">
+         <title>public static PIDs of(PID[] pids)</title>
+         <formalpara role="parameter">
+            <title>pids</title>
+            <para>array of <link linkend="org.osgi.service.cdi.annotations.PID">PID</link>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>an instance of <link linkend="org.osgi.service.cdi.annotations.PIDs">PIDs</link>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="value()"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.PIDs.Literal.value--">
+         <title>public PID[] value()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="PrototypeRequired"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.PrototypeRequired">
+      <title>@PrototypeRequired</title>
+      <para>
+Used with <link linkend="org.osgi.service.cdi.annotations.Reference">@Reference</link>, <link linkend="org.osgi.service.cdi.reference.BindService">BindService</link>,
+ <link linkend="org.osgi.service.cdi.reference.BindBeanServiceObjects">BindBeanServiceObjects</link> and <link linkend="org.osgi.service.cdi.reference.BindServiceReference">BindServiceReference</link> to indicate
+ that the service must be <code>service.scope=prototype</code>.
+   </para>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>RUNTIME</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>FIELD</code>, <code>METHOD</code>, <code>PARAMETER</code>, <code>TYPE</code>
+         </para>
+      </formalpara>
+   </section>
+   <section xreflabel="PrototypeRequired.Literal"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.PrototypeRequired.Literal">
+      <title>public static final class PrototypeRequired.Literal<?line-break?> extends AnnotationLiteral&lt;PrototypeRequired&gt;<?line-break?> implements PrototypeRequired</title>
+      <para>
+Support inline instantiation of the <link linkend="org.osgi.service.cdi.annotations.PrototypeRequired">PrototypeRequired</link> annotation.
+   </para>
+      <section xreflabel="INSTANCE"
+               role="field"
+               xml:id="org.osgi.service.cdi.annotations.PrototypeRequired.Literal.INSTANCE">
+         <title>public static final PrototypeRequired INSTANCE</title>
+         <para>
+Default instance
+   </para>
+      </section>
+      <section xreflabel="Literal()"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.PrototypeRequired.Literal.Literal--">
+         <title>public  Literal()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="Reference"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.Reference">
+      <title>@Reference</title>
+      <para>
+Annotation used on injection points informing the CDI container that the
+ injection should apply a service obtained from the OSGi registry.
+ </para>
+      <para>
+ *</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Reference Annotation</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>RUNTIME</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>FIELD</code>, <code>PARAMETER</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.Reference.value--">
+         <title>Class&lt;?&gt; value default Object.class</title>
+         <para role="description">
+Specify the type of the service for this reference.
+ </para>
+         <para>
+ If not specified, the type of the service for this reference is derived from
+ the injection point type.
+ </para>
+         <para>
+ If a value is specified it must be type compatible with (assignable to) the
+ service type derived from the injection point type, otherwise a definition
+ error will result.</para>
+         <para/>
+      </section>
+      <section xreflabel="target"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.Reference.target--">
+         <title>String target default ""</title>
+         <para role="description">
+The target property for this reference.
+
+ </para>
+         <para>
+ If not specified, no target property is set.</para>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="Reference.Any"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.Reference.Any">
+      <title>public static final class Reference.Any</title>
+      <para>
+A marker type used in <link linkend="org.osgi.service.cdi.annotations.Reference.value--">Reference.value</link> to indicate that a
+ reference injection point may accept any service type(s).
+ </para>
+      <para>
+ The injection point service type must be specified as Object.
+ </para>
+      <para>
+ The value must be specified by itself.
+ </para>
+      <para>
+ For example:
+
+ </para>
+      <programlisting> @Inject
+ @Reference(value = Any.class, target = "(bar=baz)")
+ List&lt;Object&gt; services;</programlisting>
+      <section xreflabel="Any()"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.Reference.Any.Any--">
+         <title>public  Any()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="Reference.Literal"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.Reference.Literal">
+      <title>public static final class Reference.Literal<?line-break?> extends AnnotationLiteral&lt;Reference&gt;<?line-break?> implements Reference</title>
+      <para>
+Support inline instantiation of the <link linkend="org.osgi.service.cdi.annotations.Reference">Reference</link> annotation.
+   </para>
+      <section xreflabel="of(Class,String)"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.Reference.Literal.of-Class-String-">
+         <title>public static final Reference.Literal of(Class&lt;?&gt; service, String target)</title>
+         <formalpara role="parameter">
+            <title>service</title>
+            <para/>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>target</title>
+            <para/>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>instance of <link linkend="org.osgi.service.cdi.annotations.Reference">Reference</link>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="target()"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.Reference.Literal.target--">
+         <title>public String target()</title>
+         <para/>
+      </section>
+      <section xreflabel="value()"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.Reference.Literal.value--">
+         <title>public Class&lt;?&gt; value()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="Reluctant"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.Reluctant">
+      <title>@Reluctant</title>
+      <para>
+Annotation used to indicate that the behavior of the reference should be
+ reluctant. Used in conjunction with <link linkend="org.osgi.service.cdi.annotations.Reference">@Reference</link>,
+ <link linkend="org.osgi.service.cdi.reference.BindService">BindService</link>, <link linkend="org.osgi.service.cdi.reference.BindServiceReference">BindServiceReference</link> or
+ <link linkend="org.osgi.service.cdi.reference.BindBeanServiceObjects">BindBeanServiceObjects</link>.
+   </para>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>RUNTIME</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>FIELD</code>, <code>METHOD</code>, <code>PARAMETER</code>, <code>TYPE</code>
+         </para>
+      </formalpara>
+   </section>
+   <section xreflabel="Reluctant.Literal"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.Reluctant.Literal">
+      <title>public static final class Reluctant.Literal<?line-break?> extends AnnotationLiteral&lt;Reluctant&gt;<?line-break?> implements Reluctant</title>
+      <para>
+Support inline instantiation of the <link linkend="org.osgi.service.cdi.annotations.Reluctant">Reluctant</link> annotation.
+   </para>
+      <section xreflabel="INSTANCE"
+               role="field"
+               xml:id="org.osgi.service.cdi.annotations.Reluctant.Literal.INSTANCE">
+         <title>public static final Reluctant INSTANCE</title>
+         <para>
+Default instance
+   </para>
+      </section>
+      <section xreflabel="Literal()"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.Reluctant.Literal.Literal--">
+         <title>public  Literal()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="RequireCDIExtender"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.RequireCDIExtender">
+      <title>@RequireCDIExtender</title>
+      <para>
+This annotation can be used to require the CDI Component Runtime extender. It
+ can be used directly, or as a meta-annotation.
+   </para>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>, <code>PACKAGE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="descriptor"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.RequireCDIExtender.descriptor--">
+         <title>String[] descriptor default {"META-INF/beans.xml"}</title>
+         <para role="description">
+Specify CDI bean descriptor file paths to be searched on the
+ <code>Bundle-ClassPath</code>. For example:
+ </para>
+         <para/>
+         <programlisting> @RequireCDIExtender(descriptor = "META-INF/beans.xml")</programlisting>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>CDI bean descriptor file paths.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="beans"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.RequireCDIExtender.beans--">
+         <title>Class&lt;?&gt;[] beans default {}</title>
+         <para role="description">
+Specify OSGi Beans classes to be used by the CDI container. For example:
+ </para>
+         <para/>
+         <programlisting> @RequireCDIExtender(beans = {com.foo.BarImpl.class, com.foo.impl.BazImpl.class})</programlisting>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>OSGi Beans classes to be used by the CDI container.</para>
+         </formalpara>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="RequireCDIImplementation"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.RequireCDIImplementation">
+      <title>@RequireCDIImplementation</title>
+      <para>
+This annotation can be used to require the CDI Component Runtime
+ implementation. It can be used directly, or as a meta-annotation.
+   </para>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>, <code>PACKAGE</code>
+         </para>
+      </formalpara>
+   </section>
+   <section xreflabel="Service"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.Service">
+      <title>@Service</title>
+      <para>
+Annotation used to specify that a bean should be published as a service.
+ </para>
+      <para>
+ The behavior of this annotation depends on it's usage:
+ </para>
+      <itemizedlist>
+         <listitem>
+            <para>on the bean type - publish the service using all implemented interfaces.
+ If there are no implemented interfaces use the bean class.</para>
+         </listitem>
+         <listitem>
+            <para>on the bean's type_use(s) - publish the service using the collected
+ interface(s).</para>
+         </listitem>
+      </itemizedlist>
+      <para>
+ Use of <code>@Service</code> on both type and type_use will result in a definition
+ error.
+ </para>
+      <para>
+ Where this annotation is used affects how service scopes are supported:
+ </para>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.annotations.SingleComponent">@SingleComponent</link>,
+ <link linkend="org.osgi.service.cdi.annotations.FactoryComponent">@FactoryComponent</link> or @Dependent
+ bean - The provided service can be of any scope. The bean can either
+ implement <link linkend="org.osgi.framework.ServiceFactory">ServiceFactory</link> or
+ <link linkend="org.osgi.framework.PrototypeServiceFactory">PrototypeServiceFactory</link> or use
+ <link linkend="org.osgi.framework.Bundle">@Bundle</link> or <link linkend="org.osgi.service.cdi.annotations.PrototypeRequired">@Prototype</link> to set it's
+ service scope. If none of those options are used the service is a singleton
+ scope service.</para>
+         </listitem>
+         <listitem>
+            <para>@ApplicationScoped bean - The provided service
+ is a singleton scope service unless the bean implements <link linkend="org.osgi.framework.ServiceFactory">ServiceFactory</link> or <link linkend="org.osgi.framework.PrototypeServiceFactory">PrototypeServiceFactory</link>.
+ It cannot use <link linkend="org.osgi.framework.Bundle">@Bundle</link> or <link linkend="org.osgi.service.cdi.annotations.PrototypeRequired">@Prototype</link>
+ to set it's service scope. Use of those annotations in this case will result
+ in a definition error.</para>
+         </listitem>
+      </itemizedlist>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>RUNTIME</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>FIELD</code>, <code>METHOD</code>, <code>TYPE</code>, <code>TYPE_USE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.Service.value--">
+         <title>Class&lt;?&gt;[] value default {}</title>
+         <para role="description">
+Override the interfaces under which this service is published.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>the service types</para>
+         </formalpara>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="Service.Literal"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.Service.Literal">
+      <title>public static final class Service.Literal<?line-break?> extends AnnotationLiteral&lt;Service&gt;<?line-break?> implements Service</title>
+      <para>
+Support inline instantiation of the <link linkend="org.osgi.service.cdi.annotations.Service">Service</link> annotation.
+   </para>
+      <section xreflabel="of(Class[])"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.Service.Literal.of-Class---">
+         <title>public static final Service.Literal of(Class&lt;?&gt;[] interfaces)</title>
+         <formalpara role="parameter">
+            <title>interfaces</title>
+            <para/>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>instance of <link linkend="org.osgi.service.cdi.annotations.Service">Service</link>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="value()"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.Service.Literal.value--">
+         <title>public Class&lt;?&gt;[] value()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="ServiceInstance"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.ServiceInstance">
+      <title>@ServiceInstance</title>
+      <para>
+Annotation used on beans, observer methods and observer fields to specify the
+ service scope for the service. Used in conjunction with <link linkend="org.osgi.service.cdi.annotations.Service">Service</link>.
+   </para>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>RUNTIME</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>, <code>FIELD</code>, <code>METHOD</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.ServiceInstance.value--">
+         <title>ServiceScope value default SINGLETON</title>
+         <para role="description">
+The scope of the service.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="ServiceInstance.Literal"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.ServiceInstance.Literal">
+      <title>public static final class ServiceInstance.Literal<?line-break?> extends AnnotationLiteral&lt;ServiceInstance&gt;<?line-break?> implements ServiceInstance</title>
+      <para>
+Support inline instantiation of the <link linkend="org.osgi.service.cdi.annotations.ServiceInstance">ServiceInstance</link> annotation.
+   </para>
+      <section xreflabel="of(ServiceScope)"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.ServiceInstance.Literal.of-ServiceScope-">
+         <title>public static ServiceInstance.Literal of(ServiceScope type)</title>
+         <formalpara role="parameter">
+            <title>type</title>
+            <para>the type of the ServiceInstance</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>an instance of <link linkend="org.osgi.service.cdi.annotations.ServiceInstance">ServiceInstance</link>
+            </para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="value()"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.ServiceInstance.Literal.value--">
+         <title>public ServiceScope value()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="SingleComponent"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.SingleComponent">
+      <title>@SingleComponent</title>
+      <para>
+Identifies a single component.
+ </para>
+      <para>
+ Single components MUST always be <link linkend="org.osgi.service.cdi.annotations.ComponentScoped">ComponentScoped</link>.
+ Applying any other scope will result in a definition error.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Single Component</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>RUNTIME</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+   </section>
+   <section xreflabel="SingleComponent.Literal"
+            role="class"
+            xml:id="org.osgi.service.cdi.annotations.SingleComponent.Literal">
+      <title>public static final class SingleComponent.Literal<?line-break?> extends AnnotationLiteral&lt;SingleComponent&gt;<?line-break?> implements SingleComponent</title>
+      <para>
+Support inline instantiation of the <link linkend="org.osgi.service.cdi.annotations.SingleComponent">SingleComponent</link> annotation.
+   </para>
+      <section xreflabel="INSTANCE"
+               role="field"
+               xml:id="org.osgi.service.cdi.annotations.SingleComponent.Literal.INSTANCE">
+         <title>public static final SingleComponent INSTANCE</title>
+         <para>
+Default instance.
+   </para>
+      </section>
+      <section xreflabel="Literal()"
+               role="method"
+               xml:id="org.osgi.service.cdi.annotations.SingleComponent.Literal.Literal--">
+         <title>public  Literal()</title>
+         <para/>
+      </section>
+   </section>
+</section>

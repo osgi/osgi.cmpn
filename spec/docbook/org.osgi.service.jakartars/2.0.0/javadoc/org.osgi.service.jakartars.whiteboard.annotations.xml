@@ -1,0 +1,63 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.jakartars.whiteboard.annotations"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.jakartars.whiteboard.annotations">
+   <title>org.osgi.service.jakartars.whiteboard.annotations</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.jakartars.whiteboard.annotations-version">Version 2.0</releaseinfo>
+      <edition xml:id="org.osgi.service.jakartars.whiteboard.annotations-version.number">2.0</edition>
+   </info>
+   <para>
+Jakarta RESTful Web Services Whiteboard Annotations Package Version 1.0.
+ </para>
+   <para>
+ This package contains annotations that can be used to require the Jakarta
+ RESTful Web Services Whiteboard implementation.
+ </para>
+   <para>
+ Bundles should not normally need to import this package as the annotations
+ are only used at build-time.
+ </para>
+   <para/>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.jakartars.whiteboard.annotations.RequireJakartarsWhiteboard">
+                  <code>RequireJakartarsWhiteboard</code>
+               </link> - 
+This annotation can be used to require the Jakarta RESTful Web Services
+ Whiteboard implementation.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="RequireJakartarsWhiteboard"
+            role="class"
+            xml:id="org.osgi.service.jakartars.whiteboard.annotations.RequireJakartarsWhiteboard">
+      <title>@RequireJakartarsWhiteboard</title>
+      <para>
+This annotation can be used to require the Jakarta RESTful Web Services
+ Whiteboard implementation. It can be used directly, or as a meta-annotation.
+ </para>
+      <para>
+ This annotation is applied to several of the Jakarta RESTful Web Services
+ Whiteboard component property annotations meaning that it does not normally
+ need to be applied to Declarative Services components which use the Jakarta
+ RESTful Web Services Whiteboard.</para>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>, <code>PACKAGE</code>
+         </para>
+      </formalpara>
+   </section>
+</section>

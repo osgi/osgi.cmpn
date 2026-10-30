@@ -1,0 +1,147 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.log.stream"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.log.stream">
+   <title>org.osgi.service.log.stream</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.log.stream-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.service.log.stream-version.number">1.0</edition>
+   </info>
+   <para>
+Log Stream Package Version 1.0.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.log.stream; version="[1.0,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.log.stream; version="[1.0,1.1)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.log.stream.LogStreamProvider">
+                  <code>LogStreamProvider</code>
+               </link> - 
+LogStreamProvider service for creating a <link linkend="org.osgi.util.pushstream.PushStream">PushStream</link> of
+ <link linkend="org.osgi.service.log.LogEntry">LogEntry</link> objects.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.log.stream.LogStreamProvider.Options">
+                  <code>LogStreamProvider.Options</code>
+               </link> - 
+Creation options for the <link linkend="org.osgi.util.pushstream.PushStream">PushStream</link> of <link linkend="org.osgi.service.log.LogEntry">LogEntry</link> objects.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="LogStreamProvider"
+            role="class"
+            xml:id="org.osgi.service.log.stream.LogStreamProvider">
+      <title>public interface LogStreamProvider</title>
+      <para>
+LogStreamProvider service for creating a <link linkend="org.osgi.util.pushstream.PushStream">PushStream</link> of
+ <link linkend="org.osgi.service.log.LogEntry">LogEntry</link> objects.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="createStream(Options...)"
+               role="method"
+               xml:id="org.osgi.service.log.stream.LogStreamProvider.createStream-Options...-">
+         <title>public PushStream&lt;LogEntry&gt; createStream(LogStreamProvider.Options... options)</title>
+         <formalpara role="parameter">
+            <title>options</title>
+            <para>The options to use when creating the PushStream.</para>
+         </formalpara>
+         <para role="description">
+Create a <link linkend="org.osgi.util.pushstream.PushStream">PushStream</link> of <link linkend="org.osgi.service.log.LogEntry">LogEntry</link> objects.
+ </para>
+         <para>
+ The returned PushStream must:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>Be buffered with a buffer large enough to contain the history, if
+ included.</para>
+            </listitem>
+            <listitem>
+               <para>Have the <link linkend="org.osgi.util.pushstream.QueuePolicyOption.DISCARD_OLDEST">QueuePolicyOption.DISCARD_OLDEST</link> queue policy
+ option.</para>
+            </listitem>
+            <listitem>
+               <para>Use a shared executor.</para>
+            </listitem>
+            <listitem>
+               <para>Have a parallelism of one.</para>
+            </listitem>
+         </itemizedlist>
+         <para>
+ When this LogStreamProvider service is released by the obtaining bundle,
+ this LogStreamProvider service must call <link linkend="org.osgi.util.pushstream.PushStream.close--">PushStream.close()</link> on
+ the returned PushStream object if it has not already been closed.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <link linkend="org.osgi.util.pushstream.PushStream">PushStream</link> of <link linkend="org.osgi.service.log.LogEntry">LogEntry</link> objects.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="LogStreamProvider.Options"
+            role="class"
+            xml:id="org.osgi.service.log.stream.LogStreamProvider.Options">
+      <title>enum LogStreamProvider.Options</title>
+      <para>
+Creation options for the <link linkend="org.osgi.util.pushstream.PushStream">PushStream</link> of <link linkend="org.osgi.service.log.LogEntry">LogEntry</link> objects.
+   </para>
+      <section xreflabel="HISTORY"
+               role="field"
+               xml:id="org.osgi.service.log.stream.LogStreamProvider.Options.HISTORY">
+         <title>HISTORY</title>
+         <para>
+Include history.
+ </para>
+         <para>
+ Prime the created PushStream with the available historical
+ <link linkend="org.osgi.service.log.LogEntry">LogEntry</link> objects. The number of available <link linkend="org.osgi.service.log.LogEntry">LogEntry</link>
+ objects is implementation specific.
+ </para>
+         <para>
+ The created PushStream will supply the available historical
+ <link linkend="org.osgi.service.log.LogEntry">LogEntry</link> objects followed by newly created <link linkend="org.osgi.service.log.LogEntry">LogEntry</link>
+ objects.</para>
+      </section>
+      <section xreflabel="valueOf(String)"
+               role="method"
+               xml:id="org.osgi.service.log.stream.LogStreamProvider.Options.valueOf-String-">
+         <title>public static LogStreamProvider.Options valueOf(String name)</title>
+         <para/>
+      </section>
+      <section xreflabel="values()"
+               role="method"
+               xml:id="org.osgi.service.log.stream.LogStreamProvider.Options.values--">
+         <title>public static LogStreamProvider.Options[] values()</title>
+         <para/>
+      </section>
+   </section>
+</section>

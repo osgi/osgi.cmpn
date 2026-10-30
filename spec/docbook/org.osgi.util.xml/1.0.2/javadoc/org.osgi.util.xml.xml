@@ -1,0 +1,354 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.util.xml"
+         version="5"
+         role="package"
+         xml:id="org.osgi.util.xml">
+   <title>org.osgi.util.xml</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.util.xml-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.util.xml-version.number">1.0</edition>
+   </info>
+   <para>
+XML Parser Package Version 1.0.
+ 
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest.
+ 
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.util.xml; version="[1.0,2.0)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.xml.XMLParserActivator">
+                  <code>XMLParserActivator</code>
+               </link> - 
+A BundleActivator class that allows any JAXP compliant XML Parser to register
+ itself as an OSGi parser service.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="XMLParserActivator"
+            role="class"
+            xml:id="org.osgi.util.xml.XMLParserActivator">
+      <title>public class XMLParserActivator<?line-break?> implements BundleActivator, ServiceFactory&lt;Object&gt;</title>
+      <para>
+A BundleActivator class that allows any JAXP compliant XML Parser to register
+ itself as an OSGi parser service.
+ 
+ Multiple JAXP compliant parsers can concurrently register by using this
+ BundleActivator class. Bundles who wish to use an XML parser can then use the
+ framework's service registry to locate available XML Parsers with the desired
+ characteristics such as validating and namespace-aware.
+ 
+ </para>
+      <para>
+ The services that this bundle activator enables a bundle to provide are:
+ </para>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <code>javax.xml.parsers.SAXParserFactory</code>(<link linkend="org.osgi.util.xml.XMLParserActivator.SAXFACTORYNAME">SAXFACTORYNAME</link>)</para>
+         </listitem>
+         <listitem>
+            <para>
+               <code>javax.xml.parsers.DocumentBuilderFactory</code>( <link linkend="org.osgi.util.xml.XMLParserActivator.DOMFACTORYNAME">DOMFACTORYNAME</link>
+ )</para>
+         </listitem>
+      </itemizedlist>
+      <para>
+ The algorithm to find the implementations of the abstract parsers is derived
+ from the JAR file specifications, specifically the Services API.
+ </para>
+      <para>
+ An XMLParserActivator assumes that it can find the class file names of the
+ factory classes in the following files:
+ </para>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <code>/META-INF/services/javax.xml.parsers.SAXParserFactory</code> is a file
+ contained in a jar available to the runtime which contains the implementation
+ class name(s) of the SAXParserFactory.</para>
+         </listitem>
+         <listitem>
+            <para>
+               <code>/META-INF/services/javax.xml.parsers.DocumentBuilderFactory</code> is a
+ file contained in a jar available to the runtime which contains the
+ implementation class name(s) of the <code>DocumentBuilderFactory</code>
+            </para>
+         </listitem>
+      </itemizedlist>
+      <para>
+ If either of the files does not exist, <code>XMLParserActivator</code> assumes
+ that the parser does not support that parser type.
+ 
+ </para>
+      <para>
+         <code>XMLParserActivator</code> attempts to instantiate both the
+ <code>SAXParserFactory</code> and the <code>DocumentBuilderFactory</code>. It registers
+ each factory with the framework along with service properties:
+ </para>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.xml.XMLParserActivator.PARSER_VALIDATING">PARSER_VALIDATING</link>- indicates if this factory supports validating
+ parsers. It's value is a <code>Boolean</code>.</para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.xml.XMLParserActivator.PARSER_NAMESPACEAWARE">PARSER_NAMESPACEAWARE</link>- indicates if this factory supports
+ namespace aware parsers It's value is a <code>Boolean</code>.</para>
+         </listitem>
+      </itemizedlist>
+      <para>
+ Individual parser implementations may have additional features, properties,
+ or attributes which could be used to select a parser with a filter. These can
+ be added by extending this class and overriding the <code>setSAXProperties</code>
+ and <code>setDOMProperties</code> methods.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="DOMCLASSFILE"
+               role="field"
+               xml:id="org.osgi.util.xml.XMLParserActivator.DOMCLASSFILE">
+         <title>public static final String DOMCLASSFILE = "/META-INF/services/javax.xml.parsers.DocumentBuilderFactory"</title>
+         <para>
+Fully qualified path name of DOM Parser Factory Class Name file
+   </para>
+      </section>
+      <section xreflabel="DOMFACTORYNAME"
+               role="field"
+               xml:id="org.osgi.util.xml.XMLParserActivator.DOMFACTORYNAME">
+         <title>public static final String DOMFACTORYNAME = "javax.xml.parsers.DocumentBuilderFactory"</title>
+         <para>
+Filename containing the DOM Parser Factory Class name. Also used as the
+ basis for the <code>SERVICE_PID</code> registration property.
+   </para>
+      </section>
+      <section xreflabel="PARSER_NAMESPACEAWARE"
+               role="field"
+               xml:id="org.osgi.util.xml.XMLParserActivator.PARSER_NAMESPACEAWARE">
+         <title>public static final String PARSER_NAMESPACEAWARE = "parser.namespaceAware"</title>
+         <para>
+Service property specifying if factory is configured to support namespace
+ aware parsers. The value is of type <code>Boolean</code>.
+   </para>
+      </section>
+      <section xreflabel="PARSER_VALIDATING"
+               role="field"
+               xml:id="org.osgi.util.xml.XMLParserActivator.PARSER_VALIDATING">
+         <title>public static final String PARSER_VALIDATING = "parser.validating"</title>
+         <para>
+Service property specifying if factory is configured to support
+ validating parsers. The value is of type <code>Boolean</code>.
+   </para>
+      </section>
+      <section xreflabel="SAXCLASSFILE"
+               role="field"
+               xml:id="org.osgi.util.xml.XMLParserActivator.SAXCLASSFILE">
+         <title>public static final String SAXCLASSFILE = "/META-INF/services/javax.xml.parsers.SAXParserFactory"</title>
+         <para>
+Fully qualified path name of SAX Parser Factory Class Name file
+   </para>
+      </section>
+      <section xreflabel="SAXFACTORYNAME"
+               role="field"
+               xml:id="org.osgi.util.xml.XMLParserActivator.SAXFACTORYNAME">
+         <title>public static final String SAXFACTORYNAME = "javax.xml.parsers.SAXParserFactory"</title>
+         <para>
+Filename containing the SAX Parser Factory Class name. Also used as the
+ basis for the <code>SERVICE_PID</code> registration property.
+   </para>
+      </section>
+      <section xreflabel="XMLParserActivator()"
+               role="method"
+               xml:id="org.osgi.util.xml.XMLParserActivator.XMLParserActivator--">
+         <title>public  XMLParserActivator()</title>
+         <para/>
+      </section>
+      <section xreflabel="getService(Bundle,ServiceRegistration)"
+               role="method"
+               xml:id="org.osgi.util.xml.XMLParserActivator.getService-Bundle-ServiceRegistration-">
+         <title>public Object getService(Bundle bundle, ServiceRegistration&lt;Object&gt; registration)</title>
+         <formalpara role="parameter">
+            <title>bundle</title>
+            <para>The bundle using the service.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>registration</title>
+            <para>The <code>ServiceRegistration</code> object for the
+        service.</para>
+         </formalpara>
+         <para role="description">
+Creates a new XML Parser Factory object.
+ 
+ </para>
+         <para>
+ A unique XML Parser Factory object is returned for each call to this
+ method.
+ 
+ </para>
+         <para>
+ The returned XML Parser Factory object will be configured for validating
+ and namespace aware support as specified in the service properties of the
+ specified ServiceRegistration object.
+ 
+ This method can be overridden to configure additional features in the
+ returned XML Parser Factory object.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A new, configured XML Parser Factory object or null if a
+         configuration error was encountered</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="setDOMProperties(javax.xml.parsers.DocumentBuilderFactory,Hashtable)"
+               role="method"
+               xml:id="org.osgi.util.xml.XMLParserActivator.setDOMProperties-javax.xml.parsers.DocumentBuilderFactory-Hashtable-">
+         <title>public void setDOMProperties(DocumentBuilderFactory factory, Hashtable&lt;String, Object&gt; props)</title>
+         <formalpara role="parameter">
+            <title>factory</title>
+            <para>- the DocumentBuilderFactory object</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>props</title>
+            <para>- Hashtable of service properties.</para>
+         </formalpara>
+         <para>
+ Set the customizable DOM Parser Service Properties.
+ 
+ </para>
+         <para>
+ This method attempts to instantiate a validating parser and a namespace
+ aware parser to determine if the parser can support those features. The
+ appropriate properties are then set in the specified props object.
+ 
+ </para>
+         <para>
+ This method can be overridden to add additional DOM2 features and
+ properties. If you want to be able to filter searches of the OSGi service
+ registry, this method must put a key, value pair into the properties
+ object for each feature or property. For example,
+ 
+ properties.put("http://www.acme.com/features/foo", Boolean.TRUE);</para>
+      </section>
+      <section xreflabel="setSAXProperties(javax.xml.parsers.SAXParserFactory,Hashtable)"
+               role="method"
+               xml:id="org.osgi.util.xml.XMLParserActivator.setSAXProperties-javax.xml.parsers.SAXParserFactory-Hashtable-">
+         <title>public void setSAXProperties(SAXParserFactory factory, Hashtable&lt;String, Object&gt; properties)</title>
+         <formalpara role="parameter">
+            <title>factory</title>
+            <para>- the SAXParserFactory object</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>properties</title>
+            <para>- the properties object for the service</para>
+         </formalpara>
+         <para>
+ Set the customizable SAX Parser Service Properties.
+ 
+ </para>
+         <para>
+ This method attempts to instantiate a validating parser and a namespace
+ aware parser to determine if the parser can support those features. The
+ appropriate properties are then set in the specified properties object.
+ 
+ </para>
+         <para>
+ This method can be overridden to add additional SAX2 features and
+ properties. If you want to be able to filter searches of the OSGi service
+ registry, this method must put a key, value pair into the properties
+ object for each feature or property. For example,
+ 
+ properties.put("http://www.acme.com/features/foo", Boolean.TRUE);</para>
+      </section>
+      <section xreflabel="start(BundleContext)"
+               role="method"
+               xml:id="org.osgi.util.xml.XMLParserActivator.start-BundleContext-">
+         <title>public void start(BundleContext context) throws Exception</title>
+         <formalpara role="parameter">
+            <title>context</title>
+            <para>The execution context of the bundle being started.</para>
+         </formalpara>
+         <para role="description">
+Called when this bundle is started so the Framework can perform the
+ bundle-specific activities necessary to start this bundle. This method
+ can be used to register services or to allocate any resources that this
+ bundle needs.
+ 
+ </para>
+         <para>
+ This method must complete and return to its caller in a timely manner.
+ 
+ </para>
+         <para>
+ This method attempts to register a SAX and DOM parser with the
+ Framework's service registry.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– If this method throws an exception, this
+         bundle is marked as stopped and the Framework will remove this
+         bundle's listeners, unregister all services registered by this
+         bundle, and release all services used by this bundle.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="stop(BundleContext)"
+               role="method"
+               xml:id="org.osgi.util.xml.XMLParserActivator.stop-BundleContext-">
+         <title>public void stop(BundleContext context) throws Exception</title>
+         <formalpara role="parameter">
+            <title>context</title>
+            <para>The execution context of the bundle being stopped.</para>
+         </formalpara>
+         <para role="description">
+This method has nothing to do as all active service registrations will
+ automatically get unregistered when the bundle stops.
+   </para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– If this method throws an exception, the
+         bundle is still marked as stopped, and the Framework will remove
+         the bundle's listeners, unregister all services registered by the
+         bundle, and release all services used by the bundle.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="ungetService(Bundle,ServiceRegistration,Object)"
+               role="method"
+               xml:id="org.osgi.util.xml.XMLParserActivator.ungetService-Bundle-ServiceRegistration-Object-">
+         <title>public void ungetService(Bundle bundle, ServiceRegistration&lt;Object&gt; registration, Object service)</title>
+         <formalpara role="parameter">
+            <title>bundle</title>
+            <para>The bundle releasing the service.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>registration</title>
+            <para>The <code>ServiceRegistration</code> object for the
+        service.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>service</title>
+            <para>The XML Parser Factory object returned by a previous call
+        to the <code>getService</code> method.</para>
+         </formalpara>
+         <para role="description">
+Releases a XML Parser Factory object.
+   </para>
+         <para/>
+      </section>
+   </section>
+</section>

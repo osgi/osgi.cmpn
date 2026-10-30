@@ -1,0 +1,72 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.namespace.contract"
+         version="5"
+         role="package"
+         xml:id="org.osgi.namespace.contract">
+   <title>org.osgi.namespace.contract</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.namespace.contract-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.namespace.contract-version.number">1.0</edition>
+   </info>
+   <para>
+Contract Namespace Package Version 1.0.
+ 
+ </para>
+   <para>
+ Bundles should not need to import this package at runtime since all
+ the types in this package just contain constants for capability and 
+ requirement namespaces specified by the OSGi Working Group.</para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.namespace.contract.ContractNamespace">
+                  <code>ContractNamespace</code>
+               </link> - 
+Contract Capability and Requirement Namespace.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="ContractNamespace"
+            role="class"
+            xml:id="org.osgi.namespace.contract.ContractNamespace">
+      <title>public final class ContractNamespace<?line-break?> extends Namespace</title>
+      <para>
+Contract Capability and Requirement Namespace.
+ 
+ </para>
+      <para>
+ This class defines the names for the attributes and directives for this
+ namespace. All unspecified capability attributes are of type <code>String</code>
+ and are used as arbitrary matching attributes for the capability. The values
+ associated with the specified directive and attribute keys are of type
+ <code>String</code>, unless otherwise indicated.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Immutable </para>
+      </formalpara>
+      <section xreflabel="CAPABILITY_VERSION_ATTRIBUTE"
+               role="field"
+               xml:id="org.osgi.namespace.contract.ContractNamespace.CAPABILITY_VERSION_ATTRIBUTE">
+         <title>public static final String CAPABILITY_VERSION_ATTRIBUTE = "version"</title>
+         <para>
+The capability attribute contains the <code>Version</code>s of the
+ specification of the contract. The value of this attribute must be of
+ type <code>Version</code>, <code>Version[]</code>, or <code>List&lt;Version&gt;</code>.
+   </para>
+      </section>
+      <section xreflabel="CONTRACT_NAMESPACE"
+               role="field"
+               xml:id="org.osgi.namespace.contract.ContractNamespace.CONTRACT_NAMESPACE">
+         <title>public static final String CONTRACT_NAMESPACE = "osgi.contract"</title>
+         <para>
+Namespace name for contract capabilities and requirements.
+ 
+ </para>
+         <para>
+ Also, the capability attribute used to specify the name of the contract.</para>
+      </section>
+   </section>
+</section>

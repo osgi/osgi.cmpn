@@ -1,0 +1,512 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.cdi.runtime.dto.template"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.cdi.runtime.dto.template">
+   <title>org.osgi.service.cdi.runtime.dto.template</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.cdi.runtime.dto.template-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.service.cdi.runtime.dto.template-version.number">1.0</edition>
+   </info>
+   <para>
+CDI Integration Package Version 1.0.
+
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.cdi.dto.model; version="[1.0,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.cdi.dto.model; version="[1.0,1.1)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.runtime.dto.template.ActivationTemplateDTO">
+                  <code>ActivationTemplateDTO</code>
+               </link> - 
+Activations represent either immediate instances or service objects produced
+ by component instances.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.runtime.dto.template.ComponentTemplateDTO">
+                  <code>ComponentTemplateDTO</code>
+               </link> - 
+A static description of a CDI component.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.runtime.dto.template.ConfigurationTemplateDTO">
+                  <code>ConfigurationTemplateDTO</code>
+               </link> - 
+A description of a configuration dependency of a component
+
+ The content of this DTO is resolved form metadata at initialization time and
+ remains the same between the CDI bundle restarts.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.runtime.dto.template.ContainerTemplateDTO">
+                  <code>ContainerTemplateDTO</code>
+               </link> - 
+Description of a CDI container.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.runtime.dto.template.ExtensionTemplateDTO">
+                  <code>ExtensionTemplateDTO</code>
+               </link> - 
+Models an extension dependency of the <link linkend="org.osgi.service.cdi.runtime.dto.ContainerDTO">ContainerDTO</link>
+            </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cdi.runtime.dto.template.ReferenceTemplateDTO">
+                  <code>ReferenceTemplateDTO</code>
+               </link> - 
+A description of a reference dependency of a component
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="ActivationTemplateDTO"
+            role="class"
+            xml:id="org.osgi.service.cdi.runtime.dto.template.ActivationTemplateDTO">
+      <title>public class ActivationTemplateDTO<?line-break?> extends DTO</title>
+      <para>
+Activations represent either immediate instances or service objects produced
+ by component instances.
+ </para>
+      <para>
+ The content of this DTO is resolved form metadata at initialization time and
+ remains the same between the CDI bundle restarts.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="properties"
+               role="field"
+               xml:id="org.osgi.service.cdi.runtime.dto.template.ActivationTemplateDTO.properties">
+         <title>public Map&lt;String, Object&gt; properties</title>
+         <para>
+The default properties for activations which represent container
+ component services. This will never be populated for single or factory
+ components.
+ </para>
+         <para>
+ These are merged (and possibly replaced) with runtime properties.
+ </para>
+         <para>
+ Must not be <code>null</code>. May be empty if no default properties are
+ provided.</para>
+      </section>
+      <section xreflabel="scope"
+               role="field"
+               xml:id="org.osgi.service.cdi.runtime.dto.template.ActivationTemplateDTO.scope">
+         <title>public ServiceScope scope</title>
+         <para>
+The <link linkend="org.osgi.service.cdi.ServiceScope">ServiceScope</link> of this activation
+ </para>
+         <para>
+ Must not be <code>null</code>.</para>
+      </section>
+      <section xreflabel="serviceClasses"
+               role="field"
+               xml:id="org.osgi.service.cdi.runtime.dto.template.ActivationTemplateDTO.serviceClasses">
+         <title>public List&lt;String&gt; serviceClasses</title>
+         <para>
+Describes the set of fully qualified names of the interfaces/classes
+ under which this activation will publish and OSGi service
+ </para>
+         <para>
+ Must not be <code>null</code>. An empty array indicated this activation will
+ not publish an OSGi service</para>
+      </section>
+      <section xreflabel="ActivationTemplateDTO()"
+               role="method"
+               xml:id="org.osgi.service.cdi.runtime.dto.template.ActivationTemplateDTO.ActivationTemplateDTO--">
+         <title>public  ActivationTemplateDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="ComponentTemplateDTO"
+            role="class"
+            xml:id="org.osgi.service.cdi.runtime.dto.template.ComponentTemplateDTO">
+      <title>public class ComponentTemplateDTO<?line-break?> extends DTO</title>
+      <para>
+A static description of a CDI component.
+ </para>
+      <para>
+ At runtime it is spit between a <link linkend="org.osgi.service.cdi.runtime.dto.ComponentInstanceDTO">ComponentInstanceDTO</link> which handles
+ the resolution of the configurations, references and the creation of
+ <link linkend="org.osgi.service.cdi.runtime.dto.ComponentInstanceDTO">ComponentInstanceDTO</link> instances and one or more
+ <link linkend="org.osgi.service.cdi.runtime.dto.ComponentInstanceDTO">ComponentInstanceDTO</link> instances, which handle the resolution of
+ <link linkend="org.osgi.service.cdi.runtime.dto.template.ComponentTemplateDTO.references">references</link> and the creation of <link linkend="org.osgi.service.cdi.runtime.dto.template.ComponentTemplateDTO.activations">activations</link>.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="activations"
+               role="field"
+               xml:id="org.osgi.service.cdi.runtime.dto.template.ComponentTemplateDTO.activations">
+         <title>public List&lt;ActivationTemplateDTO&gt; activations</title>
+         <para>
+The activations associated with the component.
+ </para>
+         <para>
+ Must not be <code>null</code>.</para>
+      </section>
+      <section xreflabel="beans"
+               role="field"
+               xml:id="org.osgi.service.cdi.runtime.dto.template.ComponentTemplateDTO.beans">
+         <title>public List&lt;String&gt; beans</title>
+         <para>
+The set of beans that make up the component.
+ </para>
+         <para>
+ Must not be <code>null</code>.</para>
+      </section>
+      <section xreflabel="configurations"
+               role="field"
+               xml:id="org.osgi.service.cdi.runtime.dto.template.ComponentTemplateDTO.configurations">
+         <title>public List&lt;ConfigurationTemplateDTO&gt; configurations</title>
+         <para>
+The configuration dependencies of this component.
+ </para>
+         <para>
+ There is always at least one default singleton configuration.
+ </para>
+         <para>
+ May contain at most one factory configuration.
+ </para>
+         <para>
+ Must not be <code>null</code>.</para>
+      </section>
+      <section xreflabel="name"
+               role="field"
+               xml:id="org.osgi.service.cdi.runtime.dto.template.ComponentTemplateDTO.name">
+         <title>public String name</title>
+         <para>
+A name unique within the container.
+ </para>
+         <para>
+ Must not be <code>null</code>.</para>
+      </section>
+      <section xreflabel="properties"
+               role="field"
+               xml:id="org.osgi.service.cdi.runtime.dto.template.ComponentTemplateDTO.properties">
+         <title>public Map&lt;String, Object&gt; properties</title>
+         <para>
+The default component properties.
+ </para>
+         <para>
+ These are merged (and possibly replaced) with runtime properties.
+ </para>
+         <para>
+ Must not be <code>null</code>. May be empty if no default properties are
+ provided.</para>
+      </section>
+      <section xreflabel="references"
+               role="field"
+               xml:id="org.osgi.service.cdi.runtime.dto.template.ComponentTemplateDTO.references">
+         <title>public List&lt;ReferenceTemplateDTO&gt; references</title>
+         <para>
+The service dependencies of the component.
+ </para>
+         <para>
+ The list will be empty if there are no service dependencies.
+ </para>
+         <para>
+ Must not be <code>null</code>.</para>
+      </section>
+      <section xreflabel="type"
+               role="field"
+               xml:id="org.osgi.service.cdi.runtime.dto.template.ComponentTemplateDTO.type">
+         <title>public ComponentType type</title>
+         <para>
+The <link linkend="org.osgi.service.cdi.ComponentType">type</link> of the component.
+ </para>
+         <para>
+ Must not be <code>null</code>.</para>
+      </section>
+      <section xreflabel="ComponentTemplateDTO()"
+               role="method"
+               xml:id="org.osgi.service.cdi.runtime.dto.template.ComponentTemplateDTO.ComponentTemplateDTO--">
+         <title>public  ComponentTemplateDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="ConfigurationTemplateDTO"
+            role="class"
+            xml:id="org.osgi.service.cdi.runtime.dto.template.ConfigurationTemplateDTO">
+      <title>public class ConfigurationTemplateDTO<?line-break?> extends DTO</title>
+      <para>
+A description of a configuration dependency of a component
+
+ The content of this DTO is resolved form metadata at initialization time and
+ remains the same between the CDI bundle restarts.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="maximumCardinality"
+               role="field"
+               xml:id="org.osgi.service.cdi.runtime.dto.template.ConfigurationTemplateDTO.maximumCardinality">
+         <title>public MaximumCardinality maximumCardinality</title>
+         <para>
+The maximum cardinality of the configuration dependency.
+ </para>
+         <para/>
+         <itemizedlist>
+            <listitem>
+               <para>When <link linkend="org.osgi.service.cdi.MaximumCardinality.ONE">MaximumCardinality.ONE</link> this is a singleton configuration
+ dependency.</para>
+            </listitem>
+            <listitem>
+               <para>When <link linkend="org.osgi.service.cdi.MaximumCardinality.MANY">MaximumCardinality.MANY</link> this is a factory configuration
+ dependency.</para>
+            </listitem>
+         </itemizedlist>
+         <para>
+ Must not be <code>null</code>.</para>
+      </section>
+      <section xreflabel="pid"
+               role="field"
+               xml:id="org.osgi.service.cdi.runtime.dto.template.ConfigurationTemplateDTO.pid">
+         <title>public String pid</title>
+         <para>
+The PID of the tracked configuration object(s).
+ </para>
+         <para>
+ Must not be <code>null</code>.</para>
+      </section>
+      <section xreflabel="policy"
+               role="field"
+               xml:id="org.osgi.service.cdi.runtime.dto.template.ConfigurationTemplateDTO.policy">
+         <title>public ConfigurationPolicy policy</title>
+         <para>
+The policy for the configuration dependency.
+ </para>
+         <para>
+ Must not be <code>null</code>.</para>
+      </section>
+      <section xreflabel="ConfigurationTemplateDTO()"
+               role="method"
+               xml:id="org.osgi.service.cdi.runtime.dto.template.ConfigurationTemplateDTO.ConfigurationTemplateDTO--">
+         <title>public  ConfigurationTemplateDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="ContainerTemplateDTO"
+            role="class"
+            xml:id="org.osgi.service.cdi.runtime.dto.template.ContainerTemplateDTO">
+      <title>public class ContainerTemplateDTO<?line-break?> extends DTO</title>
+      <para>
+Description of a CDI container.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="components"
+               role="field"
+               xml:id="org.osgi.service.cdi.runtime.dto.template.ContainerTemplateDTO.components">
+         <title>public List&lt;ComponentTemplateDTO&gt; components</title>
+         <para>
+The components defined in this CDI container.
+ </para>
+         <para>
+ Must not be <code>null</code>
+         </para>
+         <para>
+ Has at lest one element for the <link linkend="org.osgi.service.cdi.ComponentType.CONTAINER">container component</link>.
+ See <emphasis>Container Component</emphasis>.</para>
+      </section>
+      <section xreflabel="extensions"
+               role="field"
+               xml:id="org.osgi.service.cdi.runtime.dto.template.ContainerTemplateDTO.extensions">
+         <title>public List&lt;ExtensionTemplateDTO&gt; extensions</title>
+         <para>
+The extension dependencies of this CDI container.
+ </para>
+         <para>
+ Must not be <code>null</code>
+         </para>
+         <para>
+ May be empty if the CDI container does not require CDI extensions.</para>
+      </section>
+      <section xreflabel="id"
+               role="field"
+               xml:id="org.osgi.service.cdi.runtime.dto.template.ContainerTemplateDTO.id">
+         <title>public String id</title>
+         <para>
+The id of the CDI container.
+   </para>
+      </section>
+      <section xreflabel="ContainerTemplateDTO()"
+               role="method"
+               xml:id="org.osgi.service.cdi.runtime.dto.template.ContainerTemplateDTO.ContainerTemplateDTO--">
+         <title>public  ContainerTemplateDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="ExtensionTemplateDTO"
+            role="class"
+            xml:id="org.osgi.service.cdi.runtime.dto.template.ExtensionTemplateDTO">
+      <title>public class ExtensionTemplateDTO<?line-break?> extends DTO</title>
+      <para>
+Models an extension dependency of the <link linkend="org.osgi.service.cdi.runtime.dto.ContainerDTO">ContainerDTO</link>
+      </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="serviceFilter"
+               role="field"
+               xml:id="org.osgi.service.cdi.runtime.dto.template.ExtensionTemplateDTO.serviceFilter">
+         <title>public String serviceFilter</title>
+         <para>
+The service filter used for finding the extension service.
+ </para>
+         <para>
+ The value must be associated to the <code>osgi.cdi</code> extender requirement
+ whose '<code>extension</code>' attribute contains a value equal to
+ <link linkend="org.osgi.service.cdi.runtime.dto.template.ExtensionTemplateDTO.serviceFilter">serviceFilter</link>.
+ </para>
+         <para>
+ Must not be <code>null</code>.</para>
+      </section>
+      <section xreflabel="ExtensionTemplateDTO()"
+               role="method"
+               xml:id="org.osgi.service.cdi.runtime.dto.template.ExtensionTemplateDTO.ExtensionTemplateDTO--">
+         <title>public  ExtensionTemplateDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="ReferenceTemplateDTO"
+            role="class"
+            xml:id="org.osgi.service.cdi.runtime.dto.template.ReferenceTemplateDTO">
+      <title>public class ReferenceTemplateDTO<?line-break?> extends DTO</title>
+      <para>
+A description of a reference dependency of a component
+ </para>
+      <para>
+ The content of this DTO is resolved form metadata at initialization time and
+ remains the same between the CDI bundle restarts.
+ </para>
+      <para/>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="maximumCardinality"
+               role="field"
+               xml:id="org.osgi.service.cdi.runtime.dto.template.ReferenceTemplateDTO.maximumCardinality">
+         <title>public MaximumCardinality maximumCardinality</title>
+         <para>
+The maximum cardinality of the reference.
+   </para>
+      </section>
+      <section xreflabel="minimumCardinality"
+               role="field"
+               xml:id="org.osgi.service.cdi.runtime.dto.template.ReferenceTemplateDTO.minimumCardinality">
+         <title>public int minimumCardinality</title>
+         <para>
+The minimum cardinality of the reference.
+ </para>
+         <para>
+ Contains the minimum cardinality statically resolved from the CDI bundle
+ metadata. The minimum cardinality can be replaced by configuration at
+ runtime.
+ </para>
+         <para/>
+         <itemizedlist>
+            <listitem>
+               <para>If <link linkend="org.osgi.service.cdi.runtime.dto.template.ReferenceTemplateDTO.maximumCardinality">maximumCardinality</link> is <link linkend="org.osgi.service.cdi.MaximumCardinality.ONE">ONE</link> the
+ value must be either 0 or 1.</para>
+            </listitem>
+            <listitem>
+               <para>If <link linkend="org.osgi.service.cdi.runtime.dto.template.ReferenceTemplateDTO.maximumCardinality">maximumCardinality</link> is <link linkend="org.osgi.service.cdi.MaximumCardinality.MANY">MANY</link>
+ the value must be from 0 to Integer.MAX_VALUE.
+ </para>
+            </listitem>
+         </itemizedlist>
+      </section>
+      <section xreflabel="name"
+               role="field"
+               xml:id="org.osgi.service.cdi.runtime.dto.template.ReferenceTemplateDTO.name">
+         <title>public String name</title>
+         <para>
+A unique within the container and persistent across reboots identified
+ for this activation
+ </para>
+         <para>
+ The value must not be <code>null</code>. The value must be equal to the
+ reference name.</para>
+      </section>
+      <section xreflabel="policy"
+               role="field"
+               xml:id="org.osgi.service.cdi.runtime.dto.template.ReferenceTemplateDTO.policy">
+         <title>public ReferencePolicy policy</title>
+         <para>
+Indicates if the reference is dynamic or static in nature.
+   </para>
+      </section>
+      <section xreflabel="policyOption"
+               role="field"
+               xml:id="org.osgi.service.cdi.runtime.dto.template.ReferenceTemplateDTO.policyOption">
+         <title>public ReferencePolicyOption policyOption</title>
+         <para>
+Indicates if the reference is greedy or reluctant in nature.
+   </para>
+      </section>
+      <section xreflabel="serviceType"
+               role="field"
+               xml:id="org.osgi.service.cdi.runtime.dto.template.ReferenceTemplateDTO.serviceType">
+         <title>public String serviceType</title>
+         <para>
+Indicates the type of service matched by the reference.
+ </para>
+         <para>
+ The value must not be <code>null</code>.</para>
+      </section>
+      <section xreflabel="targetFilter"
+               role="field"
+               xml:id="org.osgi.service.cdi.runtime.dto.template.ReferenceTemplateDTO.targetFilter">
+         <title>public String targetFilter</title>
+         <para>
+Indicates a target filter used in addition to the <link linkend="org.osgi.service.cdi.runtime.dto.template.ReferenceTemplateDTO.serviceType">serviceType</link> to
+ match services.
+ </para>
+         <para>
+ Contains the target filter resolved from the CDI bundle metadata. The filter
+ can be replaced by configuration at runtime.</para>
+      </section>
+      <section xreflabel="ReferenceTemplateDTO()"
+               role="method"
+               xml:id="org.osgi.service.cdi.runtime.dto.template.ReferenceTemplateDTO.ReferenceTemplateDTO--">
+         <title>public  ReferenceTemplateDTO()</title>
+         <para/>
+      </section>
+   </section>
+</section>

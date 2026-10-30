@@ -1,0 +1,1007 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.util.converter"
+         version="5"
+         role="package"
+         xml:id="org.osgi.util.converter">
+   <title>org.osgi.util.converter</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.util.converter-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.util.converter-version.number">1.0</edition>
+   </info>
+   <para>
+Converter Package Version 1.0.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.util.converter; version="[1.0,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.util.converter; version="[1.0,1.1)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.converter.ConversionException">
+                  <code>ConversionException</code>
+               </link> - 
+This Runtime Exception is thrown when an object is requested to be converted
+ but the conversion cannot be done.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.converter.Converter">
+                  <code>Converter</code>
+               </link> - 
+The Converter service is used to start a conversion.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.converter.ConverterBuilder">
+                  <code>ConverterBuilder</code>
+               </link> - 
+A builder to create a new converter with modified behavior based on an
+ existing converter.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.converter.ConverterFunction">
+                  <code>ConverterFunction</code>
+               </link> - 
+An functional interface with a convert method that is passed the original
+ object and the target type to perform a custom conversion.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.converter.Converters">
+                  <code>Converters</code>
+               </link> - 
+Factory class to obtain the standard converter or a new converter builder.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.converter.Converting">
+                  <code>Converting</code>
+               </link> - 
+This interface is used to specify the target that an object should be
+ converted to.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.converter.Functioning">
+                  <code>Functioning</code>
+               </link> - 
+This interface is used to specify the target function to perform conversions.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.converter.Rule">
+                  <code>Rule</code>
+               </link> - 
+A rule implementation that works by capturing the type arguments via
+ subclassing.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.converter.Specifying">
+                  <code>Specifying</code>
+               </link> - 
+This is the base interface for the <link linkend="org.osgi.util.converter.Converting">Converting</link> and <link linkend="org.osgi.util.converter.Functioning">Functioning</link>
+ interfaces and defines the common modifiers that can be applied to these.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.converter.TargetRule">
+                  <code>TargetRule</code>
+               </link> - 
+Interface for custom conversion rules.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.converter.TypeReference">
+                  <code>TypeReference</code>
+               </link> - 
+An object does not carry any runtime information about its generic type.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.util.converter.TypeRule">
+                  <code>TypeRule</code>
+               </link> - 
+Rule implementation that works by passing in type arguments rather than
+ subclassing.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="ConversionException"
+            role="class"
+            xml:id="org.osgi.util.converter.ConversionException">
+      <title>public class ConversionException<?line-break?> extends RuntimeException</title>
+      <para>
+This Runtime Exception is thrown when an object is requested to be converted
+ but the conversion cannot be done. For example when the String "test" is to
+ be converted into a Long.
+   </para>
+      <section xreflabel="ConversionException(String)"
+               role="method"
+               xml:id="org.osgi.util.converter.ConversionException.ConversionException-String-">
+         <title>public  ConversionException(String message)</title>
+         <formalpara role="parameter">
+            <title>message</title>
+            <para>The message for this exception.</para>
+         </formalpara>
+         <para role="description">
+Create a Conversion Exception with a message.
+   </para>
+      </section>
+      <section xreflabel="ConversionException(String,Throwable)"
+               role="method"
+               xml:id="org.osgi.util.converter.ConversionException.ConversionException-String-Throwable-">
+         <title>public  ConversionException(String message, Throwable cause)</title>
+         <formalpara role="parameter">
+            <title>message</title>
+            <para>The message for this exception.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>cause</title>
+            <para>The causing exception.</para>
+         </formalpara>
+         <para role="description">
+Create a Conversion Exception with a message and a nested cause.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="Converter"
+            role="class"
+            xml:id="org.osgi.util.converter.Converter">
+      <title>public interface Converter</title>
+      <para>
+The Converter service is used to start a conversion. The service is obtained
+ from the service registry. The conversion is then completed via the
+ Converting interface that has methods to specify the target type.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="convert(Object)"
+               role="method"
+               xml:id="org.osgi.util.converter.Converter.convert-Object-">
+         <title>public Converting convert(Object obj)</title>
+         <formalpara role="parameter">
+            <title>obj</title>
+            <para>The object that should be converted.</para>
+         </formalpara>
+         <para role="description">
+Start a conversion for the given object.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <link linkend="org.osgi.util.converter.Converting">Converting</link> object to complete the conversion.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="function()"
+               role="method"
+               xml:id="org.osgi.util.converter.Converter.function--">
+         <title>public Functioning function()</title>
+         <para role="description">
+Start defining a function that can perform given conversions.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <link linkend="org.osgi.util.converter.Functioning">Functioning</link> object to complete the definition.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="newConverterBuilder()"
+               role="method"
+               xml:id="org.osgi.util.converter.Converter.newConverterBuilder--">
+         <title>public ConverterBuilder newConverterBuilder()</title>
+         <para role="description">
+Obtain a builder to create a modified converter based on this converter.
+ For more details see the <link linkend="org.osgi.util.converter.ConverterBuilder">ConverterBuilder</link> interface.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A new Converter Builder.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="ConverterBuilder"
+            role="class"
+            xml:id="org.osgi.util.converter.ConverterBuilder">
+      <title>public interface ConverterBuilder</title>
+      <para>
+A builder to create a new converter with modified behavior based on an
+ existing converter. The modified behavior is specified by providing rules
+ and/or conversion functions. If multiple rules match they will be visited in
+ sequence of registration. If a rule's function returns <code>null</code> the next
+ rule found will be visited. If none of the rules can handle the conversion,
+ the original converter will be used to perform the conversion.
+   </para>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="build()"
+               role="method"
+               xml:id="org.osgi.util.converter.ConverterBuilder.build--">
+         <title>public Converter build()</title>
+         <para role="description">
+Build the specified converter. Each time this method is called a new
+ custom converter is produced based on the rules registered with the
+ builder.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A new converter with the rules provided to the builder.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="errorHandler(ConverterFunction)"
+               role="method"
+               xml:id="org.osgi.util.converter.ConverterBuilder.errorHandler-ConverterFunction-">
+         <title>public ConverterBuilder errorHandler(ConverterFunction func)</title>
+         <formalpara role="parameter">
+            <title>func</title>
+            <para>The function to be used to handle errors.</para>
+         </formalpara>
+         <para role="description">
+Register a custom error handler. The custom error handler will be called
+ when the conversion would otherwise throw an exception. The error handler
+ can either throw a different exception or return a value to be used for
+ the failed conversion.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This converter builder for further building.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="rule(Type,ConverterFunction)"
+               role="method"
+               xml:id="org.osgi.util.converter.ConverterBuilder.rule-Type-ConverterFunction-">
+         <title>public ConverterBuilder rule(Type type, ConverterFunction func)</title>
+         <formalpara role="parameter">
+            <title>type</title>
+            <para>The type that this rule will produce.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>func</title>
+            <para>The function that will handle the conversion.</para>
+         </formalpara>
+         <para role="description">
+Register a conversion rule for this converter. Note that only the target
+ type is specified, so the rule will be visited for every conversion to
+ the target type.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This converter builder for further building.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="rule(TargetRule)"
+               role="method"
+               xml:id="org.osgi.util.converter.ConverterBuilder.rule-TargetRule-">
+         <title>public ConverterBuilder rule(TargetRule rule)</title>
+         <formalpara role="parameter">
+            <title>rule</title>
+            <para>A rule implementation.</para>
+         </formalpara>
+         <para role="description">
+Register a conversion rule for this converter.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This converter builder for further building.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="rule(ConverterFunction)"
+               role="method"
+               xml:id="org.osgi.util.converter.ConverterBuilder.rule-ConverterFunction-">
+         <title>public ConverterBuilder rule(ConverterFunction func)</title>
+         <formalpara role="parameter">
+            <title>func</title>
+            <para>The function that will handle the conversion.</para>
+         </formalpara>
+         <para role="description">
+Register a catch-all rule, will be called of no other rule matches.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This converter builder for further building.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="ConverterFunction"
+            role="class"
+            xml:id="org.osgi.util.converter.ConverterFunction">
+      <title>public interface ConverterFunction</title>
+      <para>
+An functional interface with a convert method that is passed the original
+ object and the target type to perform a custom conversion.
+ </para>
+      <para>
+ This interface can also be used to register a custom error handler.</para>
+      <section xreflabel="CANNOT_HANDLE"
+               role="field"
+               xml:id="org.osgi.util.converter.ConverterFunction.CANNOT_HANDLE">
+         <title>public static final Object CANNOT_HANDLE</title>
+         <para>
+Special object to indicate that a custom converter rule or error handler
+ cannot handle the conversion.
+   </para>
+      </section>
+      <section xreflabel="apply(Object,Type)"
+               role="method"
+               xml:id="org.osgi.util.converter.ConverterFunction.apply-Object-Type-">
+         <title>public Object apply(Object obj, Type targetType) throws Exception</title>
+         <formalpara role="parameter">
+            <title>obj</title>
+            <para>The object to be converted. This object will never be
+            <code>null</code> as the convert function will not be invoked for
+            null values.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>targetType</title>
+            <para>The target type.</para>
+         </formalpara>
+         <para role="description">
+Convert the object into the target type.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The conversion result or <link linkend="org.osgi.util.converter.ConverterFunction.CANNOT_HANDLE">CANNOT_HANDLE</link> to indicate that
+         the convert function cannot handle this conversion. In this case
+         the next matching rule or parent converter will be given a
+         opportunity to convert.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– the operation can throw an exception if the conversion
+             can not be performed due to incompatible types.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="Converters"
+            role="class"
+            xml:id="org.osgi.util.converter.Converters">
+      <title>public class Converters</title>
+      <para>
+Factory class to obtain the standard converter or a new converter builder.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="newConverterBuilder()"
+               role="method"
+               xml:id="org.osgi.util.converter.Converters.newConverterBuilder--">
+         <title>public static ConverterBuilder newConverterBuilder()</title>
+         <para role="description">
+Obtain a converter builder based on the standard converter.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A new converter builder.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="standardConverter()"
+               role="method"
+               xml:id="org.osgi.util.converter.Converters.standardConverter--">
+         <title>public static Converter standardConverter()</title>
+         <para role="description">
+Obtain the standard converter.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The standard converter.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="Converting"
+            role="class"
+            xml:id="org.osgi.util.converter.Converting">
+      <title>public interface Converting<?line-break?> extends Specifying&lt;Converting&gt;</title>
+      <para>
+This interface is used to specify the target that an object should be
+ converted to. A <link linkend="org.osgi.util.converter.Converting">Converting</link> instance can be obtained via the
+ <link linkend="org.osgi.util.converter.Converter">Converter</link>.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="to(Class)"
+               role="method"
+               xml:id="org.osgi.util.converter.Converting.to-Class-">
+         <title>public T to(Class&lt;T&gt; cls)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The type to convert to.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>cls</title>
+            <para>The class to convert to.</para>
+         </formalpara>
+         <para role="description">
+Specify the target object type for the conversion as a class object.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The converted object.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="to(Type)"
+               role="method"
+               xml:id="org.osgi.util.converter.Converting.to-Type-">
+         <title>public T to(Type type)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The type to convert to.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>type</title>
+            <para>A Type object to represent the target type to be converted
+            to.</para>
+         </formalpara>
+         <para role="description">
+Specify the target object type as a Java Reflection Type object.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The converted object.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="to(TypeReference)"
+               role="method"
+               xml:id="org.osgi.util.converter.Converting.to-TypeReference-">
+         <title>public T to(TypeReference&lt;T&gt; ref)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The type to convert to.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>ref</title>
+            <para>A type reference to the object being converted to.</para>
+         </formalpara>
+         <para role="description">
+Specify the target object type as a <link linkend="org.osgi.util.converter.TypeReference">TypeReference</link>. If the target
+ class carries generics information a TypeReference should be used as this
+ preserves the generic information whereas a Class object has this
+ information erased. Example use:
+
+ </para>
+         <programlisting> List&lt;String&gt; result = converter.convert(Arrays.asList(1, 2, 3))
+ 		.to(new TypeReference&lt;List&lt;String&gt;&gt;() {
+ 		});</programlisting>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The converted object.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="Functioning"
+            role="class"
+            xml:id="org.osgi.util.converter.Functioning">
+      <title>public interface Functioning<?line-break?> extends Specifying&lt;Functioning&gt;</title>
+      <para>
+This interface is used to specify the target function to perform conversions.
+ This function can be used multiple times. A <link linkend="org.osgi.util.converter.Functioning">Functioning</link> instance can
+ be obtained via the <link linkend="org.osgi.util.converter.Converter">Converter</link>.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="to(Class)"
+               role="method"
+               xml:id="org.osgi.util.converter.Functioning.to-Class-">
+         <title>public Function&lt;Object, T&gt; to(Class&lt;T&gt; cls)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The type to convert to.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>cls</title>
+            <para>The class to convert to.</para>
+         </formalpara>
+         <para role="description">
+Specify the target object type for the conversion as a class object.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A function that can perform the conversion.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="to(Type)"
+               role="method"
+               xml:id="org.osgi.util.converter.Functioning.to-Type-">
+         <title>public Function&lt;Object, T&gt; to(Type type)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The type to convert to.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>type</title>
+            <para>A Type object to represent the target type to be converted
+            to.</para>
+         </formalpara>
+         <para role="description">
+Specify the target object type as a Java Reflection Type object.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A function that can perform the conversion.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="to(TypeReference)"
+               role="method"
+               xml:id="org.osgi.util.converter.Functioning.to-TypeReference-">
+         <title>public Function&lt;Object, T&gt; to(TypeReference&lt;T&gt; ref)</title>
+         <formalpara role="parameter">
+            <title>Type Parameters</title>
+            <para>
+               <code>&lt;T&gt;</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>&lt;T&gt;</title>
+            <para>The type to convert to.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>ref</title>
+            <para>A type reference to the object being converted to.</para>
+         </formalpara>
+         <para role="description">
+Specify the target object type as a <link linkend="org.osgi.util.converter.TypeReference">TypeReference</link>. If the target
+ class carries generics information a TypeReference should be used as this
+ preserves the generic information whereas a Class object has this
+ information erased. Example use:
+
+ </para>
+         <programlisting> List&lt;String&gt; result = converter.function()
+ 		.to(new TypeReference&lt;List&lt;String&gt;&gt;() {
+ 		});</programlisting>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A function that can perform the conversion.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="Rule" role="class" xml:id="org.osgi.util.converter.Rule">
+      <title>public abstract class Rule&lt;F, T&gt;<?line-break?> implements TargetRule</title>
+      <formalpara role="parameter">
+         <title>&lt;F&gt;</title>
+         <para>The type to convert from.</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>&lt;T&gt;</title>
+         <para>The type to convert to.</para>
+      </formalpara>
+      <para>
+A rule implementation that works by capturing the type arguments via
+ subclassing. The rule supports specifying both <emphasis>from</emphasis> and <emphasis>to</emphasis>
+ types. Filtering on the <emphasis>from</emphasis> by the <code>Rule</code> implementation.
+ Filtering on the <emphasis>to</emphasis> is done by the converter customization
+ mechanism.
+   </para>
+      <section xreflabel="Rule(Function)"
+               role="method"
+               xml:id="org.osgi.util.converter.Rule.Rule-Function-">
+         <title>public  Rule(Function&lt;F, T&gt; func)</title>
+         <formalpara role="parameter">
+            <title>func</title>
+            <para>The conversion function to use.</para>
+         </formalpara>
+         <para role="description">
+Create an instance with a conversion function.
+   </para>
+      </section>
+      <section xreflabel="getFunction()"
+               role="method"
+               xml:id="org.osgi.util.converter.Rule.getFunction--">
+         <title>public ConverterFunction getFunction()</title>
+         <para role="description">
+The function to perform the conversion.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The function.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getTargetType()"
+               role="method"
+               xml:id="org.osgi.util.converter.Rule.getTargetType--">
+         <title>public Type getTargetType()</title>
+         <para role="description">
+The target type of this rule. The conversion function is invoked for each
+ conversion to the target type.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The target type.</para>
+         </formalpara>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="Specifying"
+            role="class"
+            xml:id="org.osgi.util.converter.Specifying">
+      <title>public interface Specifying&lt;T extends Specifying&lt;T&gt;&gt;</title>
+      <formalpara role="parameter">
+         <title>&lt;T&gt;</title>
+         <para>Either <link linkend="org.osgi.util.converter.Converting">Converting</link> or <link linkend="org.osgi.util.converter.Specifying">Specifying</link>.</para>
+      </formalpara>
+      <para>
+This is the base interface for the <link linkend="org.osgi.util.converter.Converting">Converting</link> and <link linkend="org.osgi.util.converter.Functioning">Functioning</link>
+ interfaces and defines the common modifiers that can be applied to these.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="defaultValue(Object)"
+               role="method"
+               xml:id="org.osgi.util.converter.Specifying.defaultValue-Object-">
+         <title>public T extends Specifying&lt;T&gt; defaultValue(Object defVal)</title>
+         <formalpara role="parameter">
+            <title>defVal</title>
+            <para>The default value.</para>
+         </formalpara>
+         <para role="description">
+The default value to use when the object cannot be converted or in case
+ of conversion from a <code>null</code> value.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The current <code>Converting</code> object so that additional calls
+         can be chained.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="keysIgnoreCase()"
+               role="method"
+               xml:id="org.osgi.util.converter.Specifying.keysIgnoreCase--">
+         <title>public T extends Specifying&lt;T&gt; keysIgnoreCase()</title>
+         <para role="description">
+When converting between map-like types use case-insensitive mapping of
+ keys.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The current <code>Converting</code> object so that additional calls
+         can be chained.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="sourceAs(Class)"
+               role="method"
+               xml:id="org.osgi.util.converter.Specifying.sourceAs-Class-">
+         <title>public T extends Specifying&lt;T&gt; sourceAs(Class&lt;?&gt; cls)</title>
+         <formalpara role="parameter">
+            <title>cls</title>
+            <para>The class to treat the object as.</para>
+         </formalpara>
+         <para role="description">
+Treat the source object as the specified class. This can be used to
+ disambiguate a type if it implements multiple interfaces or extends
+ multiple classes.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The current <code>Converting</code> object so that additional calls
+         can be chained.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="sourceAsBean()"
+               role="method"
+               xml:id="org.osgi.util.converter.Specifying.sourceAsBean--">
+         <title>public T extends Specifying&lt;T&gt; sourceAsBean()</title>
+         <para role="description">
+Treat the source object as a JavaBean. By default objects will not be
+ treated as JavaBeans, this has to be specified using this method.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The current <code>Converting</code> object so that additional calls
+         can be chained.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="sourceAsDTO()"
+               role="method"
+               xml:id="org.osgi.util.converter.Specifying.sourceAsDTO--">
+         <title>public T extends Specifying&lt;T&gt; sourceAsDTO()</title>
+         <para role="description">
+Treat the source object as a DTO even if the source object has methods or
+ is otherwise not recognized as a DTO.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The current <code>Converting</code> object so that additional calls
+         can be chained.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="targetAs(Class)"
+               role="method"
+               xml:id="org.osgi.util.converter.Specifying.targetAs-Class-">
+         <title>public T extends Specifying&lt;T&gt; targetAs(Class&lt;?&gt; cls)</title>
+         <formalpara role="parameter">
+            <title>cls</title>
+            <para>The class to treat the object as.</para>
+         </formalpara>
+         <para role="description">
+Treat the target object as the specified class. This can be used to
+ disambiguate a type if it implements multiple interfaces or extends
+ multiple classes.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The current <code>Converting</code> object so that additional calls
+         can be chained.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="targetAsBean()"
+               role="method"
+               xml:id="org.osgi.util.converter.Specifying.targetAsBean--">
+         <title>public T extends Specifying&lt;T&gt; targetAsBean()</title>
+         <para role="description">
+Treat the target object as a JavaBean. By default objects will not be
+ treated as JavaBeans, this has to be specified using this method.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The current <code>Converting</code> object so that additional calls
+         can be chained.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="targetAsDTO()"
+               role="method"
+               xml:id="org.osgi.util.converter.Specifying.targetAsDTO--">
+         <title>public T extends Specifying&lt;T&gt; targetAsDTO()</title>
+         <para role="description">
+Treat the target object as a DTO even if it has methods or is otherwise
+ not recognized as a DTO.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The current <code>Converting</code> object so that additional calls
+         can be chained.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="view()"
+               role="method"
+               xml:id="org.osgi.util.converter.Specifying.view--">
+         <title>public T extends Specifying&lt;T&gt; view()</title>
+         <para role="description">
+Return a live view over the backing object that reflects any changes to
+ the original object. This is only possible with conversions to
+ java.util.Map, java.util.Collection,
+ java.util.List and java.util.Set. The live view object
+ will cease to be live as soon as modifications are made to it. Note that
+ conversions to an interface or annotation will always produce a live view
+ that cannot be modified. This modifier has no effect with conversions to
+ other types.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The current <code>Converting</code> object so that additional calls
+         can be chained.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="TargetRule"
+            role="class"
+            xml:id="org.osgi.util.converter.TargetRule">
+      <title>public interface TargetRule</title>
+      <para>
+Interface for custom conversion rules.
+   </para>
+      <section xreflabel="getFunction()"
+               role="method"
+               xml:id="org.osgi.util.converter.TargetRule.getFunction--">
+         <title>public ConverterFunction getFunction()</title>
+         <para role="description">
+The function to perform the conversion.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The function.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getTargetType()"
+               role="method"
+               xml:id="org.osgi.util.converter.TargetRule.getTargetType--">
+         <title>public Type getTargetType()</title>
+         <para role="description">
+The target type of this rule. The conversion function is invoked for each
+ conversion to the target type.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The target type.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="TypeReference"
+            role="class"
+            xml:id="org.osgi.util.converter.TypeReference">
+      <title>public class TypeReference&lt;T&gt;</title>
+      <formalpara role="parameter">
+         <title>&lt;T&gt;</title>
+         <para>The target type for the conversion.</para>
+      </formalpara>
+      <para>
+An object does not carry any runtime information about its generic type.
+ However sometimes it is necessary to specify a generic type, that is the
+ purpose of this class. It allows you to specify an generic type by defining a
+ type T, then subclassing it. The subclass will have a reference to the super
+ class that contains this generic information. Through reflection, we pick
+ this reference up and return it with the getType() call.
+
+ </para>
+      <programlisting> List&lt;String&gt; result = converter.convert(Arrays.asList(1, 2, 3))
+ 		.to(new TypeReference&lt;List&lt;String&gt;&gt;() {
+ 		});</programlisting>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Immutable </para>
+      </formalpara>
+      <section xreflabel="TypeReference()"
+               role="method"
+               xml:id="org.osgi.util.converter.TypeReference.TypeReference--">
+         <title>protected  TypeReference()</title>
+         <para role="description">
+A <link linkend="org.osgi.util.converter.TypeReference">TypeReference</link> cannot be directly instantiated. To use it, it
+ has to be extended, typically as an anonymous inner class.
+   </para>
+      </section>
+      <section xreflabel="getType()"
+               role="method"
+               xml:id="org.osgi.util.converter.TypeReference.getType--">
+         <title>public Type getType()</title>
+         <para role="description">
+Return the actual type of this Type Reference
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>the type of this reference.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="TypeRule"
+            role="class"
+            xml:id="org.osgi.util.converter.TypeRule">
+      <title>public class TypeRule&lt;F, T&gt;<?line-break?> implements TargetRule</title>
+      <formalpara role="parameter">
+         <title>&lt;F&gt;</title>
+         <para>The type to convert from.</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>&lt;T&gt;</title>
+         <para>The type to convert to.</para>
+      </formalpara>
+      <para>
+Rule implementation that works by passing in type arguments rather than
+ subclassing. The rule supports specifying both <emphasis>from</emphasis> and <emphasis>to</emphasis>
+ types. Filtering on the <emphasis>from</emphasis> by the <code>Rule</code> implementation.
+ Filtering on the <emphasis>to</emphasis> is done by the converter customization
+ mechanism.
+   </para>
+      <section xreflabel="TypeRule(Type,Type,Function)"
+               role="method"
+               xml:id="org.osgi.util.converter.TypeRule.TypeRule-Type-Type-Function-">
+         <title>public  TypeRule(Type from, Type to, Function&lt;F, T&gt; func)</title>
+         <formalpara role="parameter">
+            <title>from</title>
+            <para>The type to convert from.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>to</title>
+            <para>The type to convert to.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>func</title>
+            <para>The conversion function to use.</para>
+         </formalpara>
+         <para role="description">
+Create an instance based on source, target types and a conversion
+ function.
+   </para>
+      </section>
+      <section xreflabel="getFunction()"
+               role="method"
+               xml:id="org.osgi.util.converter.TypeRule.getFunction--">
+         <title>public ConverterFunction getFunction()</title>
+         <para role="description">
+The function to perform the conversion.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The function.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getTargetType()"
+               role="method"
+               xml:id="org.osgi.util.converter.TypeRule.getTargetType--">
+         <title>public Type getTargetType()</title>
+         <para role="description">
+The target type of this rule. The conversion function is invoked for each
+ conversion to the target type.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The target type.</para>
+         </formalpara>
+         <para/>
+      </section>
+   </section>
+</section>

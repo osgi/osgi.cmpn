@@ -1,0 +1,610 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.jakartars.whiteboard.propertytypes"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.jakartars.whiteboard.propertytypes">
+   <title>org.osgi.service.jakartars.whiteboard.propertytypes</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.jakartars.whiteboard.propertytypes-version">Version 2.0</releaseinfo>
+      <edition xml:id="org.osgi.service.jakartars.whiteboard.propertytypes-version.number">2.0</edition>
+   </info>
+   <para>
+Jakarta RESTful Web Services Whiteboard Package Version 1.0.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.jakartars.whiteboard; version="[1.0,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.jakartars.whiteboard; version="[1.0,1.1)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.jakartars.whiteboard.propertytypes.JakartarsApplicationBase">
+                  <code>JakartarsApplicationBase</code>
+               </link> - 
+Component Property Type for the <code>osgi.jakartars.application.base</code>
+ service property.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.jakartars.whiteboard.propertytypes.JakartarsApplicationSelect">
+                  <code>JakartarsApplicationSelect</code>
+               </link> - 
+Component Property Type for the <code>osgi.jakartars.application.select</code>
+ service property.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.jakartars.whiteboard.propertytypes.JakartarsExtension">
+                  <code>JakartarsExtension</code>
+               </link> - 
+Component Property Type for the <code>osgi.jakartars.extension</code> service
+ property.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.jakartars.whiteboard.propertytypes.JakartarsExtensionSelect">
+                  <code>JakartarsExtensionSelect</code>
+               </link> - 
+Component Property Type for the <code>osgi.jakartars.extension.select</code>
+ service property.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.jakartars.whiteboard.propertytypes.JakartarsMediaType">
+                  <code>JakartarsMediaType</code>
+               </link> - 
+Component Property Type for the <code>osgi.jakartars.media.type</code> service
+ property.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.jakartars.whiteboard.propertytypes.JakartarsName">
+                  <code>JakartarsName</code>
+               </link> - 
+Component Property Type for the <code>osgi.jakartars.name</code> service property.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.jakartars.whiteboard.propertytypes.JakartarsResource">
+                  <code>JakartarsResource</code>
+               </link> - 
+Component Property Type for the <code>osgi.jakartars.resource</code> service
+ property.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.jakartars.whiteboard.propertytypes.JakartarsWhiteboardTarget">
+                  <code>JakartarsWhiteboardTarget</code>
+               </link> - 
+Component Property Type for the <code>osgi.jakartars.whiteboard.target</code>
+ service property.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.jakartars.whiteboard.propertytypes.JSONRequired">
+                  <code>JSONRequired</code>
+               </link> - 
+Component Property Type for requiring JSON media type support using the
+ <link linkend="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_MEDIA_TYPE">JakartarsWhiteboardConstants.JAKARTA_RS_MEDIA_TYPE</link> service property.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="JakartarsApplicationBase"
+            role="class"
+            xml:id="org.osgi.service.jakartars.whiteboard.propertytypes.JakartarsApplicationBase">
+      <title>@JakartarsApplicationBase</title>
+      <para>
+Component Property Type for the <code>osgi.jakartars.application.base</code>
+ service property.
+ </para>
+      <para>
+ This annotation can be used on a Jakarta RESTful Web Services whiteboard
+ application service to declare the value of the
+ <link linkend="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_APPLICATION_BASE">JakartarsWhiteboardConstants.JAKARTA_RS_APPLICATION_BASE</link> service
+ property.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.jakartars.whiteboard.propertytypes.JakartarsApplicationBase.value--">
+         <title>String value</title>
+         <para role="description">
+Service property providing a base context URI for a Jakarta RESTful Web
+ Services whiteboard application.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The base URI for this application.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_APPLICATION_BASE">JakartarsWhiteboardConstants.JAKARTA_RS_APPLICATION_BASE</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="PREFIX_"
+               role="field"
+               xml:id="org.osgi.service.jakartars.whiteboard.propertytypes.JakartarsApplicationBase.PREFIX_">
+         <title>String PREFIX_ = "osgi."</title>
+         <para>
+Prefix for the property name. This value is prepended to each property
+ name.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="JakartarsApplicationSelect"
+            role="class"
+            xml:id="org.osgi.service.jakartars.whiteboard.propertytypes.JakartarsApplicationSelect">
+      <title>@JakartarsApplicationSelect</title>
+      <para>
+Component Property Type for the <code>osgi.jakartars.application.select</code>
+ service property.
+ </para>
+      <para>
+ This annotation can be used on a Jakarta RESTful Web Services whiteboard
+ resource or extension service to declare the value of the
+ <link linkend="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_APPLICATION_SELECT">JakartarsWhiteboardConstants.JAKARTA_RS_APPLICATION_SELECT</link> service
+ property.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.jakartars.whiteboard.propertytypes.JakartarsApplicationSelect.value--">
+         <title>String[] value</title>
+         <para role="description">
+Service property providing a OSGi filter(s) identifying the
+ application(s) to which this service should be bound.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The filter(s) for selecting the application(s) to bind to.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_APPLICATION_SELECT">JakartarsWhiteboardConstants.JAKARTA_RS_APPLICATION_SELECT</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="PREFIX_"
+               role="field"
+               xml:id="org.osgi.service.jakartars.whiteboard.propertytypes.JakartarsApplicationSelect.PREFIX_">
+         <title>String PREFIX_ = "osgi."</title>
+         <para>
+Prefix for the property name. This value is prepended to each property
+ name.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="JakartarsExtension"
+            role="class"
+            xml:id="org.osgi.service.jakartars.whiteboard.propertytypes.JakartarsExtension">
+      <title>@JakartarsExtension</title>
+      <para>
+Component Property Type for the <code>osgi.jakartars.extension</code> service
+ property.
+ </para>
+      <para>
+ This annotation can be used on a Jakarta RESTful Web Services extension
+ service to declare the value of the
+ <link linkend="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_EXTENSION">JakartarsWhiteboardConstants.JAKARTA_RS_EXTENSION</link> service property.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="PREFIX_"
+               role="field"
+               xml:id="org.osgi.service.jakartars.whiteboard.propertytypes.JakartarsExtension.PREFIX_">
+         <title>String PREFIX_ = "osgi."</title>
+         <para>
+Prefix for the property name. This value is prepended to each property
+ name.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="JakartarsExtensionSelect"
+            role="class"
+            xml:id="org.osgi.service.jakartars.whiteboard.propertytypes.JakartarsExtensionSelect">
+      <title>@JakartarsExtensionSelect</title>
+      <para>
+Component Property Type for the <code>osgi.jakartars.extension.select</code>
+ service property.
+ </para>
+      <para>
+ This annotation can be used on a Jakarta RESTful Web Services whiteboard
+ resource or extension to declare the value of the
+ <link linkend="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_EXTENSION_SELECT">JakartarsWhiteboardConstants.JAKARTA_RS_EXTENSION_SELECT</link> service
+ property.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.jakartars.whiteboard.propertytypes.JakartarsExtensionSelect.value--">
+         <title>String[] value</title>
+         <para role="description">
+Service property providing one or more OSGi filters identifying the
+ extension(s) or application features which this service requires to work.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The filters for selecting the extensions to require.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_EXTENSION_SELECT">JakartarsWhiteboardConstants.JAKARTA_RS_EXTENSION_SELECT</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="PREFIX_"
+               role="field"
+               xml:id="org.osgi.service.jakartars.whiteboard.propertytypes.JakartarsExtensionSelect.PREFIX_">
+         <title>String PREFIX_ = "osgi."</title>
+         <para>
+Prefix for the property name. This value is prepended to each property
+ name.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="JakartarsMediaType"
+            role="class"
+            xml:id="org.osgi.service.jakartars.whiteboard.propertytypes.JakartarsMediaType">
+      <title>@JakartarsMediaType</title>
+      <para>
+Component Property Type for the <code>osgi.jakartars.media.type</code> service
+ property.
+ </para>
+      <para>
+ This annotation can be used on a Jakarta RESTful Web Services whiteboard
+ extension or application to declare the value of the
+ <link linkend="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_MEDIA_TYPE">JakartarsWhiteboardConstants.JAKARTA_RS_MEDIA_TYPE</link> service property.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.jakartars.whiteboard.propertytypes.JakartarsMediaType.value--">
+         <title>String[] value</title>
+         <para role="description">
+Service property identifying the name(s) of media types supported by this
+ service.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The Jakarta RESTful Web Services media types supported.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_MEDIA_TYPE">JakartarsWhiteboardConstants.JAKARTA_RS_MEDIA_TYPE</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="PREFIX_"
+               role="field"
+               xml:id="org.osgi.service.jakartars.whiteboard.propertytypes.JakartarsMediaType.PREFIX_">
+         <title>String PREFIX_ = "osgi."</title>
+         <para>
+Prefix for the property name. This value is prepended to each property
+ name.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="JakartarsName"
+            role="class"
+            xml:id="org.osgi.service.jakartars.whiteboard.propertytypes.JakartarsName">
+      <title>@JakartarsName</title>
+      <para>
+Component Property Type for the <code>osgi.jakartars.name</code> service property.
+ </para>
+      <para>
+ This annotation can be used on a Jakarta RESTful Web Services whiteboard
+ service to declare the value of the
+ <link linkend="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_NAME">JakartarsWhiteboardConstants.JAKARTA_RS_NAME</link> service property.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.jakartars.whiteboard.propertytypes.JakartarsName.value--">
+         <title>String value</title>
+         <para role="description">
+Service property identifying the name of a Jakarta RESTful Web Services
+ service for processing by the whiteboard.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The Jakarta RESTful Web Services whiteboard service name.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_NAME">JakartarsWhiteboardConstants.JAKARTA_RS_NAME</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="PREFIX_"
+               role="field"
+               xml:id="org.osgi.service.jakartars.whiteboard.propertytypes.JakartarsName.PREFIX_">
+         <title>String PREFIX_ = "osgi."</title>
+         <para>
+Prefix for the property name. This value is prepended to each property
+ name.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="JakartarsResource"
+            role="class"
+            xml:id="org.osgi.service.jakartars.whiteboard.propertytypes.JakartarsResource">
+      <title>@JakartarsResource</title>
+      <para>
+Component Property Type for the <code>osgi.jakartars.resource</code> service
+ property.
+ </para>
+      <para>
+ This annotation can be used on a Jakarta RESTful Web Services whiteboard
+ resource to declare the value of the
+ <link linkend="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_RESOURCE">JakartarsWhiteboardConstants.JAKARTA_RS_RESOURCE</link> service property.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="PREFIX_"
+               role="field"
+               xml:id="org.osgi.service.jakartars.whiteboard.propertytypes.JakartarsResource.PREFIX_">
+         <title>String PREFIX_ = "osgi."</title>
+         <para>
+Prefix for the property name. This value is prepended to each property
+ name.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="JakartarsWhiteboardTarget"
+            role="class"
+            xml:id="org.osgi.service.jakartars.whiteboard.propertytypes.JakartarsWhiteboardTarget">
+      <title>@JakartarsWhiteboardTarget</title>
+      <para>
+Component Property Type for the <code>osgi.jakartars.whiteboard.target</code>
+ service property.
+ </para>
+      <para>
+ This annotation can be used on a Jakarta RESTful Web Services whiteboard
+ resource or extension service to declare the value of the
+ <link linkend="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_WHITEBOARD_TARGET">JakartarsWhiteboardConstants.JAKARTA_RS_WHITEBOARD_TARGET</link> service
+ property.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="value"
+               role="method"
+               xml:id="org.osgi.service.jakartars.whiteboard.propertytypes.JakartarsWhiteboardTarget.value--">
+         <title>String value</title>
+         <para role="description">
+Service property providing an OSGi filter identifying the whiteboard(s)
+ to which this service should be bound.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The filter for selecting the whiteboards to bind to.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_WHITEBOARD_TARGET">JakartarsWhiteboardConstants.JAKARTA_RS_WHITEBOARD_TARGET</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="PREFIX_"
+               role="field"
+               xml:id="org.osgi.service.jakartars.whiteboard.propertytypes.JakartarsWhiteboardTarget.PREFIX_">
+         <title>String PREFIX_ = "osgi."</title>
+         <para>
+Prefix for the property name. This value is prepended to each property
+ name.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="JSONRequired"
+            role="class"
+            xml:id="org.osgi.service.jakartars.whiteboard.propertytypes.JSONRequired">
+      <title>@JSONRequired</title>
+      <para>
+Component Property Type for requiring JSON media type support using the
+ <link linkend="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_MEDIA_TYPE">JakartarsWhiteboardConstants.JAKARTA_RS_MEDIA_TYPE</link> service property.
+ </para>
+      <para>
+ This annotation can be used on a Jakarta RESTful Web Services whiteboard
+ resource to declare require that JSON support is available before the
+ resource becomes active. It also adds an optional <link linkend="org.osgi.annotation.bundle.Requirement">Requirement</link> for a
+ service providing this media type to aid with provisioning.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <code>Component Property Types</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>
+         </para>
+      </formalpara>
+      <section xreflabel="osgi_jakartars_extension_select"
+               role="method"
+               xml:id="org.osgi.service.jakartars.whiteboard.propertytypes.JSONRequired.osgi_jakartars_extension_select--">
+         <title>String osgi_jakartars_extension_select default "(osgi.jakartars.media.type=application/json)"</title>
+         <para role="description">
+Provides an extension selection filter for an extension supporting the
+ JSON media type
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A filter requiring an <code>osgi.jakartars.media.type</code> of
+         <code>application/json</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="FILTER"
+               role="field"
+               xml:id="org.osgi.service.jakartars.whiteboard.propertytypes.JSONRequired.FILTER">
+         <title>String FILTER = "(osgi.jakartars.media.type=application/json)"</title>
+         <para>
+A filter requiring an <code>osgi.jakartars.media.type</code> of
+ <code>application/json</code>
+         </para>
+      </section>
+   </section>
+</section>

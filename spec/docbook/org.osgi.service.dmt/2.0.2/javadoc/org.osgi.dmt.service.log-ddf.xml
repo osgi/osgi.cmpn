@@ -1,0 +1,263 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.dmt.service.log"
+         version="5"
+         role="package"
+         xml:id="org.osgi.dmt.service.log">
+   <title>org.osgi.dmt.service.log</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.dmt.service.log-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.dmt.service.log-version.number">1.0</edition>
+   </info>
+   <section xreflabel="Log" role="class" xml:id="org.osgi.dmt.service.log.Log">
+      <title>Log</title>
+      <para>
+Provides access to the Log Entries of the Log Service.
+   </para>
+      <table tabstyle="ddfsubtree" pgwide="1">
+         <title>Sub-tree Description for Log</title>
+         <tgroup cols="6">
+            <colspec colwidth="1*"/>
+            <colspec colwidth="0.6*"/>
+            <colspec colwidth="1.5*"/>
+            <colspec colwidth="0.5*"/>
+            <colspec colwidth="0.2*"/>
+            <colspec colwidth="2.5*"/>
+            <thead>
+               <row>
+                  <entry>Name</entry>
+                  <entry>Act</entry>
+                  <entry>Type</entry>
+                  <entry>Card.</entry>
+                  <entry>S</entry>
+                  <entry>Description</entry>
+               </row>
+            </thead>
+            <tbody>
+               <row>
+                  <entry>
+                     <para xreflabel="LogEntries"
+                           xml:id="org.osgi.dmt.service.log.Log.LogEntries--">
+                        <code>LogEntries</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>LIST</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry morerows="1">
+                     <para>
+A potentially long list of Log Entries. The length of this list is
+ implementation dependent. The order of the list is most recent event at
+ index 0 and later events with higher consecutive indexes.
+ 
+ No new entries must be added to the log when there is an open exclusive
+ or atomic session.
+   </para>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para>
+                        <code>  [list]</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>LogEntry</code>
+                  </entry>
+                  <entry>
+                     <code>0..*</code>
+                  </entry>
+                  <entry>
+                     <code>D</code>
+                  </entry>
+               </row>
+            </tbody>
+         </tgroup>
+      </table>
+   </section>
+   <section xreflabel="LogEntry"
+            role="class"
+            xml:id="org.osgi.dmt.service.log.LogEntry">
+      <title>LogEntry</title>
+      <para>
+A Log Entry node is the representation of a LogEntry from the OSGi Log
+ Service.
+   </para>
+      <table tabstyle="ddfsubtree" pgwide="1">
+         <title>Sub-tree Description for LogEntry</title>
+         <tgroup cols="6">
+            <colspec colwidth="1*"/>
+            <colspec colwidth="0.6*"/>
+            <colspec colwidth="1.5*"/>
+            <colspec colwidth="0.5*"/>
+            <colspec colwidth="0.2*"/>
+            <colspec colwidth="2.5*"/>
+            <thead>
+               <row>
+                  <entry>Name</entry>
+                  <entry>Act</entry>
+                  <entry>Type</entry>
+                  <entry>Card.</entry>
+                  <entry>S</entry>
+                  <entry>Description</entry>
+               </row>
+            </thead>
+            <tbody>
+               <row>
+                  <entry>
+                     <para xreflabel="Time" xml:id="org.osgi.dmt.service.log.LogEntry.Time--">
+                        <code>Time</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>date_time</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry>
+                     <para>
+Time of the Log Entry.
+   </para>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para xreflabel="Level" xml:id="org.osgi.dmt.service.log.LogEntry.Level--">
+                        <code>Level</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>integer</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry>
+                     <para>
+The severity level of the log entry. The value is the same as the Log
+ Service level values:
+ </para>
+                     <itemizedlist>
+                        <listitem>
+                           <para>LOG_ERROR 1</para>
+                        </listitem>
+                        <listitem>
+                           <para>LOG_WARNING 2</para>
+                        </listitem>
+                        <listitem>
+                           <para>LOG_INFO 3</para>
+                        </listitem>
+                        <listitem>
+                           <para>LOG_DEBUG 4</para>
+                        </listitem>
+                     </itemizedlist>
+                     <para>
+ Other values are possible because the Log Service allows custom levels.</para>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para xreflabel="Message"
+                           xml:id="org.osgi.dmt.service.log.LogEntry.Message--">
+                        <code>Message</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>string</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry>
+                     <para>
+Textual, human-readable description of the log entry.
+   </para>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para xreflabel="Bundle" xml:id="org.osgi.dmt.service.log.LogEntry.Bundle--">
+                        <code>Bundle</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>string</code>
+                  </entry>
+                  <entry>
+                     <code>1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry>
+                     <para>
+The location of the bundle that originated this log or an empty string.
+   </para>
+                  </entry>
+               </row>
+               <row>
+                  <entry>
+                     <para xreflabel="Exception"
+                           xml:id="org.osgi.dmt.service.log.LogEntry.Exception--">
+                        <code>Exception</code>
+                     </para>
+                  </entry>
+                  <entry>
+                     <code>Get </code>
+                  </entry>
+                  <entry>
+                     <code>string</code>
+                  </entry>
+                  <entry>
+                     <code>0,1</code>
+                  </entry>
+                  <entry>
+                     <code>A</code>
+                  </entry>
+                  <entry>
+                     <para>
+Human readable information about an exception.
+ 
+ Provides the exception information if any, optionally including the stack
+ trace.
+   </para>
+                  </entry>
+               </row>
+            </tbody>
+         </tgroup>
+      </table>
+   </section>
+</section>

@@ -1,0 +1,351 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.transaction.control.jdbc"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.transaction.control.jdbc">
+   <title>org.osgi.service.transaction.control.jdbc</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.transaction.control.jdbc-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.service.transaction.control.jdbc-version.number">1.0</edition>
+   </info>
+   <para>
+Transaction Control JDBC Package Version 1.0.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.transaction.control.jdbc; version="[1.0,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.transaction.control.jdbc; version="[1.0,1.1)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.transaction.control.jdbc.JDBCConnectionProvider">
+                  <code>JDBCConnectionProvider</code>
+               </link> - 
+A specialized <link linkend="org.osgi.service.transaction.control.ResourceProvider">ResourceProvider</link> suitable for obtaining JDBC
+ connections.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.transaction.control.jdbc.JDBCConnectionProviderFactory">
+                  <code>JDBCConnectionProviderFactory</code>
+               </link> - 
+A factory for creating JDBCConnectionProvider instances
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="JDBCConnectionProvider"
+            role="class"
+            xml:id="org.osgi.service.transaction.control.jdbc.JDBCConnectionProvider">
+      <title>public interface JDBCConnectionProvider<?line-break?> extends ResourceProvider&lt;Connection&gt;</title>
+      <para>
+A specialized <link linkend="org.osgi.service.transaction.control.ResourceProvider">ResourceProvider</link> suitable for obtaining JDBC
+ connections.
+ </para>
+      <para>
+ Instances of this interface may be available in the Service Registry, or can
+ be created using a <link linkend="org.osgi.service.transaction.control.jdbc.JDBCConnectionProviderFactory">JDBCConnectionProviderFactory</link>.</para>
+   </section>
+   <section xreflabel="JDBCConnectionProviderFactory"
+            role="class"
+            xml:id="org.osgi.service.transaction.control.jdbc.JDBCConnectionProviderFactory">
+      <title>public interface JDBCConnectionProviderFactory</title>
+      <para>
+A factory for creating JDBCConnectionProvider instances
+ </para>
+      <para>
+ This factory can be used if the <link linkend="org.osgi.service.transaction.control.jdbc.JDBCConnectionProvider">JDBCConnectionProvider</link> should not be
+ a public service, for example to protect a username/password.</para>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="CONNECTION_LIFETIME"
+               role="field"
+               xml:id="org.osgi.service.transaction.control.jdbc.JDBCConnectionProviderFactory.CONNECTION_LIFETIME">
+         <title>public static final String CONNECTION_LIFETIME = "osgi.connection.lifetime"</title>
+         <para>
+The property used to set the maximum amount of time that connections in
+ the pool should remain open
+   </para>
+      </section>
+      <section xreflabel="CONNECTION_POOLING_ENABLED"
+               role="field"
+               xml:id="org.osgi.service.transaction.control.jdbc.JDBCConnectionProviderFactory.CONNECTION_POOLING_ENABLED">
+         <title>public static final String CONNECTION_POOLING_ENABLED = "osgi.connection.pooling.enabled"</title>
+         <para>
+The property used to determine whether connection pooling is enabled for
+ this resource provider
+   </para>
+      </section>
+      <section xreflabel="CONNECTION_TIMEOUT"
+               role="field"
+               xml:id="org.osgi.service.transaction.control.jdbc.JDBCConnectionProviderFactory.CONNECTION_TIMEOUT">
+         <title>public static final String CONNECTION_TIMEOUT = "osgi.connection.timeout"</title>
+         <para>
+The property used to set the maximum amount of time that the pool should
+ wait for a connection
+   </para>
+      </section>
+      <section xreflabel="IDLE_TIMEOUT"
+               role="field"
+               xml:id="org.osgi.service.transaction.control.jdbc.JDBCConnectionProviderFactory.IDLE_TIMEOUT">
+         <title>public static final String IDLE_TIMEOUT = "osgi.idle.timeout"</title>
+         <para>
+The property used to set the maximum amount of time that connections in
+ the pool should remain idle before being closed
+   </para>
+      </section>
+      <section xreflabel="LOCAL_ENLISTMENT_ENABLED"
+               role="field"
+               xml:id="org.osgi.service.transaction.control.jdbc.JDBCConnectionProviderFactory.LOCAL_ENLISTMENT_ENABLED">
+         <title>public static final String LOCAL_ENLISTMENT_ENABLED = "osgi.local.enabled"</title>
+         <para>
+The property used to determine whether local enlistment is enabled for
+ this resource provider
+   </para>
+      </section>
+      <section xreflabel="MAX_CONNECTIONS"
+               role="field"
+               xml:id="org.osgi.service.transaction.control.jdbc.JDBCConnectionProviderFactory.MAX_CONNECTIONS">
+         <title>public static final String MAX_CONNECTIONS = "osgi.connection.max"</title>
+         <para>
+The property used to set the maximum number of connections that should be
+ held in the pool
+   </para>
+      </section>
+      <section xreflabel="MIN_CONNECTIONS"
+               role="field"
+               xml:id="org.osgi.service.transaction.control.jdbc.JDBCConnectionProviderFactory.MIN_CONNECTIONS">
+         <title>public static final String MIN_CONNECTIONS = "osgi.connection.min"</title>
+         <para>
+The property used to set the minimum number of connections that should be
+ held in the pool
+   </para>
+      </section>
+      <section xreflabel="OSGI_RECOVERY_IDENTIFIER"
+               role="field"
+               xml:id="org.osgi.service.transaction.control.jdbc.JDBCConnectionProviderFactory.OSGI_RECOVERY_IDENTIFIER">
+         <title>public static final String OSGI_RECOVERY_IDENTIFIER = "osgi.recovery.identifier"</title>
+         <para>
+The property used to set the recovery identifier that should be used by
+ this resource
+   </para>
+      </section>
+      <section xreflabel="USE_DRIVER"
+               role="field"
+               xml:id="org.osgi.service.transaction.control.jdbc.JDBCConnectionProviderFactory.USE_DRIVER">
+         <title>public static final String USE_DRIVER = "osgi.use.driver"</title>
+         <para>
+The property used to set the maximum number of connections that should be
+ held in the pool
+   </para>
+      </section>
+      <section xreflabel="XA_ENLISTMENT_ENABLED"
+               role="field"
+               xml:id="org.osgi.service.transaction.control.jdbc.JDBCConnectionProviderFactory.XA_ENLISTMENT_ENABLED">
+         <title>public static final String XA_ENLISTMENT_ENABLED = "osgi.xa.enabled"</title>
+         <para>
+The property used to determine whether XA enlistment is enabled for this
+ resource provider
+   </para>
+      </section>
+      <section xreflabel="XA_RECOVERY_ENABLED"
+               role="field"
+               xml:id="org.osgi.service.transaction.control.jdbc.JDBCConnectionProviderFactory.XA_RECOVERY_ENABLED">
+         <title>public static final String XA_RECOVERY_ENABLED = "osgi.recovery.enabled"</title>
+         <para>
+The property used to determine whether XA recovery is enabled for this
+ resource provider
+   </para>
+      </section>
+      <section xreflabel="getProviderFor(DataSourceFactory,Properties,Map)"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.jdbc.JDBCConnectionProviderFactory.getProviderFor-DataSourceFactory-Properties-Map-">
+         <title>public JDBCConnectionProvider getProviderFor(DataSourceFactory dsf, Properties jdbcProperties, Map&lt;String, Object&gt; resourceProviderProperties)</title>
+         <formalpara role="parameter">
+            <title>dsf</title>
+            <para/>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>jdbcProperties</title>
+            <para>The properties to pass to the
+            <link linkend="org.osgi.service.jdbc.DataSourceFactory">DataSourceFactory</link> in order to create the underlying
+            DataSource</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>resourceProviderProperties</title>
+            <para>Configuration properties to pass to the
+            JDBC Resource Provider runtime</para>
+         </formalpara>
+         <para role="description">
+Create a private <link linkend="org.osgi.service.transaction.control.jdbc.JDBCConnectionProvider">JDBCConnectionProvider</link> using a
+ DataSourceFactory. This call may fail with a <link linkend="org.osgi.service.transaction.control.TransactionException">TransactionException</link>
+ if the supplied configuration is invalid. Examples of invalid
+ configuration include:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>The properties request XA enlistment, but the provider implementation
+ only supports local enlistment</para>
+            </listitem>
+            <listitem>
+               <para>The properties attempt to set a recovery alias, but the provider does
+ not support recovery.</para>
+            </listitem>
+         </itemizedlist>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <link linkend="org.osgi.service.transaction.control.jdbc.JDBCConnectionProvider">JDBCConnectionProvider</link> that can be used in transactions</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getProviderFor(javax.sql.DataSource,Map)"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.jdbc.JDBCConnectionProviderFactory.getProviderFor-javax.sql.DataSource-Map-">
+         <title>public JDBCConnectionProvider getProviderFor(DataSource ds, Map&lt;String, Object&gt; resourceProviderProperties)</title>
+         <formalpara role="parameter">
+            <title>ds</title>
+            <para/>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>resourceProviderProperties</title>
+            <para>Configuration properties to pass to the
+            JDBC Resource Provider runtime</para>
+         </formalpara>
+         <para role="description">
+Create a private <link linkend="org.osgi.service.transaction.control.jdbc.JDBCConnectionProvider">JDBCConnectionProvider</link> using an existing
+ DataSource. This call may fail with a
+ <link linkend="org.osgi.service.transaction.control.TransactionException">TransactionException</link> if the supplied configuration is invalid.
+ Examples of invalid configuration include:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>The properties request XA enlistment, but the provider implementation
+ only supports local enlistment</para>
+            </listitem>
+            <listitem>
+               <para>The properties attempt to set a recovery alias, but the provider does
+ not support recovery.</para>
+            </listitem>
+         </itemizedlist>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <link linkend="org.osgi.service.transaction.control.jdbc.JDBCConnectionProvider">JDBCConnectionProvider</link> that can be used in transactions</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getProviderFor(Driver,Properties,Map)"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.jdbc.JDBCConnectionProviderFactory.getProviderFor-Driver-Properties-Map-">
+         <title>public JDBCConnectionProvider getProviderFor(Driver driver, Properties jdbcProperties, Map&lt;String, Object&gt; resourceProviderProperties)</title>
+         <formalpara role="parameter">
+            <title>driver</title>
+            <para/>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>jdbcProperties</title>
+            <para>The properties to pass to the Driver in
+            order to create a Connection</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>resourceProviderProperties</title>
+            <para>Configuration properties to pass to the
+            JDBC Resource Provider runtime</para>
+         </formalpara>
+         <para role="description">
+Create a private <link linkend="org.osgi.service.transaction.control.jdbc.JDBCConnectionProvider">JDBCConnectionProvider</link> using an existing
+ Driver. This call may fail with a <link linkend="org.osgi.service.transaction.control.TransactionException">TransactionException</link> if
+ the supplied configuration is invalid. Examples of invalid configuration
+ include:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>The properties request XA enlistment, but the provider implementation
+ only supports local enlistment</para>
+            </listitem>
+            <listitem>
+               <para>The properties attempt to set a recovery alias, but the provider does
+ not support recovery.</para>
+            </listitem>
+         </itemizedlist>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <link linkend="org.osgi.service.transaction.control.jdbc.JDBCConnectionProvider">JDBCConnectionProvider</link> that can be used in transactions</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getProviderFor(javax.sql.XADataSource,Map)"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.jdbc.JDBCConnectionProviderFactory.getProviderFor-javax.sql.XADataSource-Map-">
+         <title>public JDBCConnectionProvider getProviderFor(XADataSource ds, Map&lt;String, Object&gt; resourceProviderProperties)</title>
+         <formalpara role="parameter">
+            <title>ds</title>
+            <para/>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>resourceProviderProperties</title>
+            <para>Configuration properties to pass to the
+            JDBC Resource Provider runtime</para>
+         </formalpara>
+         <para role="description">
+Create a private <link linkend="org.osgi.service.transaction.control.jdbc.JDBCConnectionProvider">JDBCConnectionProvider</link> using an existing
+ XADataSource. This call may fail with a
+ <link linkend="org.osgi.service.transaction.control.TransactionException">TransactionException</link> if the supplied configuration is invalid.
+ Examples of invalid configuration include:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>The properties request XA enlistment, but the provider implementation
+ only supports local enlistment</para>
+            </listitem>
+            <listitem>
+               <para>The properties attempt to set a recovery alias, but the provider does
+ not support recovery.</para>
+            </listitem>
+         </itemizedlist>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <link linkend="org.osgi.service.transaction.control.jdbc.JDBCConnectionProvider">JDBCConnectionProvider</link> that can be used in transactions</para>
+         </formalpara>
+      </section>
+      <section xreflabel="releaseProvider(JDBCConnectionProvider)"
+               role="method"
+               xml:id="org.osgi.service.transaction.control.jdbc.JDBCConnectionProviderFactory.releaseProvider-JDBCConnectionProvider-">
+         <title>public void releaseProvider(JDBCConnectionProvider provider)</title>
+         <formalpara role="parameter">
+            <title>provider</title>
+            <para/>
+         </formalpara>
+         <para role="description">
+Release a <link linkend="org.osgi.service.transaction.control.jdbc.JDBCConnectionProvider">JDBCConnectionProvider</link> instance that has been created
+ by this factory. Released instances are eligible to be shut down and have
+ any remaining open connections closed.
+ </para>
+         <para>
+ Note that all <link linkend="org.osgi.service.transaction.control.jdbc.JDBCConnectionProvider">JDBCConnectionProvider</link> instances created by this
+ factory service are implicitly released when the factory service is
+ released by this bundle.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– if the supplied resource was not created
+             by this factory service instance.</para>
+         </formalpara>
+      </section>
+   </section>
+</section>

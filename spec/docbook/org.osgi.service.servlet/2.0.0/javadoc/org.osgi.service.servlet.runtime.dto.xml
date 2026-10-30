@@ -1,0 +1,1427 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.servlet.runtime.dto"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.servlet.runtime.dto">
+   <title>org.osgi.service.servlet.runtime.dto</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.servlet.runtime.dto-version">Version 2.0</releaseinfo>
+      <edition xml:id="org.osgi.service.servlet.runtime.dto-version.number">2.0</edition>
+   </info>
+   <para>
+Http Runtime DTO Package Version 2.0.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.servlet.runtime.dto; version="[2.0,3.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.servlet.runtime.dto; version="[2.0,3.1)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.BaseServletDTO">
+                  <code>BaseServletDTO</code>
+               </link> - 
+Represents common information about a <code>jakarta.servlet.Servlet</code> service.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants">
+                  <code>DTOConstants</code>
+               </link> - 
+Defines standard constants for the DTOs.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.ErrorPageDTO">
+                  <code>ErrorPageDTO</code>
+               </link> - 
+Represents a <code>jakarta.servlet.Servlet</code> for handling errors and currently
+ being used by a servlet context.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.FailedErrorPageDTO">
+                  <code>FailedErrorPageDTO</code>
+               </link> - 
+Represents a <code>jakarta.servlet.Servlet</code> service registered as an error
+ page but currently not being used by a servlet context due to a problem.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.FailedFilterDTO">
+                  <code>FailedFilterDTO</code>
+               </link> - 
+Represents a servlet <code>Filter</code> service which is currently not being used
+ by a servlet context due to a problem.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.FailedListenerDTO">
+                  <code>FailedListenerDTO</code>
+               </link> - 
+Represents a listener service which is currently not being used by a servlet
+ context due to a problem.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.FailedPreprocessorDTO">
+                  <code>FailedPreprocessorDTO</code>
+               </link> - 
+Represents a preprocessor service which is currently not being used due to a
+ problem.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.FailedResourceDTO">
+                  <code>FailedResourceDTO</code>
+               </link> - 
+Represents a resource definition which is currently not being used by a
+ servlet context due to a problem.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.FailedServletContextDTO">
+                  <code>FailedServletContextDTO</code>
+               </link> - 
+Represents a servlet context that is currently not used due to some problem.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.FailedServletDTO">
+                  <code>FailedServletDTO</code>
+               </link> - 
+Represents a <code>jakarta.servlet.Servlet</code> service which is currently not
+ being used by a servlet context due to a problem.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.FilterDTO">
+                  <code>FilterDTO</code>
+               </link> - 
+Represents a servlet <code>jakarta.servlet.Filter</code> service currently being
+ used for by a servlet context.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.ListenerDTO">
+                  <code>ListenerDTO</code>
+               </link> - 
+Represents a listener currently being used by a servlet context.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.PreprocessorDTO">
+                  <code>PreprocessorDTO</code>
+               </link> - 
+Represents a preprocessor
+ <code>org.osgi.service.servlet.whiteboard.Preprocessor</code> service currently
+ being used during request processing.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.RequestInfoDTO">
+                  <code>RequestInfoDTO</code>
+               </link> - 
+Represents the services used to process a specific request.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.ResourceDTO">
+                  <code>ResourceDTO</code>
+               </link> - 
+Represents a resource definition currently being used by a servlet context.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.RuntimeDTO">
+                  <code>RuntimeDTO</code>
+               </link> - 
+Represents the state of a Http Service Runtime.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.ServletContextDTO">
+                  <code>ServletContextDTO</code>
+               </link> - 
+Represents a <code>jakarta.servlet.ServletContext</code> created for servlets,
+ resources, servlet Filters, and listeners associated with that servlet
+ context.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.ServletDTO">
+                  <code>ServletDTO</code>
+               </link> - 
+Represents a <code>jakarta.servlet.Servlet</code> currently being used by a servlet
+ context.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="BaseServletDTO"
+            role="class"
+            xml:id="org.osgi.service.servlet.runtime.dto.BaseServletDTO">
+      <title>public abstract class BaseServletDTO<?line-break?> extends DTO</title>
+      <para>
+Represents common information about a <code>jakarta.servlet.Servlet</code> service.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="asyncSupported"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.BaseServletDTO.asyncSupported">
+         <title>public boolean asyncSupported</title>
+         <para>
+Specifies whether the servlet supports asynchronous processing.
+   </para>
+      </section>
+      <section xreflabel="initParams"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.BaseServletDTO.initParams">
+         <title>public Map&lt;String, String&gt; initParams</title>
+         <para>
+The servlet initialization parameters as provided during registration of
+ the servlet. Additional parameters like the Http Service Runtime
+ attributes are not included. If the service has no initialization
+ parameters, the map is empty.
+   </para>
+      </section>
+      <section xreflabel="name"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.BaseServletDTO.name">
+         <title>public String name</title>
+         <para>
+The name of the servlet. This value is never <code>null</code>, unless this
+ object represents a <code>FailedServletDTO</code> or a
+ <code>FailedErrorPageDTO</code> where the value might be <code>null</code>.
+   </para>
+      </section>
+      <section xreflabel="serviceId"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.BaseServletDTO.serviceId">
+         <title>public long serviceId</title>
+         <para>
+Service property identifying the servlet. In the case of a servlet
+ registered in the service registry and picked up by a Servlet Whiteboard
+ Implementation, this value is not negative and corresponds to the service
+ id in the registry. If the servlet has not been registered in the service
+ registry, the value is negative and a unique negative value is generated
+ by the Http Service Runtime in this case.
+   </para>
+      </section>
+      <section xreflabel="servletContextId"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.BaseServletDTO.servletContextId">
+         <title>public long servletContextId</title>
+         <para>
+The service id of the servlet context for the servlet represented by this
+ DTO.
+   </para>
+      </section>
+      <section xreflabel="servletInfo"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.BaseServletDTO.servletInfo">
+         <title>public String servletInfo</title>
+         <para>
+The information string from the servlet.
+ </para>
+         <para>
+ This is the value returned by the <code>Servlet.getServletInfo()</code>
+ method. For a <code>FailedServletDTO</code> or a <code>FailedErrorPageDTO</code>
+ this is always <code>null</code>.</para>
+      </section>
+      <section xreflabel="BaseServletDTO()"
+               role="method"
+               xml:id="org.osgi.service.servlet.runtime.dto.BaseServletDTO.BaseServletDTO--">
+         <title>public  BaseServletDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="DTOConstants"
+            role="class"
+            xml:id="org.osgi.service.servlet.runtime.dto.DTOConstants">
+      <title>public final class DTOConstants</title>
+      <para>
+Defines standard constants for the DTOs.
+   </para>
+      <section xreflabel="FAILURE_REASON_EXCEPTION_ON_INIT"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_EXCEPTION_ON_INIT">
+         <title>public static final int FAILURE_REASON_EXCEPTION_ON_INIT = 4</title>
+         <para>
+An exception occurred during initializing of the service.
+ </para>
+         <para>
+ This reason can only happen for servlets and servlet filters.</para>
+      </section>
+      <section xreflabel="FAILURE_REASON_NO_SERVLET_CONTEXT_MATCHING"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_NO_SERVLET_CONTEXT_MATCHING">
+         <title>public static final int FAILURE_REASON_NO_SERVLET_CONTEXT_MATCHING = 1</title>
+         <para>
+No matching
+ <code>org.osgi.service.servlet.context.ServletContextHelper</code>.
+   </para>
+      </section>
+      <section xreflabel="FAILURE_REASON_SERVICE_IN_USE"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_SERVICE_IN_USE">
+         <title>public static final int FAILURE_REASON_SERVICE_IN_USE = 7</title>
+         <para>
+The service is not registered as a prototype scoped service and is
+ already in use with a servlet context and therefore can't be used with
+ another servlet context.
+   </para>
+      </section>
+      <section xreflabel="FAILURE_REASON_SERVICE_NOT_GETTABLE"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_SERVICE_NOT_GETTABLE">
+         <title>public static final int FAILURE_REASON_SERVICE_NOT_GETTABLE = 5</title>
+         <para>
+The service is registered in the service registry but getting the service
+ fails as it returns <code>null</code>.
+   </para>
+      </section>
+      <section xreflabel="FAILURE_REASON_SERVLET_CONTEXT_FAILURE"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_SERVLET_CONTEXT_FAILURE">
+         <title>public static final int FAILURE_REASON_SERVLET_CONTEXT_FAILURE = 2</title>
+         <para>
+Matching <code>org.osgi.service.servlet.context.ServletContextHelper</code>,
+ but the context is not used due to a problem with the context.
+   </para>
+      </section>
+      <section xreflabel="FAILURE_REASON_SERVLET_READ_FROM_DEFAULT_DENIED"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_SERVLET_READ_FROM_DEFAULT_DENIED">
+         <title>public static final int FAILURE_REASON_SERVLET_READ_FROM_DEFAULT_DENIED = 10</title>
+         <para>
+The servlet is not registered as it is configured to have multipart
+ enabled, but the bundle containing the servlet has no read permission to
+ the default location for the uploaded files.
+   </para>
+      </section>
+      <section xreflabel="FAILURE_REASON_SERVLET_WRITE_TO_LOCATION_DENIED"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_SERVLET_WRITE_TO_LOCATION_DENIED">
+         <title>public static final int FAILURE_REASON_SERVLET_WRITE_TO_LOCATION_DENIED = 8</title>
+         <para>
+The servlet is not registered as it is configured to have multipart
+ enabled, but the bundle containing the servlet has no write permission to
+ the provided location for the uploaded files.
+   </para>
+      </section>
+      <section xreflabel="FAILURE_REASON_SHADOWED_BY_OTHER_SERVICE"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_SHADOWED_BY_OTHER_SERVICE">
+         <title>public static final int FAILURE_REASON_SHADOWED_BY_OTHER_SERVICE = 3</title>
+         <para>
+Service is shadowed by another service.
+ </para>
+         <para>
+ For example, another service with the same service properties but having
+ a higher service ranking. See
+ <link linkend="org.osgi.framework.ServiceReference.compareTo-Object-">org.osgi.framework.ServiceReference.compareTo(Object)</link>.</para>
+      </section>
+      <section xreflabel="FAILURE_REASON_UNKNOWN"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_UNKNOWN">
+         <title>public static final int FAILURE_REASON_UNKNOWN = 0</title>
+         <para>
+Failure reason is unknown.
+   </para>
+      </section>
+      <section xreflabel="FAILURE_REASON_VALIDATION_FAILED"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_VALIDATION_FAILED">
+         <title>public static final int FAILURE_REASON_VALIDATION_FAILED = 6</title>
+         <para>
+The service is registered in the service registry but the service
+ properties are invalid.
+   </para>
+      </section>
+      <section xreflabel="FAILURE_REASON_WHITEBOARD_WRITE_TO_DEFAULT_DENIED"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_WHITEBOARD_WRITE_TO_DEFAULT_DENIED">
+         <title>public static final int FAILURE_REASON_WHITEBOARD_WRITE_TO_DEFAULT_DENIED = 9</title>
+         <para>
+The servlet is not registered as it is configured to have multipart
+ enabled, but the whiteboard implementation has no write permission to the
+ default location for the uploaded files.
+   </para>
+      </section>
+      <section xreflabel="FAILURE_REASON_WHITEBOARD_WRITE_TO_LOCATION_DENIED"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_WHITEBOARD_WRITE_TO_LOCATION_DENIED">
+         <title>public static final int FAILURE_REASON_WHITEBOARD_WRITE_TO_LOCATION_DENIED = 11</title>
+         <para>
+The servlet is not registered as it is configured to have multipart
+ enabled, but the whiteboard implementation has no write permission to the
+ provided location for the uploaded files.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="ErrorPageDTO"
+            role="class"
+            xml:id="org.osgi.service.servlet.runtime.dto.ErrorPageDTO">
+      <title>public class ErrorPageDTO<?line-break?> extends BaseServletDTO</title>
+      <para>
+Represents a <code>jakarta.servlet.Servlet</code> for handling errors and currently
+ being used by a servlet context.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="errorCodes"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.ErrorPageDTO.errorCodes">
+         <title>public long[] errorCodes</title>
+         <para>
+The error codes the error page is used for. This array might be
+ empty.
+   </para>
+      </section>
+      <section xreflabel="exceptions"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.ErrorPageDTO.exceptions">
+         <title>public String[] exceptions</title>
+         <para>
+The exceptions the error page is used for. This array might be
+ empty.
+   </para>
+      </section>
+      <section xreflabel="ErrorPageDTO()"
+               role="method"
+               xml:id="org.osgi.service.servlet.runtime.dto.ErrorPageDTO.ErrorPageDTO--">
+         <title>public  ErrorPageDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="FailedErrorPageDTO"
+            role="class"
+            xml:id="org.osgi.service.servlet.runtime.dto.FailedErrorPageDTO">
+      <title>public class FailedErrorPageDTO<?line-break?> extends ErrorPageDTO</title>
+      <para>
+Represents a <code>jakarta.servlet.Servlet</code> service registered as an error
+ page but currently not being used by a servlet context due to a problem.
+ </para>
+      <para>
+ As the servlet represented by this DTO is not used due to a failure, the
+ field <link linkend="org.osgi.service.servlet.runtime.dto.BaseServletDTO.servletContextId">FailedErrorPageDTO.servletContextId</link> always returns <code>0</code>
+ and does not point to an existing
+ <code>org.osgi.service.servlet.context.ServletContextHelper</code>.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="failureReason"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.FailedErrorPageDTO.failureReason">
+         <title>public int failureReason</title>
+         <para>
+The reason why the servlet represented by this DTO is not used.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_UNKNOWN">DTOConstants.FAILURE_REASON_UNKNOWN</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_EXCEPTION_ON_INIT">DTOConstants.FAILURE_REASON_EXCEPTION_ON_INIT</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_NO_SERVLET_CONTEXT_MATCHING">DTOConstants.FAILURE_REASON_NO_SERVLET_CONTEXT_MATCHING</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_SERVICE_NOT_GETTABLE">DTOConstants.FAILURE_REASON_SERVICE_NOT_GETTABLE</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_SERVLET_CONTEXT_FAILURE">DTOConstants.FAILURE_REASON_SERVLET_CONTEXT_FAILURE</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_SHADOWED_BY_OTHER_SERVICE">DTOConstants.FAILURE_REASON_SHADOWED_BY_OTHER_SERVICE</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="FailedErrorPageDTO()"
+               role="method"
+               xml:id="org.osgi.service.servlet.runtime.dto.FailedErrorPageDTO.FailedErrorPageDTO--">
+         <title>public  FailedErrorPageDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="FailedFilterDTO"
+            role="class"
+            xml:id="org.osgi.service.servlet.runtime.dto.FailedFilterDTO">
+      <title>public class FailedFilterDTO<?line-break?> extends FilterDTO</title>
+      <para>
+Represents a servlet <code>Filter</code> service which is currently not being used
+ by a servlet context due to a problem.
+ </para>
+      <para>
+ As the service represented by this DTO is not used due to a failure, the
+ field <link linkend="org.osgi.service.servlet.runtime.dto.FilterDTO.servletContextId">FailedFilterDTO.servletContextId</link> always returns <code>0</code> and
+ does not point to an existing servlet context.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="failureReason"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.FailedFilterDTO.failureReason">
+         <title>public int failureReason</title>
+         <para>
+The reason why the servlet filter represented by this DTO is not used.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_UNKNOWN">DTOConstants.FAILURE_REASON_UNKNOWN</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_EXCEPTION_ON_INIT">DTOConstants.FAILURE_REASON_EXCEPTION_ON_INIT</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_NO_SERVLET_CONTEXT_MATCHING">DTOConstants.FAILURE_REASON_NO_SERVLET_CONTEXT_MATCHING</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_SERVICE_NOT_GETTABLE">DTOConstants.FAILURE_REASON_SERVICE_NOT_GETTABLE</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_SERVLET_CONTEXT_FAILURE">DTOConstants.FAILURE_REASON_SERVLET_CONTEXT_FAILURE</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_SHADOWED_BY_OTHER_SERVICE">DTOConstants.FAILURE_REASON_SHADOWED_BY_OTHER_SERVICE</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="FailedFilterDTO()"
+               role="method"
+               xml:id="org.osgi.service.servlet.runtime.dto.FailedFilterDTO.FailedFilterDTO--">
+         <title>public  FailedFilterDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="FailedListenerDTO"
+            role="class"
+            xml:id="org.osgi.service.servlet.runtime.dto.FailedListenerDTO">
+      <title>public class FailedListenerDTO<?line-break?> extends ListenerDTO</title>
+      <para>
+Represents a listener service which is currently not being used by a servlet
+ context due to a problem.
+ </para>
+      <para>
+ As the listener represented by this DTO is not used due to a failure, the
+ field <link linkend="org.osgi.service.servlet.runtime.dto.BaseServletDTO.servletContextId">FailedErrorPageDTO.servletContextId</link> always returns <code>0</code>
+ and does not point to an existing servlet context.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="failureReason"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.FailedListenerDTO.failureReason">
+         <title>public int failureReason</title>
+         <para>
+The reason why the listener represented by this DTO is not used.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_UNKNOWN">DTOConstants.FAILURE_REASON_UNKNOWN</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_EXCEPTION_ON_INIT">DTOConstants.FAILURE_REASON_EXCEPTION_ON_INIT</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_NO_SERVLET_CONTEXT_MATCHING">DTOConstants.FAILURE_REASON_NO_SERVLET_CONTEXT_MATCHING</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_SERVICE_NOT_GETTABLE">DTOConstants.FAILURE_REASON_SERVICE_NOT_GETTABLE</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_SERVLET_CONTEXT_FAILURE">DTOConstants.FAILURE_REASON_SERVLET_CONTEXT_FAILURE</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_SHADOWED_BY_OTHER_SERVICE">DTOConstants.FAILURE_REASON_SHADOWED_BY_OTHER_SERVICE</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="FailedListenerDTO()"
+               role="method"
+               xml:id="org.osgi.service.servlet.runtime.dto.FailedListenerDTO.FailedListenerDTO--">
+         <title>public  FailedListenerDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="FailedPreprocessorDTO"
+            role="class"
+            xml:id="org.osgi.service.servlet.runtime.dto.FailedPreprocessorDTO">
+      <title>public class FailedPreprocessorDTO<?line-break?> extends PreprocessorDTO</title>
+      <para>
+Represents a preprocessor service which is currently not being used due to a
+ problem.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="failureReason"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.FailedPreprocessorDTO.failureReason">
+         <title>public int failureReason</title>
+         <para>
+The reason why the preprocessor represented by this DTO is not used.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_UNKNOWN">DTOConstants.FAILURE_REASON_UNKNOWN</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_EXCEPTION_ON_INIT">DTOConstants.FAILURE_REASON_EXCEPTION_ON_INIT</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_SERVICE_NOT_GETTABLE">DTOConstants.FAILURE_REASON_SERVICE_NOT_GETTABLE</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="FailedPreprocessorDTO()"
+               role="method"
+               xml:id="org.osgi.service.servlet.runtime.dto.FailedPreprocessorDTO.FailedPreprocessorDTO--">
+         <title>public  FailedPreprocessorDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="FailedResourceDTO"
+            role="class"
+            xml:id="org.osgi.service.servlet.runtime.dto.FailedResourceDTO">
+      <title>public class FailedResourceDTO<?line-break?> extends ResourceDTO</title>
+      <para>
+Represents a resource definition which is currently not being used by a
+ servlet context due to a problem.
+ </para>
+      <para>
+ As the resource represented by this DTO is not used due to a failure, the
+ field <link linkend="org.osgi.service.servlet.runtime.dto.ResourceDTO.servletContextId">FailedResourceDTO.servletContextId</link> always returns <code>0</code> and
+ does not point to an existing servlet context.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="failureReason"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.FailedResourceDTO.failureReason">
+         <title>public int failureReason</title>
+         <para>
+The reason why the resource represented by this DTO is not used.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_UNKNOWN">DTOConstants.FAILURE_REASON_UNKNOWN</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_EXCEPTION_ON_INIT">DTOConstants.FAILURE_REASON_EXCEPTION_ON_INIT</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_NO_SERVLET_CONTEXT_MATCHING">DTOConstants.FAILURE_REASON_NO_SERVLET_CONTEXT_MATCHING</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_SERVICE_NOT_GETTABLE">DTOConstants.FAILURE_REASON_SERVICE_NOT_GETTABLE</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_SERVLET_CONTEXT_FAILURE">DTOConstants.FAILURE_REASON_SERVLET_CONTEXT_FAILURE</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_SHADOWED_BY_OTHER_SERVICE">DTOConstants.FAILURE_REASON_SHADOWED_BY_OTHER_SERVICE</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="FailedResourceDTO()"
+               role="method"
+               xml:id="org.osgi.service.servlet.runtime.dto.FailedResourceDTO.FailedResourceDTO--">
+         <title>public  FailedResourceDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="FailedServletContextDTO"
+            role="class"
+            xml:id="org.osgi.service.servlet.runtime.dto.FailedServletContextDTO">
+      <title>public class FailedServletContextDTO<?line-break?> extends ServletContextDTO</title>
+      <para>
+Represents a servlet context that is currently not used due to some problem.
+ 
+ The following fields return an empty array for a
+ <code>FailedServletContextDTO</code>:
+ </para>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.ServletContextDTO.servletDTOs">ServletContextDTO.servletDTOs</link>
+            </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.ServletContextDTO.resourceDTOs">ServletContextDTO.resourceDTOs</link>
+            </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.ServletContextDTO.filterDTOs">ServletContextDTO.filterDTOs</link>
+            </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.ServletContextDTO.errorPageDTOs">ServletContextDTO.errorPageDTOs</link>
+            </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.ServletContextDTO.listenerDTOs">ServletContextDTO.listenerDTOs</link>
+            </para>
+         </listitem>
+      </itemizedlist>
+      <para>
+ The method <link linkend="org.osgi.service.servlet.runtime.dto.ServletContextDTO.attributes">ServletContextDTO.attributes</link> returns an empty map for a
+ <code>FailedServletContextDTO</code>.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="failureReason"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.FailedServletContextDTO.failureReason">
+         <title>public int failureReason</title>
+         <para>
+The reason why the servlet context represented by this DTO is not used.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_UNKNOWN">DTOConstants.FAILURE_REASON_UNKNOWN</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_EXCEPTION_ON_INIT">DTOConstants.FAILURE_REASON_EXCEPTION_ON_INIT</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_NO_SERVLET_CONTEXT_MATCHING">DTOConstants.FAILURE_REASON_NO_SERVLET_CONTEXT_MATCHING</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_SERVICE_NOT_GETTABLE">DTOConstants.FAILURE_REASON_SERVICE_NOT_GETTABLE</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_SERVLET_CONTEXT_FAILURE">DTOConstants.FAILURE_REASON_SERVLET_CONTEXT_FAILURE</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_SHADOWED_BY_OTHER_SERVICE">DTOConstants.FAILURE_REASON_SHADOWED_BY_OTHER_SERVICE</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="FailedServletContextDTO()"
+               role="method"
+               xml:id="org.osgi.service.servlet.runtime.dto.FailedServletContextDTO.FailedServletContextDTO--">
+         <title>public  FailedServletContextDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="FailedServletDTO"
+            role="class"
+            xml:id="org.osgi.service.servlet.runtime.dto.FailedServletDTO">
+      <title>public class FailedServletDTO<?line-break?> extends ServletDTO</title>
+      <para>
+Represents a <code>jakarta.servlet.Servlet</code> service which is currently not
+ being used by a servlet context due to a problem.
+ </para>
+      <para>
+ As the servlet represented by this DTO is not used due to a failure, the
+ field <link linkend="org.osgi.service.servlet.runtime.dto.BaseServletDTO.servletContextId">FailedServletDTO.servletContextId</link> always returns <code>0</code> and
+ does not point to an existing servlet context.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="failureReason"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.FailedServletDTO.failureReason">
+         <title>public int failureReason</title>
+         <para>
+The reason why the servlet represented by this DTO is not used.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_UNKNOWN">DTOConstants.FAILURE_REASON_UNKNOWN</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_EXCEPTION_ON_INIT">DTOConstants.FAILURE_REASON_EXCEPTION_ON_INIT</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_NO_SERVLET_CONTEXT_MATCHING">DTOConstants.FAILURE_REASON_NO_SERVLET_CONTEXT_MATCHING</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_SERVICE_NOT_GETTABLE">DTOConstants.FAILURE_REASON_SERVICE_NOT_GETTABLE</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_SERVLET_CONTEXT_FAILURE">DTOConstants.FAILURE_REASON_SERVLET_CONTEXT_FAILURE</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_SHADOWED_BY_OTHER_SERVICE">DTOConstants.FAILURE_REASON_SHADOWED_BY_OTHER_SERVICE</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_SERVLET_WRITE_TO_LOCATION_DENIED">DTOConstants.FAILURE_REASON_SERVLET_WRITE_TO_LOCATION_DENIED</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_WHITEBOARD_WRITE_TO_DEFAULT_DENIED">DTOConstants.FAILURE_REASON_WHITEBOARD_WRITE_TO_DEFAULT_DENIED</link>, <link linkend="org.osgi.service.servlet.runtime.dto.DTOConstants.FAILURE_REASON_SERVLET_READ_FROM_DEFAULT_DENIED">DTOConstants.FAILURE_REASON_SERVLET_READ_FROM_DEFAULT_DENIED</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="FailedServletDTO()"
+               role="method"
+               xml:id="org.osgi.service.servlet.runtime.dto.FailedServletDTO.FailedServletDTO--">
+         <title>public  FailedServletDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="FilterDTO"
+            role="class"
+            xml:id="org.osgi.service.servlet.runtime.dto.FilterDTO">
+      <title>public class FilterDTO<?line-break?> extends DTO</title>
+      <para>
+Represents a servlet <code>jakarta.servlet.Filter</code> service currently being
+ used for by a servlet context.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="asyncSupported"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.FilterDTO.asyncSupported">
+         <title>public boolean asyncSupported</title>
+         <para>
+Specifies whether the servlet filter supports asynchronous processing.
+   </para>
+      </section>
+      <section xreflabel="dispatcher"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.FilterDTO.dispatcher">
+         <title>public String[] dispatcher</title>
+         <para>
+The dispatcher associations for the servlet filter.
+ 
+ </para>
+         <para>
+ The specified names are used to determine in what occasions the servlet
+ filter is called. This array is never <code>null</code>.</para>
+      </section>
+      <section xreflabel="initParams"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.FilterDTO.initParams">
+         <title>public Map&lt;String, String&gt; initParams</title>
+         <para>
+The servlet filter initialization parameters as provided during
+ registration of the servlet filter. Additional parameters like the Http
+ Service Runtime attributes are not included. If the servlet filter has
+ not initialization parameters, this map is empty.
+   </para>
+      </section>
+      <section xreflabel="name"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.FilterDTO.name">
+         <title>public String name</title>
+         <para>
+The name of the servlet filter. This field is never <code>null</code>.
+   </para>
+      </section>
+      <section xreflabel="patterns"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.FilterDTO.patterns">
+         <title>public String[] patterns</title>
+         <para>
+The request mappings for the servlet filter.
+ 
+ </para>
+         <para>
+ The specified patterns are used to determine whether a request is mapped
+ to the servlet filter. This array might be empty.</para>
+      </section>
+      <section xreflabel="regexs"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.FilterDTO.regexs">
+         <title>public String[] regexs</title>
+         <para>
+The request mappings for the servlet filter.
+ 
+ </para>
+         <para>
+ The specified regular expressions are used to determine whether a request
+ is mapped to the servlet filter. This array might be empty.</para>
+      </section>
+      <section xreflabel="serviceId"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.FilterDTO.serviceId">
+         <title>public long serviceId</title>
+         <para>
+Service property identifying the servlet filter. In the case of a servlet
+ filter registered in the service registry and picked up by a Servlet
+ Whiteboard Implementation, this value is not negative and corresponds to
+ the service id in the registry. If the servlet filter has not been
+ registered in the service registry, the value is negative and a unique
+ negative value is generated by the Http Service Runtime in this case.
+   </para>
+      </section>
+      <section xreflabel="servletContextId"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.FilterDTO.servletContextId">
+         <title>public long servletContextId</title>
+         <para>
+The service id of the servlet context for the servlet filter represented
+ by this DTO.
+   </para>
+      </section>
+      <section xreflabel="servletNames"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.FilterDTO.servletNames">
+         <title>public String[] servletNames</title>
+         <para>
+The servlet names for the servlet filter.
+ 
+ </para>
+         <para>
+ The specified names are used to determine the servlets whose requests are
+ mapped to the servlet filter. This array might be empty.</para>
+      </section>
+      <section xreflabel="FilterDTO()"
+               role="method"
+               xml:id="org.osgi.service.servlet.runtime.dto.FilterDTO.FilterDTO--">
+         <title>public  FilterDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="ListenerDTO"
+            role="class"
+            xml:id="org.osgi.service.servlet.runtime.dto.ListenerDTO">
+      <title>public class ListenerDTO<?line-break?> extends DTO</title>
+      <para>
+Represents a listener currently being used by a servlet context.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="serviceId"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.ListenerDTO.serviceId">
+         <title>public long serviceId</title>
+         <para>
+Service property identifying the listener. In the case of a Listener
+ registered in the service registry and picked up by a Servlet Whiteboard
+ Implementation, this value is not negative and corresponds to the service
+ id in the registry. If the listener has not been registered in the
+ service registry, the value is negative and a unique negative value is
+ generated by the Http Service Runtime in this case.
+   </para>
+      </section>
+      <section xreflabel="servletContextId"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.ListenerDTO.servletContextId">
+         <title>public long servletContextId</title>
+         <para>
+The service id of the servlet context for the listener represented by
+ this DTO.
+   </para>
+      </section>
+      <section xreflabel="types"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.ListenerDTO.types">
+         <title>public String[] types</title>
+         <para>
+The fully qualified type names the listener. This array is never empty.
+   </para>
+      </section>
+      <section xreflabel="ListenerDTO()"
+               role="method"
+               xml:id="org.osgi.service.servlet.runtime.dto.ListenerDTO.ListenerDTO--">
+         <title>public  ListenerDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="PreprocessorDTO"
+            role="class"
+            xml:id="org.osgi.service.servlet.runtime.dto.PreprocessorDTO">
+      <title>public class PreprocessorDTO<?line-break?> extends DTO</title>
+      <para>
+Represents a preprocessor
+ <code>org.osgi.service.servlet.whiteboard.Preprocessor</code> service currently
+ being used during request processing.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="initParams"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.PreprocessorDTO.initParams">
+         <title>public Map&lt;String, String&gt; initParams</title>
+         <para>
+The preprocessor initialization parameters as provided during
+ registration of the preprocessor. Additional parameters like the Http
+ Service Runtime attributes are not included. If the preprocessor has not
+ initialization parameters, this map is empty.
+   </para>
+      </section>
+      <section xreflabel="serviceId"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.PreprocessorDTO.serviceId">
+         <title>public long serviceId</title>
+         <para>
+Service property identifying the preprocessor. In the case of a
+ preprocessor registered in the service registry and picked up by a
+ Servlet Whiteboard Implementation, this value is not negative and
+ corresponds to the service id in the registry. If the preprocessor has
+ not been registered in the service registry, the value is negative and a
+ unique negative value is generated by the Http Service Runtime in this
+ case.
+   </para>
+      </section>
+      <section xreflabel="PreprocessorDTO()"
+               role="method"
+               xml:id="org.osgi.service.servlet.runtime.dto.PreprocessorDTO.PreprocessorDTO--">
+         <title>public  PreprocessorDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="RequestInfoDTO"
+            role="class"
+            xml:id="org.osgi.service.servlet.runtime.dto.RequestInfoDTO">
+      <title>public class RequestInfoDTO<?line-break?> extends DTO</title>
+      <para>
+Represents the services used to process a specific request.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="filterDTOs"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.RequestInfoDTO.filterDTOs">
+         <title>public FilterDTO[] filterDTOs</title>
+         <para>
+The servlet filters processing this request. If no servlet filters are
+ called for processing this request, an empty array is returned.
+   </para>
+      </section>
+      <section xreflabel="path"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.RequestInfoDTO.path">
+         <title>public String path</title>
+         <para>
+The path of the request relative to the root.
+   </para>
+      </section>
+      <section xreflabel="resourceDTO"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.RequestInfoDTO.resourceDTO">
+         <title>public ResourceDTO resourceDTO</title>
+         <para>
+The resource processing this request. If the request is processed by a
+ resource, this field points to the DTO of the resource. If the request is
+ processed by another type of component like a servlet, this field is
+ <code>null</code>.
+   </para>
+      </section>
+      <section xreflabel="servletContextId"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.RequestInfoDTO.servletContextId">
+         <title>public long servletContextId</title>
+         <para>
+The service id of the servlet context processing the request represented
+ by this DTO.
+   </para>
+      </section>
+      <section xreflabel="servletDTO"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.RequestInfoDTO.servletDTO">
+         <title>public ServletDTO servletDTO</title>
+         <para>
+The servlet processing this request. If the request is processed by a
+ servlet, this field points to the DTO of the servlet. If the request is
+ processed by another type of component like a resource, this field is
+ <code>null</code>.
+   </para>
+      </section>
+      <section xreflabel="RequestInfoDTO()"
+               role="method"
+               xml:id="org.osgi.service.servlet.runtime.dto.RequestInfoDTO.RequestInfoDTO--">
+         <title>public  RequestInfoDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="ResourceDTO"
+            role="class"
+            xml:id="org.osgi.service.servlet.runtime.dto.ResourceDTO">
+      <title>public class ResourceDTO<?line-break?> extends DTO</title>
+      <para>
+Represents a resource definition currently being used by a servlet context.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="patterns"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.ResourceDTO.patterns">
+         <title>public String[] patterns</title>
+         <para>
+The request mappings for the resource.
+ 
+ </para>
+         <para>
+ The specified patterns are used to determine whether a request is mapped
+ to the resource. This value is never <code>null</code>.</para>
+      </section>
+      <section xreflabel="prefix"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.ResourceDTO.prefix">
+         <title>public String prefix</title>
+         <para>
+The prefix of the resource.
+   </para>
+      </section>
+      <section xreflabel="serviceId"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.ResourceDTO.serviceId">
+         <title>public long serviceId</title>
+         <para>
+Service property identifying the resource. In the case of a resource
+ registered in the service registry and picked up by a Servlet Whiteboard
+ Implementation, this value is not negative and corresponds to the service
+ id in the registry. If the resource has not been registered in the
+ service registry, the value is negative and a unique negative value is
+ generated by the Http Service Runtime in this case.
+   </para>
+      </section>
+      <section xreflabel="servletContextId"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.ResourceDTO.servletContextId">
+         <title>public long servletContextId</title>
+         <para>
+The service id of the servlet context for the resource represented by
+ this DTO.
+   </para>
+      </section>
+      <section xreflabel="ResourceDTO()"
+               role="method"
+               xml:id="org.osgi.service.servlet.runtime.dto.ResourceDTO.ResourceDTO--">
+         <title>public  ResourceDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="RuntimeDTO"
+            role="class"
+            xml:id="org.osgi.service.servlet.runtime.dto.RuntimeDTO">
+      <title>public class RuntimeDTO<?line-break?> extends DTO</title>
+      <para>
+Represents the state of a Http Service Runtime.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="failedErrorPageDTOs"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.RuntimeDTO.failedErrorPageDTOs">
+         <title>public FailedErrorPageDTO[] failedErrorPageDTOs</title>
+         <para>
+Returns the representations of the error page
+ <code>jakarta.servlet.Servlet</code> services associated with this runtime but
+ currently not used due to some problem. The returned array may be empty.
+   </para>
+      </section>
+      <section xreflabel="failedFilterDTOs"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.RuntimeDTO.failedFilterDTOs">
+         <title>public FailedFilterDTO[] failedFilterDTOs</title>
+         <para>
+Returns the representations of the <code>jakarta.servlet.Filter</code> services
+ associated with this runtime but currently not used due to some problem.
+ The returned array may be empty.
+   </para>
+      </section>
+      <section xreflabel="failedListenerDTOs"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.RuntimeDTO.failedListenerDTOs">
+         <title>public FailedListenerDTO[] failedListenerDTOs</title>
+         <para>
+Returns the representations of the listeners associated with this runtime
+ but currently not used due to some problem. The returned array may be
+ empty.
+   </para>
+      </section>
+      <section xreflabel="failedPreprocessorDTOs"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.RuntimeDTO.failedPreprocessorDTOs">
+         <title>public FailedPreprocessorDTO[] failedPreprocessorDTOs</title>
+         <para>
+Returns the representations of the servlet
+ <code>org.osgi.service.servlet.whiteboard.Preprocessor</code> services
+ associated with this runtime but currently not used due to some problem.
+ The returned array may be empty.
+   </para>
+      </section>
+      <section xreflabel="failedResourceDTOs"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.RuntimeDTO.failedResourceDTOs">
+         <title>public FailedResourceDTO[] failedResourceDTOs</title>
+         <para>
+Returns the representations of the resources associated with this runtime
+ but currently not used due to some problem. The returned array may be
+ empty.
+   </para>
+      </section>
+      <section xreflabel="failedServletContextDTOs"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.RuntimeDTO.failedServletContextDTOs">
+         <title>public FailedServletContextDTO[] failedServletContextDTOs</title>
+         <para>
+Returns the representations of the <code>jakarta.servlet.ServletContext</code>
+ objects currently not used by the Http service runtime due to some
+ problem. The returned array may be empty.
+   </para>
+      </section>
+      <section xreflabel="failedServletDTOs"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.RuntimeDTO.failedServletDTOs">
+         <title>public FailedServletDTO[] failedServletDTOs</title>
+         <para>
+Returns the representations of the <code>jakarta.servlet.Servlet</code> services
+ associated with this runtime but currently not used due to some problem.
+ The returned array may be empty.
+   </para>
+      </section>
+      <section xreflabel="preprocessorDTOs"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.RuntimeDTO.preprocessorDTOs">
+         <title>public PreprocessorDTO[] preprocessorDTOs</title>
+         <para>
+Returns the representations of the
+ <code>org.osgi.service.servlet.whiteboard.Preprocessor</code> objects used by
+ the Http Service Runtime. The returned array may be empty if the Http
+ Service Runtime is currently not using any
+ <code> org.osgi.service.servlet.whiteboard.Preprocessor</code> objects.
+   </para>
+      </section>
+      <section xreflabel="serviceDTO"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.RuntimeDTO.serviceDTO">
+         <title>public ServiceReferenceDTO serviceDTO</title>
+         <para>
+The DTO for the corresponding
+ <code>org.osgi.service.servlet.runtime.HttpServiceRuntime</code>.
+ This value is never <code>null</code>.
+   </para>
+      </section>
+      <section xreflabel="servletContextDTOs"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.RuntimeDTO.servletContextDTOs">
+         <title>public ServletContextDTO[] servletContextDTOs</title>
+         <para>
+Returns the representations of the <code>jakarta.servlet.ServletContext</code>
+ objects used by the Http Service Runtime. The returned array may be empty
+ if the Http Service Runtime is currently not using any
+ <code>jakarta.servlet.ServletContext</code> objects.
+   </para>
+      </section>
+      <section xreflabel="RuntimeDTO()"
+               role="method"
+               xml:id="org.osgi.service.servlet.runtime.dto.RuntimeDTO.RuntimeDTO--">
+         <title>public  RuntimeDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="ServletContextDTO"
+            role="class"
+            xml:id="org.osgi.service.servlet.runtime.dto.ServletContextDTO">
+      <title>public class ServletContextDTO<?line-break?> extends DTO</title>
+      <para>
+Represents a <code>jakarta.servlet.ServletContext</code> created for servlets,
+ resources, servlet Filters, and listeners associated with that servlet
+ context. The Servlet Context is usually backed by a
+ <link linkend="org.osgi.service.servlet.context.ServletContextHelper">ServletContextHelper</link> service.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="attributes"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.ServletContextDTO.attributes">
+         <title>public Map&lt;String, Object&gt; attributes</title>
+         <para>
+The servlet context attributes.
+ 
+ </para>
+         <para>
+ The value type must be a numerical type, <code>Boolean</code>, <code>String</code>,
+ <code>DTO</code> or an array of any of the former. Therefore this method will
+ only return the attributes of the servlet context conforming to this
+ constraint. Other attributes are omitted. If there are no attributes
+ conforming to the constraint, an empty map is returned.</para>
+      </section>
+      <section xreflabel="contextPath"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.ServletContextDTO.contextPath">
+         <title>public String contextPath</title>
+         <para>
+The servlet context path.
+ 
+ This is the value returned by the <code>ServletContext.getContextPath()</code>
+ method.
+   </para>
+      </section>
+      <section xreflabel="errorPageDTOs"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.ServletContextDTO.errorPageDTOs">
+         <title>public ErrorPageDTO[] errorPageDTOs</title>
+         <para>
+Returns the representations of the error page <code>Servlet</code> services
+ associated with this context.
+ 
+ The representations of the error page <code>Servlet</code> services associated
+ with this context. The returned array may be empty if this context is
+ currently not associated with any error pages.
+   </para>
+      </section>
+      <section xreflabel="filterDTOs"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.ServletContextDTO.filterDTOs">
+         <title>public FilterDTO[] filterDTOs</title>
+         <para>
+Returns the representations of the servlet <code>Filter</code> services
+ associated with this context.
+ 
+ The representations of the servlet <code>Filter</code> services associated
+ with this context. The returned array may be empty if this context is
+ currently not associated with any servlet <code>Filter</code> services.
+   </para>
+      </section>
+      <section xreflabel="initParams"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.ServletContextDTO.initParams">
+         <title>public Map&lt;String, String&gt; initParams</title>
+         <para>
+The servlet context initialization parameters. This is the set of
+ parameters provided when registering this context. Additional parameters
+ like the Http Service Runtime attributes are not included. If the context
+ has no initialization parameters, this map is empty.
+   </para>
+      </section>
+      <section xreflabel="listenerDTOs"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.ServletContextDTO.listenerDTOs">
+         <title>public ListenerDTO[] listenerDTOs</title>
+         <para>
+Returns the representations of the listener services associated with this
+ context.
+ 
+ The representations of the listener services associated with this
+ context. The returned array may be empty if this context is currently not
+ associated with any listener services.
+   </para>
+      </section>
+      <section xreflabel="name"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.ServletContextDTO.name">
+         <title>public String name</title>
+         <para>
+The name of the servlet context. The name of the corresponding
+ <link linkend="org.osgi.service.servlet.context.ServletContextHelper">ServletContextHelper</link>.
+ </para>
+         <para>
+ This is the value returned by the
+ <code>ServletContext.getServletContextName()</code> method.</para>
+      </section>
+      <section xreflabel="resourceDTOs"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.ServletContextDTO.resourceDTOs">
+         <title>public ResourceDTO[] resourceDTOs</title>
+         <para>
+Returns the representations of the resource services associated with this
+ context.
+ 
+ The representations of the resource services associated with this
+ context. The returned array may be empty if this context is currently not
+ associated with any resource services.
+   </para>
+      </section>
+      <section xreflabel="serviceId"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.ServletContextDTO.serviceId">
+         <title>public long serviceId</title>
+         <para>
+Service property identifying the servlet context. In the case of a
+ servlet context backed by a
+ <code>org.osgi.service.servlet.context.ServletContextHelper</code> registered
+ in the service registry and picked up by a Servlet Whiteboard
+ Implementation, this value is not negative and corresponds to the service
+ id in the registry. If the servlet context is not backed by a service
+ registered in the service registry, the value is negative and a unique
+ negative value is generated by the Http Service Runtime in this case.
+   </para>
+      </section>
+      <section xreflabel="servletDTOs"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.ServletContextDTO.servletDTOs">
+         <title>public ServletDTO[] servletDTOs</title>
+         <para>
+Returns the representations of the <code>Servlet</code> services associated
+ with this context.
+ 
+ The representations of the <code>Servlet</code> services associated with this
+ context. The returned array may be empty if this context is currently not
+ associated with any <code>Servlet</code> services.
+   </para>
+      </section>
+      <section xreflabel="ServletContextDTO()"
+               role="method"
+               xml:id="org.osgi.service.servlet.runtime.dto.ServletContextDTO.ServletContextDTO--">
+         <title>public  ServletContextDTO()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="ServletDTO"
+            role="class"
+            xml:id="org.osgi.service.servlet.runtime.dto.ServletDTO">
+      <title>public class ServletDTO<?line-break?> extends BaseServletDTO</title>
+      <para>
+Represents a <code>jakarta.servlet.Servlet</code> currently being used by a servlet
+ context.
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Not Thread-safe </para>
+      </formalpara>
+      <section xreflabel="multipartEnabled"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.ServletDTO.multipartEnabled">
+         <title>public boolean multipartEnabled</title>
+         <para>
+Specifies whether multipart support is enabled.
+   </para>
+      </section>
+      <section xreflabel="multipartFileSizeThreshold"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.ServletDTO.multipartFileSizeThreshold">
+         <title>public int multipartFileSizeThreshold</title>
+         <para>
+Specifies the size threshold after which the file will be written to
+ disk. If multipart is not enabled for this servlet, <code>0</code> is
+ returned.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.ServletDTO.multipartEnabled">multipartEnabled</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="multipartLocation"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.ServletDTO.multipartLocation">
+         <title>public String multipartLocation</title>
+         <para>
+Specifies the location where the files can be stored on disk. If
+ multipart is not enabled for this servlet, <code>null</code> is returned.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.ServletDTO.multipartEnabled">multipartEnabled</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="multipartMaxFileSize"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.ServletDTO.multipartMaxFileSize">
+         <title>public long multipartMaxFileSize</title>
+         <para>
+Specifies the maximum size of a file being uploaded. If multipart is not
+ enabled for this servlet, <code>0</code> is returned.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.ServletDTO.multipartEnabled">multipartEnabled</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="multipartMaxRequestSize"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.ServletDTO.multipartMaxRequestSize">
+         <title>public long multipartMaxRequestSize</title>
+         <para>
+Specifies the maximum request size. If multipart is not enabled for this
+ servlet, <code>0</code> is returned.
+   </para>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.servlet.runtime.dto.ServletDTO.multipartEnabled">multipartEnabled</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="patterns"
+               role="field"
+               xml:id="org.osgi.service.servlet.runtime.dto.ServletDTO.patterns">
+         <title>public String[] patterns</title>
+         <para>
+The request mappings for the servlet.
+ </para>
+         <para>
+ The specified patterns are used to determine whether a request is mapped
+ to the servlet. This array is never <code>null</code>. It might be empty for
+ named servlets.</para>
+      </section>
+      <section xreflabel="ServletDTO()"
+               role="method"
+               xml:id="org.osgi.service.servlet.runtime.dto.ServletDTO.ServletDTO--">
+         <title>public  ServletDTO()</title>
+         <para/>
+      </section>
+   </section>
+</section>

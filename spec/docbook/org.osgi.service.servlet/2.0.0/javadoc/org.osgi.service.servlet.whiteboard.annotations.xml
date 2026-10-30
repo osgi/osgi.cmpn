@@ -1,0 +1,61 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.servlet.whiteboard.annotations"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.servlet.whiteboard.annotations">
+   <title>org.osgi.service.servlet.whiteboard.annotations</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.servlet.whiteboard.annotations-version">Version 2.0</releaseinfo>
+      <edition xml:id="org.osgi.service.servlet.whiteboard.annotations-version.number">2.0</edition>
+   </info>
+   <para>
+Servlet Whiteboard Annotations Package Version 2.0.
+ </para>
+   <para>
+ This package contains annotations that can be used to require the Servlet
+ Whiteboard implementation.
+ </para>
+   <para>
+ Bundles should not normally need to import this package as the annotations
+ are only used at build-time.
+ </para>
+   <para/>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.servlet.whiteboard.annotations.RequireHttpWhiteboard">
+                  <code>RequireHttpWhiteboard</code>
+               </link> - 
+This annotation can be used to require the Servlet Whiteboard implementation.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="RequireHttpWhiteboard"
+            role="class"
+            xml:id="org.osgi.service.servlet.whiteboard.annotations.RequireHttpWhiteboard">
+      <title>@RequireHttpWhiteboard</title>
+      <para>
+This annotation can be used to require the Servlet Whiteboard implementation. It
+ can be used directly, or as a meta-annotation.
+ </para>
+      <para>
+ This annotation is applied to several of the Servlet Whiteboard component
+ property annotations meaning that it does not normally need to be applied to
+ Declarative Services components which use the Servlet Whiteboard.</para>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>, <code>PACKAGE</code>
+         </para>
+      </formalpara>
+   </section>
+</section>

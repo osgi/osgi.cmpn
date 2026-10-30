@@ -1,0 +1,660 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.clusterinfo"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.clusterinfo">
+   <title>org.osgi.service.clusterinfo</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.clusterinfo-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.service.clusterinfo-version.number">1.0</edition>
+   </info>
+   <para>
+ClusterInfo Services Package Version 1.0.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.clusterinfo; version="[1.0,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.clusterinfo; version="[1.0,1.1)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.clusterinfo.ClusterTagPermission">
+                  <code>ClusterTagPermission</code>
+               </link> - 
+A bundle's authority to add a tag to a NodeStatus service.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.clusterinfo.FrameworkManager">
+                  <code>FrameworkManager</code>
+               </link> - 
+Provides a management interface for accessing and managing a remote OSGi
+ framework.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.clusterinfo.FrameworkNodeStatus">
+                  <code>FrameworkNodeStatus</code>
+               </link> - 
+The FrameworkNodeStatus service represents a node in the cluster that is also
+ an OSGi framework.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.clusterinfo.NodeStatus">
+                  <code>NodeStatus</code>
+               </link> - 
+The NodeStatus service represents a node in the cluster.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="ClusterTagPermission"
+            role="class"
+            xml:id="org.osgi.service.clusterinfo.ClusterTagPermission">
+      <title>public final class ClusterTagPermission<?line-break?> extends Permission</title>
+      <para>
+A bundle's authority to add a tag to a NodeStatus service.
+   </para>
+      <section xreflabel="ADD"
+               role="field"
+               xml:id="org.osgi.service.clusterinfo.ClusterTagPermission.ADD">
+         <title>public static final String ADD = "add"</title>
+         <para>
+The action string <code>add</code>.
+   </para>
+      </section>
+      <section xreflabel="ClusterTagPermission(String,String)"
+               role="method"
+               xml:id="org.osgi.service.clusterinfo.ClusterTagPermission.ClusterTagPermission-String-String-">
+         <title>public  ClusterTagPermission(String tag, String actions)</title>
+         <formalpara role="parameter">
+            <title>tag</title>
+            <para>Give permission to add this tag, use * wildcard to give
+            permission to add any tag.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>actions</title>
+            <para>
+               <code>add</code>.</para>
+         </formalpara>
+         <para role="description">
+Defines the authority to add a tag to the NodeStatus service.
+   </para>
+      </section>
+      <section xreflabel="equals(Object)"
+               role="method"
+               xml:id="org.osgi.service.clusterinfo.ClusterTagPermission.equals-Object-">
+         <title>public boolean equals(Object obj)</title>
+         <formalpara role="parameter">
+            <title>obj</title>
+            <para>The object to test for equality with this
+            <code>ClusterTagPermission</code> object.</para>
+         </formalpara>
+         <para role="description">
+Determines the equality of two <code>ClusterTagPermission</code> objects. This
+ method checks that specified <code>ClusterTagPermission</code> has the same
+ tag as this <code>ClusterTagPermission</code> object.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>true</code> if <code>obj</code> is a <code>ClusterTagPermission</code>,
+         and has the same tag as this <code>ClusterTagPermission</code> object;
+         <code>false</code> otherwise.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getActions()"
+               role="method"
+               xml:id="org.osgi.service.clusterinfo.ClusterTagPermission.getActions--">
+         <title>public String getActions()</title>
+         <para role="description">
+Returns the canonical string representation of the
+ <code>ClusterTagPermission</code> action.
+ </para>
+         <para>
+ Always returns the ADD action.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>Canonical string representation of the
+         <code>ClusterTagPermission</code> actions.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="hashCode()"
+               role="method"
+               xml:id="org.osgi.service.clusterinfo.ClusterTagPermission.hashCode--">
+         <title>public int hashCode()</title>
+         <para role="description">
+Returns the hash code value for this object.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A hash code value for this object.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="implies(Permission)"
+               role="method"
+               xml:id="org.osgi.service.clusterinfo.ClusterTagPermission.implies-Permission-">
+         <title>public boolean implies(Permission p)</title>
+         <formalpara role="parameter">
+            <title>p</title>
+            <para>The target permission to interrogate.</para>
+         </formalpara>
+         <para role="description">
+Determines if the specified permission is implied by this object.
+ </para>
+         <para>
+ This method checks that the tag of the target is implied by the tag name
+ of this object.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>true</code> if the specified <code>ClusterTagPermission</code> action
+         is implied by this object; <code>false</code> otherwise.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="newPermissionCollection()"
+               role="method"
+               xml:id="org.osgi.service.clusterinfo.ClusterTagPermission.newPermissionCollection--">
+         <title>public PermissionCollection newPermissionCollection()</title>
+         <para role="description">
+Returns a new <code>PermissionCollection</code> object suitable for storing
+ <code>ClusterTagPermission</code> objects.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A new <code>PermissionCollection</code> object.</para>
+         </formalpara>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="FrameworkManager"
+            role="class"
+            xml:id="org.osgi.service.clusterinfo.FrameworkManager">
+      <title>public interface FrameworkManager</title>
+      <para>
+Provides a management interface for accessing and managing a remote OSGi
+ framework. This interface can be accessed remotely via Remote Services.
+   </para>
+      <section xreflabel="getBundle(long)"
+               role="method"
+               xml:id="org.osgi.service.clusterinfo.FrameworkManager.getBundle-long-">
+         <title>public BundleDTO getBundle(long id) throws Exception</title>
+         <formalpara role="parameter">
+            <title>id</title>
+            <para>Addresses the bundle by its identifier.</para>
+         </formalpara>
+         <para role="description">
+Retrieve the bundle representation for a given bundle Id.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A <link linkend="org.osgi.framework.dto.BundleDTO">BundleDTO</link> for the requested bundle.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– An exception representing a failure in the underlying
+             remote call.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getBundleHeaders(long)"
+               role="method"
+               xml:id="org.osgi.service.clusterinfo.FrameworkManager.getBundleHeaders-long-">
+         <title>public Map&lt;String, String&gt; getBundleHeaders(long id) throws Exception</title>
+         <formalpara role="parameter">
+            <title>id</title>
+            <para>Addresses the bundle by its identifier.</para>
+         </formalpara>
+         <para role="description">
+Get the header for a bundle given by its bundle Id.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>Returns the map of headers entries.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– An exception representing a failure in the underlying
+             remote call.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getBundles()"
+               role="method"
+               xml:id="org.osgi.service.clusterinfo.FrameworkManager.getBundles--">
+         <title>public Collection&lt;BundleDTO&gt; getBundles() throws Exception</title>
+         <para role="description">
+Get the bundle representations for all bundles currently installed in the
+ managed framework.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>Returns a collection of BundleDTO objects.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– An exception representing a failure in the underlying
+             remote call.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getBundleStartLevel(long)"
+               role="method"
+               xml:id="org.osgi.service.clusterinfo.FrameworkManager.getBundleStartLevel-long-">
+         <title>public BundleStartLevelDTO getBundleStartLevel(long id) throws Exception</title>
+         <formalpara role="parameter">
+            <title>id</title>
+            <para>Addresses the bundle by its identifier.</para>
+         </formalpara>
+         <para role="description">
+Get the start level for a bundle given by its bundle Id.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>Returns a <link linkend="org.osgi.framework.startlevel.dto.BundleStartLevelDTO">BundleStartLevelDTO</link> describing the current
+         start level of the bundle.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– An exception representing a failure in the underlying
+             remote call.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getBundleState(long)"
+               role="method"
+               xml:id="org.osgi.service.clusterinfo.FrameworkManager.getBundleState-long-">
+         <title>public int getBundleState(long id) throws Exception</title>
+         <formalpara role="parameter">
+            <title>id</title>
+            <para>Addresses the bundle by its identifier.</para>
+         </formalpara>
+         <para role="description">
+Get the state for a given bundle Id.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>Returns the current bundle state as defined in
+         <link linkend="org.osgi.framework.Bundle">org.osgi.framework.Bundle</link>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– An exception representing a failure in the underlying
+             remote call.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getFrameworkStartLevel()"
+               role="method"
+               xml:id="org.osgi.service.clusterinfo.FrameworkManager.getFrameworkStartLevel--">
+         <title>public FrameworkStartLevelDTO getFrameworkStartLevel() throws Exception</title>
+         <para role="description">
+Retrieves the current framework start level.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>Returns the current framework start level in the form of a
+         <link linkend="org.osgi.framework.startlevel.dto.FrameworkStartLevelDTO">FrameworkStartLevelDTO</link>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– An exception representing a failure in the underlying
+             remote call.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getServiceReference(long)"
+               role="method"
+               xml:id="org.osgi.service.clusterinfo.FrameworkManager.getServiceReference-long-">
+         <title>public ServiceReferenceDTO getServiceReference(long id) throws Exception</title>
+         <formalpara role="parameter">
+            <title>id</title>
+            <para>Addresses the service by its identifier.</para>
+         </formalpara>
+         <para role="description">
+Get the service representation for a service given by its service Id.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The service representation as <link linkend="org.osgi.framework.dto.ServiceReferenceDTO">ServiceReferenceDTO</link>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– An exception representing a failure in the underlying
+             remote call.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getServiceReferences()"
+               role="method"
+               xml:id="org.osgi.service.clusterinfo.FrameworkManager.getServiceReferences--">
+         <title>public Collection&lt;ServiceReferenceDTO&gt; getServiceReferences() throws Exception</title>
+         <para role="description">
+Get the service representations for all services.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>Returns the service representations in the form of
+         <link linkend="org.osgi.framework.dto.ServiceReferenceDTO">ServiceReferenceDTO</link> objects.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– An exception representing a failure in the underlying
+             remote call.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getServiceReferences(String)"
+               role="method"
+               xml:id="org.osgi.service.clusterinfo.FrameworkManager.getServiceReferences-String-">
+         <title>public Collection&lt;ServiceReferenceDTO&gt; getServiceReferences(String filter) throws Exception</title>
+         <formalpara role="parameter">
+            <title>filter</title>
+            <para>Passes a filter to restrict the result set.</para>
+         </formalpara>
+         <para role="description">
+Get the service representations for all services.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>Returns the service representations in the form of
+         <link linkend="org.osgi.framework.dto.ServiceReferenceDTO">ServiceReferenceDTO</link> objects.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– An exception representing a failure in the underlying
+             remote call.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="installBundle(String)"
+               role="method"
+               xml:id="org.osgi.service.clusterinfo.FrameworkManager.installBundle-String-">
+         <title>public BundleDTO installBundle(String location) throws Exception</title>
+         <formalpara role="parameter">
+            <title>location</title>
+            <para>Passes the location string to retrieve the bundle content
+            from.</para>
+         </formalpara>
+         <para role="description">
+Install a new bundle given by an externally reachable location string,
+ typically describing a URL.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>Returns the <link linkend="org.osgi.framework.dto.BundleDTO">BundleDTO</link> of the newly installed bundle.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– An exception representing a failure in the underlying
+             remote call.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="setBundleStartLevel(long,int)"
+               role="method"
+               xml:id="org.osgi.service.clusterinfo.FrameworkManager.setBundleStartLevel-long-int-">
+         <title>public void setBundleStartLevel(long id, int startLevel) throws Exception</title>
+         <formalpara role="parameter">
+            <title>id</title>
+            <para>Addresses the bundle by its identifier.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>startLevel</title>
+            <para>The target start level.</para>
+         </formalpara>
+         <para role="description">
+Set the start level for a bundle given by its bundle Id.
+   </para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– An exception representing a failure in the underlying
+             remote call.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="setFrameworkStartLevel(FrameworkStartLevelDTO)"
+               role="method"
+               xml:id="org.osgi.service.clusterinfo.FrameworkManager.setFrameworkStartLevel-FrameworkStartLevelDTO-">
+         <title>public void setFrameworkStartLevel(FrameworkStartLevelDTO startLevel) throws Exception</title>
+         <formalpara role="parameter">
+            <title>startLevel</title>
+            <para>set the framework start level to this target.</para>
+         </formalpara>
+         <para role="description">
+Sets the current framework start level.
+   </para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– An exception representing a failure in the underlying
+             remote call.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="startBundle(long)"
+               role="method"
+               xml:id="org.osgi.service.clusterinfo.FrameworkManager.startBundle-long-">
+         <title>public void startBundle(long id) throws Exception</title>
+         <formalpara role="parameter">
+            <title>id</title>
+            <para>Addresses the bundle by its identifier.</para>
+         </formalpara>
+         <para role="description">
+Start a bundle given by its bundle Id.
+   </para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– An exception representing a failure in the underlying
+             remote call.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="startBundle(long,int)"
+               role="method"
+               xml:id="org.osgi.service.clusterinfo.FrameworkManager.startBundle-long-int-">
+         <title>public void startBundle(long id, int options) throws Exception</title>
+         <formalpara role="parameter">
+            <title>id</title>
+            <para>Addresses the bundle by its identifier.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>options</title>
+            <para>Passes additional options as defined in
+            <link linkend="org.osgi.framework.Bundle.start-int-">org.osgi.framework.Bundle.start(int)</link>
+            </para>
+         </formalpara>
+         <para role="description">
+Start a bundle given by its bundle Id.
+   </para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– An exception representing a failure in the underlying
+             remote call.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="stopBundle(long)"
+               role="method"
+               xml:id="org.osgi.service.clusterinfo.FrameworkManager.stopBundle-long-">
+         <title>public void stopBundle(long id) throws Exception</title>
+         <formalpara role="parameter">
+            <title>id</title>
+            <para>Addresses the bundle by its identifier.</para>
+         </formalpara>
+         <para role="description">
+Stop a bundle given by its bundle Id.
+   </para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– An exception representing a failure in the underlying
+             remote call.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="stopBundle(long,int)"
+               role="method"
+               xml:id="org.osgi.service.clusterinfo.FrameworkManager.stopBundle-long-int-">
+         <title>public void stopBundle(long id, int options) throws Exception</title>
+         <formalpara role="parameter">
+            <title>id</title>
+            <para>Addresses the bundle by its identifier.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>options</title>
+            <para>Passes additional options as defined in
+            <link linkend="org.osgi.framework.Bundle.stop-int-">org.osgi.framework.Bundle.stop(int)</link>
+            </para>
+         </formalpara>
+         <para role="description">
+Stop a bundle given by its bundle Id.
+   </para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– An exception representing a failure in the underlying
+             remote call.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="uninstallBundle(long)"
+               role="method"
+               xml:id="org.osgi.service.clusterinfo.FrameworkManager.uninstallBundle-long-">
+         <title>public BundleDTO uninstallBundle(long id) throws Exception</title>
+         <formalpara role="parameter">
+            <title>id</title>
+            <para>Addresses the bundle by its identifier.</para>
+         </formalpara>
+         <para role="description">
+Uninstall a bundle given by its bundle Id.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>Returns the <link linkend="org.osgi.framework.dto.BundleDTO">BundleDTO</link> of the uninstalled bundle.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– An exception representing a failure in the underlying
+             remote call.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="updateBundle(long)"
+               role="method"
+               xml:id="org.osgi.service.clusterinfo.FrameworkManager.updateBundle-long-">
+         <title>public BundleDTO updateBundle(long id) throws Exception</title>
+         <formalpara role="parameter">
+            <title>id</title>
+            <para>Addresses the bundle by its identifier.</para>
+         </formalpara>
+         <para role="description">
+Updates a bundle given by its bundle Id using the bundle-internal update
+ location.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>Returns the <link linkend="org.osgi.framework.dto.BundleDTO">BundleDTO</link> of the updated bundle.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– An exception representing a failure in the underlying
+             remote call.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="updateBundle(long,String)"
+               role="method"
+               xml:id="org.osgi.service.clusterinfo.FrameworkManager.updateBundle-long-String-">
+         <title>public BundleDTO updateBundle(long id, String url) throws Exception</title>
+         <formalpara role="parameter">
+            <title>id</title>
+            <para>Addresses the bundle by its identifier.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>url</title>
+            <para>The URL whose content is to be used to update the bundle.</para>
+         </formalpara>
+         <para role="description">
+Updates a bundle given by its URI path using the content at the specified
+ URL.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>Returns the <link linkend="org.osgi.framework.dto.BundleDTO">BundleDTO</link> of the updated bundle.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>Exception</code>– An exception representing a failure in the underlying
+             remote call.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="FrameworkNodeStatus"
+            role="class"
+            xml:id="org.osgi.service.clusterinfo.FrameworkNodeStatus">
+      <title>public interface FrameworkNodeStatus<?line-break?> extends NodeStatus, FrameworkManager</title>
+      <para>
+The FrameworkNodeStatus service represents a node in the cluster that is also
+ an OSGi framework.
+   </para>
+   </section>
+   <section xreflabel="NodeStatus"
+            role="class"
+            xml:id="org.osgi.service.clusterinfo.NodeStatus">
+      <title>public interface NodeStatus</title>
+      <para>
+The NodeStatus service represents a node in the cluster.
+ </para>
+      <para>
+ A node could represent an entity available in the network that is not
+ necessarily running an OSGi framework, such as a database or a load balancer.
+ </para>
+      <section xreflabel="getMetrics(String...)"
+               role="method"
+               xml:id="org.osgi.service.clusterinfo.NodeStatus.getMetrics-String...-">
+         <title>public Map&lt;String, Object&gt; getMetrics(String... names)</title>
+         <formalpara role="parameter">
+            <title>names</title>
+            <para>a set of metric names that have to be obtained from the
+            node. Of no names are specified all available metrics will be
+            obtained. If a metric is requested that is not available by
+            the node this metric is ignored and not present in the
+            returned map.</para>
+         </formalpara>
+         <para role="description">
+Get the current metrics or other dynamic data from the node. Nodes may
+ support custom metrics and as such the caller can request those metrics
+ by name. The caller can specify the metric names to avoid having to
+ compute and send all metrics over, if the caller is only interested in a
+ subset of the available metrics.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>Map with the current node metrics</para>
+         </formalpara>
+      </section>
+   </section>
+</section>

@@ -1,0 +1,261 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.clusterinfo.dto"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.clusterinfo.dto">
+   <title>org.osgi.service.clusterinfo.dto</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.clusterinfo.dto-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.service.clusterinfo.dto-version.number">1.0</edition>
+   </info>
+   <para>
+ClusterInfo DTO Package Version 1.0.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.clusterinfo.dto; version="[1.0,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.clusterinfo.dto; version="[1.0,1.1)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.clusterinfo.dto.FrameworkNodeStatusDTO">
+                  <code>FrameworkNodeStatusDTO</code>
+               </link> - 
+Data Transfer Object for a FrameworkNodeStatus Service.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.clusterinfo.dto.NodeStatusDTO">
+                  <code>NodeStatusDTO</code>
+               </link> - 
+Data Transfer Object for a NodeStatus Service.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="FrameworkNodeStatusDTO"
+            role="class"
+            xml:id="org.osgi.service.clusterinfo.dto.FrameworkNodeStatusDTO">
+      <title>public class FrameworkNodeStatusDTO<?line-break?> extends NodeStatusDTO</title>
+      <para>
+Data Transfer Object for a FrameworkNodeStatus Service.
+   </para>
+      <section xreflabel="java_runtime_version"
+               role="field"
+               xml:id="org.osgi.service.clusterinfo.dto.FrameworkNodeStatusDTO.java_runtime_version">
+         <title>public String java_runtime_version</title>
+         <para>
+The Java runtime version.
+   </para>
+      </section>
+      <section xreflabel="java_specification_version"
+               role="field"
+               xml:id="org.osgi.service.clusterinfo.dto.FrameworkNodeStatusDTO.java_specification_version">
+         <title>public String java_specification_version</title>
+         <para>
+The Java specification version.
+   </para>
+      </section>
+      <section xreflabel="java_version"
+               role="field"
+               xml:id="org.osgi.service.clusterinfo.dto.FrameworkNodeStatusDTO.java_version">
+         <title>public String java_version</title>
+         <para>
+The Java version.
+   </para>
+      </section>
+      <section xreflabel="java_vm_version"
+               role="field"
+               xml:id="org.osgi.service.clusterinfo.dto.FrameworkNodeStatusDTO.java_vm_version">
+         <title>public String java_vm_version</title>
+         <para>
+The Java VM version.
+   </para>
+      </section>
+      <section xreflabel="org_osgi_framework_os_name"
+               role="field"
+               xml:id="org.osgi.service.clusterinfo.dto.FrameworkNodeStatusDTO.org_osgi_framework_os_name">
+         <title>public String org_osgi_framework_os_name</title>
+         <para>
+The OSGi framework operating system name.
+   </para>
+      </section>
+      <section xreflabel="org_osgi_framework_processor"
+               role="field"
+               xml:id="org.osgi.service.clusterinfo.dto.FrameworkNodeStatusDTO.org_osgi_framework_processor">
+         <title>public String org_osgi_framework_processor</title>
+         <para>
+The OSGi framework processor architecture.
+   </para>
+      </section>
+      <section xreflabel="org_osgi_framework_version"
+               role="field"
+               xml:id="org.osgi.service.clusterinfo.dto.FrameworkNodeStatusDTO.org_osgi_framework_version">
+         <title>public String org_osgi_framework_version</title>
+         <para>
+The OSGi framework version.
+   </para>
+      </section>
+      <section xreflabel="FrameworkNodeStatusDTO()"
+               role="method"
+               xml:id="org.osgi.service.clusterinfo.dto.FrameworkNodeStatusDTO.FrameworkNodeStatusDTO--">
+         <title>public  FrameworkNodeStatusDTO()</title>
+         <para role="description">
+This DTO can be used to provide type safe access to properties of the
+ <link linkend="org.osgi.service.clusterinfo.FrameworkNodeStatus">FrameworkNodeStatus</link> service.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="NodeStatusDTO"
+            role="class"
+            xml:id="org.osgi.service.clusterinfo.dto.NodeStatusDTO">
+      <title>public class NodeStatusDTO<?line-break?> extends DTO</title>
+      <para>
+Data Transfer Object for a NodeStatus Service.
+   </para>
+      <section xreflabel="cluster"
+               role="field"
+               xml:id="org.osgi.service.clusterinfo.dto.NodeStatusDTO.cluster">
+         <title>public String cluster</title>
+         <para>
+The name of the cluster this node belongs to.
+   </para>
+      </section>
+      <section xreflabel="country"
+               role="field"
+               xml:id="org.osgi.service.clusterinfo.dto.NodeStatusDTO.country">
+         <title>public String country</title>
+         <para>
+ISO 3166-1 alpha-3 location where this node instance is
+ running, if known.
+   </para>
+      </section>
+      <section xreflabel="endpoints"
+               role="field"
+               xml:id="org.osgi.service.clusterinfo.dto.NodeStatusDTO.endpoints">
+         <title>public String[] endpoints</title>
+         <para>
+The endpoint(s) at which this node can be accessed from the
+ viewpoint of the consumer of the service.
+   </para>
+      </section>
+      <section xreflabel="id"
+               role="field"
+               xml:id="org.osgi.service.clusterinfo.dto.NodeStatusDTO.id">
+         <title>public String id</title>
+         <para>
+The globally unique ID for this node. For example the Docker ID if this
+ node is a Docker container, or the framework UUID if this node is an OSGi
+ framework.
+   </para>
+      </section>
+      <section xreflabel="location"
+               role="field"
+               xml:id="org.osgi.service.clusterinfo.dto.NodeStatusDTO.location">
+         <title>public String location</title>
+         <para>
+ISO 3166-2 location where this node instance is running,
+ if known. This location is more detailed than the country code
+ as it may contain province or territory.
+   </para>
+      </section>
+      <section xreflabel="parentid"
+               role="field"
+               xml:id="org.osgi.service.clusterinfo.dto.NodeStatusDTO.parentid">
+         <title>public String parentid</title>
+         <para>
+An optional parentID indicating this node is part of or embedded in
+ another node. For example multiple virtual machines could run on the same
+ physical node.
+   </para>
+      </section>
+      <section xreflabel="PREFIX_"
+               role="field"
+               xml:id="org.osgi.service.clusterinfo.dto.NodeStatusDTO.PREFIX_">
+         <title>public static final String PREFIX_ = "osgi.clusterinfo."</title>
+         <para>
+Prefix used for the converter
+   </para>
+      </section>
+      <section xreflabel="privateEndpoints"
+               role="field"
+               xml:id="org.osgi.service.clusterinfo.dto.NodeStatusDTO.privateEndpoints">
+         <title>public String[] privateEndpoints</title>
+         <para>
+Private endpoint(s) at which this node can be accessed from within the
+ cluster only.
+   </para>
+      </section>
+      <section xreflabel="region"
+               role="field"
+               xml:id="org.osgi.service.clusterinfo.dto.NodeStatusDTO.region">
+         <title>public String region</title>
+         <para>
+Something smaller than a country and bigger than a location
+ (e.g. us-east-1 or other cloud-specific location)
+   </para>
+      </section>
+      <section xreflabel="tags"
+               role="field"
+               xml:id="org.osgi.service.clusterinfo.dto.NodeStatusDTO.tags">
+         <title>public String[] tags</title>
+         <para>
+Tags associated with this node that can be contributed to by
+ the provider and also by bundles.
+   </para>
+      </section>
+      <section xreflabel="vendor"
+               role="field"
+               xml:id="org.osgi.service.clusterinfo.dto.NodeStatusDTO.vendor">
+         <title>public String vendor</title>
+         <para>
+The vendor name of the cloud/environment in which the node operates.
+   </para>
+      </section>
+      <section xreflabel="version"
+               role="field"
+               xml:id="org.osgi.service.clusterinfo.dto.NodeStatusDTO.version">
+         <title>public String version</title>
+         <para>
+The version of the cloud/environment in which the node operates. The
+ value follows the versioning scheme of the cloud provider and may
+ therefore not comply with the OSGi versioning syntax.
+   </para>
+      </section>
+      <section xreflabel="zone"
+               role="field"
+               xml:id="org.osgi.service.clusterinfo.dto.NodeStatusDTO.zone">
+         <title>public String zone</title>
+         <para>
+Regions are often subdivided in zones that represent different
+ physical locations. The zone can be provided here.
+   </para>
+      </section>
+      <section xreflabel="NodeStatusDTO()"
+               role="method"
+               xml:id="org.osgi.service.clusterinfo.dto.NodeStatusDTO.NodeStatusDTO--">
+         <title>public  NodeStatusDTO()</title>
+         <para role="description">
+This DTO can be used to provide type safe access to properties of the
+ <link linkend="org.osgi.service.clusterinfo.NodeStatus">NodeStatus</link> service.
+   </para>
+      </section>
+   </section>
+</section>

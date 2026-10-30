@@ -1,0 +1,57 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.feature.annotation"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.feature.annotation">
+   <title>org.osgi.service.feature.annotation</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.feature.annotation-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.service.feature.annotation-version.number">1.0</edition>
+   </info>
+   <para>
+Feature Annotations Package Version 1.0.
+ </para>
+   <para>
+ This package contains annotations that can be used to require the Feature
+ Service implementation.
+ </para>
+   <para>
+ Bundles should not normally need to import this package as the annotations
+ are only used at build-time.
+ </para>
+   <para/>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.feature.annotation.RequireFeatureService">
+                  <code>RequireFeatureService</code>
+               </link> - 
+This annotation can be used to require the Feature implementation.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="RequireFeatureService"
+            role="class"
+            xml:id="org.osgi.service.feature.annotation.RequireFeatureService">
+      <title>@RequireFeatureService</title>
+      <para>
+This annotation can be used to require the Feature implementation. It can be
+ used directly, or as a meta-annotation.
+   </para>
+      <formalpara role="parameter">
+         <title>Retention</title>
+         <para>
+            <code>CLASS</code>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Target</title>
+         <para>
+            <code>TYPE</code>, <code>PACKAGE</code>
+         </para>
+      </formalpara>
+   </section>
+</section>

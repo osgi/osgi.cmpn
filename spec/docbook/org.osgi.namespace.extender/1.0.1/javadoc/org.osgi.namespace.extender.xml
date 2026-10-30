@@ -1,0 +1,72 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.namespace.extender"
+         version="5"
+         role="package"
+         xml:id="org.osgi.namespace.extender">
+   <title>org.osgi.namespace.extender</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.namespace.extender-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.namespace.extender-version.number">1.0</edition>
+   </info>
+   <para>
+Extender Namespace Package Version 1.0.
+ 
+ </para>
+   <para>
+ Bundles should not need to import this package at runtime since all
+ the types in this package just contain constants for capability and 
+ requirement namespaces specified by the OSGi Working Group.</para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.namespace.extender.ExtenderNamespace">
+                  <code>ExtenderNamespace</code>
+               </link> - 
+Extender Capability and Requirement Namespace.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="ExtenderNamespace"
+            role="class"
+            xml:id="org.osgi.namespace.extender.ExtenderNamespace">
+      <title>public final class ExtenderNamespace<?line-break?> extends Namespace</title>
+      <para>
+Extender Capability and Requirement Namespace.
+ 
+ </para>
+      <para>
+ This class defines the names for the attributes and directives for this
+ namespace. All unspecified capability attributes are of type <code>String</code>
+ and are used as arbitrary matching attributes for the capability. The values
+ associated with the specified directive and attribute keys are of type
+ <code>String</code>, unless otherwise indicated.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Immutable </para>
+      </formalpara>
+      <section xreflabel="CAPABILITY_VERSION_ATTRIBUTE"
+               role="field"
+               xml:id="org.osgi.namespace.extender.ExtenderNamespace.CAPABILITY_VERSION_ATTRIBUTE">
+         <title>public static final String CAPABILITY_VERSION_ATTRIBUTE = "version"</title>
+         <para>
+The capability attribute contains the <code>Version</code> of the
+ specification of the extender. The value of this attribute must be of
+ type <code>Version</code>.
+   </para>
+      </section>
+      <section xreflabel="EXTENDER_NAMESPACE"
+               role="field"
+               xml:id="org.osgi.namespace.extender.ExtenderNamespace.EXTENDER_NAMESPACE">
+         <title>public static final String EXTENDER_NAMESPACE = "osgi.extender"</title>
+         <para>
+Namespace name for extender capabilities and requirements.
+ 
+ </para>
+         <para>
+ Also, the capability attribute used to specify the name of the extender.</para>
+      </section>
+   </section>
+</section>

@@ -1,0 +1,2722 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.cm"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.cm">
+   <title>org.osgi.service.cm</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.cm-version">Version 1.6</releaseinfo>
+      <edition xml:id="org.osgi.service.cm-version.number">1.6</edition>
+   </info>
+   <para>
+Configuration Admin Package Version 1.6.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.cm; version="[1.6,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.cm; version="[1.6,1.7)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cm.Configuration">
+                  <code>Configuration</code>
+               </link> - 
+The configuration information for a <code>ManagedService</code> or
+ <code>ManagedServiceFactory</code> object.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cm.Configuration.ConfigurationAttribute">
+                  <code>Configuration.ConfigurationAttribute</code>
+               </link> - 
+Configuration Attributes.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cm.ConfigurationAdmin">
+                  <code>ConfigurationAdmin</code>
+               </link> - 
+Service for administering configuration data.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cm.ConfigurationConstants">
+                  <code>ConfigurationConstants</code>
+               </link> - 
+Defines standard constants for the Configuration Admin service.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cm.ConfigurationEvent">
+                  <code>ConfigurationEvent</code>
+               </link> - 
+A Configuration Event.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cm.ConfigurationException">
+                  <code>ConfigurationException</code>
+               </link> - 
+An <code>Exception</code> class to inform the Configuration Admin service of
+ problems with configuration data.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cm.ConfigurationListener">
+                  <code>ConfigurationListener</code>
+               </link> - 
+Listener for Configuration Events.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cm.ConfigurationPermission">
+                  <code>ConfigurationPermission</code>
+               </link> - 
+Indicates a bundle's authority to configure bundles or be updated by
+ Configuration Admin.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cm.ConfigurationPlugin">
+                  <code>ConfigurationPlugin</code>
+               </link> - 
+A service interface for processing configuration dictionary before the
+ update.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cm.ManagedService">
+                  <code>ManagedService</code>
+               </link> - 
+A service that can receive configuration data from a Configuration Admin
+ service.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cm.ManagedServiceFactory">
+                  <code>ManagedServiceFactory</code>
+               </link> - 
+Manage multiple service instances.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cm.ReadOnlyConfigurationException">
+                  <code>ReadOnlyConfigurationException</code>
+               </link> - 
+An <code>Exception</code> class to inform the client of a <code>Configuration</code>
+ about the <link linkend="org.osgi.service.cm.Configuration.ConfigurationAttribute.READ_ONLY">read only</link> state of a
+ configuration object.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cm.SynchronousConfigurationListener">
+                  <code>SynchronousConfigurationListener</code>
+               </link> - 
+Synchronous Listener for Configuration Events.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section>
+      <title>Permissions</title>
+      <section>
+         <title>
+            <link linkend="org.osgi.service.cm.Configuration">Configuration</link>
+         </title>
+         <itemizedlist>
+            <listitem>
+               <para>
+                  <code>
+                     <link linkend="org.osgi.service.cm.Configuration.setBundleLocation-String-">setBundleLocation(String)</link>
+                  </code>
+               </para>
+               <itemizedlist>
+                  <listitem>
+                     <para>
+                        <code>ConfigurationPermission[this.location,CONFIGURE]</code> -  if            this.location is not <code>null</code>
+                     </para>
+                  </listitem>
+                  <listitem>
+                     <para>
+                        <code>ConfigurationPermission[location,CONFIGURE]</code> -  if location is not            <code>null</code>
+                     </para>
+                  </listitem>
+                  <listitem>
+                     <para>
+                        <code>ConfigurationPermission["*",CONFIGURE]</code> -  if this.location is            <code>null</code> or if location is <code>null</code>
+                     </para>
+                  </listitem>
+               </itemizedlist>
+            </listitem>
+            <listitem>
+               <para>
+                  <code>
+                     <link linkend="org.osgi.service.cm.Configuration.getBundleLocation--">getBundleLocation()</link>
+                  </code>
+               </para>
+               <itemizedlist>
+                  <listitem>
+                     <para>
+                        <code>ConfigurationPermission[this.location,CONFIGURE]</code> -  if            this.location is not <code>null</code>
+                     </para>
+                  </listitem>
+                  <listitem>
+                     <para>
+                        <code>ConfigurationPermission["*",CONFIGURE]</code> -  if this.location is            <code>null</code>
+                     </para>
+                  </listitem>
+               </itemizedlist>
+            </listitem>
+            <listitem>
+               <para>
+                  <code>
+                     <link linkend="org.osgi.service.cm.Configuration.addAttributes-ConfigurationAttribute...-">addAttributes(ConfigurationAttribute...)</link>
+                  </code>
+               </para>
+               <itemizedlist>
+                  <listitem>
+                     <para>
+                        <code>ConfigurationPermission[this.location,ATTRIBUTE]</code> -  if            this.location is not <code>null</code>
+                     </para>
+                  </listitem>
+                  <listitem>
+                     <para>
+                        <code>ConfigurationPermission["*",ATTRIBUTE]</code> -  if this.location is            <code>null</code>
+                     </para>
+                  </listitem>
+               </itemizedlist>
+            </listitem>
+            <listitem>
+               <para>
+                  <code>
+                     <link linkend="org.osgi.service.cm.Configuration.removeAttributes-ConfigurationAttribute...-">removeAttributes(ConfigurationAttribute...)</link>
+                  </code>
+               </para>
+               <itemizedlist>
+                  <listitem>
+                     <para>
+                        <code>ConfigurationPermission[this.location,ATTRIBUTE]</code> -  if            this.location is not <code>null</code>
+                     </para>
+                  </listitem>
+                  <listitem>
+                     <para>
+                        <code>ConfigurationPermission["*",ATTRIBUTE]</code> -  if this.location is            <code>null</code>
+                     </para>
+                  </listitem>
+               </itemizedlist>
+            </listitem>
+         </itemizedlist>
+      </section>
+      <section>
+         <title>
+            <link linkend="org.osgi.service.cm.ConfigurationAdmin">ConfigurationAdmin</link>
+         </title>
+         <itemizedlist>
+            <listitem>
+               <para>
+                  <code>
+                     <link linkend="org.osgi.service.cm.ConfigurationAdmin.createFactoryConfiguration-String-String-">createFactoryConfiguration(String,String)</link>
+                  </code>
+               </para>
+               <itemizedlist>
+                  <listitem>
+                     <para>
+                        <code>ConfigurationPermission[location,CONFIGURE]</code> -  if location is not            <code>null</code>
+                     </para>
+                  </listitem>
+                  <listitem>
+                     <para>
+                        <code>ConfigurationPermission["*",CONFIGURE]</code> -  if location is            <code>null</code>
+                     </para>
+                  </listitem>
+               </itemizedlist>
+            </listitem>
+            <listitem>
+               <para>
+                  <code>
+                     <link linkend="org.osgi.service.cm.ConfigurationAdmin.getConfiguration-String-String-">getConfiguration(String,String)</link>
+                  </code>
+               </para>
+               <itemizedlist>
+                  <listitem>
+                     <para>
+                        <code>ConfigurationPermission[*,CONFIGURE]</code> -  if location is            <code>null</code> or if the returned configuration <code>c</code> already            exists and c.location is <code>null</code>
+                     </para>
+                  </listitem>
+                  <listitem>
+                     <para>
+                        <code>ConfigurationPermission[location,CONFIGURE]</code> -  if location is not            <code>null</code>
+                     </para>
+                  </listitem>
+                  <listitem>
+                     <para>
+                        <code>ConfigurationPermission[c.location,CONFIGURE]</code> -  if the returned            configuration <code>c</code> already exists and c.location is not            <code>null</code>
+                     </para>
+                  </listitem>
+               </itemizedlist>
+            </listitem>
+            <listitem>
+               <para>
+                  <code>
+                     <link linkend="org.osgi.service.cm.ConfigurationAdmin.getConfiguration-String-">getConfiguration(String)</link>
+                  </code>
+               </para>
+               <itemizedlist>
+                  <listitem>
+                     <para>
+                        <code>ConfigurationPermission[c.location,CONFIGURE]</code> -  If the            configuration <code>c</code> already exists and c.location is not            <code>null</code>
+                     </para>
+                  </listitem>
+               </itemizedlist>
+            </listitem>
+            <listitem>
+               <para>
+                  <code>
+                     <link linkend="org.osgi.service.cm.ConfigurationAdmin.getFactoryConfiguration-String-String-String-">getFactoryConfiguration(String,String,String)</link>
+                  </code>
+               </para>
+               <itemizedlist>
+                  <listitem>
+                     <para>
+                        <code>ConfigurationPermission[*,CONFIGURE]</code> -  if location is            <code>null</code> or if the returned configuration <code>c</code> already            exists and c.location is <code>null</code>
+                     </para>
+                  </listitem>
+                  <listitem>
+                     <para>
+                        <code>ConfigurationPermission[location,CONFIGURE]</code> -  if location is not            <code>null</code>
+                     </para>
+                  </listitem>
+                  <listitem>
+                     <para>
+                        <code>ConfigurationPermission[c.location,CONFIGURE]</code> -  if the returned            configuration <code>c</code> already exists and c.location is not            <code>null</code>
+                     </para>
+                  </listitem>
+               </itemizedlist>
+            </listitem>
+            <listitem>
+               <para>
+                  <code>
+                     <link linkend="org.osgi.service.cm.ConfigurationAdmin.getFactoryConfiguration-String-String-">getFactoryConfiguration(String,String)</link>
+                  </code>
+               </para>
+               <itemizedlist>
+                  <listitem>
+                     <para>
+                        <code>ConfigurationPermission[c.location,CONFIGURE]</code> -  If the            configuration <code>c</code> already exists and c.location is not            <code>null</code>
+                     </para>
+                  </listitem>
+               </itemizedlist>
+            </listitem>
+            <listitem>
+               <para>
+                  <code>
+                     <link linkend="org.osgi.service.cm.ConfigurationAdmin.listConfigurations-String-">listConfigurations(String)</link>
+                  </code>
+               </para>
+               <itemizedlist>
+                  <listitem>
+                     <para>
+                        <code>ConfigurationPermission[c.location,CONFIGURE]</code> -  Only            configurations <code>c</code> are returned for which the caller has            this permission</para>
+                  </listitem>
+               </itemizedlist>
+            </listitem>
+         </itemizedlist>
+      </section>
+      <section>
+         <title>
+            <link linkend="org.osgi.service.cm.ManagedService">ManagedService</link>
+         </title>
+         <itemizedlist>
+            <listitem>
+               <para>
+                  <code>
+                     <link linkend="org.osgi.service.cm.ManagedService.updated-Dictionary-">updated(Dictionary)</link>
+                  </code>
+               </para>
+               <itemizedlist>
+                  <listitem>
+                     <para>
+                        <code>ConfigurationPermission[c.location,TARGET]</code> -  Required by the            bundle that registered this service</para>
+                  </listitem>
+               </itemizedlist>
+            </listitem>
+         </itemizedlist>
+      </section>
+      <section>
+         <title>
+            <link linkend="org.osgi.service.cm.ManagedServiceFactory">ManagedServiceFactory</link>
+         </title>
+         <itemizedlist>
+            <listitem>
+               <para>
+                  <code>
+                     <link linkend="org.osgi.service.cm.ManagedServiceFactory.updated-String-Dictionary-">updated(String,Dictionary)</link>
+                  </code>
+               </para>
+               <itemizedlist>
+                  <listitem>
+                     <para>
+                        <code>ConfigurationPermission[c.location,TARGET]</code> -  Required by the            bundle that registered this service</para>
+                  </listitem>
+               </itemizedlist>
+            </listitem>
+         </itemizedlist>
+      </section>
+   </section>
+   <section xreflabel="Configuration"
+            role="class"
+            xml:id="org.osgi.service.cm.Configuration">
+      <title>public interface Configuration</title>
+      <para>
+The configuration information for a <code>ManagedService</code> or
+ <code>ManagedServiceFactory</code> object. The Configuration Admin service uses
+ this interface to represent the configuration information for a
+ <code>ManagedService</code> or for a service instance of a
+ <code>ManagedServiceFactory</code>.
+ </para>
+      <para>
+ A <code>Configuration</code> object contains a configuration dictionary and allows
+ the properties to be updated via this object. Bundles wishing to receive
+ configuration dictionaries do not need to use this class - they register a
+ <code>ManagedService</code> or <code>ManagedServiceFactory</code>. Only administrative
+ bundles, and bundles wishing to update their own configurations need to use
+ this class.
+ </para>
+      <para>
+ The properties handled in this configuration have case insensitive
+ <code>String</code> objects as keys. However, case must be preserved from the last
+ set key/value.
+ </para>
+      <para>
+ A configuration can be <emphasis>bound</emphasis> to a specific bundle or to a region of
+ bundles using the <emphasis>location</emphasis>. In its simplest form the location is the
+ location of the target bundle that registered a Managed Service or a Managed
+ Service Factory. However, if the location starts with <code>?</code> then the
+ location indicates multiple delivery. In such a case the configuration must
+ be delivered to all targets. If security is on, the Configuration Permission
+ can be used to restrict the targets that receive updates. The Configuration
+ Admin must only update a target when the configuration location matches the
+ location of the target's bundle or the target bundle has a Configuration
+ Permission with the action <link linkend="org.osgi.service.cm.ConfigurationPermission.TARGET">ConfigurationPermission.TARGET</link> and a name
+ that matches the configuration location. The name in the permission may
+ contain wildcards ( <code>'*'</code>) to match the location using the same
+ substring matching rules as <link linkend="org.osgi.framework.Filter">Filter</link>. Bundles can always create,
+ manipulate, and be updated from configurations that have a location that
+ matches their bundle location.
+ </para>
+      <para>
+ If a configuration's location is <code>null</code>, it is not yet bound to a
+ location. It will become bound to the location of the first bundle that
+ registers a <code>ManagedService</code> or <code>ManagedServiceFactory</code> object
+ with the corresponding PID.
+ </para>
+      <para>
+ The same <code>Configuration</code> object is used for configuring both a Managed
+ Service Factory and a Managed Service. When it is important to differentiate
+ between these two the term "factory configuration" is used.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="addAttributes(ConfigurationAttribute...)"
+               role="method"
+               xml:id="org.osgi.service.cm.Configuration.addAttributes-ConfigurationAttribute...-">
+         <title>public void addAttributes(Configuration.ConfigurationAttribute... attrs) throws IOException</title>
+         <formalpara role="parameter">
+            <title>attrs</title>
+            <para>The attributes to add.</para>
+         </formalpara>
+         <para role="description">
+Add attributes to the configuration.
+   </para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IOException</code>– If the new state cannot be persisted.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If this configuration has been deleted.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– when the required permissions are not available</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Security</title>
+            <para>
+               <code>ConfigurationPermission[this.location,ATTRIBUTE]]
+          </code>–  if            this.location is not <code>null</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title/>
+            <para>
+               <code>ConfigurationPermission["*",ATTRIBUTE]]
+          </code>–  if this.location is            <code>null</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.6</para>
+         </formalpara>
+      </section>
+      <section xreflabel="delete()"
+               role="method"
+               xml:id="org.osgi.service.cm.Configuration.delete--">
+         <title>public void delete() throws IOException</title>
+         <para role="description">
+Delete this <code>Configuration</code> object.
+ </para>
+         <para>
+ Removes this configuration object from the persistent store. Notify
+ asynchronously the corresponding Managed Service or Managed Service
+ Factory. A <link linkend="org.osgi.service.cm.ManagedService">ManagedService</link> object is notified by a call to its
+ <code>updated</code> method with a <code>null</code> properties argument. A
+ <link linkend="org.osgi.service.cm.ManagedServiceFactory">ManagedServiceFactory</link> object is notified by a call to its
+ <code>deleted</code> method.
+ </para>
+         <para>
+ Also notifies all Configuration Listeners with a
+ <link linkend="org.osgi.service.cm.ConfigurationEvent.CM_DELETED">ConfigurationEvent.CM_DELETED</link> event.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>ReadOnlyConfigurationException</code>– If the configuration is
+             <link linkend="org.osgi.service.cm.Configuration.ConfigurationAttribute.READ_ONLY">read only</link>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IOException</code>– If delete fails.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If this configuration has been deleted.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="equals(Object)"
+               role="method"
+               xml:id="org.osgi.service.cm.Configuration.equals-Object-">
+         <title>public boolean equals(Object other)</title>
+         <formalpara role="parameter">
+            <title>other</title>
+            <para>
+               <code>Configuration</code> object to compare against</para>
+         </formalpara>
+         <para role="description">
+Equality is defined to have equal PIDs
+
+ Two Configuration objects are equal when their PIDs are equal.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>true</code> if equal, <code>false</code> if not a
+         <code>Configuration</code> object or one with a different PID.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getAttributes()"
+               role="method"
+               xml:id="org.osgi.service.cm.Configuration.getAttributes--">
+         <title>public Set&lt;Configuration.ConfigurationAttribute&gt; getAttributes()</title>
+         <para role="description">
+Get the attributes of this configuration.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The set of attributes.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If this configuration has been deleted.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.6</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getBundleLocation()"
+               role="method"
+               xml:id="org.osgi.service.cm.Configuration.getBundleLocation--">
+         <title>public String getBundleLocation()</title>
+         <para role="description">
+Get the bundle location.
+
+ Returns the bundle location or region to which this configuration is
+ bound, or <code>null</code> if it is not yet bound to a bundle location or
+ region. If the location starts with <code>?</code> then the configuration is
+ delivered to all targets and not restricted to a single bundle.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>location to which this configuration is bound, or <code>null</code>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If this configuration has been deleted.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– when the required permissions are not available</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Security</title>
+            <para>
+               <code>ConfigurationPermission[this.location,CONFIGURE]]
+          </code>–  if            this.location is not <code>null</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title/>
+            <para>
+               <code>ConfigurationPermission["*",CONFIGURE]]
+          </code>–  if this.location is            <code>null</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="getChangeCount()"
+               role="method"
+               xml:id="org.osgi.service.cm.Configuration.getChangeCount--">
+         <title>public long getChangeCount()</title>
+         <para role="description">
+Get the change count.
+
+ Each Configuration must maintain a change counter that is incremented
+ with a positive value every time the configuration is updated and its
+ properties are stored. The counter must be incremented before the targets
+ are updated and events are sent out.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A monotonically increasing value reflecting changes in this
+         Configuration.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If this configuration has been deleted.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.5</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getFactoryPid()"
+               role="method"
+               xml:id="org.osgi.service.cm.Configuration.getFactoryPid--">
+         <title>public String getFactoryPid()</title>
+         <para role="description">
+For a factory configuration return the PID of the corresponding Managed
+ Service Factory, else return <code>null</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>factory PID or <code>null</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If this configuration has been deleted.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getPid()"
+               role="method"
+               xml:id="org.osgi.service.cm.Configuration.getPid--">
+         <title>public String getPid()</title>
+         <para role="description">
+Get the PID for this <code>Configuration</code> object.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>the PID for this <code>Configuration</code> object.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– if this configuration has been deleted</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getProcessedProperties(ServiceReference)"
+               role="method"
+               xml:id="org.osgi.service.cm.Configuration.getProcessedProperties-ServiceReference-">
+         <title>public Dictionary&lt;String, Object&gt; getProcessedProperties(ServiceReference&lt;?&gt; reference)</title>
+         <formalpara role="parameter">
+            <title>reference</title>
+            <para>The reference to the Managed Service or Managed Service
+            Factory to pass to the registered <link linkend="org.osgi.service.cm.ConfigurationPlugin">ConfigurationPlugin</link>s
+            handling this configuration. Must not be <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Return the processed properties of this <code>Configuration</code> object.
+ </para>
+         <para>
+ The <code>Dictionary</code> object returned is a private copy for the caller
+ and may be changed without influencing the stored configuration. The keys
+ in the returned dictionary are case insensitive and are always of type
+ <code>String</code>.
+ </para>
+         <para>
+ Before the properties are returned they are processed by all the
+ registered <link linkend="org.osgi.service.cm.ConfigurationPlugin">ConfigurationPlugin</link>s handling this configuration.
+ </para>
+         <para>
+ If called just after the configuration is created and before update has
+ been called, this method returns <code>null</code>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A private copy of the processed properties for the caller or
+         <code>null</code>. These properties must not contain the
+         "service.bundleLocation" property. The value of this property may
+         be obtained from the <link linkend="org.osgi.service.cm.Configuration.getBundleLocation--">getBundleLocation()</link> method.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If this configuration has been deleted.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.6</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getProperties()"
+               role="method"
+               xml:id="org.osgi.service.cm.Configuration.getProperties--">
+         <title>public Dictionary&lt;String, Object&gt; getProperties()</title>
+         <para role="description">
+Return the properties of this <code>Configuration</code> object.
+
+ The <code>Dictionary</code> object returned is a private copy for the caller
+ and may be changed without influencing the stored configuration. The keys
+ in the returned dictionary are case insensitive and are always of type
+ <code>String</code>.
+
+ </para>
+         <para>
+ If called just after the configuration is created and before update has
+ been called, this method returns <code>null</code>.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A private copy of the properties for the caller or <code>null</code>.
+         These properties must not contain the "service.bundleLocation"
+         property. The value of this property may be obtained from the
+         <link linkend="org.osgi.service.cm.Configuration.getBundleLocation--">getBundleLocation()</link> method.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If this configuration has been deleted.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="hashCode()"
+               role="method"
+               xml:id="org.osgi.service.cm.Configuration.hashCode--">
+         <title>public int hashCode()</title>
+         <para role="description">
+Hash code is based on PID.
+
+ The hash code for two Configuration objects must be the same when the
+ Configuration PID's are the same.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>hash code for this Configuration object</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="removeAttributes(ConfigurationAttribute...)"
+               role="method"
+               xml:id="org.osgi.service.cm.Configuration.removeAttributes-ConfigurationAttribute...-">
+         <title>public void removeAttributes(Configuration.ConfigurationAttribute... attrs) throws IOException</title>
+         <formalpara role="parameter">
+            <title>attrs</title>
+            <para>The attributes to remove.</para>
+         </formalpara>
+         <para role="description">
+Remove attributes from this configuration.
+   </para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IOException</code>– If the new state cannot be persisted.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If this configuration has been deleted.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– when the required permissions are not available</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Security</title>
+            <para>
+               <code>ConfigurationPermission[this.location,ATTRIBUTE]]
+          </code>–  if            this.location is not <code>null</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title/>
+            <para>
+               <code>ConfigurationPermission["*",ATTRIBUTE]]
+          </code>–  if this.location is            <code>null</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.6</para>
+         </formalpara>
+      </section>
+      <section xreflabel="setBundleLocation(String)"
+               role="method"
+               xml:id="org.osgi.service.cm.Configuration.setBundleLocation-String-">
+         <title>public void setBundleLocation(String location)</title>
+         <formalpara role="parameter">
+            <title>location</title>
+            <para>a location, region, or <code>null</code>
+            </para>
+         </formalpara>
+         <para role="description">
+Bind this <code>Configuration</code> object to the specified location.
+
+ If the location parameter is <code>null</code> then the <code>Configuration</code>
+ object will not be bound to a location/region. It will be set to the
+ bundle's location before the first time a Managed Service/Managed Service
+ Factory receives this <code>Configuration</code> object via the updated method
+ and before any plugins are called. The bundle location or region will be
+ set persistently.
+
+ </para>
+         <para>
+ If the location starts with <code>?</code> then all targets registered with
+ the given PID must be updated.
+
+ </para>
+         <para>
+ If the location is changed then existing targets must be informed. If
+ they can no longer see this configuration, the configuration must be
+ deleted or updated with <code>null</code>. If this configuration becomes
+ visible then they must be updated with this configuration.
+
+ </para>
+         <para>
+ Also notifies all Configuration Listeners with a
+ <link linkend="org.osgi.service.cm.ConfigurationEvent.CM_LOCATION_CHANGED">ConfigurationEvent.CM_LOCATION_CHANGED</link> event.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If this configuration has been deleted.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– when the required permissions are not available</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Security</title>
+            <para>
+               <code>ConfigurationPermission[this.location,CONFIGURE]]
+          </code>–  if            this.location is not <code>null</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title/>
+            <para>
+               <code>ConfigurationPermission[location,CONFIGURE]]
+          </code>–  if location is not            <code>null</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title/>
+            <para>
+               <code>ConfigurationPermission["*",CONFIGURE]]
+          </code>–  if this.location is            <code>null</code> or if location is <code>null</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="update(Dictionary)"
+               role="method"
+               xml:id="org.osgi.service.cm.Configuration.update-Dictionary-">
+         <title>public void update(Dictionary&lt;String, ?&gt; properties) throws IOException</title>
+         <formalpara role="parameter">
+            <title>properties</title>
+            <para>the new set of properties for this configuration</para>
+         </formalpara>
+         <para role="description">
+Update the properties of this <code>Configuration</code> object.
+ </para>
+         <para>
+ Stores the properties in persistent storage after adding or overwriting
+ the following properties:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>"service.pid" : is set to be the PID of this configuration.</para>
+            </listitem>
+            <listitem>
+               <para>"service.factoryPid" : if this is a factory configuration it is set
+ to the factory PID else it is not set.</para>
+            </listitem>
+         </itemizedlist>
+         <para>
+ These system properties are all of type <code>String</code>.
+ </para>
+         <para>
+ If the corresponding Managed Service/Managed Service Factory is
+ registered, its updated method must be called asynchronously. Else, this
+ callback is delayed until aforementioned registration occurs.
+ </para>
+         <para>
+ Also notifies all Configuration Listeners with a
+ <link linkend="org.osgi.service.cm.ConfigurationEvent.CM_UPDATED">ConfigurationEvent.CM_UPDATED</link> event.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>ReadOnlyConfigurationException</code>– If the configuration is
+             <link linkend="org.osgi.service.cm.Configuration.ConfigurationAttribute.READ_ONLY">read only</link>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IOException</code>– if update cannot be made persistent</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– if the <code>Dictionary</code> object
+             contains invalid configuration types or contains case
+             variants of the same key name.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If this configuration has been deleted.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="update()"
+               role="method"
+               xml:id="org.osgi.service.cm.Configuration.update--">
+         <title>public void update() throws IOException</title>
+         <para role="description">
+Update the <code>Configuration</code> object with the current properties.
+ Initiate the <code>updated</code> callback to the Managed Service or Managed
+ Service Factory with the current properties asynchronously.
+ </para>
+         <para>
+ This is the only way for a bundle that uses a Configuration Plugin
+ service to initiate a callback. For example, when that bundle detects a
+ change that requires an update of the Managed Service or Managed Service
+ Factory via its <code>ConfigurationPlugin</code> object.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IOException</code>– if update cannot access the properties in persistent
+             storage</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If this configuration has been deleted.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>See Also</title>
+            <para>
+               <link linkend="org.osgi.service.cm.ConfigurationPlugin">ConfigurationPlugin</link>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="updateIfDifferent(Dictionary)"
+               role="method"
+               xml:id="org.osgi.service.cm.Configuration.updateIfDifferent-Dictionary-">
+         <title>public boolean updateIfDifferent(Dictionary&lt;String, ?&gt; properties) throws IOException</title>
+         <formalpara role="parameter">
+            <title>properties</title>
+            <para>The new set of properties for this configuration.</para>
+         </formalpara>
+         <para role="description">
+Update the properties of this <code>Configuration</code> object if the
+ provided properties are different than the currently stored set.
+ Properties are compared as follows.
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>Scalars are compared using <code>equals</code>
+               </para>
+            </listitem>
+            <listitem>
+               <para>Arrays are compared using <code>Arrays.equals</code>
+               </para>
+            </listitem>
+            <listitem>
+               <para>Collections are compared using <code>equals</code>
+               </para>
+            </listitem>
+         </itemizedlist>
+         <para>
+ If the new properties are not different than the current properties, no
+ operation is performed. Otherwise, the behavior of this method is
+ identical to the <link linkend="org.osgi.service.cm.Configuration.update-Dictionary-">update(Dictionary)</link> method.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>If the properties are different and the configuration is updated
+         <code>true</code> is returned. If the properties are the same,
+         <code>false</code> is returned.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>ReadOnlyConfigurationException</code>– If the configuration is
+             <link linkend="org.osgi.service.cm.Configuration.ConfigurationAttribute.READ_ONLY">read only</link>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IOException</code>– If update cannot be made persistent.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– If the <code>Dictionary</code> object
+             contains invalid configuration types or contains case
+             variants of the same key name.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If this configuration has been deleted.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.6</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="Configuration.ConfigurationAttribute"
+            role="class"
+            xml:id="org.osgi.service.cm.Configuration.ConfigurationAttribute">
+      <title>enum Configuration.ConfigurationAttribute</title>
+      <para>
+Configuration Attributes.
+   </para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.6</para>
+      </formalpara>
+      <section xreflabel="READ_ONLY"
+               role="field"
+               xml:id="org.osgi.service.cm.Configuration.ConfigurationAttribute.READ_ONLY">
+         <title>READ_ONLY</title>
+         <para>
+The configuration is read only.
+   </para>
+      </section>
+      <section xreflabel="valueOf(String)"
+               role="method"
+               xml:id="org.osgi.service.cm.Configuration.ConfigurationAttribute.valueOf-String-">
+         <title>public static Configuration.ConfigurationAttribute valueOf(String name)</title>
+         <para/>
+      </section>
+      <section xreflabel="values()"
+               role="method"
+               xml:id="org.osgi.service.cm.Configuration.ConfigurationAttribute.values--">
+         <title>public static Configuration.ConfigurationAttribute[] values()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="ConfigurationAdmin"
+            role="class"
+            xml:id="org.osgi.service.cm.ConfigurationAdmin">
+      <title>public interface ConfigurationAdmin</title>
+      <para>
+Service for administering configuration data.
+ </para>
+      <para>
+ The main purpose of this interface is to store bundle configuration data
+ persistently. This information is represented in <code>Configuration</code>
+ objects. The actual configuration data is a <code>Dictionary</code> of properties
+ inside a <code>Configuration</code> object.
+ </para>
+      <para>
+ There are two principally different ways to manage configurations. First
+ there is the concept of a Managed Service, where configuration data is
+ uniquely associated with an object registered with the service registry.
+ </para>
+      <para>
+ Next, there is the concept of a factory where the Configuration Admin service
+ will maintain 0 or more <code>Configuration</code> objects for a Managed Service
+ Factory that is registered with the Framework.
+ </para>
+      <para>
+ The first concept is intended for configuration data about "things/services"
+ whose existence is defined externally, e.g. a specific printer. Factories are
+ intended for "things/services" that can be created any number of times, e.g.
+ a configuration for a DHCP server for different networks.
+ </para>
+      <para>
+ Bundles that require configuration should register a Managed Service or a
+ Managed Service Factory in the service registry. A registration property
+ named <code>service.pid</code> (persistent identifier or PID) must be used to
+ identify this Managed Service or Managed Service Factory to the Configuration
+ Admin service.
+ </para>
+      <para>
+ When the ConfigurationAdmin detects the registration of a Managed Service, it
+ checks its persistent storage for a configuration object whose
+ <code>service.pid</code> property matches the PID service property (
+ <code>service.pid</code>) of the Managed Service. If found, it calls
+ <link linkend="org.osgi.service.cm.ManagedService.updated-Dictionary-">ManagedService.updated(Dictionary)</link> method with the new properties.
+ The implementation of a Configuration Admin service must run these call-backs
+ asynchronously to allow proper synchronization.
+ </para>
+      <para>
+ When the Configuration Admin service detects a Managed Service Factory
+ registration, it checks its storage for configuration objects whose
+ <code>service.factoryPid</code> property matches the PID service property of the
+ Managed Service Factory. For each such <code>Configuration</code> objects, it
+ calls the <code>ManagedServiceFactory.updated</code> method asynchronously with
+ the new properties. The calls to the <code>updated</code> method of a
+ <code>ManagedServiceFactory</code> must be executed sequentially and not overlap
+ in time.
+ </para>
+      <para>
+ In general, bundles having permission to use the Configuration Admin service
+ can only access and modify their own configuration information. Accessing or
+ modifying the configuration of other bundles requires
+ <code>ConfigurationPermission[location,CONFIGURE]</code>, where location is the
+ configuration location.
+ </para>
+      <para>
+         <code>Configuration</code> objects can be <emphasis>bound</emphasis> to a specified bundle
+ location or to a region (configuration location starts with <code>?</code>). If a
+ location is not set, it will be learned the first time a target is
+ registered. If the location is learned this way, the Configuration Admin
+ service must detect if the bundle corresponding to the location is
+ uninstalled. If this occurs, the <code>Configuration</code> object must be
+ unbound, that is its location field is set back to <code>null</code>.
+ </para>
+      <para>
+ If target's bundle location matches the configuration location it is always
+ updated.
+ </para>
+      <para>
+ If the configuration location starts with <code>?</code>, that is, the location is
+ a region, then the configuration must be delivered to all targets registered
+ with the given PID. If security is on, the target bundle must have
+ Configuration Permission[location,TARGET], where location matches given the
+ configuration location with wildcards as in the Filter substring match. The
+ security must be verified using the
+ <link linkend="org.osgi.framework.Bundle.hasPermission-Object-">org.osgi.framework.Bundle.hasPermission(Object)</link> method on the target
+ bundle.
+ </para>
+      <para>
+ If a target cannot be updated because the location does not match or it has
+ no permission and security is active then the Configuration Admin service
+ must not do the normal callback.
+ </para>
+      <para>
+ The method descriptions of this class refer to a concept of "the calling
+ bundle". This is a loose way of referring to the bundle which obtained the
+ Configuration Admin service from the service registry. Implementations of
+ <code>ConfigurationAdmin</code> must use a
+ <link linkend="org.osgi.framework.ServiceFactory">org.osgi.framework.ServiceFactory</link> to support this concept.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="SERVICE_BUNDLELOCATION"
+               role="field"
+               xml:id="org.osgi.service.cm.ConfigurationAdmin.SERVICE_BUNDLELOCATION">
+         <title>public static final String SERVICE_BUNDLELOCATION = "service.bundleLocation"</title>
+         <para>
+Configuration property naming the location of the bundle that is
+ associated with a <code>Configuration</code> object. This property can be
+ searched for but must not appear in the configuration dictionary for
+ security reason. The property's value is of type <code>String</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+      </section>
+      <section xreflabel="SERVICE_FACTORYPID"
+               role="field"
+               xml:id="org.osgi.service.cm.ConfigurationAdmin.SERVICE_FACTORYPID">
+         <title>public static final String SERVICE_FACTORYPID = "service.factoryPid"</title>
+         <para>
+Configuration property naming the Factory PID in the configuration
+ dictionary. The property's value is of type <code>String</code>.
+   </para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.1</para>
+         </formalpara>
+      </section>
+      <section xreflabel="createFactoryConfiguration(String)"
+               role="method"
+               xml:id="org.osgi.service.cm.ConfigurationAdmin.createFactoryConfiguration-String-">
+         <title>public Configuration createFactoryConfiguration(String factoryPid) throws IOException</title>
+         <formalpara role="parameter">
+            <title>factoryPid</title>
+            <para>PID of factory (not <code>null</code>).</para>
+         </formalpara>
+         <para role="description">
+Create a new factory <code>Configuration</code> object with a new PID.
+
+ The properties of the new <code>Configuration</code> object are <code>null</code>
+ until the first time that its <link linkend="org.osgi.service.cm.Configuration.update-Dictionary-">Configuration.update(Dictionary)</link>
+ method is called.
+
+ </para>
+         <para>
+ It is not required that the <code>factoryPid</code> maps to a registered
+ Managed Service Factory.
+
+ </para>
+         <para>
+ The <code>Configuration</code> object is bound to the location of the calling
+ bundle. It is possible that the same factoryPid has associated
+ configurations that are bound to different bundles. Bundles should only
+ see the factory configurations that they are bound to or have the proper
+ permission.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A new <code>Configuration</code> object.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IOException</code>– if access to persistent storage fails.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="createFactoryConfiguration(String,String)"
+               role="method"
+               xml:id="org.osgi.service.cm.ConfigurationAdmin.createFactoryConfiguration-String-String-">
+         <title>public Configuration createFactoryConfiguration(String factoryPid, String location) throws IOException</title>
+         <formalpara role="parameter">
+            <title>factoryPid</title>
+            <para>PID of factory (not <code>null</code>).</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>location</title>
+            <para>A bundle location string, or <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Create a new factory <code>Configuration</code> object with a new PID.
+
+ The properties of the new <code>Configuration</code> object are <code>null</code>
+ until the first time that its <link linkend="org.osgi.service.cm.Configuration.update-Dictionary-">Configuration.update(Dictionary)</link>
+ method is called.
+
+ </para>
+         <para>
+ It is not required that the <code>factoryPid</code> maps to a registered
+ Managed Service Factory.
+
+ </para>
+         <para>
+ The <code>Configuration</code> is bound to the location specified. If this
+ location is <code>null</code> it will be bound to the location of the first
+ bundle that registers a Managed Service Factory with a corresponding PID.
+ It is possible that the same factoryPid has associated configurations
+ that are bound to different bundles. Bundles should only see the factory
+ configurations that they are bound to or have the proper permission.
+
+ </para>
+         <para>
+ If the location starts with <code>?</code> then the configuration must be
+ delivered to all targets with the corresponding PID.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>a new <code>Configuration</code> object.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IOException</code>– if access to persistent storage fails.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– when the require permissions are not available</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Security</title>
+            <para>
+               <code>ConfigurationPermission[location,CONFIGURE]]
+          </code>–  if location is not            <code>null</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title/>
+            <para>
+               <code>ConfigurationPermission["*",CONFIGURE]]
+          </code>–  if location is            <code>null</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="getConfiguration(String,String)"
+               role="method"
+               xml:id="org.osgi.service.cm.ConfigurationAdmin.getConfiguration-String-String-">
+         <title>public Configuration getConfiguration(String pid, String location) throws IOException</title>
+         <formalpara role="parameter">
+            <title>pid</title>
+            <para>Persistent identifier.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>location</title>
+            <para>The bundle location string, or <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Get an existing <code>Configuration</code> object from the persistent store,
+ or create a new <code>Configuration</code> object.
+
+ </para>
+         <para>
+ If a <code>Configuration</code> with this PID already exists in Configuration
+ Admin service return it. The location parameter is ignored in this case
+ though it is still used for a security check.
+
+ </para>
+         <para>
+ Else, return a new <code>Configuration</code> object. This new object is bound
+ to the location and the properties are set to <code>null</code>. If the
+ location parameter is <code>null</code>, it will be set when a Managed Service
+ with the corresponding PID is registered for the first time. If the
+ location starts with <code>?</code> then the configuration is bound to all
+ targets that are registered with the corresponding PID.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An existing or new <code>Configuration</code> object.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IOException</code>– if access to persistent storage fails.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– when the require permissions are not available</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Security</title>
+            <para>
+               <code>ConfigurationPermission[*,CONFIGURE]]
+          </code>–  if location is            <code>null</code> or if the returned configuration <code>c</code> already            exists and c.location is <code>null</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title/>
+            <para>
+               <code>ConfigurationPermission[location,CONFIGURE]]
+          </code>–  if location is not            <code>null</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title/>
+            <para>
+               <code>ConfigurationPermission[c.location,CONFIGURE]]
+          </code>–  if the returned            configuration <code>c</code> already exists and c.location is not            <code>null</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="getConfiguration(String)"
+               role="method"
+               xml:id="org.osgi.service.cm.ConfigurationAdmin.getConfiguration-String-">
+         <title>public Configuration getConfiguration(String pid) throws IOException</title>
+         <formalpara role="parameter">
+            <title>pid</title>
+            <para>persistent identifier.</para>
+         </formalpara>
+         <para role="description">
+Get an existing or new <code>Configuration</code> object from the persistent
+ store.
+
+ If the <code>Configuration</code> object for this PID does not exist, create a
+ new <code>Configuration</code> object for that PID, where properties are
+ <code>null</code>. Bind its location to the calling bundle's location.
+
+ </para>
+         <para>
+ Otherwise, if the location of the existing <code>Configuration</code> object
+ is <code>null</code>, set it to the calling bundle's location.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>an existing or new <code>Configuration</code> matching the PID.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IOException</code>– if access to persistent storage fails.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– when the required permission is not available</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Security</title>
+            <para>
+               <code>ConfigurationPermission[c.location,CONFIGURE]]
+          </code>–  If the            configuration <code>c</code> already exists and c.location is not            <code>null</code>
+            </para>
+         </formalpara>
+      </section>
+      <section xreflabel="getFactoryConfiguration(String,String,String)"
+               role="method"
+               xml:id="org.osgi.service.cm.ConfigurationAdmin.getFactoryConfiguration-String-String-String-">
+         <title>public Configuration getFactoryConfiguration(String factoryPid, String name, String location) throws IOException</title>
+         <formalpara role="parameter">
+            <title>factoryPid</title>
+            <para>PID of factory (not <code>null</code>).</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>name</title>
+            <para>A name for <code>Configuration</code> (not <code>null</code>).</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>location</title>
+            <para>The bundle location string, or <code>null</code>.</para>
+         </formalpara>
+         <para role="description">
+Get an existing or new <code>Configuration</code> object from the persistent
+ store. The PID for this <code>Configuration</code> object is generated from
+ the provided factory PID and the name by starting with the factory PID
+ appending a tilde (<code>'~'</code> \u007E), and then appending the name.
+ </para>
+         <para>
+ If a <code>Configuration</code> with this PID already exists in Configuration
+ Admin service return it. The location parameter is ignored in this case
+ though it is still used for a security check.
+ </para>
+         <para>
+ Else, return a new <code>Configuration</code> object. This new object is bound
+ to the location and the properties are set to <code>null</code>. If the
+ location parameter is <code>null</code>, it will be set when a Managed Service
+ with the corresponding PID is registered for the first time. If the
+ location starts with <code>?</code> then the configuration is bound to all
+ targets that are registered with the corresponding PID.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>An existing or new <code>Configuration</code> object.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IOException</code>– if access to persistent storage fails.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– when the require permissions are not available</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Security</title>
+            <para>
+               <code>ConfigurationPermission[*,CONFIGURE]]
+          </code>–  if location is            <code>null</code> or if the returned configuration <code>c</code> already            exists and c.location is <code>null</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title/>
+            <para>
+               <code>ConfigurationPermission[location,CONFIGURE]]
+          </code>–  if location is not            <code>null</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title/>
+            <para>
+               <code>ConfigurationPermission[c.location,CONFIGURE]]
+          </code>–  if the returned            configuration <code>c</code> already exists and c.location is not            <code>null</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.6</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getFactoryConfiguration(String,String)"
+               role="method"
+               xml:id="org.osgi.service.cm.ConfigurationAdmin.getFactoryConfiguration-String-String-">
+         <title>public Configuration getFactoryConfiguration(String factoryPid, String name) throws IOException</title>
+         <formalpara role="parameter">
+            <title>factoryPid</title>
+            <para>PID of factory (not <code>null</code>).</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>name</title>
+            <para>A name for <code>Configuration</code> (not <code>null</code>).</para>
+         </formalpara>
+         <para role="description">
+Get an existing or new <code>Configuration</code> object from the persistent
+ store. The PID for this <code>Configuration</code> object is generated from
+ the provided factory PID and the name by starting with the factory PID
+ appending a tilde (<code>'~'</code> \u007E), and then appending the name.
+ </para>
+         <para>
+ If a <code>Configuration</code> object for this PID does not exist, create a
+ new <code>Configuration</code> object for that PID, where properties are
+ <code>null</code>. Bind its location to the calling bundle's location.
+ </para>
+         <para>
+ Otherwise, if the location of the existing <code>Configuration</code> object
+ is <code>null</code>, set it to the calling bundle's location.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>an existing or new <code>Configuration</code> matching the PID.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IOException</code>– if access to persistent storage fails.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>SecurityException</code>– when the required permission is not available</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Security</title>
+            <para>
+               <code>ConfigurationPermission[c.location,CONFIGURE]]
+          </code>–  If the            configuration <code>c</code> already exists and c.location is not            <code>null</code>
+            </para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.6</para>
+         </formalpara>
+      </section>
+      <section xreflabel="listConfigurations(String)"
+               role="method"
+               xml:id="org.osgi.service.cm.ConfigurationAdmin.listConfigurations-String-">
+         <title>public Configuration[] listConfigurations(String filter) throws IOException, InvalidSyntaxException</title>
+         <formalpara role="parameter">
+            <title>filter</title>
+            <para>A filter string, or <code>null</code> to retrieve all
+        <code>Configuration</code> objects.</para>
+         </formalpara>
+         <para role="description">
+List the current <code>Configuration</code> objects which match the filter.
+
+ </para>
+         <para>
+ Only <code>Configuration</code> objects with non- <code>null</code> properties are
+ considered current. That is, <code>Configuration.getProperties()</code> is
+ guaranteed not to return <code>null</code> for each of the returned
+ <code>Configuration</code> objects.
+
+ </para>
+         <para>
+ When there is no security on then all configurations can be returned. If
+ security is on, the caller must have
+ ConfigurationPermission[location,CONFIGURE].
+
+ </para>
+         <para>
+ The syntax of the filter string is as defined in the <link linkend="org.osgi.framework.Filter">Filter</link>
+ class. The filter can test any configuration properties including the
+ following:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>
+                  <code>service.pid</code> - the persistent identity</para>
+            </listitem>
+            <listitem>
+               <para>
+                  <code>service.factoryPid</code> - the factory PID, if applicable</para>
+            </listitem>
+            <listitem>
+               <para>
+                  <code>service.bundleLocation</code> - the bundle location</para>
+            </listitem>
+         </itemizedlist>
+         <para>
+ The filter can also be <code>null</code>, meaning that all
+ <code>Configuration</code> objects should be returned.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>All matching <code>Configuration</code> objects, or <code>null</code> if
+         there aren't any.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IOException</code>– if access to persistent storage fails</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>InvalidSyntaxException</code>– if the filter string is invalid</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Security</title>
+            <para>
+               <code>ConfigurationPermission[c.location,CONFIGURE]]
+          </code>–  Only            configurations <code>c</code> are returned for which the caller has            this permission</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="ConfigurationConstants"
+            role="class"
+            xml:id="org.osgi.service.cm.ConfigurationConstants">
+      <title>public final class ConfigurationConstants</title>
+      <para>
+Defines standard constants for the Configuration Admin service.
+   </para>
+      <section xreflabel="CONFIGURATION_ADMIN_IMPLEMENTATION"
+               role="field"
+               xml:id="org.osgi.service.cm.ConfigurationConstants.CONFIGURATION_ADMIN_IMPLEMENTATION">
+         <title>public static final String CONFIGURATION_ADMIN_IMPLEMENTATION = "osgi.cm"</title>
+         <para>
+The name of the implementation capability for the Configuration Admin
+ specification
+   </para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.6</para>
+         </formalpara>
+      </section>
+      <section xreflabel="CONFIGURATION_ADMIN_SPECIFICATION_VERSION"
+               role="field"
+               xml:id="org.osgi.service.cm.ConfigurationConstants.CONFIGURATION_ADMIN_SPECIFICATION_VERSION">
+         <title>public static final String CONFIGURATION_ADMIN_SPECIFICATION_VERSION = "1.6"</title>
+         <para>
+The version of the implementation capability for the Configuration Admin
+ specification
+   </para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.6</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="ConfigurationEvent"
+            role="class"
+            xml:id="org.osgi.service.cm.ConfigurationEvent">
+      <title>public class ConfigurationEvent</title>
+      <para>
+A Configuration Event.
+ </para>
+      <para>
+         <code>ConfigurationEvent</code> objects are delivered to all registered
+ <code>ConfigurationListener</code> service objects. ConfigurationEvents must be
+ delivered in chronological order with respect to each listener.
+ </para>
+      <para>
+ A type code is used to identify the type of event. The following event types
+ are defined:
+ </para>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cm.ConfigurationEvent.CM_UPDATED">CM_UPDATED</link>
+            </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cm.ConfigurationEvent.CM_DELETED">CM_DELETED</link>
+            </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.cm.ConfigurationEvent.CM_LOCATION_CHANGED">CM_LOCATION_CHANGED</link>
+            </para>
+         </listitem>
+      </itemizedlist>
+      <para>
+ Additional event types may be defined in the future.
+ </para>
+      <para>
+ Security Considerations. <code>ConfigurationEvent</code> objects do not provide
+ <code>Configuration</code> objects, so no sensitive configuration information is
+ available from the event. If the listener wants to locate the
+ <code>Configuration</code> object for the specified pid, it must use
+ <code>ConfigurationAdmin</code>.</para>
+      <formalpara role="parameter">
+         <title>See Also</title>
+         <para>
+            <link linkend="org.osgi.service.cm.ConfigurationListener">ConfigurationListener</link>
+         </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.2</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Immutable </para>
+      </formalpara>
+      <section xreflabel="CM_DELETED"
+               role="field"
+               xml:id="org.osgi.service.cm.ConfigurationEvent.CM_DELETED">
+         <title>public static final int CM_DELETED = 2</title>
+         <para>
+A <code>Configuration</code> has been deleted.
+
+ </para>
+         <para>
+ This <code>ConfigurationEvent</code> type that indicates that a
+ <code>Configuration</code> object has been deleted.
+
+ An event is fired when a call to <link linkend="org.osgi.service.cm.Configuration.delete--">Configuration.delete()</link>
+ successfully deletes a configuration.</para>
+      </section>
+      <section xreflabel="CM_LOCATION_CHANGED"
+               role="field"
+               xml:id="org.osgi.service.cm.ConfigurationEvent.CM_LOCATION_CHANGED">
+         <title>public static final int CM_LOCATION_CHANGED = 3</title>
+         <para>
+The location of a <code>Configuration</code> has been changed.
+
+ </para>
+         <para>
+ This <code>ConfigurationEvent</code> type that indicates that the location of
+ a <code>Configuration</code> object has been changed.
+
+ An event is fired when a call to
+ <link linkend="org.osgi.service.cm.Configuration.setBundleLocation-String-">Configuration.setBundleLocation(String)</link> successfully changes the
+ location.</para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.4</para>
+         </formalpara>
+      </section>
+      <section xreflabel="CM_UPDATED"
+               role="field"
+               xml:id="org.osgi.service.cm.ConfigurationEvent.CM_UPDATED">
+         <title>public static final int CM_UPDATED = 1</title>
+         <para>
+A <code>Configuration</code> has been updated.
+
+ </para>
+         <para>
+ This <code>ConfigurationEvent</code> type that indicates that a
+ <code>Configuration</code> object has been updated with new properties.
+
+ An event is fired when a call to <link linkend="org.osgi.service.cm.Configuration.update-Dictionary-">Configuration.update(Dictionary)</link>
+ successfully changes a configuration.</para>
+      </section>
+      <section xreflabel="ConfigurationEvent(ServiceReference,int,String,String)"
+               role="method"
+               xml:id="org.osgi.service.cm.ConfigurationEvent.ConfigurationEvent-ServiceReference-int-String-String-">
+         <title>public  ConfigurationEvent(ServiceReference&lt;ConfigurationAdmin&gt; reference, int type, String factoryPid, String pid)</title>
+         <formalpara role="parameter">
+            <title>reference</title>
+            <para>The <code>ServiceReference</code> object of the Configuration
+        Admin service that created this event.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>type</title>
+            <para>The event type. See <link linkend="org.osgi.service.cm.ConfigurationEvent.getType--">getType()</link>.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>factoryPid</title>
+            <para>The factory pid of the associated configuration if the
+        target of the configuration is a ManagedServiceFactory. Otherwise
+        <code>null</code> if the target of the configuration is a
+        ManagedService.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>pid</title>
+            <para>The pid of the associated configuration.</para>
+         </formalpara>
+         <para role="description">
+Constructs a <code>ConfigurationEvent</code> object from the given
+ <code>ServiceReference</code> object, event type, and pids.
+   </para>
+      </section>
+      <section xreflabel="getFactoryPid()"
+               role="method"
+               xml:id="org.osgi.service.cm.ConfigurationEvent.getFactoryPid--">
+         <title>public String getFactoryPid()</title>
+         <para role="description">
+Returns the factory pid of the associated configuration.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>Returns the factory pid of the associated configuration if the
+         target of the configuration is a ManagedServiceFactory. Otherwise
+         <code>null</code> if the target of the configuration is a
+         ManagedService.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getPid()"
+               role="method"
+               xml:id="org.osgi.service.cm.ConfigurationEvent.getPid--">
+         <title>public String getPid()</title>
+         <para role="description">
+Returns the pid of the associated configuration.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>Returns the pid of the associated configuration.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getReference()"
+               role="method"
+               xml:id="org.osgi.service.cm.ConfigurationEvent.getReference--">
+         <title>public ServiceReference&lt;ConfigurationAdmin&gt; getReference()</title>
+         <para role="description">
+Return the <code>ServiceReference</code> object of the Configuration Admin
+ service that created this event.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The <code>ServiceReference</code> object for the Configuration Admin
+         service that created this event.</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getType()"
+               role="method"
+               xml:id="org.osgi.service.cm.ConfigurationEvent.getType--">
+         <title>public int getType()</title>
+         <para role="description">
+Return the type of this event.
+ </para>
+         <para>
+ The type values are:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>
+                  <link linkend="org.osgi.service.cm.ConfigurationEvent.CM_UPDATED">CM_UPDATED</link>
+               </para>
+            </listitem>
+            <listitem>
+               <para>
+                  <link linkend="org.osgi.service.cm.ConfigurationEvent.CM_DELETED">CM_DELETED</link>
+               </para>
+            </listitem>
+            <listitem>
+               <para>
+                  <link linkend="org.osgi.service.cm.ConfigurationEvent.CM_LOCATION_CHANGED">CM_LOCATION_CHANGED</link>
+               </para>
+            </listitem>
+         </itemizedlist>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The type of this event.</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="ConfigurationException"
+            role="class"
+            xml:id="org.osgi.service.cm.ConfigurationException">
+      <title>public class ConfigurationException<?line-break?> extends Exception</title>
+      <para>
+An <code>Exception</code> class to inform the Configuration Admin service of
+ problems with configuration data.
+   </para>
+      <section xreflabel="ConfigurationException(String,String)"
+               role="method"
+               xml:id="org.osgi.service.cm.ConfigurationException.ConfigurationException-String-String-">
+         <title>public  ConfigurationException(String property, String reason)</title>
+         <formalpara role="parameter">
+            <title>property</title>
+            <para>name of the property that caused the problem,
+        <code>null</code> if no specific property was the cause</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>reason</title>
+            <para>reason for failure</para>
+         </formalpara>
+         <para role="description">
+Create a <code>ConfigurationException</code> object.
+   </para>
+      </section>
+      <section xreflabel="ConfigurationException(String,String,Throwable)"
+               role="method"
+               xml:id="org.osgi.service.cm.ConfigurationException.ConfigurationException-String-String-Throwable-">
+         <title>public  ConfigurationException(String property, String reason, Throwable cause)</title>
+         <formalpara role="parameter">
+            <title>property</title>
+            <para>name of the property that caused the problem,
+        <code>null</code> if no specific property was the cause</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>reason</title>
+            <para>reason for failure</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>cause</title>
+            <para>The cause of this exception.</para>
+         </formalpara>
+         <para role="description">
+Create a <code>ConfigurationException</code> object.
+   </para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.2</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getCause()"
+               role="method"
+               xml:id="org.osgi.service.cm.ConfigurationException.getCause--">
+         <title>public Throwable getCause()</title>
+         <para role="description">
+Returns the cause of this exception or <code>null</code> if no cause was set.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>The cause of this exception or <code>null</code> if no cause was set.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.2</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getProperty()"
+               role="method"
+               xml:id="org.osgi.service.cm.ConfigurationException.getProperty--">
+         <title>public String getProperty()</title>
+         <para role="description">
+Return the property name that caused the failure or null.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>name of property or null if no specific property caused the
+         problem</para>
+         </formalpara>
+      </section>
+      <section xreflabel="getReason()"
+               role="method"
+               xml:id="org.osgi.service.cm.ConfigurationException.getReason--">
+         <title>public String getReason()</title>
+         <para role="description">
+Return the reason for this exception.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>reason of the failure</para>
+         </formalpara>
+      </section>
+      <section xreflabel="initCause(Throwable)"
+               role="method"
+               xml:id="org.osgi.service.cm.ConfigurationException.initCause-Throwable-">
+         <title>public Throwable initCause(Throwable cause)</title>
+         <formalpara role="parameter">
+            <title>cause</title>
+            <para>The cause of this exception.</para>
+         </formalpara>
+         <para role="description">
+Initializes the cause of this exception to the specified value.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>This exception.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalArgumentException</code>– If the specified cause is this
+         exception.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>IllegalStateException</code>– If the cause of this exception has already
+         been set.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.2</para>
+         </formalpara>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="ConfigurationListener"
+            role="class"
+            xml:id="org.osgi.service.cm.ConfigurationListener">
+      <title>public interface ConfigurationListener</title>
+      <para>
+Listener for Configuration Events. When a <code>ConfigurationEvent</code> is
+ fired, it is asynchronously delivered to all <code>ConfigurationListener</code>s.
+ </para>
+      <para>
+         <code>ConfigurationListener</code> objects are registered with the Framework
+ service registry and are notified with a <code>ConfigurationEvent</code> object
+ when an event is fired.
+ </para>
+      <para>
+         <code>ConfigurationListener</code> objects can inspect the received
+ <code>ConfigurationEvent</code> object to determine its type, the pid of the
+ <code>Configuration</code> object with which it is associated, and the
+ Configuration Admin service that fired the event.
+ </para>
+      <para>
+ Security Considerations. Bundles wishing to monitor configuration events will
+ require <code>ServicePermission[ConfigurationListener,REGISTER]</code> to register
+ a <code>ConfigurationListener</code> service.</para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.2</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="configurationEvent(ConfigurationEvent)"
+               role="method"
+               xml:id="org.osgi.service.cm.ConfigurationListener.configurationEvent-ConfigurationEvent-">
+         <title>public void configurationEvent(ConfigurationEvent event)</title>
+         <formalpara role="parameter">
+            <title>event</title>
+            <para>The <code>ConfigurationEvent</code>.</para>
+         </formalpara>
+         <para role="description">
+Receives notification of a Configuration that has changed.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="ConfigurationPermission"
+            role="class"
+            xml:id="org.osgi.service.cm.ConfigurationPermission">
+      <title>public final class ConfigurationPermission<?line-break?> extends BasicPermission</title>
+      <para>
+Indicates a bundle's authority to configure bundles or be updated by
+ Configuration Admin.
+   </para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.2</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="ATTRIBUTE"
+               role="field"
+               xml:id="org.osgi.service.cm.ConfigurationPermission.ATTRIBUTE">
+         <title>public static final String ATTRIBUTE = "attribute"</title>
+         <para>
+Provides permission to set or remove an attribute on the configuration.
+ The action string "attribute".
+   </para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.6</para>
+         </formalpara>
+      </section>
+      <section xreflabel="CONFIGURE"
+               role="field"
+               xml:id="org.osgi.service.cm.ConfigurationPermission.CONFIGURE">
+         <title>public static final String CONFIGURE = "configure"</title>
+         <para>
+Provides permission to create new configurations for other bundles as
+ well as manipulate them. The action string "configure".
+   </para>
+      </section>
+      <section xreflabel="TARGET"
+               role="field"
+               xml:id="org.osgi.service.cm.ConfigurationPermission.TARGET">
+         <title>public static final String TARGET = "target"</title>
+         <para>
+The permission to be updated, that is, act as a Managed Service or
+ Managed Service Factory. The action string "target".
+   </para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.4</para>
+         </formalpara>
+      </section>
+      <section xreflabel="ConfigurationPermission(String,String)"
+               role="method"
+               xml:id="org.osgi.service.cm.ConfigurationPermission.ConfigurationPermission-String-String-">
+         <title>public  ConfigurationPermission(String name, String actions)</title>
+         <formalpara role="parameter">
+            <title>name</title>
+            <para>Name of the permission. Wildcards (<code>'*'</code>) are allowed
+            in the name. During <link linkend="org.osgi.service.cm.ConfigurationPermission.implies-Permission-">implies(Permission)</link>, the name is
+            matched to the requested permission using the substring
+            matching rules used by <link linkend="org.osgi.framework.Filter">Filter</link>s.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>actions</title>
+            <para>Comma separated list of <link linkend="org.osgi.service.cm.ConfigurationPermission.CONFIGURE">CONFIGURE</link>,
+            <link linkend="org.osgi.service.cm.ConfigurationPermission.TARGET">TARGET</link>, <link linkend="org.osgi.service.cm.ConfigurationPermission.ATTRIBUTE">ATTRIBUTE</link> (case insensitive).</para>
+         </formalpara>
+         <para role="description">
+Create a new ConfigurationPermission.
+   </para>
+      </section>
+      <section xreflabel="equals(Object)"
+               role="method"
+               xml:id="org.osgi.service.cm.ConfigurationPermission.equals-Object-">
+         <title>public boolean equals(Object obj)</title>
+         <formalpara role="parameter">
+            <title>obj</title>
+            <para>The object being compared for equality with this object.</para>
+         </formalpara>
+         <para role="description">
+Determines the equality of two <code>ConfigurationPermission</code> objects.
+ </para>
+         <para>
+ Two <code>ConfigurationPermission</code> objects are equal.</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>true</code> if <code>obj</code> is equivalent to this
+         <code>ConfigurationPermission</code>; <code>false</code> otherwise.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="getActions()"
+               role="method"
+               xml:id="org.osgi.service.cm.ConfigurationPermission.getActions--">
+         <title>public String getActions()</title>
+         <para role="description">
+Returns the canonical string representation of the
+ <code>ConfigurationPermission</code> actions.
+ </para>
+         <para>
+ Always returns present <code>ConfigurationPermission</code> actions in the
+ following order: "configure", "target",
+ "attribute".</para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>Canonical string representation of the
+         <code>ConfigurationPermission</code> actions.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="hashCode()"
+               role="method"
+               xml:id="org.osgi.service.cm.ConfigurationPermission.hashCode--">
+         <title>public int hashCode()</title>
+         <para role="description">
+Returns the hash code value for this object.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>Hash code value for this object.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="implies(Permission)"
+               role="method"
+               xml:id="org.osgi.service.cm.ConfigurationPermission.implies-Permission-">
+         <title>public boolean implies(Permission p)</title>
+         <formalpara role="parameter">
+            <title>p</title>
+            <para>The target permission to check.</para>
+         </formalpara>
+         <para role="description">
+Determines if a <code>ConfigurationPermission</code> object "implies" the
+ specified permission.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>
+               <code>true</code> if the specified permission is implied by this
+         object; <code>false</code> otherwise.</para>
+         </formalpara>
+         <para/>
+      </section>
+      <section xreflabel="newPermissionCollection()"
+               role="method"
+               xml:id="org.osgi.service.cm.ConfigurationPermission.newPermissionCollection--">
+         <title>public PermissionCollection newPermissionCollection()</title>
+         <para role="description">
+Returns a new <code>PermissionCollection</code> object suitable for storing
+ <code>ConfigurationPermission</code>s.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A new <code>PermissionCollection</code> object.</para>
+         </formalpara>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="ConfigurationPlugin"
+            role="class"
+            xml:id="org.osgi.service.cm.ConfigurationPlugin">
+      <title>public interface ConfigurationPlugin</title>
+      <para>
+A service interface for processing configuration dictionary before the
+ update.
+ </para>
+      <para>
+ A bundle registers a <code>ConfigurationPlugin</code> object in order to process
+ configuration updates before they reach the Managed Service or Managed
+ Service Factory. The Configuration Admin service will detect registrations of
+ Configuration Plugin services and must call these services every time before
+ it calls the <code>ManagedService</code> or <code>ManagedServiceFactory</code>
+         <code>updated</code> method. The Configuration Plugin service thus has the
+ opportunity to view and modify the properties before they are passed to the
+ Managed Service or Managed Service Factory.
+ </para>
+      <para>
+ Configuration Plugin (plugin) services have full read/write access to all
+ configuration information that passes through them.
+ </para>
+      <para>
+ The <code>Integer</code>
+         <code>service.cmRanking</code> registration property may be
+ specified. Not specifying this registration property, or setting it to
+ something other than an <code>Integer</code>, is the same as setting it to the
+ <code>Integer</code> zero. The <code>service.cmRanking</code> property determines the
+ order in which plugins are invoked. Lower ranked plugins are called before
+ higher ranked ones. In the event of more than one plugin having the same
+ value of <code>service.cmRanking</code>, then the Configuration Admin service
+ arbitrarily chooses the order in which they are called.
+ </para>
+      <para>
+ By convention, plugins with <code>service.cmRanking &lt; 0</code> or
+ <code>service.cmRanking &gt; 1000</code> should not make modifications to the
+ properties. Any modifications made by such plugins must be ignored.
+ </para>
+      <para>
+ The Configuration Admin service has the right to hide properties from
+ plugins, or to ignore some or all the changes that they make. This might be
+ done for security reasons. Any such behavior is entirely implementation
+ defined.
+ </para>
+      <para>
+ A plugin may optionally specify a <code>cm.target</code> registration property
+ whose value is the PID of the Managed Service or Managed Service Factory
+ whose configuration updates the plugin is intended to intercept. The plugin
+ will then only be called with configuration updates that are targeted at the
+ Managed Service or Managed Service Factory with the specified PID. Omitting
+ the <code>cm.target</code> registration property means that the plugin is called
+ for all configuration updates.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="CM_RANKING"
+               role="field"
+               xml:id="org.osgi.service.cm.ConfigurationPlugin.CM_RANKING">
+         <title>public static final String CM_RANKING = "service.cmRanking"</title>
+         <para>
+A service property to specify the order in which plugins are invoked.
+
+ This property contains an <code>Integer</code> ranking of the plugin. Not
+ specifying this registration property, or setting it to something other
+ than an <code>Integer</code>, is the same as setting it to the <code>Integer</code>
+ zero. This property determines the order in which plugins are invoked.
+ Lower ranked plugins are called before higher ranked ones.
+   </para>
+         <formalpara role="parameter">
+            <title>Since</title>
+            <para>1.2</para>
+         </formalpara>
+      </section>
+      <section xreflabel="CM_TARGET"
+               role="field"
+               xml:id="org.osgi.service.cm.ConfigurationPlugin.CM_TARGET">
+         <title>public static final String CM_TARGET = "cm.target"</title>
+         <para>
+A service property to limit the Managed Service or Managed Service
+ Factory configuration dictionaries a Configuration Plugin service
+ receives.
+
+ This property contains a <code>String[]</code> of PIDs. A Configuration Admin
+ service must call a Configuration Plugin service only when this property
+ is not set, or the target service's PID is listed in this property.
+   </para>
+      </section>
+      <section xreflabel="modifyConfiguration(ServiceReference,Dictionary)"
+               role="method"
+               xml:id="org.osgi.service.cm.ConfigurationPlugin.modifyConfiguration-ServiceReference-Dictionary-">
+         <title>public void modifyConfiguration(ServiceReference&lt;?&gt; reference, Dictionary&lt;String, Object&gt; properties)</title>
+         <formalpara role="parameter">
+            <title>reference</title>
+            <para>reference to the Managed Service or Managed Service
+        Factory</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>properties</title>
+            <para>The configuration properties. This argument must not
+        contain the "service.bundleLocation" property. The value of this
+        property may be obtained from the
+        <code>Configuration.getBundleLocation</code> method.</para>
+         </formalpara>
+         <para role="description">
+View and possibly modify the a set of configuration properties before
+ they are sent to the Managed Service or the Managed Service Factory. The
+ Configuration Plugin services are called in increasing order of their
+ <code>service.cmRanking</code> property. If this property is undefined or is a
+ non- <code>Integer</code> type, 0 is used.
+
+ </para>
+         <para>
+ This method should not modify the properties unless the
+ <code>service.cmRanking</code> of this plugin is in the range
+ <code>0 &lt;= service.cmRanking &lt;= 1000</code>. Any modification 
+ from this plugin is ignored.
+ </para>
+         <para>
+ If this method throws any <code>Exception</code>, the Configuration Admin
+ service must catch it and should log it. Any modifications made by the
+ plugin before the exception is thrown are applied.
+
+ </para>
+         <para>
+ A Configuration Plugin will only be called for properties from
+ configurations that have a location for which the Configuration Plugin
+ has permission when security is active. When security is not active, no
+ filtering is done.</para>
+      </section>
+   </section>
+   <section xreflabel="ManagedService"
+            role="class"
+            xml:id="org.osgi.service.cm.ManagedService">
+      <title>public interface ManagedService</title>
+      <para>
+A service that can receive configuration data from a Configuration Admin
+ service.
+ </para>
+      <para>
+ A Managed Service is a service that needs configuration data. Such an object
+ should be registered with the Framework registry with the <code>service.pid</code>
+ property set to some unique identifier called a PID.
+ </para>
+      <para>
+ If the Configuration Admin service has a <code>Configuration</code> object
+ corresponding to this PID, it will callback the <code>updated()</code> method of
+ the <code>ManagedService</code> object, passing the properties of that
+ <code>Configuration</code> object.
+ </para>
+      <para>
+ If it has no such <code>Configuration</code> object, then it calls back with a
+ <code>null</code> properties argument. Registering a Managed Service will always
+ result in a callback to the <code>updated()</code> method provided the
+ Configuration Admin service is, or becomes active. This callback must always
+ be done asynchronously.
+ </para>
+      <para>
+ Else, every time that either of the <code>updated()</code> methods is called on
+ that <code>Configuration</code> object, the <code>ManagedService.updated()</code>
+ method with the new properties is called. If the <code>delete()</code> method is
+ called on that <code>Configuration</code> object, <code>ManagedService.updated()</code>
+ is called with a <code>null</code> for the properties parameter. All these
+ callbacks must be done asynchronously.
+ </para>
+      <para>
+ The following example shows the code of a serial port that will create a port
+ depending on configuration information.
+
+ </para>
+      <programlisting>   class SerialPort implements ManagedService {
+
+     ServiceRegistration registration;
+     Hashtable configuration;
+     CommPortIdentifier id;
+
+     synchronized void open(CommPortIdentifier id,
+     BundleContext context) {
+       this.id = id;
+       registration = context.registerService(
+         ManagedService.class.getName(),
+         this,
+         getDefaults()
+       );
+     }
+
+     Hashtable getDefaults() {
+       Hashtable defaults = new Hashtable();
+       defaults.put( "port", id.getName() );
+       defaults.put( "product", "unknown" );
+       defaults.put( "baud", "9600" );
+       defaults.put( Constants.SERVICE_PID,
+         "com.acme.serialport." + id.getName() );
+       return defaults;
+     }
+
+     public synchronized void updated(
+       Dictionary configuration  ) {
+       if ( configuration == null )
+         registration.setProperties( getDefaults() );
+       else {
+         setSpeed( configuration.get("baud") );
+         registration.setProperties( configuration );
+       }
+     }
+     ...
+   }</programlisting>
+      <para>
+ As a convention, it is recommended that when a Managed Service is updated, it
+ should copy all the properties it does not recognize into the service
+ registration properties. This will allow the Configuration Admin service to
+ set properties on services which can then be used by other applications.
+ </para>
+      <para>
+ Normally, a single Managed Service for a given PID is given the configuration
+ dictionary, this is the configuration that is bound to the location of the
+ registering bundle. However, when security is on, a Managed Service can have
+ Configuration Permission to also be updated for other locations.
+ </para>
+      <para>
+ If a Managed Service is registered without the <code>service.pid</code> property,
+ it will be ignored.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="updated(Dictionary)"
+               role="method"
+               xml:id="org.osgi.service.cm.ManagedService.updated-Dictionary-">
+         <title>public void updated(Dictionary&lt;String, ?&gt; properties) throws ConfigurationException</title>
+         <formalpara role="parameter">
+            <title>properties</title>
+            <para>A copy of the Configuration properties, or <code>null</code>
+        . This argument must not contain the "service.bundleLocation"
+        property. The value of this property may be obtained from the
+        <code>Configuration.getBundleLocation</code> method.</para>
+         </formalpara>
+         <para role="description">
+Update the configuration for a Managed Service.
+
+ </para>
+         <para>
+ When the implementation of <code>updated(Dictionary)</code> detects any kind
+ of error in the configuration properties, it should create a new
+ <code>ConfigurationException</code> which describes the problem. This can
+ allow a management system to provide useful information to a human
+ administrator.
+
+ </para>
+         <para>
+ If this method throws any other <code>Exception</code>, the Configuration
+ Admin service must catch it and should log it.
+ </para>
+         <para>
+ The Configuration Admin service must call this method asynchronously with
+ the method that initiated the callback. This implies that implementors of
+ Managed Service can be assured that the callback will not take place
+ during registration when they execute the registration in a synchronized
+ method.
+
+ </para>
+         <para>
+ If the location allows multiple managed services to be called back for a
+ single configuration then the callbacks must occur in service ranking
+ order. Changes in the location must be reflected by deleting the
+ configuration if the configuration is no longer visible and updating when
+ it becomes visible.
+
+ </para>
+         <para>
+ If no configuration exists for the corresponding PID, or the bundle has
+ no access to the configuration, then the bundle must be called back with
+ a <code>null</code> to signal that CM is active but there is no data.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>ConfigurationException</code>– when the update fails</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Security</title>
+            <para>
+               <code>ConfigurationPermission[c.location,TARGET]]
+          </code>–  Required by the            bundle that registered this service</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="ManagedServiceFactory"
+            role="class"
+            xml:id="org.osgi.service.cm.ManagedServiceFactory">
+      <title>public interface ManagedServiceFactory</title>
+      <para>
+Manage multiple service instances. Bundles registering this interface are
+ giving the Configuration Admin service the ability to create and configure a
+ number of instances of a service that the implementing bundle can provide.
+ For example, a bundle implementing a DHCP server could be instantiated
+ multiple times for different interfaces using a factory.
+ </para>
+      <para>
+ Each of these <emphasis>service instances </emphasis> is represented, in the persistent
+ storage of the Configuration Admin service, by a factory
+ <code>Configuration</code> object that has a PID. When such a
+ <code>Configuration</code> is updated, the Configuration Admin service calls the
+ <code>ManagedServiceFactory</code> updated method with the new properties. When
+ <code>updated</code> is called with a new PID, the Managed Service Factory should
+ create a new factory instance based on these configuration properties. When
+ called with a PID that it has seen before, it should update that existing
+ service instance with the new configuration information.
+ </para>
+      <para>
+ In general it is expected that the implementation of this interface will
+ maintain a data structure that maps PIDs to the factory instances that it has
+ created. The semantics of a factory instance are defined by the Managed
+ Service Factory. However, if the factory instance is registered as a service
+ object with the service registry, its PID should match the PID of the
+ corresponding <code>Configuration</code> object (but it should <emphasis role="strong">not </emphasis> be
+ registered as a Managed Service!).
+ </para>
+      <para>
+ An example that demonstrates the use of a factory. It will create serial
+ ports under command of the Configuration Admin service.
+
+ </para>
+      <programlisting>   class SerialPortFactory
+     implements ManagedServiceFactory {
+     ServiceRegistration registration;
+     Hashtable ports;
+     void start(BundleContext context) {
+       Hashtable properties = new Hashtable();
+       properties.put( Constants.SERVICE_PID,
+         "com.acme.serialportfactory" );
+       registration = context.registerService(
+         ManagedServiceFactory.class.getName(),
+         this,
+         properties
+       );
+     }
+     public void updated( String pid,
+       Dictionary properties  ) {
+       String portName = (String) properties.get("port");
+       SerialPortService port =
+         (SerialPort) ports.get( pid );
+       if ( port == null ) {
+         port = new SerialPortService();
+         ports.put( pid, port );
+         port.open();
+       }
+       if ( port.getPortName().equals(portName) )
+         return;
+       port.setPortName( portName );
+     }
+     public void deleted( String pid ) {
+       SerialPortService port =
+         (SerialPort) ports.get( pid );
+       port.close();
+       ports.remove( pid );
+     }
+     ...
+   }</programlisting>
+      <para>
+ If a <code>ManagedServiceFactory</code> is registered without the <code>service.pid</code> 
+ property, it will be ignored.</para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <section xreflabel="deleted(String)"
+               role="method"
+               xml:id="org.osgi.service.cm.ManagedServiceFactory.deleted-String-">
+         <title>public void deleted(String pid)</title>
+         <formalpara role="parameter">
+            <title>pid</title>
+            <para>the PID of the service to be removed</para>
+         </formalpara>
+         <para role="description">
+Remove a factory instance.
+
+ Remove the factory instance associated with the PID. If the instance was
+ registered with the service registry, it should be unregistered. The
+ Configuration Admin must call deleted for each instance it received in
+ <link linkend="org.osgi.service.cm.ManagedServiceFactory.updated-String-Dictionary-">updated(String, Dictionary)</link>.
+
+ </para>
+         <para>
+ If this method throws any <code>Exception</code>, the Configuration Admin
+ service must catch it and should log it.
+ </para>
+         <para>
+ The Configuration Admin service must call this method asynchronously.</para>
+      </section>
+      <section xreflabel="getName()"
+               role="method"
+               xml:id="org.osgi.service.cm.ManagedServiceFactory.getName--">
+         <title>public String getName()</title>
+         <para role="description">
+Return a descriptive name of this factory.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>the name for the factory, which might be localized</para>
+         </formalpara>
+      </section>
+      <section xreflabel="updated(String,Dictionary)"
+               role="method"
+               xml:id="org.osgi.service.cm.ManagedServiceFactory.updated-String-Dictionary-">
+         <title>public void updated(String pid, Dictionary&lt;String, ?&gt; properties) throws ConfigurationException</title>
+         <formalpara role="parameter">
+            <title>pid</title>
+            <para>The PID for this configuration.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>properties</title>
+            <para>A copy of the configuration properties. This argument
+        must not contain the service.bundleLocation" property. The value
+        of this property may be obtained from the
+        <code>Configuration.getBundleLocation</code> method.</para>
+         </formalpara>
+         <para role="description">
+Create a new instance, or update the configuration of an existing
+ instance.
+
+ If the PID of the <code>Configuration</code> object is new for the Managed
+ Service Factory, then create a new factory instance, using the
+ configuration <code>properties</code> provided. Else, update the service
+ instance with the provided <code>properties</code>.
+
+ </para>
+         <para>
+ If the factory instance is registered with the Framework, then the
+ configuration <code>properties</code> should be copied to its registry
+ properties. This is not mandatory and security sensitive properties
+ should obviously not be copied.
+
+ </para>
+         <para>
+ If this method throws any <code>Exception</code>, the Configuration Admin
+ service must catch it and should log it.
+
+ </para>
+         <para>
+ When the implementation of updated detects any kind of error in the
+ configuration properties, it should create a new
+ <link linkend="org.osgi.service.cm.ConfigurationException">ConfigurationException</link> which describes the problem.
+
+ </para>
+         <para>
+ The Configuration Admin service must call this method asynchronously.
+ This implies that implementors of the <code>ManagedServiceFactory</code> class
+ can be assured that the callback will not take place during registration
+ when they execute the registration in a synchronized method.
+
+ </para>
+         <para>
+ If the security allows multiple managed service factories to be called
+ back for a single configuration then the callbacks must occur in service
+ ranking order.
+
+ </para>
+         <para>
+ It is valid to create multiple factory instances that are bound to
+ different locations. Managed Service Factory services must only be
+ updated with configurations that are bound to their location or that
+ start with the <code>?</code> prefix and for which they have permission.
+ Changes in the location must be reflected by deleting the corresponding
+ configuration if the configuration is no longer visible or updating when
+ it becomes visible.</para>
+         <formalpara role="parameter">
+            <title>Throws</title>
+            <para>
+               <code>ConfigurationException</code>– when the configuration properties are
+         invalid.</para>
+         </formalpara>
+         <formalpara role="parameter">
+            <title>Security</title>
+            <para>
+               <code>ConfigurationPermission[c.location,TARGET]]
+          </code>–  Required by the            bundle that registered this service</para>
+         </formalpara>
+      </section>
+   </section>
+   <section xreflabel="ReadOnlyConfigurationException"
+            role="class"
+            xml:id="org.osgi.service.cm.ReadOnlyConfigurationException">
+      <title>public class ReadOnlyConfigurationException<?line-break?> extends RuntimeException</title>
+      <para>
+An <code>Exception</code> class to inform the client of a <code>Configuration</code>
+ about the <link linkend="org.osgi.service.cm.Configuration.ConfigurationAttribute.READ_ONLY">read only</link> state of a
+ configuration object.
+   </para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.6</para>
+      </formalpara>
+      <section xreflabel="ReadOnlyConfigurationException(String)"
+               role="method"
+               xml:id="org.osgi.service.cm.ReadOnlyConfigurationException.ReadOnlyConfigurationException-String-">
+         <title>public  ReadOnlyConfigurationException(String reason)</title>
+         <formalpara role="parameter">
+            <title>reason</title>
+            <para>reason for failure</para>
+         </formalpara>
+         <para role="description">
+Create a <code>ReadOnlyConfigurationException</code> object.
+   </para>
+      </section>
+   </section>
+   <section xreflabel="SynchronousConfigurationListener"
+            role="class"
+            xml:id="org.osgi.service.cm.SynchronousConfigurationListener">
+      <title>public interface SynchronousConfigurationListener<?line-break?> extends ConfigurationListener</title>
+      <para>
+Synchronous Listener for Configuration Events. When a
+ <code>ConfigurationEvent</code> is fired, it is synchronously delivered to all
+ <code>SynchronousConfigurationListener</code>s.
+ </para>
+      <para>
+         <code>SynchronousConfigurationListener</code> objects are registered with the
+ Framework service registry and are synchronously notified with a
+ <code>ConfigurationEvent</code> object when an event is fired.
+ </para>
+      <para>
+         <code>SynchronousConfigurationListener</code> objects can inspect the received
+ <code>ConfigurationEvent</code> object to determine its type, the PID of the
+ <code>Configuration</code> object with which it is associated, and the
+ Configuration Admin service that fired the event.
+ </para>
+      <para>
+ Security Considerations. Bundles wishing to synchronously monitor
+ configuration events will require
+ <code>ServicePermission[SynchronousConfigurationListener,REGISTER]</code> to
+ register a <code>SynchronousConfigurationListener</code> service.</para>
+      <formalpara role="parameter">
+         <title>Since</title>
+         <para>1.5</para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+   </section>
+</section>

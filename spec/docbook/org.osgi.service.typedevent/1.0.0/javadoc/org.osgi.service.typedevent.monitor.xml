@@ -1,0 +1,163 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.typedevent.monitor"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.typedevent.monitor">
+   <title>org.osgi.service.typedevent.monitor</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.typedevent.monitor-version">Version 1.0</releaseinfo>
+      <edition xml:id="org.osgi.service.typedevent.monitor-version.number">1.0</edition>
+   </info>
+   <para>
+Typed Event Monitoring Package Version 1.0.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.typedevent.monitor; version="[1.0,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.typedevent.monitor; version="[1.0,1.1)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.typedevent.monitor.MonitorEvent">
+                  <code>MonitorEvent</code>
+               </link> - 
+A monitoring event.
+   </para>
+         </listitem>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.typedevent.monitor.TypedEventMonitor">
+                  <code>TypedEventMonitor</code>
+               </link> - 
+The EventMonitor service can be used to monitor the events that are sent
+ using the EventBus, and that are received from remote EventBus instances
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="MonitorEvent"
+            role="class"
+            xml:id="org.osgi.service.typedevent.monitor.MonitorEvent">
+      <title>public class MonitorEvent</title>
+      <para>
+A monitoring event.
+   </para>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="eventData"
+               role="field"
+               xml:id="org.osgi.service.typedevent.monitor.MonitorEvent.eventData">
+         <title>public Map&lt;String, Object&gt; eventData</title>
+         <para>
+The Data from the Event in Map form
+   </para>
+      </section>
+      <section xreflabel="publicationTime"
+               role="field"
+               xml:id="org.osgi.service.typedevent.monitor.MonitorEvent.publicationTime">
+         <title>public Instant publicationTime</title>
+         <para>
+The time at which the event was published
+   </para>
+      </section>
+      <section xreflabel="topic"
+               role="field"
+               xml:id="org.osgi.service.typedevent.monitor.MonitorEvent.topic">
+         <title>public String topic</title>
+         <para>
+The Event Topic
+   </para>
+      </section>
+      <section xreflabel="MonitorEvent()"
+               role="method"
+               xml:id="org.osgi.service.typedevent.monitor.MonitorEvent.MonitorEvent--">
+         <title>public  MonitorEvent()</title>
+         <para/>
+      </section>
+   </section>
+   <section xreflabel="TypedEventMonitor"
+            role="class"
+            xml:id="org.osgi.service.typedevent.monitor.TypedEventMonitor">
+      <title>public interface TypedEventMonitor</title>
+      <para>
+The EventMonitor service can be used to monitor the events that are sent
+ using the EventBus, and that are received from remote EventBus instances
+   </para>
+      <formalpara role="parameter">
+         <title>Concurrency</title>
+         <para>Thread-safe </para>
+      </formalpara>
+      <formalpara role="parameter">
+         <title>Provider Type</title>
+         <para>Consumers of this API must not implement this type</para>
+      </formalpara>
+      <section xreflabel="monitorEvents()"
+               role="method"
+               xml:id="org.osgi.service.typedevent.monitor.TypedEventMonitor.monitorEvents--">
+         <title>public PushStream&lt;MonitorEvent&gt; monitorEvents()</title>
+         <para role="description">
+Get a stream of events, starting now.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A stream of event data</para>
+         </formalpara>
+      </section>
+      <section xreflabel="monitorEvents(int)"
+               role="method"
+               xml:id="org.osgi.service.typedevent.monitor.TypedEventMonitor.monitorEvents-int-">
+         <title>public PushStream&lt;MonitorEvent&gt; monitorEvents(int history)</title>
+         <formalpara role="parameter">
+            <title>history</title>
+            <para>The requested number of historical events, note that fewer
+            than this number of events may be returned if history is
+            unavailable, or if insufficient events have been sent.</para>
+         </formalpara>
+         <para role="description">
+Get a stream of events, including up to the requested number of
+ historical data events.
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A stream of event data</para>
+         </formalpara>
+      </section>
+      <section xreflabel="monitorEvents(Instant)"
+               role="method"
+               xml:id="org.osgi.service.typedevent.monitor.TypedEventMonitor.monitorEvents-Instant-">
+         <title>public PushStream&lt;MonitorEvent&gt; monitorEvents(Instant history)</title>
+         <formalpara role="parameter">
+            <title>history</title>
+            <para>The requested time after which historical events, should
+            be included. Note that events may have been discarded, or
+            history unavailable.</para>
+         </formalpara>
+         <para role="description">
+Get a stream of events, including historical data events prior to the
+ supplied time
+   </para>
+         <formalpara role="parameter">
+            <title>Returns</title>
+            <para>A stream of event data</para>
+         </formalpara>
+      </section>
+   </section>
+</section>

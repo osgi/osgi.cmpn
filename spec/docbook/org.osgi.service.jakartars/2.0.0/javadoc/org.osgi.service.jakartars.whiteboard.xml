@@ -1,0 +1,305 @@
+<section xmlns="http://docbook.org/ns/docbook"
+         xreflabel="org.osgi.service.jakartars.whiteboard"
+         version="5"
+         role="package"
+         xml:id="org.osgi.service.jakartars.whiteboard">
+   <title>org.osgi.service.jakartars.whiteboard</title>
+   <info>
+      <releaseinfo xml:id="org.osgi.service.jakartars.whiteboard-version">Version 2.0</releaseinfo>
+      <edition xml:id="org.osgi.service.jakartars.whiteboard-version.number">2.0</edition>
+   </info>
+   <para>
+Jakarta RESTful Web Services Whiteboard Package Version 1.0.
+ </para>
+   <para>
+ Bundles wishing to use this package must list the package in the
+ Import-Package header of the bundle's manifest. This package has two types of
+ users: the consumers that use the API in this package and the providers that
+ implement the API in this package.
+ </para>
+   <para>
+ Example import for consumers using the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.jakartars.whiteboard; version="[1.0,2.0)"</code>
+   </para>
+   <para>
+ Example import for providers implementing the API in this package:
+ </para>
+   <para>
+      <code> Import-Package: org.osgi.service.jakartars.whiteboard; version="[1.0,1.1)"</code>
+   </para>
+   <section role="summary">
+      <title>Summary</title>
+      <itemizedlist>
+         <listitem>
+            <para>
+               <link linkend="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants">
+                  <code>JakartarsWhiteboardConstants</code>
+               </link> - 
+Defines standard constants for the Jakarta RESTful Web Services Whiteboard
+ services.
+   </para>
+         </listitem>
+      </itemizedlist>
+   </section>
+   <section xreflabel="JakartarsWhiteboardConstants"
+            role="class"
+            xml:id="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants">
+      <title>public final class JakartarsWhiteboardConstants</title>
+      <para>
+Defines standard constants for the Jakarta RESTful Web Services Whiteboard
+ services.
+   </para>
+      <section xreflabel="JAKARTA_RS_APPLICATION_BASE"
+               role="field"
+               xml:id="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_APPLICATION_BASE">
+         <title>public static final String JAKARTA_RS_APPLICATION_BASE = "osgi.jakartars.application.base"</title>
+         <para>
+Service property specifying the base URI mapping for a Jakarta RESTful
+ Web Services application service.
+ </para>
+         <para>
+ The specified uri is used to determine whether a request should be mapped
+ to the resource. Services without this service property are ignored.
+ </para>
+         <para>
+ The value of this service property must be of type <code>String</code>, and
+ will have a "/" prepended if no "/" exists.
+ </para>
+         <para>
+ If two applications are registered with the same base uri then the lower
+ ranked service is failed with a cause of
+ <link linkend="org.osgi.service.jakartars.runtime.dto.DTOConstants.FAILURE_REASON_SHADOWED_BY_OTHER_SERVICE">DTOConstants.FAILURE_REASON_SHADOWED_BY_OTHER_SERVICE</link>
+         </para>
+      </section>
+      <section xreflabel="JAKARTA_RS_APPLICATION_SELECT"
+               role="field"
+               xml:id="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_APPLICATION_SELECT">
+         <title>public static final String JAKARTA_RS_APPLICATION_SELECT = "osgi.jakartars.application.select"</title>
+         <para>
+Service property specifying the target application for a Jakarta RESTful
+ Web Services resource or extension service.
+ </para>
+         <para>
+ The specified filter(s) is/are used to determine whether a resource
+ should be included in a particular application. Services without this
+ service property are bound to the default Application.
+ </para>
+         <para>
+ If a filter property is registered and no application running in the
+ whiteboard matches the filter then the service will be failed with a
+ cause of
+ <link linkend="org.osgi.service.jakartars.runtime.dto.DTOConstants.FAILURE_REASON_REQUIRED_APPLICATION_UNAVAILABLE">DTOConstants.FAILURE_REASON_REQUIRED_APPLICATION_UNAVAILABLE</link>
+         </para>
+         <para>
+ The value of this service property must be of type <code>String+</code>, and
+ each entry must be a valid OSGi filter.</para>
+      </section>
+      <section xreflabel="JAKARTA_RS_APPLICATION_SERVICE_PROPERTIES"
+               role="field"
+               xml:id="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_APPLICATION_SERVICE_PROPERTIES">
+         <title>public static final String JAKARTA_RS_APPLICATION_SERVICE_PROPERTIES = "osgi.jakartars.application.serviceProperties"</title>
+         <para>
+The property key which can be used to find the application service
+ properties inside an injected Configuration</para>
+      </section>
+      <section xreflabel="JAKARTA_RS_DEFAULT_APPLICATION"
+               role="field"
+               xml:id="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_DEFAULT_APPLICATION">
+         <title>public static final String JAKARTA_RS_DEFAULT_APPLICATION = ".default"</title>
+         <para>
+The name of the default Jakarta RESTful Web Services application in every
+ Whiteboard instance.
+   </para>
+      </section>
+      <section xreflabel="JAKARTA_RS_EXTENSION"
+               role="field"
+               xml:id="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_EXTENSION">
+         <title>public static final String JAKARTA_RS_EXTENSION = "osgi.jakartars.extension"</title>
+         <para>
+Service property specifying that a Jakarta RESTful Web Services resource
+ service should be processed by the whiteboard.
+ </para>
+         <para>
+ The value of this service property must be of type <code>String</code> or
+ Boolean and set to "true" or <code>true</code>.
+ </para>
+         <para>
+ A service providing this property must be registered as one or more of
+ the following types:
+ </para>
+         <itemizedlist>
+            <listitem>
+               <para>MessageBodyReader</para>
+            </listitem>
+            <listitem>
+               <para>MessageBodyWriter</para>
+            </listitem>
+            <listitem>
+               <para>ContainerRequestFilter</para>
+            </listitem>
+            <listitem>
+               <para>ContainerResponseFilter</para>
+            </listitem>
+            <listitem>
+               <para>ReaderInterceptor</para>
+            </listitem>
+            <listitem>
+               <para>WriterInterceptor</para>
+            </listitem>
+            <listitem>
+               <para>ContextResolver</para>
+            </listitem>
+            <listitem>
+               <para>ExceptionMapper</para>
+            </listitem>
+            <listitem>
+               <para>ParamConverterProvider</para>
+            </listitem>
+            <listitem>
+               <para>Feature</para>
+            </listitem>
+            <listitem>
+               <para>DynamicFeature</para>
+            </listitem>
+         </itemizedlist>
+         <para>
+ If a service with this property does not match any of the defined types
+ then it is registered as a failure DTO with the error code
+ <link linkend="org.osgi.service.jakartars.runtime.dto.DTOConstants.FAILURE_REASON_NOT_AN_EXTENSION_TYPE">DTOConstants.FAILURE_REASON_NOT_AN_EXTENSION_TYPE</link>,</para>
+      </section>
+      <section xreflabel="JAKARTA_RS_EXTENSION_SELECT"
+               role="field"
+               xml:id="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_EXTENSION_SELECT">
+         <title>public static final String JAKARTA_RS_EXTENSION_SELECT = "osgi.jakartars.extension.select"</title>
+         <para>
+A Service property specifying one or more target filters used to select
+ the set of Jakarta RESTful Web Services extension services required to
+ support this whiteboard service.
+ </para>
+         <para>
+ A Jakarta RESTful Web Services Whiteboard service may require one or more
+ extensions to be available so that it can function. For example a
+ resource which declares that it <code>@Produces("text/json")</code>
+ requires a MessageBodyWriter which supports JSON to be available.
+ </para>
+         <para>
+ This service property provides a String+ set of LDAP filters which will
+ be applied to the service properties of all extensions available in the
+ Jakarta RESTful Web Services container. If all of the filters are
+ satisfied then this service is eligible to be hosted by the Jakarta
+ RESTful Web Services container.
+ </para>
+         <para>
+ This service property may be declared by any Jakarta RESTful Web Services
+ whiteboard service, whether it is a resource, or an extension.
+ </para>
+         <para>
+ If this service property is not specified, then no extensions are
+ required.
+ </para>
+         <para>
+ If one or more filter properties are registered and no suitable
+ extension(s) are available then the service will be failed with a cause
+ of <link linkend="org.osgi.service.jakartars.runtime.dto.DTOConstants.FAILURE_REASON_REQUIRED_EXTENSIONS_UNAVAILABLE">DTOConstants.FAILURE_REASON_REQUIRED_EXTENSIONS_UNAVAILABLE</link>
+         </para>
+         <para>
+ The value of this service property must be of type <code>String</code> and be
+ a valid filter string.</para>
+      </section>
+      <section xreflabel="JAKARTA_RS_MEDIA_TYPE"
+               role="field"
+               xml:id="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_MEDIA_TYPE">
+         <title>public static final String JAKARTA_RS_MEDIA_TYPE = "osgi.jakartars.media.type"</title>
+         <para>
+A service property specifying that a Jakarta RESTful Web Services
+ extension service, application service, or whiteboard implementation
+ provides support for reading from and writing to a specific media type.
+ </para>
+         <para>
+ The value of this property will be one or more media type identifiers,
+ and where possible IANA registered names, such as
+ <code>application/json</code> should be used. The value must not be a
+ wildcard type. Support for multiple media types that use the same suffix
+ should be supported by registering the media type associated with the
+ suffix.</para>
+      </section>
+      <section xreflabel="JAKARTA_RS_NAME"
+               role="field"
+               xml:id="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_NAME">
+         <title>public static final String JAKARTA_RS_NAME = "osgi.jakartars.name"</title>
+         <para>
+Service property specifying the name of a Jakarta RESTful Web Services
+ whiteboard service.
+ </para>
+         <para>
+ This name is provided as a property on the registered Endpoint service so
+ that the URI for a particular Jakarta RESTful Web Services service can be
+ identified. If this service property is not specified, then no Endpoint
+ information will be registered for this resource.
+ </para>
+         <para>
+ Resource names must be unique among all services associated with a single
+ Whiteboard implementation. If a clashing name is registered then the
+ lower ranked service will be failed with a cause of
+ <link linkend="org.osgi.service.jakartars.runtime.dto.DTOConstants.FAILURE_REASON_DUPLICATE_NAME">DTOConstants.FAILURE_REASON_DUPLICATE_NAME</link>
+         </para>
+         <para>
+ The value of this service property must be of type <code>String</code>.</para>
+      </section>
+      <section xreflabel="JAKARTA_RS_RESOURCE"
+               role="field"
+               xml:id="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_RESOURCE">
+         <title>public static final String JAKARTA_RS_RESOURCE = "osgi.jakartars.resource"</title>
+         <para>
+Service property specifying that a Jakarta RESTful Web Services resource
+ should be processed by the whiteboard.
+ </para>
+         <para>
+ The value of this service property must be of type <code>String</code> or
+ Boolean and set to "true" or <code>true</code>.</para>
+      </section>
+      <section xreflabel="JAKARTA_RS_WHITEBOARD_IMPLEMENTATION"
+               role="field"
+               xml:id="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_WHITEBOARD_IMPLEMENTATION">
+         <title>public static final String JAKARTA_RS_WHITEBOARD_IMPLEMENTATION = "osgi.jakartars"</title>
+         <para>
+The name of the implementation capability for the Whiteboard
+ Specification for Jakarta RESTful Web Services.
+   </para>
+      </section>
+      <section xreflabel="JAKARTA_RS_WHITEBOARD_SPECIFICATION_VERSION"
+               role="field"
+               xml:id="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_WHITEBOARD_SPECIFICATION_VERSION">
+         <title>public static final String JAKARTA_RS_WHITEBOARD_SPECIFICATION_VERSION = "2.0"</title>
+         <para>
+The version of the implementation capability for the Whiteboard
+ Specification for Jakarta RESTful Web Services.
+   </para>
+      </section>
+      <section xreflabel="JAKARTA_RS_WHITEBOARD_TARGET"
+               role="field"
+               xml:id="org.osgi.service.jakartars.whiteboard.JakartarsWhiteboardConstants.JAKARTA_RS_WHITEBOARD_TARGET">
+         <title>public static final String JAKARTA_RS_WHITEBOARD_TARGET = "osgi.jakartars.whiteboard.target"</title>
+         <para>
+Service property specifying the target filter to select the Jakarta
+ RESTful Web Services Whiteboard implementation to process the service.
+ </para>
+         <para>
+ A Jakarta RESTful Web Services Whiteboard implementation can define any
+ number of service properties which can be referenced by the target
+ filter. The service properties should always include the
+ <link linkend="org.osgi.service.jakartars.runtime.JakartarsServiceRuntimeConstants.JAKARTA_RS_SERVICE_ENDPOINT">osgi.jakartars.endpoint</link> service property if the endpoint information is
+ known.
+ </para>
+         <para>
+ If this service property is not specified, then all Jakarta RESTful Web
+ Services Whiteboard implementations can process the service.
+ </para>
+         <para>
+ The value of this service property must be of type <code>String</code> and be
+ a valid filter string.</para>
+      </section>
+   </section>
+</section>
